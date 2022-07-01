@@ -17,7 +17,7 @@
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
-      "copyright": "",
+      "copyright": "(c) Nodium 2020 - 2022",
       "deb": {
         "depends": []
       },
@@ -59,8 +59,9 @@
         "height": 600,
         "resizable": true,
         "title": "Nodium Launcher",
-        "width": 800,
-        "decorations": false
+        "width": 960,
+        "decorations": false,
+        "transparent": true
       }
     ]
   }

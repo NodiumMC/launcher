@@ -1,0 +1,5 @@
+@font-face {
+  font-family: GTEestiProText;
+  src: local('GTEestiProText'), url(../assets/fonts/GTEestiProText.ttf) format('truetype');
+  font-weight: normal;
+}
