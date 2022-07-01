@@ -11,6 +11,15 @@ const AppRoot = styled.div`
   background: ${({ theme }) => theme.colors.back};
   padding: 6px;
   transition: background-color ${({ theme }) => theme.transition.time};
+  display: flex;
+  flex-direction: column;
+`
+
+const View = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-top: 6px;
+  flex-grow: 1;
 `
 
 export const App: FC = Observer(() => {
@@ -21,6 +30,9 @@ export const App: FC = Observer(() => {
     <ThemeProvider theme={theme}>
       <AppRoot>
         <Header />
+        <View>
+
+        </View>
       </AppRoot>
     </ThemeProvider>
   </>
