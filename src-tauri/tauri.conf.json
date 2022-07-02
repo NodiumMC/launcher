@@ -12,7 +12,10 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "all": true,
+      "fs": {
+        "scope": ["**"]
+      }
     },
     "bundle": {
       "active": true,
@@ -60,6 +63,8 @@
         "resizable": true,
         "title": "Nodium Launcher",
         "width": 960,
+        "minHeight": 600,
+        "minWidth": 960,
         "decorations": false,
         "transparent": true
       }

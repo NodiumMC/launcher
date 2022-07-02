@@ -4,6 +4,8 @@ import { useTheme } from './hooks/theme'
 import { Observer } from './store/ObserverComponent'
 import { Header } from './blocks/header/Header'
 import { useThemeToggleHotkey } from './hooks/useThemeToggleHotkey'
+import { AppPreloader } from './blocks/AppPreloader/AppPreloader'
+import { useStartup } from './hooks/useService'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -20,10 +22,12 @@ const View = styled.div`
   height: 100%;
   padding-top: 6px;
   flex-grow: 1;
+  position: relative;
 `
 
 export const App: FC = Observer(() => {
   const { theme } = useTheme()
+  useStartup()
   useThemeToggleHotkey()
 
   return <>
@@ -31,7 +35,7 @@ export const App: FC = Observer(() => {
       <AppRoot>
         <Header />
         <View>
-
+          <AppPreloader />
         </View>
       </AppRoot>
     </ThemeProvider>

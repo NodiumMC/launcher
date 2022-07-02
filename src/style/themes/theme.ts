@@ -8,14 +8,19 @@ export const darkTheme = {
     danger: '#ff5050',
     warn: '#ffdc50',
     ok: '#bfff50',
-    ambient: '#343442'
+    ambient: '#343442',
   },
   fonts: {
-    interact: 'GTEestiProText'
+    interact: 'GTEestiProText',
+    title: 'Tomorrow',
+    text: 'Rubik'
   },
   transition: {
-    time: '.3s'
-  }
+    time: '.3s',
+  },
+  gradients: {
+    primary: 'linear-gradient(327deg, rgb(255, 176, 176) 0%, rgb(255, 137, 224) 50%, rgb(163, 71, 255) 100%)',
+  },
 }
 
 export const lightTheme: ThemeType = {
@@ -28,10 +33,11 @@ export const lightTheme: ThemeType = {
     danger: darkTheme.colors.danger,
     warn: darkTheme.colors.warn,
     ok: darkTheme.colors.ok,
-    ambient: '#d3ccd5'
+    ambient: '#d3ccd5',
   },
   fonts: darkTheme.fonts,
-  transition: darkTheme.transition
+  transition: darkTheme.transition,
+  gradients: darkTheme.gradients,
 }
 
 export type ThemeType = typeof darkTheme

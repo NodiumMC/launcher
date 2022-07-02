@@ -10,6 +10,7 @@ const HeaderBlock = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  z-index: 100;
   
   &:after, &:before {
     content: '';

@@ -3,3 +3,21 @@
   src: local('GTEestiProText'), url(../assets/fonts/GTEestiProText.ttf) format('truetype');
   font-weight: normal;
 }
+
+@font-face {
+  font-family: Tomorrow;
+  font-weight: 600;
+  font-style: italic;
+  src: local('Tomorrow'), url(../assets/fonts/Tomorrow/Tomorrow-MediumItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: Tomorrow;
+  font-weight: 300;
+  src: local('Tomorrow'), url(../assets/fonts/Tomorrow/Tomorrow-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: Rubik;
+  src: local('Rubik'), url(../assets/fonts/Rubik/Rubik-Regular.ttf) format('truetype');
+}
