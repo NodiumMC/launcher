@@ -93,3 +93,7 @@ html, body {
 img, button {
   user-select: none;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}

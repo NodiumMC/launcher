@@ -1,0 +1,120 @@
+import { FC } from 'react'
+import styled from 'styled-components'
+import { DataEntriable, Valuable } from '../../utils/UtilityProps'
+
+interface SubstrateProps {
+  disabled?: boolean
+}
+
+const Substrate = styled.div<SubstrateProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  background-color: ${({ theme, disabled }) => disabled ? theme.colors.mid : theme.colors.accent};
+  position: relative;
+  transition: all ${({ theme }) => theme.transition.time};
+
+  &:hover {
+    ${({ disabled, theme }) => !disabled ? `
+    box-shadow: 0 0 10px 1px ${theme.colors.accent}3F
+    ` : ''}
+  }
+
+  &:before, &:after {
+    background-color: inherit;
+    position: absolute;
+    content: '';
+  }
+
+  &:after {
+    border-radius: 10% / 50%;
+    height: 100%;
+    left: -10%;
+    right: -10%;
+    top: 0;
+  }
+
+  &:before {
+    border-radius: 50% / 10%;
+    bottom: -10%;
+    left: 0;
+    top: -10%;
+    width: 100%;
+  }
+`
+
+const Container = styled(Substrate)<CheckedProps>`
+  width: 16px;
+  height: 16px;
+  background-color: ${({ theme, value }) => value ? theme.colors.accent : theme.colors.back};
+  z-index: 1;
+  cursor: ${({ disabled }) => disabled ? 'default' : 'pointer'};
+
+  &:before, &:after {
+    background-color: inherit;
+  }
+`
+
+const L = styled.div`
+  width: 40%;
+  height: 55%;
+  position: absolute;
+  z-index: 2;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-150deg);
+
+  &:after, &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: ${({ theme }) => theme.colors.front};
+    z-index: 2;
+  }
+
+  &:before {
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+  }
+
+  &:after {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+  }
+`
+
+interface CheckedProps {
+  value?: boolean
+}
+
+const Checked = styled.div<CheckedProps & SubstrateProps>`
+  position: absolute;
+  width: ${({ value }) => value ? '100%' : 0};
+  height: ${({ value }) => value ? '100%' : 0};
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  transition: all ${({ theme }) => theme.transition.time};
+  background-color: ${({ theme, disabled }) => disabled ? theme.colors.mid : theme.colors.accent};
+  z-index: 2;
+`
+
+export interface CheckboxProps extends SubstrateProps, CheckedProps, Valuable<boolean>, DataEntriable<boolean> {
+}
+
+export const Checkbox: FC<CheckboxProps> = ({ value, disabled, onChange }) => {
+  return <Substrate disabled={disabled} onClick={() => !disabled && onChange?.(!value)}>
+    <Container disabled={disabled} value={value}>
+      <Checked value={value} disabled={disabled}>
+        <L />
+      </Checked>
+    </Container>
+  </Substrate>
+}

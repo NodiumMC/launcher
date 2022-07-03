@@ -54,7 +54,13 @@
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": true,
+      "dialog": false,
+      "endpoints": ["https://0.0.0.0"],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVGRUE5NUNFODkyQTlFQ0MKUldUTW5pcUp6cFhxWCtYMzR3ZEhYUFlGUFR0Nzhsd1lxT2ZqQTh2ZWlZdkdJYVg0eUtFZTVqQTkK",
+      "windows": {
+        "installMode": "quiet"
+      }
     },
     "windows": [
       {

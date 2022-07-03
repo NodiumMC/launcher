@@ -2,6 +2,7 @@
   "loading": {
     "loading": "Loading",
     "initialization": "Initialization",
-    "loading_storage": "Loading storage"
+    "loading_storage": "Loading storage",
+    "updating": "Updating"
   }
 }

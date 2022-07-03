@@ -19,6 +19,7 @@ const AppPreloaderWrapper = styled.div`
   justify-content: center;
   gap: 100px;
   transition: background-color, ${({ theme }) => theme.transition.time};
+  z-index: 50;
 `
 
 const Title = styled.div`
@@ -60,7 +61,7 @@ const Stage = styled.div`
 export const AppPreloader: FC = Observer(() => {
   const { inProcess, currentTaskName } = usePreloader()
   const transition = useTransition(inProcess, {
-    from: { opacity: -1, scale: 3 },
+    from: { opacity: 1, scale: 3 },
     enter: { opacity: 1, scale: 1 },
     leave: { opacity: -1, scale: 3 },
     config: {

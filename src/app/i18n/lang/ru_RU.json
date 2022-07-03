@@ -2,6 +2,7 @@
   "loading": {
     "loading": "Загрузка",
     "initialization": "Инициализация",
-    "loading_storage": "Загрузка хранилища"
+    "loading_storage": "Загрузка хранилища",
+    "updating": "Обновление"
   }
 }
