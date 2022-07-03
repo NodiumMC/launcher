@@ -7,8 +7,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "nodium-launcher",
-    "version": "0.1.0"
+    "productName": "Nodium Launcher",
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
