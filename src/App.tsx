@@ -6,6 +6,7 @@ import { Header } from './blocks/header/Header'
 import { useThemeToggleHotkey } from './hooks/useThemeToggleHotkey'
 import { AppPreloader } from './blocks/AppPreloader/AppPreloader'
 import { useStartup } from './hooks/useService'
+import { GlobalStyle } from './style/global'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -32,6 +33,7 @@ export const App: FC = Observer(() => {
 
   return <>
     <ThemeProvider theme={theme}>
+      <GlobalStyle/>
       <AppRoot>
         <Header />
         <View>
