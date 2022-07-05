@@ -92,7 +92,8 @@ const List = styled.div<ListProps>`
   ${({ opened, theme }) => opened ? `
     max-height: calc(3 * 40px);
     border: 2px solid ${theme.colors.backShade};
-  ` : ''}
+  ` : ''};
+  transition-duration: .2s;
 `
 
 const Open = styled.div`
@@ -117,11 +118,11 @@ export const Dropdown: FC<DropdownProps> = ({ items, value, onChange }) => {
 
   return <Wrapper>
     <Item selected={value!} value={normalized} />
-    <Open tabIndex={0} onClick={() => setOpened(!opened)} onBlur={() => setTimeout(() => setOpened(false), 100)}>
+    <Open tabIndex={0} onClick={() => setOpened(!opened)} onBlur={() => setOpened(false)}>
       <FontAwesomeIcon icon={faAngleDown} />
     </Open>
     <List opened={opened}>
-      {items.map(i => <Item selected={value!} value={i} onChange={onChange} />)}
+      {items.filter(i => value?.id !== i.id).map((i, key) => <Item key={key} selected={value!} value={i} onChange={onChange} />)}
     </List>
   </Wrapper>
 }

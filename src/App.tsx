@@ -1,11 +1,12 @@
 import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { useTheme } from './hooks/theme'
-import { Observer } from './store/ObserverComponent'
-import { Header } from './blocks/header/Header'
-import { useThemeToggleHotkey } from './hooks/useThemeToggleHotkey'
 import { AppPreloader } from './blocks/AppPreloader/AppPreloader'
+import { Header } from './blocks/header/Header'
+import { useTheme } from './hooks/theme'
 import { useStartup } from './hooks/useService'
+import { useThemeToggleHotkey } from './hooks/useThemeToggleHotkey'
+import { Screens } from './screens/Screens'
+import { Observer } from './store/ObserverComponent'
 import { GlobalStyle } from './style/global'
 
 const AppRoot = styled.div`
@@ -30,16 +31,18 @@ export const App: FC = Observer(() => {
   const { theme } = useTheme()
   useStartup()
   useThemeToggleHotkey()
-
-  return <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle/>
-      <AppRoot>
-        <Header />
-        <View>
-          <AppPreloader />
-        </View>
-      </AppRoot>
-    </ThemeProvider>
-  </>
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <AppRoot>
+          <Header />
+          <View>
+            <AppPreloader />
+            <Screens />
+          </View>
+        </AppRoot>
+      </ThemeProvider>
+    </>
+  )
 })

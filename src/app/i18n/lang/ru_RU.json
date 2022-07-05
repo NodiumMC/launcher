@@ -4,5 +4,10 @@
     "initialization": "Инициализация",
     "loading_storage": "Загрузка хранилища",
     "updating": "Обновление"
+  },
+  "install": {
+    "welcome": "Привет!",
+    "select_lang": "Выберите язык",
+    "continue": "Продолжить"
   }
 }

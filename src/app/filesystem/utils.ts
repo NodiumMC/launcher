@@ -11,3 +11,9 @@ export const AppData = async () => {
   if(!await exists(appdata)) await createDir(appdata, { recursive: true })
   return appdata
 }
+
+export const GameDir = async () => {
+  const gameDir = await join(await AppData(), '.nodium')
+  if(!await exists(gameDir)) await createDir(gameDir, { recursive: true })
+  return gameDir
+}

@@ -4,5 +4,10 @@
     "initialization": "Initialization",
     "loading_storage": "Loading storage",
     "updating": "Updating"
+  },
+  "install": {
+    "welcome": "Hello!",
+    "select_lang": "Select language",
+    "continue": "Next"
   }
 }

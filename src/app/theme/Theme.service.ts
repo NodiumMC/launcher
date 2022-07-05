@@ -2,6 +2,7 @@ import { action, computed, makeObservable, observable } from 'mobx'
 import { darkTheme, lightTheme } from '../../style/themes/theme'
 import { Storage } from '../filesystem/Storage.service'
 import { singleton } from 'tsyringe'
+import type { Nullable } from '../../utils/types'
 
 @singleton()
 export class ThemeService {
@@ -15,12 +16,12 @@ export class ThemeService {
   @action.bound
   toggle() {
     this.isDark = !this.isDark
-    this.st.set('darkTheme', this.isDark, true)
+    this.st._.appearance.darkTheme = this.isDark
   }
 
   @action.bound
   update() {
-    this.isDark = this.st.get<boolean>('darkTheme') ?? this.isDark
+    this.isDark = this.st._.appearance.darkTheme ?? this.isDark
   }
 
   @computed
@@ -29,8 +30,8 @@ export class ThemeService {
   }
 
   @action.bound
-  setTheme(isDark: boolean | null) {
+  setTheme(isDark: Nullable<boolean>) {
     this.isDark = isDark ?? window.matchMedia('(prefers-color-scheme: dark)').matches
-    this.st.set('darkTheme', isDark, true)
+    this.st._.appearance.darkTheme = isDark
   }
 }

@@ -1,15 +1,26 @@
-import { makeObservable, observable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 import type { SupportedLang } from './langs'
 import { Launguage } from './langs'
 import { singleton } from 'tsyringe'
+import { Storage } from '../filesystem/Storage.service'
 
 @singleton()
 export class I18n {
-  @observable lang: SupportedLang = navigator.language.replaceAll('-', '_') as SupportedLang
+  @observable _lang: SupportedLang = 'ru_RU'
   private fallback: SupportedLang = 'ru_RU'
 
-  constructor() {
+  get lang() {
+    return this._lang
+  }
+
+  set lang(lang: SupportedLang) {
+    this._lang = lang
+    this.st._.appearance.lang = lang
+  }
+
+  constructor(private readonly st: Storage) {
     makeObservable(this)
+    st.onLoad(() => this._lang = this.st._.appearance.lang ?? 'ru_RU')
   }
 
   private check() {

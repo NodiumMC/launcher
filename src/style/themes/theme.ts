@@ -10,7 +10,7 @@ export const darkTheme = {
     warn: '#ffdc50',
     ok: '#bfff50',
     ambient: '#343442',
-    accent: '#ad9aff',
+    accent: '#b2a2f6',
   },
   fonts: {
     interact: 'GTEestiProText',
