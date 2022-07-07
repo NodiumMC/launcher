@@ -1,12 +1,17 @@
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
-import { useI18N } from '../../hooks/useService'
+import { useI18N, useIsInstalled, usePreloader } from '../../hooks/useService'
 import { Screen } from '../Screen'
 import { Text } from '../../components/ui/Text'
 import { LangMeta, SupportedLang } from '../../app/i18n/langs'
 import { Dropdown, DropdownItem } from '../../components/ui/Dropdown'
 import { Observer } from '../../store/ObserverComponent'
 import { Button } from '../../components/ui/Button'
+import { downloadJava } from '../../app/java/download'
+import { map } from '../../utils/map'
+import { R } from '../../app/bridge/R'
+import { join } from '@tauri-apps/api/path'
+import { GameDir } from '../../app/filesystem/utils'
 
 const InstallScreen = styled(Screen)`
   display: flex;
@@ -23,15 +28,44 @@ const LangSelector = styled.div`
 `
 
 export const Install: FC = Observer(() => {
+  const preloader = usePreloader()
   const i18n = useI18N()
   const langitems = useMemo(() => Object.entries(LangMeta)
-    .map(([id, { label, icon }]) => ({id, label, icon} as DropdownItem)),[i18n.lang])
-  return <InstallScreen>
+    .map(([id, { label, icon }]) => ({ id, label, icon } as DropdownItem)), [i18n.lang])
+  const isInstalled = useIsInstalled()
+  return !isInstalled ? <InstallScreen>
     <Text ns as={'h1'} center>{i18n.$('install.welcome')}</Text>
     <LangSelector>
       <Text ns shade>{i18n.$('install.select_lang')}</Text>
-      <Dropdown items={langitems} value={langitems.find(v => v.id === i18n.lang)} onChange={s => i18n.lang = s.id as SupportedLang}/>
+      <Dropdown items={langitems} value={langitems.find(v => v.id === i18n.lang)}
+                onChange={s => i18n.lang = s.id as SupportedLang} />
     </LangSelector>
-    <Button primary>{i18n.$('install.continue')}</Button>
-  </InstallScreen>
+    <Button primary onClick={() => {
+      preloader.add(i18n.$('install.downloading_java'), async () => {
+        preloader.progressActive = true
+        preloader.progress = 0
+        preloader.pre = 0
+        try {
+          await new Promise<void>((rs, rj) => {
+            downloadJava().subscribe({
+              error: rj,
+              complete: rs,
+              next: progress => preloader.pre = map(progress.transferred, 0, progress.total, 0, 100),
+            })
+          })
+          await new Promise<void>(async (rs, rj) => {
+            R.unzip(await join(await GameDir(), 'jdk.zip'), await GameDir()).subscribe({
+              error: rj,
+              complete: rs,
+              next: progress => preloader.progress = map(progress.progress, 0, progress.total, 0, 100),
+            })
+          })
+        } catch (e) {
+
+        } finally {
+          preloader.progressActive = false
+        }
+      })
+    }}>{i18n.$('install.continue')}</Button>
+  </InstallScreen> : <></>
 })

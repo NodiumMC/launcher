@@ -82,7 +82,7 @@ const List = styled.div<ListProps>`
   box-sizing: content-box;
   position: absolute;
   top: 40px;
-  left: 0;
+  left: -2px;
   width: 100%;
   max-height: 0;
   overflow: scroll;
@@ -93,7 +93,7 @@ const List = styled.div<ListProps>`
     max-height: calc(3 * 40px);
     border: 2px solid ${theme.colors.backShade};
   ` : ''};
-  transition-duration: .2s;
+  transition-duration: .35s;
 `
 
 const Open = styled.div`

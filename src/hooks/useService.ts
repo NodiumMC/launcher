@@ -11,3 +11,4 @@ export const useStartup = () => {
 export const useI18N = () => useStore(s => s.i18n)
 export const useStorage = () => useStore(s => s.storage)
 export const useIsInstalled = () => useStore(s => s.storage._.launcher.installed)
+export const usePopup = () => useStore(s => s.popup)

@@ -5,6 +5,7 @@ import { Preloader } from '../../components/ui/Preloader'
 import { usePreloader } from '../../hooks/useService'
 import { Observer } from '../../store/ObserverComponent'
 import { animated, useTransition } from 'react-spring'
+import { ProgressBar } from '../../components/ui/ProgressBar'
 
 const AppPreloaderWrapper = styled.div`
   position: absolute;
@@ -58,23 +59,60 @@ const Stage = styled.div`
   color: ${({ theme }) => theme.colors.mid};
 `
 
+const StageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  position: relative;
+`
+
+const StagedProgressBar = styled(ProgressBar)`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 40px);
+`
+
 export const AppPreloader: FC = Observer(() => {
-  const { inProcess, currentTaskName } = usePreloader()
+  const { inProcess, currentTaskName, progress, pre, progressActive } =
+    usePreloader()
   const transition = useTransition(inProcess, {
     from: { opacity: 1, scale: 3 },
     enter: { opacity: 1, scale: 1 },
     leave: { opacity: -1, scale: 3 },
     config: {
-      duration: 100
-    }
+      duration: 100,
+    },
+  })
+  const progressHide = useTransition(progressActive, {
+    from: { opacity: 1 },
+    enter: { opacity: 1 },
+    leave: { opacity: 1 },
   })
 
-  return transition((style, item) => (item && <AppPreloaderWrapper as={animated.div} style={style}>
-    <Empty />
-    <Titles>
-      <Title>Minecraft</Title>
-      <SubTitle>Nodium Launcher</SubTitle>
-    </Titles>
-    <Stage><AbsolutePreloader />{currentTaskName}</Stage>
-  </AppPreloaderWrapper>))
+  return transition(
+    (style, item) =>
+      item && (
+        <AppPreloaderWrapper as={animated.div} style={style}>
+          <Empty />
+          <Titles>
+            <Title>Minecraft</Title>
+            <SubTitle>Nodium Launcher</SubTitle>
+          </Titles>
+          <StageWrapper>
+            <Stage>
+              <AbsolutePreloader />
+              {currentTaskName}
+            </Stage>
+            {progressHide(
+              (style, item) =>
+                item && (
+                  <StagedProgressBar value={progress} pre={pre} total={100} />
+                ),
+            )}
+          </StageWrapper>
+        </AppPreloaderWrapper>
+      ),
+  )
 })

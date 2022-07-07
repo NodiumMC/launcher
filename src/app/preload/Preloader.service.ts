@@ -1,6 +1,5 @@
 import { action, makeObservable, observable } from 'mobx'
 import { Awaitable } from '../../utils/types'
-import { wait } from '../../utils/wait'
 import { I18n } from '../i18n/i18n.service'
 import { singleton } from 'tsyringe'
 
@@ -10,8 +9,11 @@ export type PreloaderQueueUnit = [name: string, task: () => Awaitable]
 @singleton()
 export class Preloader {
   @observable private queue: PreloaderQueueUnit[] = []
-  @observable private processing: boolean = false
-  @observable private current: string = ''
+  @observable private processing = false
+  @observable private current = ''
+  @observable progress = 0
+  @observable pre = 0
+  @observable progressActive = false
 
   constructor(private i18n: I18n) {
     makeObservable(this)

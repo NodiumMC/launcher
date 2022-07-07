@@ -1,78 +1,163 @@
-use crate::checksum;
-use futures_lite::stream::StreamExt;
-use reqwest::get;
-use std::cmp::min;
+use blake3::Hash;
+use futures_util::future::Aborted;
+use serde::{Serialize, Serializer};
+use futures_util::{
+    future::{AbortHandle, Abortable},
+    StreamExt, TryStreamExt,
+};
+use reqwest::Url;
 use std::path::Path;
-use std::{fs::File, io::Write};
-use tauri::{command, AppHandle, Manager};
+use tauri::{AppHandle, Manager, Runtime};
+use tokio::io::AsyncWriteExt;
 
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct DownloadableResource {
-    url: String,
-    local: String,
-    sha1: String,
-    size: u64,
+/// Represents all possbible error that can happen when downloading
+/// This uses the `thiserror` crate, it's fairly standard in the rust ecosystem.
+#[derive(Debug, thiserror::Error)]
+pub enum DownloadError {
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
+    #[error(transparent)]
+    Net(#[from] reqwest::Error),
+    #[error(transparent)]
+    Hex(#[from] blake3::HexError),
+    #[error(transparent)]
+    Aborted(#[from] Aborted),
+    #[error("Failed to get content length.")]
+    NoContentLength,
+    #[error("File did not match expected checksum. Expected {expected}. Received {found}")]
+    ChecksumVerification { expected: Hash, found: Hash },
 }
 
-#[derive(serde::Serialize, Clone)]
-pub struct DownloadProgress {
-    total: Option<u64>,
-    progress: Option<u64>,
-    error: Option<String>,
-    done: Option<bool>,
+// We have to manually implement `Serialize` for our error here.
+// This allows us to control exactly how errors will be represented in the frontend.
+// In this case we just send a string representation.
+impl Serialize for DownloadError {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where S: Serializer {
+        serializer.serialize_str(self.to_string().as_ref())
+    }
 }
-#[command]
-pub async fn download(app_handle: AppHandle, event: String, resource: DownloadableResource) {
-    let emit = |progress: DownloadProgress| {
-        app_handle.emit_all(&event.as_str(), progress).unwrap();
-    };
-    let error = |message: String| {
-        emit(DownloadProgress {
-            total: None,
-            progress: None,
-            error: Some(message),
-            done: None,
-        });
-    };
-    let DownloadableResource {
-      url,
-      local,
-      sha1,
-      size,
-  } = resource;
-  if Path::new(&local).exists() {
-      let real_sha1 = checksum::For(&local).unwrap();
-      if real_sha1 == sha1 {
-          emit(DownloadProgress {
-              total: Some(size),
-              done: Some(true),
-              progress: Some(size),
-              error: None,
-          });
-          return;
-      }
-  }
-  let res = get(url).await.unwrap();
-  let total_size = size;
-  let mut file = File::create(local).unwrap();
-  let mut downloaded: u64 = 0;
-  let mut stream = res.bytes_stream();
-  while let Some(item) = stream.next().await {
-      let chunk = item.unwrap();
-      file.write_all(&chunk).unwrap();
-      let new = min(downloaded + (chunk.len() as u64), total_size);
-      downloaded = new;
-      emit(DownloadProgress {
-          total: Some(total_size),
-          progress: Some(downloaded),
-          error: None,
-          done: None,
-      });
-  }
-  emit(DownloadProgress {
-      total: Some(total_size),
-      progress: Some(total_size),
-      error: None,
-      done: Some(true),
-  });
+
+/// Simplify the event payload bc completed and error cases are handled by the command function return value
+#[derive(Debug, Clone, Serialize)]
+struct DownloadProgress {
+    total: u64,
+    transferred: u64,
+}
+
+/// Downloads a given `url` to a given path (`to`) on disk with blake3 integrity checking.
+/// Checks the disk beforehand to avoid unnecessary network requests.
+/// The parameters of this command are explicitly typed and provide input validation
+/// (`Url` and `Path` can both parse string inputs from the frontend and assert the inputs are well-formed)
+#[tauri::command]
+pub async fn download<R: Runtime>(
+    app_handle: AppHandle<R>,
+    url: Url,
+    to: &Path,
+    expected_checksum: String,
+    progress_id: String,
+) -> Result<(), DownloadError> {
+    if &expected_checksum.len() > &0 && to.exists() && to.is_file() {
+        // check if we have a locally cached file with matching checksum
+        match check_file_integrity(to, &expected_checksum) {
+            Ok(_) => {}
+            // we need to handle the checksum mismatched case explicitly here, so we can remove the invalid file
+            Err(DownloadError::ChecksumVerification { .. }) => {
+                std::fs::remove_file(to)?;
+            }
+            // return early for any other error that happens
+            Err(e) => return Err(e),
+        }
+    }
+
+    let mut file = tokio::fs::File::create(to).await?;
+
+    let res = reqwest::get(url).await?;
+    // setup total_size and transferred variables for progress events
+    let total_size = res.content_length().ok_or(DownloadError::NoContentLength)?;
+    let mut transferred: u64 = 0;
+
+    let mut stream = res.bytes_stream().map_err(DownloadError::from);
+
+    while let Some(bytes) = stream.next().await {
+        let bytes = bytes?;
+
+        // write bytes to the file
+        file.write(&bytes).await?;
+
+        // calculate the new transferred amount of bytes
+        transferred += bytes.len() as u64;
+
+        // emit the progress event to the backend
+        // we explicitly ignore the error here,
+        // bc failing to emit one progress event is not a faliure condition for the download
+        let _ = app_handle
+            .emit_all(
+                &progress_id,
+                DownloadProgress {
+                    total: total_size,
+                    transferred,
+                },
+            );
+    }
+
+    // check signature. But contrary to the first time we don't do any special handling we just remove the file on any error
+    if  &expected_checksum.len() > &0 {
+        if let Err(e) = check_file_integrity(to, &expected_checksum) {
+            std::fs::remove_file(to)?;
+            return Err(e);
+        }
+    }
+
+    Ok(())
+}
+
+fn check_file_integrity(file: &Path, expected_hash: &str) -> Result<(), DownloadError> {
+    let expected_hash = blake3::Hash::from_hex(expected_hash)?;
+    let found_hash = create_hash(file)?;
+
+    if expected_hash == found_hash {
+        Ok(())
+    } else {
+        Err(DownloadError::ChecksumVerification {
+            expected: expected_hash,
+            found: found_hash,
+        })
+    }
+}
+
+fn create_hash(file: &Path) -> Result<Hash, DownloadError> {
+    let mut file = std::fs::File::open(file)?;
+    let mut hasher = blake3::Hasher::new();
+    std::io::copy(&mut file, &mut hasher)?;
+    let found_hash = hasher.finalize();
+    Ok(found_hash)
+}
+
+/// Just for fun I included an abortable version of the command
+/// It reuses the implementation for `download` but wraps it in a way that discards the download
+/// when an `abort_id` event is emitted from anywhere within the app
+#[tauri::command]
+pub async fn download_abortable<R: Runtime>(
+    app_handle: AppHandle<R>,
+    url: Url,
+    to: &Path,
+    hash: String,
+    progress_id: String,
+    abort_id: String,
+) -> Result<(), DownloadError> {
+    let (abort_handle, abort_registration) = AbortHandle::new_pair();
+
+    // we reuse the above `download` command from but wrap it in an abortable future
+    let future = Abortable::new(
+        download(app_handle.clone(), url, to, hash, progress_id),
+        abort_registration,
+    );
+
+    // listen for the frontend defined `abort_id` and abort the task
+    app_handle.listen_global(abort_id, move |_| {
+        abort_handle.abort();
+    });
+
+    future.await?
 }

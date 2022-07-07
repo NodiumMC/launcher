@@ -8,6 +8,7 @@
   "install": {
     "welcome": "Hello!",
     "select_lang": "Select language",
-    "continue": "Next"
+    "continue": "Next",
+    "downloading_java": "Downloading Java"
   }
 }

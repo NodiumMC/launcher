@@ -5,6 +5,7 @@ import { Storage } from '../app/filesystem/Storage.service'
 import { Preloader } from '../app/preload/Preloader.service'
 import { container } from 'tsyringe'
 import { StartupService } from '../app/preload/Startup.service'
+import { PopupService } from '../app/noteup/Popup.service'
 
 export type GlobalStoreType = {
   storage: Storage
@@ -12,6 +13,7 @@ export type GlobalStoreType = {
   preloader: Preloader
   theme: ThemeService
   startup: StartupService,
+  popup: PopupService,
 }
 
 export const createStore = (): GlobalStoreType => ({
@@ -20,6 +22,7 @@ export const createStore = (): GlobalStoreType => ({
   preloader: container.resolve(Preloader),
   theme: container.resolve(ThemeService),
   startup: container.resolve(StartupService),
+  popup: container.resolve(PopupService),
 })
 
 export const StoreContext = React.createContext<GlobalStoreType | null>(null)
