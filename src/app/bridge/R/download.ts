@@ -14,8 +14,8 @@ export const Rdownload = (url: string, local: string, checksum?: string) =>
     ;(async () => {
       const progressId = nanoid()
       const unlisten = await listen(progressId, ({ payload }) => subscriber.next(payload as RDownloadProgress))
-      const complete = <T>(payload?: Nullable<T>) => {
-        if (payload instanceof Error) subscriber.error(payload)
+      const complete = <T>(payload?: Nullable<T>, isError: boolean = false) => {
+        if (isError) subscriber.error(payload)
         else subscriber.complete()
         unlisten()
         console.log(payload)
@@ -25,6 +25,6 @@ export const Rdownload = (url: string, local: string, checksum?: string) =>
         to: local,
         expectedChecksum: checksum ?? '',
         progressId,
-      }).then(complete, complete)
+      }).then(complete, err => complete(err, true))
     })()
   })

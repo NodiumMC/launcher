@@ -16,7 +16,6 @@ export class PopupService {
 
   @action.bound
   spawn(element: JSX.Element) {
-    console.log('Spawned')
     const id = nanoid()
     this._popups[id] = wrap(element, () => this.close(id))
   }

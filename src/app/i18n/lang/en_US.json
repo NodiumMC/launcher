@@ -10,5 +10,24 @@
     "select_lang": "Select language",
     "continue": "Next",
     "downloading_java": "Downloading Java"
+  },
+  "error": {
+    "titles": {
+      "default": "Error",
+      "oops": "Oops!"
+    },
+    "descriptions": {
+      "unknown": "An unknown error has occurred.",
+      "java_install_failed": "Failed to load Java on your computer, check Internet connection or free disk space"
+    }
+  },
+  "appearance": {
+    "popup": {
+      "close": "Close",
+      "continue": "Continue",
+      "cancel": "Cancel",
+      "skip": "Skip",
+      "retry": "Retry"
+    }
   }
 }

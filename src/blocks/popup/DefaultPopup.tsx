@@ -75,7 +75,7 @@ export const DefaultPopup: FC<DefaultPopupProps> = ({ level, close, render, acti
   return <Popuup>
     <Icon level={level}>{icon}</Icon>
     <Text as={'h4'} ns center bold>{title}</Text>
-    <Text shade center ns>{description}</Text>
+    <Text pre shade center ns>{description}</Text>
     <Actions>
       {actions.map(({ label, action, isPrimary, isDanger }, index) =>
         <Button key={index} onClick={() => close && action(close)} primary={isPrimary} danger={isDanger}>{label}</Button>

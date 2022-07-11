@@ -10,5 +10,24 @@
     "select_lang": "Выберите язык",
     "continue": "Продолжить",
     "downloading_java": "Загрузка Java"
+  },
+  "error": {
+    "titles": {
+      "default": "Ошибка",
+      "oops": "Упс!"
+    },
+    "descriptions": {
+      "unknown": "В приложении возникла неизвестная ошибка",
+      "java_install_failed": "Не удалось загрузить Java на твой компьютер, проверь интернет или свободное место на диске"
+    }
+  },
+  "appearance": {
+    "popup": {
+      "close": "Закрыть",
+      "continue": "Продолжить",
+      "cancel": "Отмена",
+      "skip": "Пропустить",
+      "retry": "Повторить"
+    }
   }
 }
