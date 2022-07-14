@@ -8,8 +8,8 @@ import {
   faCircleXmark,
   faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons'
-import { Text } from '../../components/ui/Text'
-import { Button } from '../../components/ui/Button'
+import { Text } from '../../micro/Text'
+import { Button } from '../../micro/Button'
 
 const Popuup = styled.div`
   width: 580px;

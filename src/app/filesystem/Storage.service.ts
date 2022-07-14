@@ -13,6 +13,9 @@ export interface StorageType {
   },
   launcher: {
     installed: boolean
+  },
+  java: {
+    path: string
   }
 }
 
@@ -26,6 +29,7 @@ export class Storage {
     this._ = this.proxify({
       appearance: { darkTheme: null, lang: null },
       launcher: { installed: null },
+      java: { path: null }
     } as Nullable<StorageType>)
   }
 

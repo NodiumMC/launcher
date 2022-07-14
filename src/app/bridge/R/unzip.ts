@@ -17,7 +17,6 @@ export const Runzip = (from: string, to: string, deleteAfter?: boolean) => new O
       if (payload instanceof Error) subscriber.error(payload)
       else subscriber.complete()
       unlisten()
-      console.log(payload)
     }
     invoke('unzip', {
       from,

@@ -22,6 +22,9 @@ export const downloadJava = () => new Observable<RDownloadProgress>(subscriber =
     const $arch = await arch()
     const target = javaSources?.[$platform]?.[$arch]
     if(!target) return subscriber.error(new Error(`Unsupported platform or arch: ${$platform} ${$arch}`))
-    R.download(target, await join(await GameDir(), 'jdk.zip')).subscribe(subscriber)
+    const dp = await R.download(target, await join(await GameDir(), 'jdk.zip'))
+    dp.on('progress', subscriber.next)
+    dp.on('done', subscriber.complete)
+    dp.on('error', subscriber.error)
   })()
 })

@@ -1,7 +1,7 @@
 import { Children, cloneElement, FC, isValidElement } from 'react'
 import styled from 'styled-components'
 import { PopupProps } from './PopupProps'
-import { HasChildren, Styleable } from '../../utils/UtilityProps'
+import { HasChildren, Styleable } from '../../../utils/UtilityProps'
 import { animated } from 'react-spring'
 
 const Popup = styled.div`

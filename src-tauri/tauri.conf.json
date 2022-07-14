@@ -14,7 +14,44 @@
     "allowlist": {
       "all": true,
       "fs": {
-        "scope": ["**"]
+        "scope": [
+          "**"
+        ]
+      },
+      "http": {
+        "scope": [
+          "https://piston-meta.mojang.com/*",
+          "https://launchermeta.mojang.com/*",
+          "https://resources.download.minecraft.net/*"
+        ],
+        "all": true
+      },
+      "shell": {
+        "all": true,
+        "scope": [
+          {
+            "name": "sh",
+            "cmd": "sh",
+            "args": [
+              "-c",
+              {
+                "validator": "\\S+"
+              }
+            ]
+          },
+          {
+            "name": "cmd",
+            "cmd": "cmd",
+            "args": [
+              "/C",
+              {
+                "validator": "\\S+"
+              }
+            ]
+          }
+        ],
+        "execute": true,
+        "open": true
       }
     },
     "bundle": {
@@ -56,7 +93,9 @@
     "updater": {
       "active": true,
       "dialog": false,
-      "endpoints": ["https://0.0.0.0"],
+      "endpoints": [
+        "https://0.0.0.0"
+      ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVGRUE5NUNFODkyQTlFQ0MKUldUTW5pcUp6cFhxWCtYMzR3ZEhYUFlGUFR0Nzhsd1lxT2ZqQTh2ZWlZdkdJYVg0eUtFZTVqQTkK",
       "windows": {
         "installMode": "quiet"

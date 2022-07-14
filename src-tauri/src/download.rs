@@ -43,6 +43,7 @@ impl Serialize for DownloadError {
 struct DownloadProgress {
     total: u64,
     transferred: u64,
+    chunk: u64,
 }
 
 /// Downloads a given `url` to a given path (`to`) on disk with blake3 integrity checking.
@@ -56,16 +57,13 @@ pub async fn download<R: Runtime>(
     to: &Path,
     expected_checksum: String,
     progress_id: String,
-) -> Result<(), DownloadError> {
+) -> Result<String, DownloadError> {
     if &expected_checksum.len() > &0 && to.exists() && to.is_file() {
-        // check if we have a locally cached file with matching checksum
         match check_file_integrity(to, &expected_checksum) {
-            Ok(_) => {}
-            // we need to handle the checksum mismatched case explicitly here, so we can remove the invalid file
+            Ok(_) => return Ok(expected_checksum),
             Err(DownloadError::ChecksumVerification { .. }) => {
                 std::fs::remove_file(to)?;
             }
-            // return early for any other error that happens
             Err(e) => return Err(e),
         }
     }
@@ -97,6 +95,7 @@ pub async fn download<R: Runtime>(
                 DownloadProgress {
                     total: total_size,
                     transferred,
+                    chunk: bytes.len() as u64,
                 },
             );
     }
@@ -109,7 +108,10 @@ pub async fn download<R: Runtime>(
         }
     }
 
-    Ok(())
+    let hash = create_hash(to)?;
+    let hex_hash = hash.to_hex();
+
+    Ok(hex_hash[..].to_string())
 }
 
 fn check_file_integrity(file: &Path, expected_hash: &str) -> Result<(), DownloadError> {
@@ -145,7 +147,7 @@ pub async fn download_abortable<R: Runtime>(
     hash: String,
     progress_id: String,
     abort_id: String,
-) -> Result<(), DownloadError> {
+) -> Result<String, DownloadError> {
     let (abort_handle, abort_registration) = AbortHandle::new_pair();
 
     // we reuse the above `download` command from but wrap it in an abortable future

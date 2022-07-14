@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { Empty } from '../../components/utils/Empty'
-import { Preloader } from '../../components/ui/Preloader'
-import { usePreloader } from '../../hooks/useService'
-import { Observer } from '../../store/ObserverComponent'
+import { Empty } from '../../utils/Empty'
+import { Preloader } from '../../micro/Preloader'
+import { usePreloader } from '../../../hooks/useService'
+import { Observer } from '../../../store/ObserverComponent'
 import { animated, useTransition } from 'react-spring'
-import { ProgressBar } from '../../components/ui/ProgressBar'
+import { ProgressBar } from '../../micro/ProgressBar'
 
 const AppPreloaderWrapper = styled.div`
   position: absolute;

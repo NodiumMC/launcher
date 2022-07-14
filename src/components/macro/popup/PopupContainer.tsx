@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react'
-import { Observer } from '../../store/ObserverComponent'
-import { usePopup } from '../../hooks/useService'
+import { Observer } from '../../../store/ObserverComponent'
+import { usePopup } from '../../../hooks/useService'
 import { useTransition } from 'react-spring'
 
 export const PopupContainer: FC = Observer(() => {

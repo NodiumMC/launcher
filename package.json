@@ -18,6 +18,7 @@
     "class-transformer": "^0.5.1",
     "country-flag-icons": "^1.5.5",
     "dotenv-cli": "^5.1.0",
+    "eventemitter3": "^4.0.7",
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.1",
     "nanoid": "^4.0.0",
@@ -28,7 +29,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
     "styled-components": "^5.3.5",
-    "tsyringe": "^4.7.0"
+    "tsyringe": "^4.7.0",
+    "typed-emitter": "^2.1.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.0.1",

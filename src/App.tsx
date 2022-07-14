@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { AppPreloader } from './blocks/AppPreloader/AppPreloader'
-import { Header } from './blocks/header/Header'
+import { AppPreloader } from './components/macro/AppPreloader/AppPreloader'
+import { Header } from './components/macro/header/Header'
 import { useTheme } from './hooks/theme'
 import { useStartup } from './hooks/useService'
 import { useThemeToggleHotkey } from './hooks/useThemeToggleHotkey'
 import { Screens } from './screens/Screens'
 import { Observer } from './store/ObserverComponent'
 import { GlobalStyle } from './style/global'
-import { PopupContainer } from './blocks/popup/PopupContainer'
+import { PopupContainer } from './components/macro/popup/PopupContainer'
 
 const AppRoot = styled.div`
   width: 100%;

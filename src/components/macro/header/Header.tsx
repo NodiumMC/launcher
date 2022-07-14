@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { Empty } from '../../components/utils/Empty'
+import { Empty } from '../../utils/Empty'
 import { WindowControl } from './WindowControl'
 
 const HeaderBlock = styled.div`
