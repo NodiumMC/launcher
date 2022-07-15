@@ -15,7 +15,7 @@ export const unzipNatives = async (dir: string) => {
   let total = 0
   let progress = 0
   if(files.length === 0) emitter.emit('done')
-  Promise.all(files.map(file => new Promise<void>(async rs => {
+  files.mapAsync(file => new Promise<void>(async rs => {
     let totalized = false
     R.unzip(file.path, dir).subscribe({
       next: (unp: RUnzipProgress) => {
@@ -29,6 +29,6 @@ export const unzipNatives = async (dir: string) => {
       error: e => emitter.emit('error', e),
       complete: rs,
     })
-  })))
+  }))
   return emitter
 }

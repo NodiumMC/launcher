@@ -62,7 +62,7 @@ export class Storage {
 
   async load() {
     const path = await this.path()
-    if (!await exists(path)) await writeTextFile(path, '{}')
+    if (!await exists(path)) await writeTextFile(path, JSON.stringify(this._))
     this._ = this.proxify(JSON.parse(await readTextFile(path)))
     while (this.scheduled.length > 0)
       await this.scheduled.shift()?.()

@@ -1,3 +1,5 @@
+import { readTextFile } from '@tauri-apps/api/fs'
+
 export type OSType = 'osx' | 'windows' | 'linux' | 'unknown'
 export type ArchType = string
 export type NativesType =
@@ -9,11 +11,7 @@ export type NativesType =
 
 export interface Rule {
   action: 'allow' | 'disallow'
-  features?: {
-    is_demo_user?: boolean
-    has_custom_resolution?: boolean
-  }
-  value?: string | string[]
+  features?: Record<string, boolean>
   os?: {
     name?: OSType
     arch?: ArchType
@@ -21,7 +19,12 @@ export interface Rule {
   }
 }
 
-export type ArgumentsArray = (string | Rule)[]
+export interface RuleContainer {
+  rules: Rule[]
+  value?: string | string[]
+}
+
+export type ArgumentsArray = (string | RuleContainer)[]
 
 export interface AssetIndex {
   id: string
@@ -56,6 +59,7 @@ export interface Library {
     exclude?: string[]
   }
   rules?: Rule[]
+  value?: string | string[]
 }
 
 export interface PartialLib {
@@ -121,4 +125,8 @@ export const mergeVersions = (...versions: VersionFile[]) => {
   origin.arguments.game.push(...versions.map(v => v.arguments.game).flat())
   origin.libraries.push(...versions.map(v => v.libraries).flat())
   return origin
+}
+
+export const readVersionFile = async (path: string): Promise<VersionFile> => {
+  return JSON.parse(await readTextFile(path))
 }

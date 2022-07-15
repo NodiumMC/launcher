@@ -29,5 +29,10 @@
       "skip": "Skip",
       "retry": "Retry"
     }
+  },
+  "validate": {
+    "minecraft": {
+
+    }
   }
 }

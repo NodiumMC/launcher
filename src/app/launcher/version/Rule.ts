@@ -1,15 +1,15 @@
-import { Rule as RuleType } from './version'
+import { Rule as RuleType, RuleContainer } from './version'
 import { arch, is64, release } from '../../os/info'
 import { os } from '../utils/os'
 
 export interface RuleResult {
   allow: boolean
   reasons: string[]
-  values?: string[]
+  value?: string[]
   features?: RuleType['features']
 }
 
-export const Rule = async (rule: RuleType): Promise<RuleResult> => {
+export const Rule = async (rule: RuleType, features: string[] = []): Promise<RuleResult> => {
   const currentOs = rule.os ? await os() : null
   const currentArch = rule.os ? (await is64() ? 'x64' : 'x32') : null
   const osVersion = rule.os ? await release() : null
@@ -24,22 +24,22 @@ export const Rule = async (rule: RuleType): Promise<RuleResult> => {
     if (ruleOs.arch && currentArch && currentArch !== ruleOs.arch)
       reasons.push(`Incompatible arch. Expected: ${ruleOs.arch}`)
   }
-  const allow = reasons.length === 0
+  const allow = reasons.length === 0 && (!rule.features || Object.keys(rule.features).every(f => features.includes(f)))
   return {
     allow: rule.action === 'allow' ? allow : !allow,
     reasons,
-    values: typeof rule.value === 'string' ? [rule.value] : rule.value,
     features: rule.features,
   }
 }
 
-export const Rules = async (rules: RuleType[]): Promise<RuleResult> => {
-  const rrs = await Promise.all(rules.map(rule => Rule(rule)))
+export const Rules = async ({ rules = [], value }: RuleContainer, allowFeatures: string[] = []): Promise<RuleResult> => {
+  const rrs = await rules.mapAsync(rule => Rule(rule, allowFeatures))
   const allow = rrs.every(rule => rule.allow)
-  const reasons = rrs.map(rule => rule.reasons).reduce((a, b) => [...a, ...b])
+  const reasons = rrs.map(rule => rule.reasons).flat()
   const features = Object.assign({}, ...rrs.map(rule => rule.features))
-  const values = rrs.map(rule => rule.values ?? []).flat()
   return {
-    allow, values, features, reasons,
+    allow, value: typeof value === 'string' ? [value] : value, features, reasons,
   }
 }
+
+export const isRuled = (obj: any): obj is RuleContainer => !!obj.rules

@@ -1,6 +1,6 @@
 import { RUnzipProgress } from '../../bridge/R/unzip'
 import { RDownloadProgress } from '../../bridge/R/download'
-import { VersionFile } from '../version/version'
+import { readVersionFile, VersionFile } from '../version/version'
 import { createDir, readTextFile } from '@tauri-apps/api/fs'
 import { join } from '@tauri-apps/api/path'
 import { compileLibraries } from '../utils/libutils'
@@ -22,10 +22,6 @@ export interface VersionInstallEvent {
   unit: (name: string, hash: string) => void
   done: () => void
   error: (e: Error) => void
-}
-
-const readVersionFile = async (path: string): Promise<VersionFile> => {
-  return JSON.parse(await readTextFile(path))
 }
 
 export const install = async ({ gameDataDir, clientDir, blakemap }: InstallOptions) => {

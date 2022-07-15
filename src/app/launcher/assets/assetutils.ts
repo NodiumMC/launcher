@@ -5,11 +5,11 @@ import { VersionFile } from '../version/version'
 import { fetch } from '@tauri-apps/api/http'
 
 export const compileAssets = async (objs: AssetObject[]): Promise<DownloadableResource[]> =>
-  Promise.all(objs.map(async obj => ({
+  objs.mapAsync(async obj => ({
     url: `https://resources.download.minecraft.net/${obj.hash.substring(0, 2)}/${obj.hash}`,
-    local: await join(await join('assets', 'objects'), obj.hash),
+    local: await join(await join('assets', 'objects'), obj.hash.substring(0, 2), obj.hash),
     size: obj.size,
-  } as DownloadableResource)))
+  } as DownloadableResource))
 
 export const fetchAssetIndex = async (version: VersionFile): Promise<AssetIndex> => {
   const res = await fetch<AssetIndex>(version.assetIndex.url, { timeout: 5000, method: 'GET' })
@@ -21,7 +21,7 @@ export const compileAssetIndex = async (version: VersionFile, gameDataDir: strin
   const index = await fetchAssetIndex(version)
   const objects = Object.values(index.objects)
   const compiled = await compileAssets(objects)
-  const located = await Promise.all(compiled.map(async v => ({...v, local: await join(gameDataDir, v.local)})))
+  const located = await compiled.mapAsync(async v => ({...v, local: await join(gameDataDir, v.local)}))
   batch.push(...located)
   return batch
 }

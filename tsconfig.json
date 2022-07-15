@@ -17,7 +17,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["reflect-metadata"]
+    "types": ["reflect-metadata"],
+    "typeRoots": ["src/tse"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

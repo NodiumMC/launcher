@@ -5,5 +5,7 @@ export const command = async (command: string, args: string[], cwd?: string) => 
   const isWindows = await platform() === 'win32'
   let metaCmd = isWindows ? 'cmd' : 'sh'
   let metaArgs = isWindows ? ['/C'] : ['-c']
-  return new Command(metaCmd, [...metaArgs, `${command} ${args.join(' ')}`], { cwd })
+  // FIXME: fix this shit
+  const fullArgs = [...metaArgs, `${command} ${args.filter(v => !v.includes('Dos')).join(' ')}`]
+  return new Command(metaCmd, fullArgs, { cwd })
 }

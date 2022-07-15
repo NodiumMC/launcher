@@ -1,6 +1,6 @@
 import { Artifact, Library, PartialLib } from '../version/version'
 import { os } from './os'
-import { Rules } from '../version/Rule'
+import { isRuled, Rules } from '../version/Rule'
 import { fetch } from '@tauri-apps/api/http'
 import { DownloadableResource } from '../dl/download'
 import { join } from '@tauri-apps/api/path'
@@ -13,19 +13,19 @@ export const nativeArtifact = async (lib: Library) => {
 }
 
 export const compileLibArtifacts = async (libs: Library[]): Promise<[libs: Artifact[], natives: Artifact[]]> => {
-  const ruledLibs = await Promise.all(libs.filter(async lib => lib.rules ? await Rules(lib.rules).then(v => v.allow) : true))
+  const ruledLibs = await libs.filterAsync(async lib => isRuled(lib) ? await Rules(lib).then(v => v.allow) : true)
   const nlibs = ruledLibs.filter(lib => isNativeLibrary(lib))
-  return [ruledLibs.map(v => v.downloads?.artifact!), await Promise.all(nlibs.map(async v => (await nativeArtifact(v))!)).then(v => v.filter(v => !!v))]
+  return [ruledLibs.map(v => v.downloads?.artifact!), await nlibs.mapAsync(async v => (await nativeArtifact(v))!).then(v => v.filter(v => !!v))]
 }
 
 export const compileLibraries = async (libs: Library[], gameDataDir: string, clientDir: string): Promise<DownloadableResource[]> => {
   const librariesPath = await join(gameDataDir, 'libraries')
   const [dlibs, natives] = await compileLibArtifacts(libs)
-  return Promise.all(dlibs.map(async v => (
+  return [...await dlibs.mapAsync(async v => (
     { ...v, local: await join(librariesPath, v.path) }
-  )).concat(natives.map(async v => (
+  )), ...await natives.mapAsync(async v => (
     { ...v, local: await join(clientDir, 'natives', libFile(v.path)) }
-  ))))
+  ))]
 }
 
 export const libPath = (path: string): string[] => path.split('/')

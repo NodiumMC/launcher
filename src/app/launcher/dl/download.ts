@@ -31,7 +31,7 @@ export const batchDownload = async (resources: DownloadableResource[]) => {
       return
     }
     const failist: DownloadableResource[] = []
-    await Promise.all(rs.map(r => new Promise<void>(async rs => {
+    await rs.mapAsync(r => new Promise<void>(async rs => {
       const dp = await download(r)
       let transferred = 0
       dp.on('progress', p => {
@@ -52,10 +52,9 @@ export const batchDownload = async (resources: DownloadableResource[]) => {
       dp.on('error', (e) => {
         failist.push(r)
         progress -= transferred
-        console.log(e)
         rs()
       })
-    })))
+    }))
       .then(() => failist.length > 0 ? remap(failist, _retries + 1) : void 0)
       .then(() => emitter.emit('done', blakeMap))
   }
