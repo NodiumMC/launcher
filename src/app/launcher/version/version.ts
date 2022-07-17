@@ -1,4 +1,5 @@
 import { readTextFile } from '@tauri-apps/api/fs'
+import { readJsonFile } from '../../filesystem/utils'
 
 export type OSType = 'osx' | 'windows' | 'linux' | 'unknown'
 export type ArchType = string
@@ -127,6 +128,4 @@ export const mergeVersions = (...versions: VersionFile[]) => {
   return origin
 }
 
-export const readVersionFile = async (path: string): Promise<VersionFile> => {
-  return JSON.parse(await readTextFile(path))
-}
+export const readVersionFile = async (path: string): Promise<VersionFile> => readJsonFile(path)
