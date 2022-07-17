@@ -7,15 +7,17 @@ import { container } from 'tsyringe'
 import { StartupService } from '../app/preload/Startup.service'
 import { PopupService } from '../app/noteup/Popup.service'
 import { LauncherConfig } from '../app/settings/LauncherConfig.service'
+import { LoggingPool } from '../app/meta/logging/LoggingPool.service'
 
 export type GlobalStoreType = {
   storage: Storage
   i18n: I18n
   preloader: Preloader
   theme: ThemeService
-  startup: StartupService,
-  popup: PopupService,
-  launcherConfig: LauncherConfig,
+  startup: StartupService
+  popup: PopupService
+  launcherConfig: LauncherConfig
+  loggingPool: LoggingPool
 }
 
 export const createStore = (): GlobalStoreType => ({
@@ -26,6 +28,7 @@ export const createStore = (): GlobalStoreType => ({
   startup: container.resolve(StartupService),
   popup: container.resolve(PopupService),
   launcherConfig: container.resolve(LauncherConfig),
+  loggingPool: container.resolve(LoggingPool),
 })
 
 export const StoreContext = React.createContext<GlobalStoreType | null>(null)
