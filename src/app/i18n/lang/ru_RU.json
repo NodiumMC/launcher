@@ -30,9 +30,11 @@
       "retry": "Повторить"
     }
   },
-  "validate": {
-    "minecraft": {
-
-    }
+  "minecraft": {
+    "settings": "Настройки",
+    "play": "Играть",
+    "instance": "Инстанс",
+    "profile": "Профиль",
+    "profiles": "Профили"
   }
 }

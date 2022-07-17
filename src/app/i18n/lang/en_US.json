@@ -30,9 +30,11 @@
       "retry": "Retry"
     }
   },
-  "validate": {
-    "minecraft": {
-
-    }
+  "minecraft": {
+    "settings": "Settings",
+    "play": "Play",
+    "instance": "Instance",
+    "profile": "Profile",
+    "profiles": "Profiles"
   }
 }
