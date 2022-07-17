@@ -1,6 +1,6 @@
 import { join } from '@tauri-apps/api/path'
-import { makeObservable, observable } from 'mobx'
-import { AppData, exists } from './utils'
+import { makeAutoObservable, makeObservable, observable } from 'mobx'
+import { AppData, exists, writeJsonFile } from './utils'
 import { readTextFile, writeTextFile } from '@tauri-apps/api/fs'
 import { singleton } from 'tsyringe'
 import { SupportedLang } from '../i18n/langs'
@@ -57,12 +57,12 @@ export class Storage {
   }
 
   async save() {
-    await writeTextFile(await this.path(), JSON.stringify(this._))
+    await writeJsonFile(await this.path(), this._)
   }
 
   async load() {
     const path = await this.path()
-    if (!await exists(path)) await writeTextFile(path, JSON.stringify(this._))
+    if (!await exists(path)) await writeJsonFile(path, this._)
     this._ = this.proxify(JSON.parse(await readTextFile(path)))
     while (this.scheduled.length > 0)
       await this.scheduled.shift()?.()
