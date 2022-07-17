@@ -18,15 +18,15 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   height: 36px;
   padding: 0 20px;
   cursor: ${({ disabled }) => disabled ? 'default' : 'pointer'};
-  color: ${({ theme }) => theme.colors.front};
+  color: white;
   font-family: ${({ theme }) => theme.fonts.interact};
   user-select: none;
-  background-color: ${({
+  background: ${({
                          theme,
                          danger,
                          disabled,
                          primary,
-                       }) => disabled ? theme.colors.mid : danger ? theme.colors.danger : primary ? theme.colors.accent : theme.colors.back};
+                       }) => disabled ? theme.colors.mid : danger ? theme.colors.danger : primary ? theme.colors.accent : 'transparent'};
   border: 2px solid ${({
                          theme,
                          danger,
