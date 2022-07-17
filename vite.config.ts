@@ -3,5 +3,8 @@ import react from '@vitejs/plugin-react'
 import swc from 'unplugin-swc'
 
 export default defineConfig({
-  plugins: [react(), swc.vite()]
+  plugins: [react(), swc.vite()],
+  server: {
+    port: 3000,
+  }
 })
