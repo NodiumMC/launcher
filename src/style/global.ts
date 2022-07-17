@@ -128,4 +128,8 @@ export const GlobalStyle = createGlobalStyle`
   b {
     font-weight: bold;
   }
+  
+  *::selection {
+    background: ${({ theme }) => theme.colors.accent}3A;
+  }
 `
