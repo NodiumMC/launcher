@@ -11,7 +11,7 @@ import inject from 'flinject'
 @singleton()
 export class LoggingPool {
   static readonly Main = Symbol()
-  @observable private _pool: Map<Symbol, Logger> = new Map([[LoggingPool.Main, new Logger()]])
+  @observable private _pool: Map<symbol, Logger> = new Map([[LoggingPool.Main, new Logger()]])
 
   constructor() {
     makeObservable(this)
@@ -24,7 +24,7 @@ export class LoggingPool {
    * Get a logger from the pool.
    * @param key The key of the logger.
    */
-  request(key: Symbol) {
+  request(key: symbol) {
     if (!this._pool.has(key))
       this._pool.set(key, new Logger())
     return this._pool.get(key)!
@@ -40,7 +40,15 @@ export class LoggingPool {
   /**
    * Removes a logger from the pool.
    */
-  remove(key: Symbol) {
+  remove(key: symbol) {
     this._pool.delete(key)
+  }
+
+  get keys() {
+    return this._pool.keys()
+  }
+
+  [Symbol.iterator]() {
+    return this._pool.entries()
   }
 }
