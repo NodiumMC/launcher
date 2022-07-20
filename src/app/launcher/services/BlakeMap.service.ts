@@ -1,7 +1,7 @@
 import { singleton } from 'tsyringe'
 import { join } from '@tauri-apps/api/path'
 import { readTextFile, writeTextFile } from '@tauri-apps/api/fs'
-import { exists, GameDir } from '../../filesystem/utils'
+import { exists, GameDir, readJsonFile, writeJsonFile } from '../../filesystem/utils'
 import { BlakeMap } from '../utils/types'
 
 @singleton()
@@ -15,11 +15,10 @@ export class BlakeMapService {
   async load() {
     const path = await this.path()
     if (!await exists(path)) return
-    const stringifiedMap = await readTextFile(path)
-    this.map = JSON.parse(stringifiedMap)
+    this.map = await readJsonFile(path)
   }
 
   async save() {
-    await writeTextFile(await this.path(), JSON.stringify(this.map))
+    await writeJsonFile(await this.path(), this.map)
   }
 }
