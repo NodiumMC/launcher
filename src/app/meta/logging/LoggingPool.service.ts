@@ -11,11 +11,13 @@ import inject from 'flinject'
 @singleton()
 export class LoggingPool {
   static readonly Main = Symbol()
-  @observable private _pool: Map<symbol, Logger> = new Map([[LoggingPool.Main, new Logger()]])
+  @observable private _pool: Map<symbol, Logger> = new Map([
+    [LoggingPool.Main, new Logger()],
+  ])
 
   constructor() {
     makeObservable(this)
-    console.log = inject(console.log, (_,...args) => {
+    console.log = inject(console.log, (_, ...args) => {
       this.main.log(`${args.join(' ')}`)
     })
   }
@@ -25,8 +27,7 @@ export class LoggingPool {
    * @param key The key of the logger.
    */
   request(key: symbol) {
-    if (!this._pool.has(key))
-      this._pool.set(key, new Logger())
+    if (!this._pool.has(key)) this._pool.set(key, new Logger())
     return this._pool.get(key)!
   }
 

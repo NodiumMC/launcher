@@ -11,17 +11,22 @@ const ControlPlate = styled.div`
 
 export const WindowControl: FC = () => {
   const [maximized, setMaximized] = useState(false)
-  return <ControlPlate>
-    <WindowButton type={'minimize'} action={() => appWindow.minimize()}/>
-    <WindowButton type={'toggle'} action={() => {
-      if(maximized) {
-        appWindow.unmaximize()
-        setMaximized(false)
-      } else {
-        appWindow.maximize()
-        setMaximized(true)
-      }
-    }}/>
-    <WindowButton type={'close'} danger action={() => appWindow.close()}/>
-  </ControlPlate>
+  return (
+    <ControlPlate>
+      <WindowButton type={'minimize'} action={() => appWindow.minimize()} />
+      <WindowButton
+        type={'toggle'}
+        action={() => {
+          if (maximized) {
+            appWindow.unmaximize()
+            setMaximized(false)
+          } else {
+            appWindow.maximize()
+            setMaximized(true)
+          }
+        }}
+      />
+      <WindowButton type={'close'} danger action={() => appWindow.close()} />
+    </ControlPlate>
+  )
 }

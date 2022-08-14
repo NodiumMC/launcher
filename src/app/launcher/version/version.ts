@@ -1,5 +1,4 @@
-import { readTextFile } from '@tauri-apps/api/fs'
-import { readJsonFile } from '../../filesystem/utils'
+import { readJsonFile } from 'app/filesystem/utils'
 
 export type OSType = 'osx' | 'windows' | 'linux' | 'unknown'
 export type ArchType = string
@@ -119,7 +118,7 @@ export const mergeVersions = (...versions: VersionFile[]) => {
   const origin = { ...versions[0] }
   const next = versions.slice(1)
   const last = versions[versions.length - 1]
-  if(!next) return origin
+  if (!next) return origin
   origin.mainClass = last.mainClass
   origin.type = last.type
   origin.arguments.jvm.push(...versions.map(v => v.arguments.jvm).flat())
@@ -128,4 +127,5 @@ export const mergeVersions = (...versions: VersionFile[]) => {
   return origin
 }
 
-export const readVersionFile = async (path: string): Promise<VersionFile> => readJsonFile(path)
+export const readVersionFile = async (path: string): Promise<VersionFile> =>
+  readJsonFile(path)

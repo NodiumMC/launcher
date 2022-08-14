@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import preloader from '../../assets/img/preloader.gif'
-import { ClassNameable } from '../../utils/UtilityProps'
+import preloader from 'assets/img/preloader.gif'
+import { Styled } from 'utils/UtilityProps'
 
 const PreloaderImg = styled.img`
   width: 100%;
@@ -15,7 +15,7 @@ const PreloaderImg = styled.img`
 
 const Blured = styled(PreloaderImg)`
   filter: blur(10px);
-  opacity: .5;
+  opacity: 0.5;
 `
 
 const Wrapper = styled.div`
@@ -24,9 +24,11 @@ const Wrapper = styled.div`
   position: relative;
 `
 
-export const Preloader: FC<ClassNameable> = ({ className }) => {
-  return <Wrapper className={className}>
-    <PreloaderImg src={preloader} />
-    <Blured src={preloader} />
-  </Wrapper>
+export const Preloader: FC<Styled> = ({ className }) => {
+  return (
+    <Wrapper className={className}>
+      <PreloaderImg src={preloader} />
+      <Blured src={preloader} />
+    </Wrapper>
+  )
 }

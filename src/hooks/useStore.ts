@@ -1,9 +1,9 @@
 import React from 'react'
-import { StoreContext } from '../store/store'
-import { GlobalStoreType } from '../store/store'
+import { StoreContext } from 'store/store'
+import { GlobalStoreType } from 'store/store'
 
 export const useStore = <S = unknown>(
-  selector: (store: GlobalStoreType) => S
+  selector: (store: GlobalStoreType) => S,
 ) => {
   const store = React.useContext(StoreContext)
   if (!store) {

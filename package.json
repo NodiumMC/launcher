@@ -2,6 +2,10 @@
   "name": "nodium-launcher",
   "private": true,
   "version": "0.0.0",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
   "scripts": {
     "dev": "vite",
     "prebuild": "tsc",

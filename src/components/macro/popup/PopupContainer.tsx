@@ -1,6 +1,6 @@
-import { FC, useMemo } from 'react'
-import { Observer } from '../../../store/ObserverComponent'
-import { usePopup } from '../../../hooks/useService'
+import { FC } from 'react'
+import { Observer } from 'store/ObserverComponent'
+import { usePopup } from 'hooks/useService'
 import { useTransition } from 'react-spring'
 
 export const PopupContainer: FC = Observer(() => {
@@ -10,10 +10,12 @@ export const PopupContainer: FC = Observer(() => {
     enter: { scale: 1, opacity: 1 },
     leave: { scale: 0, opacity: 0 },
   })
-  return <>
-    {transition((style, item) => {
-      // item.props.style = style
-      return item
-    })}
-  </>
+  return (
+    <>
+      {transition((style, item) => {
+        // item.props.style = style
+        return item
+      })}
+    </>
+  )
 })

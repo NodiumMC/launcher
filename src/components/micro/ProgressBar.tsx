@@ -1,8 +1,7 @@
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
-import { map } from '../../utils/map'
-import { As, ClassNameable } from '../../utils/UtilityProps'
-import { ESvg } from '../utils/ESvg'
+import { map } from 'utils/map'
+import { As, Styled } from 'utils/UtilityProps'
 
 export interface ProgressBarProps {
   total: number
@@ -40,11 +39,18 @@ const MaskedProgress = styled(Progress)`
   mask-size: 2px 2px;
 `
 
-export const ProgressBar: FC<ProgressBarProps & ClassNameable & As> = ({ pre, value, total, className }) => {
+export const ProgressBar: FC<ProgressBarProps & Styled & As> = ({
+  pre,
+  value,
+  total,
+  className,
+}) => {
   const $pre = useMemo(() => map(pre, 0, total, 0, 100), [pre, total])
   const $value = useMemo(() => map(value, 0, total, 0, 100), [value, total])
-  return <Wrapper className={className}>
-    <Progress value={$value} />
-    <MaskedProgress value={$pre} />
-  </Wrapper>
+  return (
+    <Wrapper className={className}>
+      <Progress value={$value} />
+      <MaskedProgress value={$pre} />
+    </Wrapper>
+  )
 }

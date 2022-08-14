@@ -25,6 +25,9 @@
   "rules": {
     "prettier/prettier": "error",
     "indent": "off",
+    "no-control-regex": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "no-async-promise-executor": "off",
     "linebreak-style": [
       "error",
       "unix"
