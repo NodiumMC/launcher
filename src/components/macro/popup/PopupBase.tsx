@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { PopupProps } from './PopupProps'
 import { HasChildren, Styleable } from '../../../utils/UtilityProps'
 import { animated } from 'react-spring'
+import { rgba } from 'polished'
 
 const Popup = styled.div`
   position: absolute; 
@@ -16,7 +17,7 @@ const Popup = styled.div`
   backdrop-filter: blur(20px);
   z-index: 1000;
   border-radius: 10px;
-  background-color: ${({theme}) => theme.colors.back}AF;
+  background-color: ${({theme}) => rgba(theme.colors.back, 0.6)};
   transition: background-color ${({ theme }) => theme.transition.time};
 `
 
