@@ -10,7 +10,8 @@
     "tauri": "dotenv tauri",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
-    "test": "jest"
+    "test": "jest",
+    "checks": "yarn lint && yarn prebuild && yarn test"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
