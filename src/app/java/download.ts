@@ -31,8 +31,8 @@ export const downloadJava = () =>
         target,
         await join(await GameDir(), 'jdk.zip'),
       )
-      dp.on('progress', subscriber.next)
-      dp.on('done', subscriber.complete)
-      dp.on('error', subscriber.error)
+      dp.on('progress', subscriber.next.bind(subscriber))
+      dp.on('done', subscriber.complete.bind(subscriber))
+      dp.on('error', subscriber.error.bind(subscriber))
     })()
   })
