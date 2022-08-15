@@ -6,6 +6,7 @@ import { RDownloadProgress } from '../bridge/R/download'
 import { R } from '../bridge/R'
 
 const version = '18'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const javaSources: any = {
   win32: {
     x64: `https://download.oracle.com/java/${version}/latest/jdk-${version}_windows-x64_bin.zip`,
@@ -16,15 +17,22 @@ const javaSources: any = {
   },
 }
 
-export const downloadJava = () => new Observable<RDownloadProgress>(subscriber => {
-  ;(async () => {
-    const $platform = await platform()
-    const $arch = await arch()
-    const target = javaSources?.[$platform]?.[$arch]
-    if(!target) return subscriber.error(new Error(`Unsupported platform or arch: ${$platform} ${$arch}`))
-    const dp = await R.download(target, await join(await GameDir(), 'jdk.zip'))
-    dp.on('progress', subscriber.next)
-    dp.on('done', subscriber.complete)
-    dp.on('error', subscriber.error)
-  })()
-})
+export const downloadJava = () =>
+  new Observable<RDownloadProgress>(subscriber => {
+    ;(async () => {
+      const $platform = await platform()
+      const $arch = await arch()
+      const target = javaSources?.[$platform]?.[$arch]
+      if (!target)
+        return subscriber.error(
+          new Error(`Unsupported platform or arch: ${$platform} ${$arch}`),
+        )
+      const dp = await R.download(
+        target,
+        await join(await GameDir(), 'jdk.zip'),
+      )
+      dp.on('progress', subscriber.next)
+      dp.on('done', subscriber.complete)
+      dp.on('error', subscriber.error)
+    })()
+  })

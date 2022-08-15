@@ -16,9 +16,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "baseUrl": "src",
     "jsx": "react-jsx",
-    "types": ["reflect-metadata"],
-    "typeRoots": ["src/tse"]
+    "types": ["reflect-metadata", "jest", "node", "@testing-library/jest-dom"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

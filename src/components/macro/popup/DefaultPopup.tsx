@@ -3,7 +3,8 @@ import { FC, useMemo } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCircleCheck, faCircleInfo,
+  faCircleCheck,
+  faCircleInfo,
   faCircleQuestion,
   faCircleXmark,
   faExclamationTriangle,
@@ -34,13 +35,14 @@ export interface PopupAction {
 }
 
 export enum DefaultPupupAction {
-  CLOSE, OK
+  CLOSE,
+  OK,
 }
 
 export interface DefaultPopupProps extends PopupProps {
   level: 'ok' | 'warn' | 'error' | 'question' | 'info'
-  title: string,
-  description: string,
+  title: string
+  description: string
   actions: PopupAction[]
 }
 
@@ -48,13 +50,20 @@ const Icon = styled.div<Pick<DefaultPopupProps, 'level'>>`
   font-size: 70px;
   display: flex;
   justify-content: center;
-  color: ${({ theme, level }) => { switch (level) {
-    case 'ok': return theme.colors.ok
-    case 'warn': return theme.colors.warn
-    case 'error': return theme.colors.danger;
-    case 'question': return theme.colors.accent;
-    case 'info': return theme.colors.accent;
-  } }};
+  color: ${({ theme, level }) => {
+    switch (level) {
+      case 'ok':
+        return theme.colors.ok
+      case 'warn':
+        return theme.colors.warn
+      case 'error':
+        return theme.colors.danger
+      case 'question':
+        return theme.colors.accent
+      case 'info':
+        return theme.colors.accent
+    }
+  }};
   transition: background-color ${({ theme }) => theme.transition.time};
 `
 
@@ -66,20 +75,49 @@ const Actions = styled.div`
   align-items: flex-end;
 `
 
-export const DefaultPopup: FC<DefaultPopupProps> = ({ level, close, render, actions, title, description }) => {
-  const icon = useMemo(() =>
-    level === 'ok' ? <FontAwesomeIcon icon={faCircleCheck} /> : level === 'warn' ?
-      <FontAwesomeIcon icon={faExclamationTriangle} /> : level === 'question' ?
-        <FontAwesomeIcon icon={faCircleQuestion}/> : level === 'info' ? <FontAwesomeIcon icon={faCircleInfo}/> : <FontAwesomeIcon icon={faCircleXmark} />,
-    [level])
-  return <Popuup>
-    <Icon level={level}>{icon}</Icon>
-    <Text as={'h4'} ns center bold>{title}</Text>
-    <Text pre shade center ns>{description}</Text>
-    <Actions>
-      {actions.map(({ label, action, isPrimary, isDanger }, index) =>
-        <Button key={index} onClick={() => close && action(close)} primary={isPrimary} danger={isDanger}>{label}</Button>
-      )}
-    </Actions>
-  </Popuup>
+export const DefaultPopup: FC<DefaultPopupProps> = ({
+  level,
+  close,
+  actions,
+  title,
+  description,
+}) => {
+  const icon = useMemo(
+    () =>
+      level === 'ok' ? (
+        <FontAwesomeIcon icon={faCircleCheck} />
+      ) : level === 'warn' ? (
+        <FontAwesomeIcon icon={faExclamationTriangle} />
+      ) : level === 'question' ? (
+        <FontAwesomeIcon icon={faCircleQuestion} />
+      ) : level === 'info' ? (
+        <FontAwesomeIcon icon={faCircleInfo} />
+      ) : (
+        <FontAwesomeIcon icon={faCircleXmark} />
+      ),
+    [level],
+  )
+  return (
+    <Popuup>
+      <Icon level={level}>{icon}</Icon>
+      <Text as={'h4'} ns center bold>
+        {title}
+      </Text>
+      <Text pre shade center ns>
+        {description}
+      </Text>
+      <Actions>
+        {actions.map(({ label, action, isPrimary, isDanger }, index) => (
+          <Button
+            key={index}
+            onClick={() => close && action(close)}
+            primary={isPrimary}
+            danger={isDanger}
+          >
+            {label}
+          </Button>
+        ))}
+      </Actions>
+    </Popuup>
+  )
 }

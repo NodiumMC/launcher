@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx'
-import { Awaitable } from '../../utils/types'
+import { Awaitable } from 'utils/types'
 import { I18n } from '../i18n/i18n.service'
 import { singleton } from 'tsyringe'
 
@@ -21,16 +21,24 @@ export class Preloader {
 
   @action
   add(name: string, task: PreloaderQueueTask): Promise<void> {
-    return new Promise<void>((resolve) => {
-      this.queue.push([name, async () => await task().then(() => resolve()).catch((e: any) => {
-        throw e
-      })])
+    return new Promise<void>(resolve => {
+      this.queue.push([
+        name,
+        async () =>
+          await task()
+            .then(() => resolve())
+            .catch((e: unknown) => {
+              throw e
+            }),
+      ])
       this.process()
     })
   }
 
   get currentTaskName() {
-    return this.current.length > 0 ? this.current : this.i18n.$('loading.loading')
+    return this.current.length > 0
+      ? this.current
+      : this.i18n.$('loading.loading')
   }
 
   get inProcess(): boolean {

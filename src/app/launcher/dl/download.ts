@@ -1,5 +1,5 @@
-import { RDownloadProgress } from '../../bridge/R/download'
-import { R } from '../../bridge/R'
+import { RDownloadProgress } from 'app/bridge/R/download'
+import { R } from 'app/bridge/R'
 import { BlakeMap } from '../utils/types'
 import EventEmitter from 'eventemitter3'
 
@@ -11,10 +11,11 @@ export interface DownloadableResource {
   after?: (resource: DownloadableResource) => PromiseLike<void> | void
 }
 
-export const download = async (resource: DownloadableResource) => R.download(resource.url, resource.local, resource.hash)
+export const download = async (resource: DownloadableResource) =>
+  R.download(resource.url, resource.local, resource.hash)
 
 export interface BatchDownloadEvent {
-  progress: (progress: RDownloadProgress) => void,
+  progress: (progress: RDownloadProgress) => void
   unit: (path: string, hash: string) => void
   done: (map: BlakeMap) => void
   error: (e: Error) => void
@@ -25,37 +26,41 @@ export const batchDownload = async (resources: DownloadableResource[]) => {
   const emitter = new EventEmitter<BatchDownloadEvent>()
   let progress = 0
   const blakeMap: BlakeMap = {}
-  const remap = async (rs: DownloadableResource[],  _retries = 0) => {
-    if(_retries > 10) {
+  const remap = async (rs: DownloadableResource[], _retries = 0) => {
+    if (_retries > 10) {
       emitter.emit('error', new Error('Too many retries'))
       return
     }
     const failist: DownloadableResource[] = []
-    await rs.mapAsync(r => new Promise<void>(async rs => {
-      const dp = await download(r)
-      let transferred = 0
-      dp.on('progress', p => {
-        progress += p.chunk
-        transferred += p.chunk
-        emitter.emit('progress', {
-          total: totalSize,
-          transferred: progress,
-          chunk: p.chunk,
-        })
-      })
-      dp.on('done', hash => {
-        blakeMap[r.local] = hash
-        emitter.emit('unit', r.local, hash)
-        r.after?.(r)
-        rs()
-      })
-      dp.on('error', (e) => {
-        failist.push(r)
-        progress -= transferred
-        rs()
-      })
-    }))
-      .then(() => failist.length > 0 ? remap(failist, _retries + 1) : void 0)
+    await rs
+      .mapAsync(
+        r =>
+          new Promise<void>(async rs => {
+            const dp = await download(r)
+            let transferred = 0
+            dp.on('progress', p => {
+              progress += p.chunk
+              transferred += p.chunk
+              emitter.emit('progress', {
+                total: totalSize,
+                transferred: progress,
+                chunk: p.chunk,
+              })
+            })
+            dp.on('done', hash => {
+              blakeMap[r.local] = hash
+              emitter.emit('unit', r.local, hash)
+              r.after?.(r)
+              rs()
+            })
+            dp.on('error', () => {
+              failist.push(r)
+              progress -= transferred
+              rs()
+            })
+          }),
+      )
+      .then(() => (failist.length > 0 ? remap(failist, _retries + 1) : void 0))
       .then(() => emitter.emit('done', blakeMap))
   }
   remap(resources)

@@ -1,9 +1,27 @@
-import { ReactNode } from 'react'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface HasChildren<T = any> {
+  children?: T
+}
 
-export interface ClassNameable  { className?: string }
-export interface OnClickable { onClick?: (...args: any[]) => any }
-export interface HasChildren<T = ReactNode>{ children?: T }
-export interface Valuable<T> { value?: T }
-export interface DataEntriable<T> extends Valuable<T> { onChange?: (newValue: T) => any }
-export interface As { as?: any }
-export interface Styleable { style?: any }
+export interface Value<T> {
+  value?: T
+}
+
+export interface Changeable<T> {
+  onChange?: (value: T) => void
+}
+
+export type DataInput<T> = Value<T> & Changeable<T>
+
+export interface Clickable {
+  onClick?: () => void
+}
+
+export interface Styled {
+  className?: string
+  style?: never
+}
+
+export interface As {
+  as?: string
+}

@@ -1,6 +1,6 @@
 import { FC, ReactNode, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { DataEntriable } from '../../utils/UtilityProps'
+import { DataInput } from 'utils/UtilityProps'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
@@ -19,12 +19,12 @@ const Wrapper = styled.div`
 `
 
 export interface DropdownItem {
-  id: string,
-  label: string,
+  id: string
+  label: string
   icon?: ReactNode
 }
 
-export interface DropdownProps extends DataEntriable<DropdownItem> {
+export interface DropdownProps extends DataInput<DropdownItem> {
   items: DropdownItem[]
 }
 
@@ -49,7 +49,8 @@ interface LabelProps {
 
 const Label = styled.span<LabelProps>`
   font-family: ${({ theme }) => theme.fonts.interact};
-  color: ${({ theme, selected }) => selected ? theme.colors.accent : theme.colors.front};
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.accent : theme.colors.front};
   user-select: none;
   transition: inherit;
 `
@@ -65,13 +66,17 @@ const IconWrapper = styled.div`
   }
 `
 
-const Item: FC<{ selected: DropdownItem } & DataEntriable<DropdownItem>> = ({ selected, onChange, value }) => {
-  return <ItemWrapper onClick={() => onChange?.(value!)}>
-    <IconWrapper>
-      {value?.icon}
-    </IconWrapper>
-    <Label selected={selected.id === value?.id}>{value?.label}</Label>
-  </ItemWrapper>
+const Item: FC<{ selected: DropdownItem } & DataInput<DropdownItem>> = ({
+  selected,
+  onChange,
+  value,
+}) => {
+  return (
+    <ItemWrapper onClick={() => onChange?.(value!)}>
+      <IconWrapper>{value?.icon}</IconWrapper>
+      <Label selected={selected.id === value?.id}>{value?.label}</Label>
+    </ItemWrapper>
+  )
 }
 
 interface ListProps {
@@ -89,11 +94,14 @@ const List = styled.div<ListProps>`
   transition: inherit;
   border-radius: 10px;
   border: 0px solid ${({ theme }) => theme.colors.backShade};
-  ${({ opened, theme }) => opened ? `
+  ${({ opened, theme }) =>
+    opened
+      ? `
     max-height: calc(3 * 40px);
     border: 2px solid ${theme.colors.backShade};
-  ` : ''};
-  transition-duration: .35s;
+  `
+      : ''};
+  transition-duration: 0.35s;
 `
 
 const Open = styled.div`
@@ -109,20 +117,35 @@ const Open = styled.div`
 `
 
 export const Dropdown: FC<DropdownProps> = ({ items, value, onChange }) => {
-  const normalized = useMemo(() => ({
-    ...value!,
-    label: value?.label.padEnd(Math.max(...items.map(v => v.label.length)), ' ') ?? '',
-  }), [value])
+  const normalized = useMemo(
+    () => ({
+      ...value!,
+      label:
+        value?.label.padEnd(Math.max(...items.map(v => v.label.length)), ' ') ??
+        '',
+    }),
+    [value],
+  )
 
   const [opened, setOpened] = useState(false)
 
-  return <Wrapper>
-    <Item selected={value!} value={normalized} />
-    <Open tabIndex={0} onClick={() => setOpened(!opened)} onBlur={() => setOpened(false)}>
-      <FontAwesomeIcon icon={faAngleDown} />
-    </Open>
-    <List opened={opened}>
-      {items.filter(i => value?.id !== i.id).map((i, key) => <Item key={key} selected={value!} value={i} onChange={onChange} />)}
-    </List>
-  </Wrapper>
+  return (
+    <Wrapper>
+      <Item selected={value!} value={normalized} />
+      <Open
+        tabIndex={0}
+        onClick={() => setOpened(!opened)}
+        onBlur={() => setOpened(false)}
+      >
+        <FontAwesomeIcon icon={faAngleDown} />
+      </Open>
+      <List opened={opened}>
+        {items
+          .filter(i => value?.id !== i.id)
+          .map((i, key) => (
+            <Item key={key} selected={value!} value={i} onChange={onChange} />
+          ))}
+      </List>
+    </Wrapper>
+  )
 }

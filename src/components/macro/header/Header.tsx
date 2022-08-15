@@ -11,8 +11,9 @@ const HeaderBlock = styled.div`
   align-items: center;
   position: relative;
   z-index: 100;
-  
-  &:after, &:before {
+
+  &:after,
+  &:before {
     content: '';
     position: absolute;
     display: block;
@@ -22,15 +23,20 @@ const HeaderBlock = styled.div`
     height: 1px;
     width: 100%;
   }
-  
+
   &:after {
-  @property --hdcolor {
-    syntax: '<color>';
-    initial-value: ${({theme}) => theme.colors.backShade};
-    inherits: false;
-  }
-    background: linear-gradient(90deg, transparent, var(--hdcolor), transparent);
-    --hdcolor: ${({theme}) => theme.colors.backShade};
+    @property --hdcolor {
+      syntax: '<color>';
+      initial-value: ${({ theme }) => theme.colors.backShade};
+      inherits: false;
+    }
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--hdcolor),
+      transparent
+    );
+    --hdcolor: ${({ theme }) => theme.colors.backShade};
     transition: --hdcolor ${({ theme }) => theme.transition.time};
   }
 `
@@ -46,9 +52,11 @@ const Title = styled.div`
 `
 
 export const Header: FC = () => {
-  return <HeaderBlock data-tauri-drag-region>
-    <Empty />
-    <Title data-tauri-drag-region>Nodium Launcher</Title>
-    <WindowControl/>
-  </HeaderBlock>
+  return (
+    <HeaderBlock data-tauri-drag-region>
+      <Empty />
+      <Title data-tauri-drag-region>Nodium Launcher</Title>
+      <WindowControl />
+    </HeaderBlock>
+  )
 }

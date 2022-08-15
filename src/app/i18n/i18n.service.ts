@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx'
+import { makeObservable, observable } from 'mobx'
 import type { SupportedLang } from './langs'
 import { Launguage } from './langs'
 import { singleton } from 'tsyringe'
@@ -20,7 +20,7 @@ export class I18n {
 
   constructor(private readonly st: Storage) {
     makeObservable(this)
-    st.onLoad(() => this._lang = this.st._.appearance.lang ?? 'ru_RU')
+    st.onLoad(() => (this._lang = this.st._.appearance.lang ?? 'ru_RU'))
   }
 
   private check() {
@@ -32,6 +32,7 @@ export class I18n {
     const direct = lSource[path]
     if (direct) return direct
     const pathToTranslate = path.split('.')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let translated: any = lSource
     while (pathToTranslate.length > 0)
       translated = translated[pathToTranslate.shift() ?? '']

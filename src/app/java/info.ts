@@ -1,10 +1,12 @@
 import { command } from '../shell/command'
 
 export const javaMotd = async (javaHome = 'java') =>
-  command(`${javaHome}`, ['-version']).then(v => v.execute()).then(v => v.stderr)
+  command(`${javaHome}`, ['-version'])
+    .then(v => v.execute())
+    .then(v => v.stderr)
 
 export interface JavaVersion {
-  version: string | 'null',
+  version: string | 'null'
   bit: string
   major: number
 }

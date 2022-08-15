@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { DataEntriable, Valuable } from '../../utils/UtilityProps'
+import { DataInput, Value } from 'utils/UtilityProps'
 
 interface SubstrateProps {
   disabled?: boolean
@@ -12,17 +12,22 @@ const Substrate = styled.div<SubstrateProps>`
   align-items: center;
   width: 18px;
   height: 18px;
-  background-color: ${({ theme, disabled }) => disabled ? theme.colors.mid : theme.colors.accent};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.mid : theme.colors.accent};
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
 
   &:hover {
-    ${({ disabled, theme }) => !disabled ? `
+    ${({ disabled, theme }) =>
+      !disabled
+        ? `
     box-shadow: 0 0 10px 1px ${theme.colors.accent}3F
-    ` : ''}
+    `
+        : ''}
   }
 
-  &:before, &:after {
+  &:before,
+  &:after {
     background-color: inherit;
     position: absolute;
     content: '';
@@ -45,14 +50,16 @@ const Substrate = styled.div<SubstrateProps>`
   }
 `
 
-const Container = styled(Substrate)<CheckedProps>`
+const Container = styled(Substrate)<Value<boolean>>`
   width: 16px;
   height: 16px;
-  background-color: ${({ theme, value }) => value ? theme.colors.accent : theme.colors.back};
+  background-color: ${({ theme, value }) =>
+    value ? theme.colors.accent : theme.colors.back};
   z-index: 1;
-  cursor: ${({ disabled }) => disabled ? 'default' : 'pointer'};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 
-  &:before, &:after {
+  &:before,
+  &:after {
     background-color: inherit;
   }
 `
@@ -66,7 +73,8 @@ const L = styled.div`
   left: 50%;
   transform: translate(-50%, -50%) rotate(-150deg);
 
-  &:after, &:before {
+  &:after,
+  &:before {
     content: '';
     display: block;
     position: absolute;
@@ -89,32 +97,35 @@ const L = styled.div`
   }
 `
 
-interface CheckedProps {
-  value?: boolean
-}
-
-const Checked = styled.div<CheckedProps & SubstrateProps>`
+const Checked = styled.div<Value<boolean> & SubstrateProps>`
   position: absolute;
-  width: ${({ value }) => value ? '100%' : 0};
-  height: ${({ value }) => value ? '100%' : 0};
+  width: ${({ value }) => (value ? '100%' : 0)};
+  height: ${({ value }) => (value ? '100%' : 0)};
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   transition: all ${({ theme }) => theme.transition.time};
-  background-color: ${({ theme, disabled }) => disabled ? theme.colors.mid : theme.colors.accent};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.mid : theme.colors.accent};
   z-index: 2;
 `
 
-export interface CheckboxProps extends SubstrateProps, CheckedProps, Valuable<boolean>, DataEntriable<boolean> {
-}
-
-export const Checkbox: FC<CheckboxProps> = ({ value, disabled, onChange }) => {
-  return <Substrate disabled={disabled} onClick={() => !disabled && onChange?.(!value)}>
-    <Container disabled={disabled} value={value}>
-      <Checked value={value} disabled={disabled}>
-        <L />
-      </Checked>
-    </Container>
-  </Substrate>
+export const Checkbox: FC<SubstrateProps & DataInput<boolean>> = ({
+  value,
+  disabled,
+  onChange,
+}) => {
+  return (
+    <Substrate
+      disabled={disabled}
+      onClick={() => !disabled && onChange?.(!value)}
+    >
+      <Container disabled={disabled} value={value}>
+        <Checked value={value} disabled={disabled}>
+          <L />
+        </Checked>
+      </Container>
+    </Substrate>
+  )
 }

@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx'
 
 export class Logger {
   private static MAX_LENGTH = 10000
-  @observable private std: string = ''
+  @observable private std = ''
   constructor() {
     makeObservable(this)
   }
@@ -28,6 +28,9 @@ export class Logger {
   }
 
   get stdout(): string {
-    return this.std.substring(this.std.length - Logger.MAX_LENGTH, this.std.length)
+    return this.std.substring(
+      this.std.length - Logger.MAX_LENGTH,
+      this.std.length,
+    )
   }
 }

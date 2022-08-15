@@ -2,7 +2,7 @@ import { singleton } from 'tsyringe'
 import { Storage } from '../filesystem/Storage.service'
 import { Preloader } from './Preloader.service'
 import { I18n } from '../i18n/i18n.service'
-import { wait } from '../../utils/wait'
+import { wait } from 'utils/wait'
 import { ThemeService } from '../theme/Theme.service'
 import { Updater } from '../update/Updater.service'
 
@@ -16,7 +16,7 @@ export class StartupService {
     private readonly i18n: I18n,
     private readonly theme: ThemeService,
     private readonly updater: Updater,
-  ) { }
+  ) {}
 
   run() {
     if (this.once) return

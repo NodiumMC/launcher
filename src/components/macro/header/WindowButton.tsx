@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { FC, useCallback } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faMinus } from '@fortawesome/free-solid-svg-icons'
@@ -23,23 +23,34 @@ const Button = styled.div<ButtonProps>`
   justify-content: center;
   align-items: center;
   color: ${({ theme }) => theme.colors.mid};
-  transition: color, background-color ${({theme}) => theme.transition.time};
+  transition: color, background-color ${({ theme }) => theme.transition.time};
   &:hover {
-    background-color: ${({theme, danger}) => danger ? theme.colors.danger : theme.colors.ambient};
+    background-color: ${({ theme, danger }) =>
+      danger ? theme.colors.danger : theme.colors.ambient};
     color: ${({ theme }) => theme.colors.front};
   }
 `
 
-export const WindowButton: FC<WindowButtonProps> = ({ type, action, danger }) => {
-  const Icon = useMemo(() => () => {
+export const WindowButton: FC<WindowButtonProps> = ({
+  type,
+  action,
+  danger,
+}) => {
+  const Icon = useCallback(() => {
     switch (type) {
-      case 'close': return <FontAwesomeIcon icon={faXmark}/>
-      case 'toggle': return <FontAwesomeIcon icon={faSquare}/>
-      case 'minimize': return <FontAwesomeIcon icon={faMinus}/>
-      default: return <></>
+      case 'close':
+        return <FontAwesomeIcon icon={faXmark} />
+      case 'toggle':
+        return <FontAwesomeIcon icon={faSquare} />
+      case 'minimize':
+        return <FontAwesomeIcon icon={faMinus} />
+      default:
+        return <></>
     }
-  },[type])
-  return <Button onClick={action} danger={danger}>
-    <Icon/>
-  </Button>
+  }, [type])
+  return (
+    <Button onClick={action} danger={danger}>
+      <Icon />
+    </Button>
+  )
 }

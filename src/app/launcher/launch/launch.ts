@@ -1,7 +1,6 @@
 import { readVersionFile } from '../version/version'
 import { compileArguments, VersionedLaunchOptions } from './args'
-import { readTextFile } from '@tauri-apps/api/fs'
-import { command } from '../../shell/command'
+import { command } from 'app/shell/command'
 import { join } from '@tauri-apps/api/path'
 
 export interface LaunchOptions {
@@ -20,8 +19,10 @@ export interface LaunchOptions {
 }
 
 export const launch = async (options: LaunchOptions) => {
-  const version = await readVersionFile(await join(options.clientDir, 'version.json'))
-  const vlaunch: VersionedLaunchOptions = {...options, version}
+  const version = await readVersionFile(
+    await join(options.clientDir, 'version.json'),
+  )
+  const vlaunch: VersionedLaunchOptions = { ...options, version }
   const args = await compileArguments(vlaunch)
   return command(options.javaExecutable ?? 'java', args, options.gameDir)
 }

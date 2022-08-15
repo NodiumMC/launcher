@@ -4,13 +4,11 @@ import { Storage } from '../filesystem/Storage.service'
 
 @singleton()
 export class LauncherConfig {
-  @observable private _installed: boolean = false
+  @observable private _installed = false
 
-  constructor(
-    private readonly st: Storage,
-  ) {
+  constructor(private readonly st: Storage) {
     makeObservable(this)
-    st.onLoad(() => this._installed = this.st._.launcher.installed)
+    st.onLoad(() => (this._installed = this.st._.launcher.installed))
   }
 
   set installed(value: boolean) {

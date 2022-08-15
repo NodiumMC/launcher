@@ -1,13 +1,13 @@
 import React from 'react'
-import { ThemeService } from '../app/theme/Theme.service'
-import { I18n } from '../app/i18n/i18n.service'
-import { Storage } from '../app/filesystem/Storage.service'
-import { Preloader } from '../app/preload/Preloader.service'
+import { ThemeService } from 'app/theme/Theme.service'
+import { I18n } from 'app/i18n/i18n.service'
+import { Storage } from 'app/filesystem/Storage.service'
+import { Preloader } from 'app/preload/Preloader.service'
 import { container } from 'tsyringe'
-import { StartupService } from '../app/preload/Startup.service'
-import { PopupService } from '../app/noteup/Popup.service'
-import { LauncherConfig } from '../app/settings/LauncherConfig.service'
-import { LoggingPool } from '../app/meta/logging/LoggingPool.service'
+import { StartupService } from 'app/preload/Startup.service'
+import { PopupService } from 'app/noteup/Popup.service'
+import { LauncherConfig } from 'app/settings/LauncherConfig.service'
+import { LoggingPool } from 'app/meta/logging/LoggingPool.service'
 
 export type GlobalStoreType = {
   storage: Storage

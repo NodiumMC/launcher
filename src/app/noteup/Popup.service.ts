@@ -1,7 +1,7 @@
 import { singleton } from 'tsyringe'
 import { action, makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
-import { PopupBase, wrap } from '../../components/macro/popup/PopupBase'
+import { wrap } from 'components/macro/popup/PopupBase'
 
 @singleton()
 export class PopupService {

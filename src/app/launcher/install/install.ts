@@ -1,7 +1,7 @@
-import { RUnzipProgress } from '../../bridge/R/unzip'
-import { RDownloadProgress } from '../../bridge/R/download'
-import { readVersionFile, VersionFile } from '../version/version'
-import { createDir, readTextFile } from '@tauri-apps/api/fs'
+import { RUnzipProgress } from 'app/bridge/R/unzip'
+import { RDownloadProgress } from 'app/bridge/R/download'
+import { readVersionFile } from '../version/version'
+import { createDir } from '@tauri-apps/api/fs'
 import { join } from '@tauri-apps/api/path'
 import { compileLibraries } from '../utils/libutils'
 import { compileAssetIndex } from '../assets/assetutils'
@@ -24,11 +24,19 @@ export interface VersionInstallEvent {
   error: (e: Error) => void
 }
 
-export const install = async ({ gameDataDir, clientDir, blakemap }: InstallOptions) => {
+export const install = async ({
+  gameDataDir,
+  clientDir,
+  blakemap,
+}: InstallOptions) => {
   const version = await readVersionFile(await join(clientDir, 'version.json'))
   const libs = await compileLibraries(version.libraries, gameDataDir, clientDir)
   const assets = await compileAssetIndex(version, gameDataDir)
-  const batch = [...libs, ...assets, { ...version.downloads.client, local: await join(clientDir, 'client.jar') }]
+  const batch = [
+    ...libs,
+    ...assets,
+    { ...version.downloads.client, local: await join(clientDir, 'client.jar') },
+  ]
   const hashAttachedBatch = batch.map(v => ({ ...v, hash: blakemap[v.local] }))
   const emitter = new EventEmitter<VersionInstallEvent>()
   const bdp = await batchDownload(hashAttachedBatch)

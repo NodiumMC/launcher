@@ -27,7 +27,7 @@ export const darkTheme = {
       '#6237ff',
       '#d231ff',
       '#00ff8b',
-      '#FFF'
+      '#FFF',
     ],
   },
   fonts: {
@@ -39,8 +39,9 @@ export const darkTheme = {
     time: '.3s',
   },
   gradients: {
-    primary: 'linear-gradient(327deg, rgb(255, 176, 176) 0%, rgb(255, 137, 224) 50%, rgb(163, 71, 255) 100%)',
-    accent: 'linear-gradient(45deg, #8468ff, #e69bff)'
+    primary:
+      'linear-gradient(327deg, rgb(255, 176, 176) 0%, rgb(255, 137, 224) 50%, rgb(163, 71, 255) 100%)',
+    accent: 'linear-gradient(45deg, #8468ff, #e69bff)',
   },
 }
 
@@ -73,7 +74,7 @@ export const lightTheme: ThemeType = {
       '#6237ff',
       '#d231ff',
       '#00ff8b',
-      '#000000'
+      '#000000',
     ],
   },
   fonts: darkTheme.fonts,
