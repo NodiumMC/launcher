@@ -6,6 +6,7 @@ import { usePreloader } from 'hooks/useService'
 import { Observer } from 'store/ObserverComponent'
 import { animated, useTransition } from 'react-spring'
 import { ProgressBar } from '../../micro/ProgressBar'
+import { font } from 'components/utils/Font'
 
 const AppPreloaderWrapper = styled.div`
   position: absolute;
@@ -25,7 +26,7 @@ const AppPreloaderWrapper = styled.div`
 
 const Title = styled.div`
   font-size: 100px;
-  font-family: ${({ theme }) => theme.fonts.title};
+  ${({ theme }) => font(theme.fonts.title)}
   font-weight: 600;
   font-style: italic;
   background: ${({ theme }) => theme.gradients.primary};

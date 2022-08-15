@@ -2,6 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { HasChildren, Clickable } from 'utils/UtilityProps'
 import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
+import { font } from 'components/utils/Font'
 
 interface ButtonWrapperProps {
   primary?: boolean
@@ -19,7 +20,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   padding: 0 20px;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   color: white;
-  font-family: ${({ theme }) => theme.fonts.interact};
+  ${({ theme }) => font(theme.fonts.interact)}
   user-select: none;
   background: ${({ theme, danger, disabled, primary }) =>
     disabled

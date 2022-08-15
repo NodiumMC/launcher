@@ -9,6 +9,7 @@ import { Screens } from 'screens/Screens'
 import { Observer } from 'store/ObserverComponent'
 import { GlobalStyle } from 'style/global'
 import { PopupContainer } from 'components/macro/popup/PopupContainer'
+import { Fonts } from 'components/utils/Font'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -36,6 +37,7 @@ export const App: FC = Observer(() => {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <Fonts />
         <AppRoot>
           <Header />
           <View>

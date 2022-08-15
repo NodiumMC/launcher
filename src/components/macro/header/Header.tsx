@@ -2,6 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { Empty } from '../../utils/Empty'
 import { WindowControl } from './WindowControl'
+import { font } from 'components/utils/Font'
 
 const HeaderBlock = styled.div`
   height: 26px;
@@ -42,7 +43,7 @@ const HeaderBlock = styled.div`
 `
 
 const Title = styled.div`
-  font-family: ${({ theme }) => theme.fonts.interact};
+  ${({ theme }) => font(theme.fonts.interact)}
   color: ${({ theme }) => theme.colors.ambient};
   user-select: none;
   transition: color ${({ theme }) => theme.transition.time};
