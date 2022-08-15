@@ -3,7 +3,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'reflect-metadata'
 import { App } from './App'
-import './style/fonts.css'
 import { createStore, StoreContext } from './store/store'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
