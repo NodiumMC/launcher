@@ -9,6 +9,7 @@ export interface LauncherProfile {
   javaDir?: string
   javaArgs?: string
   minecraftArgs?: string
+  attached?: string
 }
 
 export interface NodiumUserProdfile {
@@ -18,5 +19,4 @@ export interface NodiumUserProdfile {
 
 export interface LauncherProfiles {
   profiles: Record<string, LauncherProfile>
-  ndmlgp: NodiumUserProdfile[]
 }

@@ -3,7 +3,8 @@
     "loading": "Loading",
     "initialization": "Initialization",
     "loading_storage": "Loading storage",
-    "updating": "Updating"
+    "updating": "Updating",
+    "reloading_profiles": "Reloading profiles"
   },
   "install": {
     "welcome": "Hello!",

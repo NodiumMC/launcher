@@ -5,6 +5,7 @@ import { I18n } from '../i18n/i18n.service'
 import { wait } from 'utils/wait'
 import { ThemeService } from '../theme/Theme.service'
 import { Updater } from '../update/Updater.service'
+import { GameProfileService } from 'app/launcher/services/GameProfile.service'
 
 @singleton()
 export class StartupService {
@@ -16,6 +17,7 @@ export class StartupService {
     private readonly i18n: I18n,
     private readonly theme: ThemeService,
     private readonly updater: Updater,
+    private readonly gameProfileService: GameProfileService,
   ) {}
 
   run() {
@@ -24,6 +26,9 @@ export class StartupService {
       await this.st.load()
       this.theme.update()
     })
+    this.preloader.add(this.i18n.$('loading.reloading_profiles'), async () =>
+      this.gameProfileService.reloadProfiles(),
+    )
     this.preloader.add(this.i18n.$('loading.loading'), () => wait(2000))
     this.updater.update()
     this.once = true

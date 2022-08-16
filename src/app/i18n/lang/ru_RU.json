@@ -3,7 +3,8 @@
     "loading": "Загрузка",
     "initialization": "Инициализация",
     "loading_storage": "Загрузка хранилища",
-    "updating": "Обновление"
+    "updating": "Обновление",
+    "reloading_profiles": "Обновление профилей"
   },
   "install": {
     "welcome": "Привет!",
