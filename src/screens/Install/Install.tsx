@@ -5,19 +5,19 @@ import {
   useLauncherConfig,
   usePopup,
   usePreloader,
-} from '../../hooks/useService'
+} from 'hooks/useService'
 import { Screen } from '../Screen'
-import { Text } from '../../components/micro/Text'
-import { LangMeta, SupportedLang } from '../../app/i18n/langs'
-import { Dropdown, DropdownItem } from '../../components/micro/Dropdown'
-import { Observer } from '../../store/ObserverComponent'
-import { Button } from '../../components/micro/Button'
-import { downloadJava } from '../../app/java/download'
-import { map } from '../../utils/map'
-import { R } from '../../app/bridge/R'
+import { Text } from 'components/micro/Text'
+import { LangMeta, SupportedLang } from 'app/i18n/langs'
+import { Dropdown, DropdownItem } from 'components/micro/Dropdown'
+import { Observer } from 'store/ObserverComponent'
+import { Button } from 'components/micro/Button'
+import { downloadJava } from 'app/java/download'
+import { map } from 'utils/map'
+import { R } from 'app/bridge/R'
 import { join } from '@tauri-apps/api/path'
-import { GameDir } from '../../app/filesystem/utils'
-import { DefaultPopup } from '../../components/macro/popup/DefaultPopup'
+import { GameDir } from 'app/filesystem/utils'
+import { DefaultPopup } from 'components/macro/popup/DefaultPopup'
 
 const InstallScreen = styled(Screen)`
   display: flex;

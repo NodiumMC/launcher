@@ -1,24 +1,43 @@
 import { singleton } from 'tsyringe'
 import { action, makeObservable, observable } from 'mobx'
-import { LauncherProfiles } from '../profile/types'
-import { locateProfiles } from '../profile/locate'
+import { LauncherProfile, LauncherProfiles } from '../profile/types'
 import { join } from '@tauri-apps/api/path'
-import { GameDir } from '../../filesystem/utils'
-import { readTextFile } from '@tauri-apps/api/fs'
+import {
+  exists,
+  GameDir,
+  readJsonFile,
+  writeJsonFile,
+} from 'app/filesystem/utils'
 
 @singleton()
 export class GameProfileService {
-  @observable private profiles: LauncherProfiles[] = []
+  @observable private _profiles: LauncherProfile[] = []
+
   constructor() {
     makeObservable(this)
   }
 
+  private pathToProfile = async () =>
+    await join(await GameDir(), 'launcher_profiles.json')
+
   @action.bound
   async reloadProfiles() {
-    const profileFiles = await locateProfiles(await join(await GameDir(), 'instances'))
-    this.profiles = await profileFiles.mapAsync(async file => {
-      const stringified = await readTextFile(file)
-      return JSON.parse(stringified)
+    const pathToProfiles = await this.pathToProfile()
+    if (!(await exists(pathToProfiles))) {
+      await this.createEmptyProfile()
+      return
+    }
+    this._profiles = await readJsonFile<LauncherProfiles>(pathToProfiles).then(
+      res => Object.values(res.profiles),
+    )
+  }
+
+  private createEmptyProfile = async () =>
+    writeJsonFile(await this.pathToProfile(), {
+      profiles: {},
     })
+
+  get profiles() {
+    return this._profiles
   }
 }

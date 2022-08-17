@@ -8,6 +8,7 @@ import { StartupService } from 'app/preload/Startup.service'
 import { PopupService } from 'app/noteup/Popup.service'
 import { LauncherConfig } from 'app/settings/LauncherConfig.service'
 import { LoggingPool } from 'app/meta/logging/LoggingPool.service'
+import { GameProfileService } from 'app/launcher/services/GameProfile.service'
 
 export type GlobalStoreType = {
   storage: Storage
@@ -18,6 +19,7 @@ export type GlobalStoreType = {
   popup: PopupService
   launcherConfig: LauncherConfig
   loggingPool: LoggingPool
+  gameProfiles: GameProfileService
 }
 
 export const createStore = (): GlobalStoreType => ({
@@ -29,6 +31,7 @@ export const createStore = (): GlobalStoreType => ({
   popup: container.resolve(PopupService),
   launcherConfig: container.resolve(LauncherConfig),
   loggingPool: container.resolve(LoggingPool),
+  gameProfiles: container.resolve(GameProfileService),
 })
 
 export const StoreContext = React.createContext<GlobalStoreType | null>(null)

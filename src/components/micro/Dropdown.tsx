@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { DataInput } from 'utils/UtilityProps'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { font } from 'components/utils/Font'
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -48,7 +49,7 @@ interface LabelProps {
 }
 
 const Label = styled.span<LabelProps>`
-  font-family: ${({ theme }) => theme.fonts.interact};
+  ${({ theme }) => font(theme.fonts.interact)};
   color: ${({ theme, selected }) =>
     selected ? theme.colors.accent : theme.colors.front};
   user-select: none;
