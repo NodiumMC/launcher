@@ -2633,10 +2633,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.6.tgz#022e9218c637f9f3fc9c35ab9c9193f05add60b2"
   integrity sha512-0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==
 
-flinject@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/flinject/-/flinject-1.1.1.tgz#6c48d1fbee8db85208b171aa7b936a25ffd2c3ff"
-  integrity sha512-ykujaITUjxqNCEq0P7m/082tgKjAD5bnlvB95PP9iFskCe2dJzZR5/POMYZENmaawYmDtw1z/wLqYqX8Ea/xlg==
+flinject@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/flinject/-/flinject-1.2.0.tgz#6b6152a11c2332b8fed4739cb31a086c94dd85b7"
+  integrity sha512-msELNbU/Fxa1X1PUzWIREiXUeeozvQ7lZg9iqYUJOssUDqTr2XbZZ1O9H+/kXdLv1NB/yXk3fCGfzcU0cQZ4Xw==
   dependencies:
     "@types/stack-trace" "^0.0.30"
     stack-trace "git+https://github.com/LIMPIX31/node-stack-trace.git"
