@@ -30,7 +30,7 @@
     "dotenv-cli": "6.0.0",
     "eventemitter3": "4.0.7",
     "flinject": "1.2.0",
-    "html-react-parser": "3.0.2",
+    "html-react-parser": "3.0.3",
     "mobx": "6.6.1",
     "mobx-react": "7.5.2",
     "nanoid": "4.0.0",
