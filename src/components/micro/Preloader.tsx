@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import preloader from 'assets/img/preloader.gif'
+import preloader from 'assets/img/preloader.svg'
 import { Styled } from 'utils/UtilityProps'
 
 const PreloaderImg = styled.img`
@@ -11,6 +11,15 @@ const PreloaderImg = styled.img`
   top: 0;
   left: 0;
   filter: brightness(35%);
+  animation: spin 0.5s linear infinite;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `
 
 const Blured = styled(PreloaderImg)`
@@ -19,8 +28,8 @@ const Blured = styled(PreloaderImg)`
 `
 
 const Wrapper = styled.div`
-  width: calc(1270px / 30);
-  height: calc(666px / 30);
+  width: 20px;
+  height: 20px;
   position: relative;
 `
 

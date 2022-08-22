@@ -52,7 +52,7 @@ const Titles = styled.div`
 const AbsolutePreloader = styled(Preloader)`
   position: absolute;
   top: 50%;
-  transform: translate(-40px, -50%);
+  transform: translate(-32px, -50%);
 `
 
 const Stage = styled.div`
