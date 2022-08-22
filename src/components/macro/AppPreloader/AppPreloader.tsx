@@ -2,11 +2,11 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { Empty } from '../../utils/Empty'
 import { Preloader } from '../../micro/Preloader'
-import { usePreloader } from 'hooks/useService'
-import { Observer } from 'store/ObserverComponent'
 import { animated, useTransition } from 'react-spring'
 import { ProgressBar } from '../../micro/ProgressBar'
 import { font } from 'components/utils/Font'
+import { Observer, useModule } from 'mobmarch'
+import { Preloader as PreloaderService } from 'preload'
 
 const AppPreloaderWrapper = styled.div`
   position: absolute;
@@ -76,8 +76,8 @@ const StagedProgressBar = styled(ProgressBar)`
 `
 
 export const AppPreloader: FC = Observer(() => {
-  const { inProcess, currentTaskName, progress, pre, progressActive } =
-    usePreloader()
+  const { inProcess, pre, progressActive, progress, currentTaskName } =
+    useModule(PreloaderService)
   const transition = useTransition(inProcess, {
     from: { opacity: 1, scale: 3 },
     enter: { opacity: 1, scale: 1 },

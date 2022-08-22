@@ -31,6 +31,7 @@
     "eventemitter3": "4.0.7",
     "flinject": "1.1.1",
     "html-react-parser": "3.0.1",
+    "mobmarch": "0.1.2",
     "mobx": "6.6.1",
     "mobx-react": "7.5.2",
     "nanoid": "4.0.0",
