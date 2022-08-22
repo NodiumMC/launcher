@@ -2639,7 +2639,7 @@ flinject@1.2.0:
   integrity sha512-msELNbU/Fxa1X1PUzWIREiXUeeozvQ7lZg9iqYUJOssUDqTr2XbZZ1O9H+/kXdLv1NB/yXk3fCGfzcU0cQZ4Xw==
   dependencies:
     "@types/stack-trace" "^0.0.30"
-    stack-trace "git+https://github.com/LIMPIX31/node-stack-trace.git"
+    stack-trace "https://github.com/LIMPIX31/node-stack-trace"
 
 form-data@^4.0.0:
   version "4.0.0"
@@ -3776,6 +3776,13 @@ minimist@^1.2.5, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
+mobmarch@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/mobmarch/-/mobmarch-0.1.2.tgz#0b9f2eb4d8170e32753e8814bef1d8c9674e9d86"
+  integrity sha512-tfjeGA5atLINunAIDWIYQ8RFelalJA+NYuIOG17BU/Jhb88gW40owdJjQPv8tn0r7spxIXOpUImh1WPJXIh3Pg==
+  dependencies:
+    reflect-metadata "0.1.13"
+
 mobx-react-lite@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-3.4.0.tgz#d59156a96889cdadad751e5e4dab95f28926dfff"
@@ -4437,10 +4444,9 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
 
-"stack-trace@git+https://github.com/LIMPIX31/node-stack-trace.git":
+"stack-trace@https://github.com/LIMPIX31/node-stack-trace":
   version "1.0.0-pre1"
-  uid "14a917f74391d57daa82db9c77bb5caf1cddfb71"
-  resolved "git+https://github.com/LIMPIX31/node-stack-trace.git#14a917f74391d57daa82db9c77bb5caf1cddfb71"
+  resolved "https://github.com/LIMPIX31/node-stack-trace#14a917f74391d57daa82db9c77bb5caf1cddfb71"
 
 stack-utils@^2.0.3:
   version "2.0.5"

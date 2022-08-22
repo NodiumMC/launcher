@@ -2,14 +2,15 @@ import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { AppPreloader } from 'components/macro/AppPreloader/AppPreloader'
 import { Header } from 'components/macro/header/Header'
-import { useTheme } from 'hooks/theme'
-import { useStartup } from 'hooks/useService'
-import { useThemeToggleHotkey } from 'hooks/useThemeToggleHotkey'
-import { Screens } from 'screens/Screens'
-import { Observer } from 'store/ObserverComponent'
-import { GlobalStyle } from 'style/global'
+import { useThemeToggleHotkey } from 'hooks'
+import { GlobalStyle } from 'global'
 import { PopupContainer } from 'components/macro/popup/PopupContainer'
 import { Fonts } from 'components/utils/Font'
+import { Defer, Observer, useDeferredModule } from 'mobmarch'
+import { deviceTheme, ThemeService } from 'theme'
+import { PopupService } from 'notifications'
+import { Preloader } from 'preload'
+import { Updater } from 'updater'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -30,20 +31,23 @@ const View = styled.div`
 `
 
 export const App: FC = Observer(() => {
-  const { theme } = useTheme()
-  useStartup()
+  const [, theme] = useDeferredModule(ThemeService)
+  useDeferredModule(Updater)
   useThemeToggleHotkey()
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
         <GlobalStyle />
         <Fonts />
         <AppRoot>
           <Header />
           <View>
-            <AppPreloader />
-            <Screens />
-            <PopupContainer />
+            <Defer depend={Preloader}>
+              <AppPreloader />
+            </Defer>
+            <Defer depend={PopupService}>
+              <PopupContainer />
+            </Defer>
           </View>
         </AppRoot>
       </ThemeProvider>
