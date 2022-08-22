@@ -10,7 +10,6 @@ const PreloaderImg = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  filter: brightness(35%);
   animation: spin 0.5s linear infinite;
   @keyframes spin {
     0% {

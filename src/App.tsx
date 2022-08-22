@@ -11,6 +11,8 @@ import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
+import { Button } from 'components/micro/Button'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
 
 const AppRoot = styled.div`
   width: 100%;

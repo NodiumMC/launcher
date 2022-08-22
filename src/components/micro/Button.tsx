@@ -1,8 +1,11 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import styled from 'styled-components'
 import { HasChildren, Clickable } from 'utils/UtilityProps'
 import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
 import { font } from 'components/utils/Font'
+import { Preloader } from 'components/micro/Preloader'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { transition } from 'style'
 
 interface ButtonWrapperProps {
   primary?: boolean
@@ -11,10 +14,11 @@ interface ButtonWrapperProps {
 }
 
 const ButtonWrapper = styled.div<ButtonWrapperProps>`
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
+  gap: 10px;
   border-radius: 5px;
   height: 36px;
   padding: 0 20px;
@@ -39,7 +43,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
         : disabled
         ? theme.colors.mid
         : theme.colors.accent};
-  transition: all ${({ theme }) => theme.transition.time};
+  ${transition()}
 
   &:hover {
     box-shadow: ${({ danger, disabled }) =>
@@ -75,6 +79,11 @@ export interface ButtonProps
   fetching?: boolean
 }
 
+const FetchingPreloader = styled(Preloader)`
+  height: 16px;
+  width: 16px;
+`
+
 export const Button: FC<ButtonProps> = ({
   icon,
   fetching,
@@ -84,10 +93,20 @@ export const Button: FC<ButtonProps> = ({
   danger,
   children,
 }) => {
-  const wp = { disabled, danger, primary }
+  const wp = { danger, primary }
+  const genericDisable = useMemo(
+    () => disabled || fetching,
+    [disabled, fetching],
+  )
   return (
-    <ButtonWrapper {...wp} onClick={() => !disabled && onClick?.()}>
+    <ButtonWrapper
+      {...wp}
+      onClick={() => !genericDisable && onClick?.()}
+      disabled={genericDisable}
+    >
+      {icon && <FontAwesomeIcon icon={icon} />}
       {children}
+      {fetching && <FetchingPreloader />}
     </ButtonWrapper>
   )
 }
