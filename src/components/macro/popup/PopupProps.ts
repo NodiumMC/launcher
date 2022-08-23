@@ -1,6 +1,16 @@
-import { FC } from 'react'
+import { ReactNode } from 'react'
 
-export interface PopupProps {
+export interface PopupAction {
+  label: string
+  action: (close: () => void) => void
+  isPrimary?: boolean
+  isDanger?: boolean
+}
+
+export interface IPopup {
   close?: () => void
-  render?: FC<PopupProps>
+  level: 'ok' | 'warn' | 'error' | 'question' | 'info'
+  title: string
+  description: ReactNode
+  actions: PopupAction[]
 }

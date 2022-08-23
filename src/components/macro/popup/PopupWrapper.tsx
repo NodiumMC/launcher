@@ -1,9 +1,9 @@
 import { Children, cloneElement, FC, isValidElement } from 'react'
 import styled from 'styled-components'
-import { PopupProps } from './PopupProps'
 import { HasChildren, Styled } from 'utils/UtilityProps'
 import { animated } from 'react-spring'
 import { rgba } from 'polished'
+import { IPopup } from 'components/macro/popup/PopupProps'
 
 const Popup = styled.div`
   position: absolute;
@@ -21,11 +21,9 @@ const Popup = styled.div`
   transition: background-color ${({ theme }) => theme.transition.time};
 `
 
-export const PopupBase: FC<PopupProps & HasChildren & Styled> = ({
-  close,
-  children,
-  style,
-}) => {
+export const PopupWrapper: FC<
+  { close: IPopup['close'] } & HasChildren & Styled
+> = ({ close, children, style }) => {
   const childrenWithProps = Children.map(children, child => {
     if (isValidElement(child))
       return cloneElement(child, { ...(child as any).props, close })
@@ -38,7 +36,3 @@ export const PopupBase: FC<PopupProps & HasChildren & Styled> = ({
     </Popup>
   )
 }
-
-export const wrap = (element: JSX.Element, close: () => void) => (
-  <PopupBase close={close}>{element}</PopupBase>
-)

@@ -1,4 +1,4 @@
-import { PopupProps } from './PopupProps'
+import { IPopup } from './PopupProps'
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,26 +27,7 @@ const Popuup = styled.div`
   border-radius: 10px;
 `
 
-export interface PopupAction {
-  label: string
-  action: (close: () => void) => void
-  isPrimary?: boolean
-  isDanger?: boolean
-}
-
-export enum DefaultPupupAction {
-  CLOSE,
-  OK,
-}
-
-export interface DefaultPopupProps extends PopupProps {
-  level: 'ok' | 'warn' | 'error' | 'question' | 'info'
-  title: string
-  description: string
-  actions: PopupAction[]
-}
-
-const Icon = styled.div<Pick<DefaultPopupProps, 'level'>>`
+const Icon = styled.div<Pick<IPopup, 'level'>>`
   font-size: 70px;
   display: flex;
   justify-content: center;
@@ -75,7 +56,7 @@ const Actions = styled.div`
   align-items: flex-end;
 `
 
-export const DefaultPopup: FC<DefaultPopupProps> = ({
+export const Popup: FC<IPopup> = ({
   level,
   close,
   actions,
@@ -103,9 +84,13 @@ export const DefaultPopup: FC<DefaultPopupProps> = ({
       <Text as={'h4'} ns center bold>
         {title}
       </Text>
-      <Text pre shade center ns>
-        {description}
-      </Text>
+      {typeof description !== 'object' ? (
+        <Text pre shade center ns>
+          {description}
+        </Text>
+      ) : (
+        description
+      )}
       <Actions>
         {actions.map(({ label, action, isPrimary, isDanger }, index) => (
           <Button

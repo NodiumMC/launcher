@@ -1,18 +1,16 @@
 import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { AppPreloader } from 'components/macro/AppPreloader/AppPreloader'
-import { Header } from 'components/macro/header/Header'
+import { AppPreloader } from 'components/macro/AppPreloader'
+import { Header } from 'components/macro/header'
 import { useThemeToggleHotkey } from 'hooks'
 import { GlobalStyle } from 'global'
-import { PopupContainer } from 'components/macro/popup/PopupContainer'
+import { PopupContainer } from 'components/macro/popup'
 import { Fonts } from 'components/utils/Font'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
-import { Button } from 'components/micro/Button'
-import { faGear } from '@fortawesome/free-solid-svg-icons'
 
 const AppRoot = styled.div`
   width: 100%;
