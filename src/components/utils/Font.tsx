@@ -3,6 +3,7 @@ import GTEestiProText from 'assets/fonts/GTEestiProText.ttf'
 import TomorrowMedium from 'assets/fonts/Tomorrow/Tomorrow-MediumItalic.ttf'
 import TomorrowLight from 'assets/fonts/Tomorrow/Tomorrow-Light.ttf'
 import Rubik from 'assets/fonts/Rubik/Rubik-Regular.ttf'
+import WebFont from 'webfontloader'
 
 export const font = (name?: string) => css`
   font-family: ${({ theme }) => name ?? theme.fonts.default}, sans-serif;
@@ -15,7 +16,7 @@ export const fontFace = (
 ) => css`
   @font-face {
     font-family: ${name};
-    src: local(${name}), url(${src});
+    src: url(${src});
     font-weight: ${variant};
   }
 `
@@ -26,3 +27,11 @@ export const Fonts = createGlobalStyle`
   ${fontFace('Tomorrow', TomorrowLight, 300)}
   ${fontFace('Rubik', Rubik)}
 `
+
+export const preload = () =>
+  WebFont.load({
+    custom: {
+      families: ['GTEestiProText', 'Tomorrow', 'Rubik'],
+      urls: [GTEestiProText, TomorrowMedium, TomorrowLight, Rubik],
+    },
+  })

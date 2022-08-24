@@ -2,17 +2,15 @@ import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { AppPreloader } from 'components/macro/AppPreloader'
 import { Header } from 'components/macro/header'
-import { useThemeToggleHotkey } from 'hooks'
+import { useOnce, useThemeToggleHotkey } from 'hooks'
 import { Style } from 'global'
 import { PopupContainer } from 'components/macro/popup'
-import { Fonts } from 'components/utils/Font'
+import { Fonts, preload } from 'components/utils/Font'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
-import { Button } from 'components/micro/Button'
-import { Checkbox } from 'components/micro/Checkbox'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -36,6 +34,7 @@ export const App: FC = Observer(() => {
   const [, theme] = useDeferredModule(ThemeService)
   useDeferredModule(Updater)
   useThemeToggleHotkey()
+  useOnce(preload)
   return (
     <>
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>

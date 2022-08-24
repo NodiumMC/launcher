@@ -3,13 +3,20 @@ import type { SupportedTheme, Theme } from 'theme'
 import { CentralConfig } from 'config'
 import { Module } from 'mobmarch'
 import { deviceThemeIsDark, themes } from 'theme'
+import { Preloader } from 'preload'
+import { I18n } from 'i18n'
+import { wait } from 'utils/wait'
 
-@Module([CentralConfig])
+@Module([CentralConfig, Preloader, I18n])
 export class ThemeService {
   @observable
   private _theme: SupportedTheme = deviceThemeIsDark() ? 'dark' : 'light'
 
-  constructor(private cc: CentralConfig) {
+  constructor(
+    private readonly cc: CentralConfig,
+    private readonly preloader: Preloader,
+    private readonly i18n: I18n,
+  ) {
     makeObservable(this)
     this._theme = this.cc.data.appearance.theme ?? this._theme
   }
@@ -33,9 +40,15 @@ export class ThemeService {
   }
 
   @action.bound
-  setTheme(theme: SupportedTheme) {
+  async setTheme(theme: SupportedTheme) {
     this._theme = theme
     this.cc.data.appearance.theme = this._theme
-    this.saveTheme()
+    await this.preloader.add(
+      this.i18n.translate.appearance.theme.reloading,
+      async () => {
+        await this.saveTheme()
+        await wait(2000)
+      },
+    )
   }
 }

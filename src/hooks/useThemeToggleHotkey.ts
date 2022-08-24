@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDeferredModule } from 'mobmarch'
 import { ThemeService } from 'theme'
 
-export const useThemeToggleHotkey = (hotkey = 'F10') => {
+export const useThemeToggleHotkey = (hotkey = 'F4') => {
   const [, theme] = useDeferredModule(ThemeService)
   useEffect(() => {
     if (theme) {

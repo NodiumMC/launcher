@@ -30,6 +30,9 @@ export interface Structure<I = string> {
       skip: I
       retry: I
     }
+    theme: {
+      reloading: I
+    }
   }
   minecraft: {
     settings: I
