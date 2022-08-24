@@ -11,6 +11,7 @@ import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
+import { Text } from 'components/micro/Text'
 
 const AppRoot = styled.div`
   width: 100%;

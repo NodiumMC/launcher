@@ -81,11 +81,11 @@ export const Popup: FC<IPopup> = ({
   return (
     <Popuup>
       <Icon level={level}>{icon}</Icon>
-      <Text as={'h4'} ns center bold>
+      <Text as={'h4'} center bold>
         {title}
       </Text>
       {typeof description !== 'object' ? (
-        <Text pre shade center ns>
+        <Text pre shade={'medium'} center>
           {description}
         </Text>
       ) : (
