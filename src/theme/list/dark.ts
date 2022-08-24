@@ -52,6 +52,24 @@ export const dark = {
     yellow: {
       default: '#fff791',
     },
+    console: [
+      '#000',
+      '#ff5050',
+      '#bfff50',
+      '#ffdc50',
+      '#55F',
+      '#F5F',
+      '#5FF',
+      '#AAA',
+      '#555',
+      '#ff245d',
+      '#80ff2c',
+      '#ffcf11',
+      '#6237ff',
+      '#d231ff',
+      '#00ff8b',
+      '#FFF',
+    ],
   },
   gradients: {
     primary: linearGradient({
