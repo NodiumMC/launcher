@@ -1,11 +1,11 @@
 import { action, makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
-import { wrap } from 'components/macro/popup/PopupBase'
 import { Module } from 'mobmarch'
+import type { IPopup } from 'components/macro/popup/PopupProps'
 
 @Module
 export class PopupService {
-  @observable private _popups: Record<string, JSX.Element> = {}
+  @observable private _popups: Record<string, IPopup> = {}
   constructor() {
     makeObservable(this)
   }
@@ -15,9 +15,9 @@ export class PopupService {
   }
 
   @action.bound
-  spawn(element: JSX.Element) {
+  spawn(popup: Omit<IPopup, 'close'>) {
     const id = nanoid()
-    this._popups[id] = wrap(element, () => this.close(id))
+    this._popups[id] = { ...popup, close: () => this.close(id) }
   }
 
   @action.bound

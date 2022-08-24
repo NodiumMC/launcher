@@ -1,14 +1,14 @@
 import { makeObservable, observable } from 'mobx'
 import { Logger } from 'logging'
-import { singleton } from 'tsyringe'
 import inject from 'flinject'
+import { Module } from 'mobmarch'
 
 /**
  * <h1>class LoggingPool</h1>
  * A pool of loggers.
  * @class
  */
-@singleton()
+@Module
 export class LoggingPool {
   static readonly Main = Symbol()
   @observable private _pool: Map<symbol, Logger> = new Map([

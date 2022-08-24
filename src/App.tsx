@@ -1,21 +1,22 @@
 import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { AppPreloader } from 'components/macro/AppPreloader/AppPreloader'
-import { Header } from 'components/macro/header/Header'
-import { useThemeToggleHotkey } from 'hooks'
-import { GlobalStyle } from 'global'
-import { PopupContainer } from 'components/macro/popup/PopupContainer'
-import { Fonts } from 'components/utils/Font'
+import { AppPreloader } from 'components/macro/AppPreloader'
+import { Header } from 'components/macro/header'
+import { useOnce, useThemeToggleHotkey } from 'hooks'
+import { Style } from 'global'
+import { PopupContainer } from 'components/macro/popup'
+import { Fonts, preload } from 'components/utils/Font'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
+import { Text } from 'components/micro/Text'
 
 const AppRoot = styled.div`
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.colors.back};
+  background: ${({ theme }) => theme.palette.back.default};
   padding: 6px;
   transition: background-color ${({ theme }) => theme.transition.time};
   display: flex;
@@ -34,10 +35,11 @@ export const App: FC = Observer(() => {
   const [, theme] = useDeferredModule(ThemeService)
   useDeferredModule(Updater)
   useThemeToggleHotkey()
+  useOnce(preload)
   return (
     <>
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
-        <GlobalStyle />
+        <Style />
         <Fonts />
         <AppRoot>
           <Header />

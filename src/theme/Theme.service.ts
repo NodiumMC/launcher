@@ -1,18 +1,24 @@
 import { action, computed, makeObservable, observable } from 'mobx'
-import { darkTheme, lightTheme } from 'theme'
+import type { SupportedTheme, Theme } from 'theme'
 import { CentralConfig } from 'config'
-import type { Nullable } from 'utils/types'
 import { Module } from 'mobmarch'
-import { deviceThemeIsDark } from 'theme'
+import { deviceThemeIsDark, themes } from 'theme'
+import { Preloader } from 'preload'
+import { I18n } from 'i18n'
+import { wait } from 'utils/wait'
 
-@Module([CentralConfig])
+@Module([CentralConfig, Preloader, I18n])
 export class ThemeService {
   @observable
-  private isDark = deviceThemeIsDark()
+  private _theme: SupportedTheme = deviceThemeIsDark() ? 'dark' : 'light'
 
-  constructor(private cc: CentralConfig) {
+  constructor(
+    private readonly cc: CentralConfig,
+    private readonly preloader: Preloader,
+    private readonly i18n: I18n,
+  ) {
     makeObservable(this)
-    this.isDark = this.cc.data.appearance.darkTheme ?? this.isDark
+    this._theme = this.cc.data.appearance.theme ?? this._theme
   }
 
   private async saveTheme() {
@@ -20,28 +26,29 @@ export class ThemeService {
   }
 
   @action.bound
-  toggle() {
-    this.isDark = !this.isDark
-    this.cc.data.appearance.darkTheme = this.isDark
-    this.saveTheme()
-  }
-
-  @action.bound
   update() {
-    this.isDark = this.cc.data.appearance.darkTheme ?? this.isDark
+    this._theme = this.cc.data.appearance.theme ?? this._theme
     this.saveTheme()
   }
 
-  @computed
-  get theme() {
-    return this.isDark ? darkTheme : lightTheme
+  get current() {
+    return this._theme
+  }
+
+  get theme(): Theme {
+    return themes[this._theme]
   }
 
   @action.bound
-  setTheme(isDark: Nullable<boolean>) {
-    this.isDark =
-      isDark ?? window.matchMedia('(prefers-color-scheme: dark)').matches
-    this.cc.data.appearance.darkTheme = isDark
-    this.saveTheme()
+  async setTheme(theme: SupportedTheme) {
+    this._theme = theme
+    this.cc.data.appearance.theme = this._theme
+    await this.preloader.add(
+      this.i18n.translate.appearance.theme.reloading,
+      async () => {
+        await this.saveTheme()
+        await wait(2000)
+      },
+    )
   }
 }

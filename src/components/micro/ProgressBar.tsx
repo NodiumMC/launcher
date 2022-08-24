@@ -12,7 +12,7 @@ export interface ProgressBarProps {
 const Wrapper = styled.div`
   width: 100%;
   height: 16px;
-  background-color: ${({ theme }) => theme.colors.backShade};
+  background-color: ${({ theme }) => theme.palette.back.shades[0]};
   border-radius: 5px;
   overflow: hidden;
   position: relative;
@@ -26,7 +26,7 @@ interface ProgressProps {
 const Progress = styled.div<ProgressProps>`
   width: ${({ value }) => `${value}%`};
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.accent};
+  background-color: ${({ theme }) => theme.palette.accent.default};
   border-radius: 5px;
   position: absolute;
   top: 0;

@@ -29,6 +29,9 @@
       "cancel": "Cancel",
       "skip": "Skip",
       "retry": "Retry"
+    },
+    "theme": {
+      "reloading": "Reloading theme"
     }
   },
   "minecraft": {

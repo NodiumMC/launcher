@@ -13,7 +13,7 @@ const Substrate = styled.div<SubstrateProps>`
   width: 18px;
   height: 18px;
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.colors.mid : theme.colors.accent};
+    disabled ? theme.palette.grayscale[2] : theme.palette.accent.default};
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
 
@@ -21,7 +21,7 @@ const Substrate = styled.div<SubstrateProps>`
     ${({ disabled, theme }) =>
       !disabled
         ? `
-    box-shadow: 0 0 10px 1px ${theme.colors.accent}3F
+    box-shadow: 0 0 10px 1px ${theme.palette.accent.default}3F
     `
         : ''}
   }
@@ -54,7 +54,7 @@ const Container = styled(Substrate)<Value<boolean>>`
   width: 16px;
   height: 16px;
   background-color: ${({ theme, value }) =>
-    value ? theme.colors.accent : theme.colors.back};
+    value ? theme.palette.accent.default : theme.palette.back.default};
   z-index: 1;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 
@@ -78,7 +78,7 @@ const L = styled.div`
     content: '';
     display: block;
     position: absolute;
-    background-color: ${({ theme }) => theme.colors.front};
+    background-color: ${({ theme }) => theme.palette.front.default};
     z-index: 2;
   }
 
@@ -107,7 +107,7 @@ const Checked = styled.div<Value<boolean> & SubstrateProps>`
   border-radius: 50%;
   transition: all ${({ theme }) => theme.transition.time};
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.colors.mid : theme.colors.accent};
+    disabled ? theme.palette.grayscale[2] : theme.palette.accent.default};
   z-index: 2;
 `
 

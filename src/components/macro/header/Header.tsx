@@ -28,7 +28,7 @@ const HeaderBlock = styled.div`
   &:after {
     @property --hdcolor {
       syntax: '<color>';
-      initial-value: ${({ theme }) => theme.colors.backShade};
+      initial-value: ${({ theme }) => theme.palette.back.shades[0]};
       inherits: false;
     }
     background: linear-gradient(
@@ -37,14 +37,14 @@ const HeaderBlock = styled.div`
       var(--hdcolor),
       transparent
     );
-    --hdcolor: ${({ theme }) => theme.colors.backShade};
+    --hdcolor: ${({ theme }) => theme.palette.back.shades[0]};
     transition: --hdcolor ${({ theme }) => theme.transition.time};
   }
 `
 
 const Title = styled.div`
   ${({ theme }) => font(theme.fonts.interact)}
-  color: ${({ theme }) => theme.colors.ambient};
+  color: ${({ theme }) => theme.palette.back.shades[2]};
   user-select: none;
   transition: color ${({ theme }) => theme.transition.time};
   position: absolute;

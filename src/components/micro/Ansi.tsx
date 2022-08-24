@@ -9,39 +9,39 @@ export const Ansi = styled.span<AnsiProps>`
   color: ${({ escape, theme }) => {
     switch (escape) {
       case 30:
-        return theme.colors.console[0]
+        return theme.palette.console[0]
       case 31:
-        return theme.colors.console[1]
+        return theme.palette.console[1]
       case 32:
-        return theme.colors.console[2]
+        return theme.palette.console[2]
       case 33:
-        return theme.colors.console[3]
+        return theme.palette.console[3]
       case 34:
-        return theme.colors.console[4]
+        return theme.palette.console[4]
       case 35:
-        return theme.colors.console[5]
+        return theme.palette.console[5]
       case 36:
-        return theme.colors.console[6]
+        return theme.palette.console[6]
       case 37:
-        return theme.colors.console[7]
+        return theme.palette.console[7]
       case 90:
-        return theme.colors.console[8]
+        return theme.palette.console[8]
       case 91:
-        return theme.colors.console[9]
+        return theme.palette.console[9]
       case 92:
-        return theme.colors.console[10]
+        return theme.palette.console[10]
       case 93:
-        return theme.colors.console[11]
+        return theme.palette.console[11]
       case 94:
-        return theme.colors.console[12]
+        return theme.palette.console[12]
       case 95:
-        return theme.colors.console[13]
+        return theme.palette.console[13]
       case 96:
-        return theme.colors.console[14]
+        return theme.palette.console[14]
       case 97:
-        return theme.colors.console[15]
+        return theme.palette.console[15]
       default:
-        return theme.colors.console[15]
+        return theme.palette.console[15]
     }
   }};
   font-weight: ${({ escape }) => (escape === 1 ? 'bold' : 'normal')};

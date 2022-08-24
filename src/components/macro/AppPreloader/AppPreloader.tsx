@@ -14,7 +14,7 @@ const AppPreloaderWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.back};
+  background-color: ${({ theme }) => theme.palette.back.default};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,12 +52,12 @@ const Titles = styled.div`
 const AbsolutePreloader = styled(Preloader)`
   position: absolute;
   top: 50%;
-  transform: translate(-40px, -50%);
+  transform: translate(-32px, -50%);
 `
 
 const Stage = styled.div`
   position: relative;
-  color: ${({ theme }) => theme.colors.mid};
+  color: ${({ theme }) => theme.palette.grayscale[2]};
 `
 
 const StageWrapper = styled.div`

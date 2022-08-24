@@ -10,9 +10,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 40px;
-  border: 2px solid ${({ theme }) => theme.colors.backShade};
+  border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.back};
+  background-color: ${({ theme }) => theme.palette.back.default};
   transition: all ${({ theme }) => theme.transition.time};
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
@@ -40,7 +40,7 @@ const ItemWrapper = styled.div`
   padding: 0 10px;
 
   &:not(:first-child) {
-    border-top: 1px solid ${({ theme }) => theme.colors.backShade};
+    border-top: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
   }
 `
 
@@ -51,7 +51,7 @@ interface LabelProps {
 const Label = styled.span<LabelProps>`
   ${({ theme }) => font(theme.fonts.interact)};
   color: ${({ theme, selected }) =>
-    selected ? theme.colors.accent : theme.colors.front};
+    selected ? theme.palette.accent.default : theme.palette.front.default};
   user-select: none;
   transition: inherit;
 `
@@ -94,12 +94,12 @@ const List = styled.div<ListProps>`
   overflow: scroll;
   transition: inherit;
   border-radius: 10px;
-  border: 0px solid ${({ theme }) => theme.colors.backShade};
+  border: 0px solid ${({ theme }) => theme.palette.back.shades[0]};
   ${({ opened, theme }) =>
     opened
       ? `
     max-height: calc(3 * 40px);
-    border: 2px solid ${theme.colors.backShade};
+    border: 2px solid ${theme.palette.back.shades[0]};
   `
       : ''};
   transition-duration: 0.35s;
@@ -111,8 +111,8 @@ const Open = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme }) => theme.colors.mid};
-  border-left: 1px solid ${({ theme }) => theme.colors.backShade};
+  color: ${({ theme }) => theme.palette.back.shades[5]};
+  border-left: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
   cursor: pointer;
   transition: inherit;
 `

@@ -1,4 +1,4 @@
-import { PopupProps } from './PopupProps'
+import { IPopup } from './PopupProps'
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,7 +15,7 @@ import { Button } from '../../micro/Button'
 const Popuup = styled.div`
   width: 580px;
   height: 320px;
-  background-color: ${({ theme }) => theme.colors.back};
+  background-color: ${({ theme }) => theme.palette.back.default};
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -23,45 +23,26 @@ const Popuup = styled.div`
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
   gap: 20px;
-  border: 2px solid ${({ theme }) => theme.colors.backShade};
+  border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
   border-radius: 10px;
 `
 
-export interface PopupAction {
-  label: string
-  action: (close: () => void) => void
-  isPrimary?: boolean
-  isDanger?: boolean
-}
-
-export enum DefaultPupupAction {
-  CLOSE,
-  OK,
-}
-
-export interface DefaultPopupProps extends PopupProps {
-  level: 'ok' | 'warn' | 'error' | 'question' | 'info'
-  title: string
-  description: string
-  actions: PopupAction[]
-}
-
-const Icon = styled.div<Pick<DefaultPopupProps, 'level'>>`
+const Icon = styled.div<Pick<IPopup, 'level'>>`
   font-size: 70px;
   display: flex;
   justify-content: center;
   color: ${({ theme, level }) => {
     switch (level) {
       case 'ok':
-        return theme.colors.ok
+        return theme.palette.green.default
       case 'warn':
-        return theme.colors.warn
+        return theme.palette.yellow.default
       case 'error':
-        return theme.colors.danger
+        return theme.palette.red.default
       case 'question':
-        return theme.colors.accent
+        return theme.palette.accent.default
       case 'info':
-        return theme.colors.accent
+        return theme.palette.accent.default
     }
   }};
   transition: background-color ${({ theme }) => theme.transition.time};
@@ -75,7 +56,7 @@ const Actions = styled.div`
   align-items: flex-end;
 `
 
-export const DefaultPopup: FC<DefaultPopupProps> = ({
+export const Popup: FC<IPopup> = ({
   level,
   close,
   actions,
@@ -100,12 +81,16 @@ export const DefaultPopup: FC<DefaultPopupProps> = ({
   return (
     <Popuup>
       <Icon level={level}>{icon}</Icon>
-      <Text as={'h4'} ns center bold>
+      <Text as={'h4'} center bold>
         {title}
       </Text>
-      <Text pre shade center ns>
-        {description}
-      </Text>
+      {typeof description !== 'object' ? (
+        <Text pre shade={'medium'} center>
+          {description}
+        </Text>
+      ) : (
+        description
+      )}
       <Actions>
         {actions.map(({ label, action, isPrimary, isDanger }, index) => (
           <Button
