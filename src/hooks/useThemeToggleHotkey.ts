@@ -9,7 +9,11 @@ export const useThemeToggleHotkey = (hotkey = 'F10') => {
     if (theme) {
       const s = fromEvent(document, 'keyup')
         .pipe(filter(event => (event as KeyboardEvent).key === hotkey))
-        .subscribe(() => theme.toggle())
+        .subscribe(() =>
+          theme.current === 'dark'
+            ? theme.setTheme('light')
+            : theme.setTheme('dark'),
+        )
       return () => s.unsubscribe()
     }
   }, [theme])

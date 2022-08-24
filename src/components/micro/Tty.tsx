@@ -10,7 +10,7 @@ const AnsiHtml = styled.span`
   font-size: 11px;
   white-space: pre;
   line-height: 14px !important;
-  color: ${({ theme }) => theme.colors.gray};
+  color: ${({ theme }) => theme.palette.grayscale[3]};
   transition: all ${({ theme }) => theme.transition.time};
 `
 

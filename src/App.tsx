@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { AppPreloader } from 'components/macro/AppPreloader'
 import { Header } from 'components/macro/header'
 import { useThemeToggleHotkey } from 'hooks'
-import { GlobalStyle } from 'global'
+import { Style } from 'global'
 import { PopupContainer } from 'components/macro/popup'
 import { Fonts } from 'components/utils/Font'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
@@ -11,11 +11,13 @@ import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
+import { Button } from 'components/micro/Button'
+import { Checkbox } from 'components/micro/Checkbox'
 
 const AppRoot = styled.div`
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.colors.back};
+  background: ${({ theme }) => theme.palette.back.default};
   padding: 6px;
   transition: background-color ${({ theme }) => theme.transition.time};
   display: flex;
@@ -37,7 +39,7 @@ export const App: FC = Observer(() => {
   return (
     <>
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
-        <GlobalStyle />
+        <Style />
         <Fonts />
         <AppRoot>
           <Header />

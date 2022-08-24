@@ -5,7 +5,7 @@ import TomorrowLight from 'assets/fonts/Tomorrow/Tomorrow-Light.ttf'
 import Rubik from 'assets/fonts/Rubik/Rubik-Regular.ttf'
 
 export const font = (name?: string) => css`
-  font-family: ${({ theme }) => name ?? theme.fonts.text}, sans-serif;
+  font-family: ${({ theme }) => name ?? theme.fonts.default}, sans-serif;
 `
 
 export const fontFace = (

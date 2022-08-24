@@ -28,21 +28,21 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   user-select: none;
   background: ${({ theme, danger, disabled, primary }) =>
     disabled
-      ? theme.colors.mid
+      ? theme.palette.grayscale[2]
       : danger
-      ? theme.colors.danger
+      ? theme.palette.red.default
       : primary
-      ? theme.colors.accent
+      ? theme.palette.accent.default
       : 'transparent'};
   border: 2px solid
     ${({ theme, danger, disabled }) =>
       disabled
-        ? theme.colors.mid
+        ? theme.palette.grayscale[2]
         : danger
-        ? theme.colors.danger
+        ? theme.palette.red.default
         : disabled
-        ? theme.colors.mid
-        : theme.colors.accent};
+        ? theme.palette.grayscale[2]
+        : theme.palette.accent.default};
   ${transition()}
 
   &:hover {

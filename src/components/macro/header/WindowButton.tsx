@@ -22,12 +22,12 @@ const Button = styled.div<ButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme }) => theme.colors.mid};
+  color: ${({ theme }) => theme.palette.grayscale[2]};
   transition: color, background-color ${({ theme }) => theme.transition.time};
   &:hover {
     background-color: ${({ theme, danger }) =>
-      danger ? theme.colors.danger : theme.colors.ambient};
-    color: ${({ theme }) => theme.colors.front};
+      danger ? theme.palette.red.default : theme.palette.grayscale[5]};
+    color: ${({ theme }) => theme.palette.front.default};
   }
 `
 

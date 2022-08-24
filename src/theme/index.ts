@@ -1,3 +1,4 @@
 export * from './Theme.service'
-export * from './theme'
+export * from './type'
 export * from './utils'
+export * from './themes'

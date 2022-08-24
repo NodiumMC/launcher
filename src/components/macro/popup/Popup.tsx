@@ -15,7 +15,7 @@ import { Button } from '../../micro/Button'
 const Popuup = styled.div`
   width: 580px;
   height: 320px;
-  background-color: ${({ theme }) => theme.colors.back};
+  background-color: ${({ theme }) => theme.palette.back.default};
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ const Popuup = styled.div`
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
   gap: 20px;
-  border: 2px solid ${({ theme }) => theme.colors.backShade};
+  border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
   border-radius: 10px;
 `
 
@@ -34,15 +34,15 @@ const Icon = styled.div<Pick<IPopup, 'level'>>`
   color: ${({ theme, level }) => {
     switch (level) {
       case 'ok':
-        return theme.colors.ok
+        return theme.palette.green.default
       case 'warn':
-        return theme.colors.warn
+        return theme.palette.yellow.default
       case 'error':
-        return theme.colors.danger
+        return theme.palette.red.default
       case 'question':
-        return theme.colors.accent
+        return theme.palette.accent.default
       case 'info':
-        return theme.colors.accent
+        return theme.palette.accent.default
     }
   }};
   transition: background-color ${({ theme }) => theme.transition.time};

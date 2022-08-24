@@ -17,7 +17,7 @@ const Popup = styled.div`
   backdrop-filter: blur(20px);
   z-index: 1000;
   border-radius: 10px;
-  background-color: ${({ theme }) => rgba(theme.colors.back, 0.6)};
+  background-color: ${({ theme }) => rgba(theme.palette.back.default, 0.6)};
   transition: background-color ${({ theme }) => theme.transition.time};
 `
 
