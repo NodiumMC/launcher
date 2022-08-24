@@ -5,8 +5,6 @@ export const transition = (
   duration?: string,
   timing = '',
 ) => css`
-  ${selector} {
-    transition: ${selector} ${({ theme }) => duration ?? theme.transition.time}
-      ${timing};
-  }
+  transition: ${selector} ${({ theme }) => duration ?? theme.transition.time}
+    ${timing};
 `

@@ -5,7 +5,7 @@ export const dark = {
   ...generic,
   palette: {
     accent: {
-      default: '#7458f5',
+      default: '#00c6aa',
       get light() {
         return lighten(0.1, this.default)
       },
