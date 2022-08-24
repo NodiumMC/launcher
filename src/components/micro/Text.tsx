@@ -62,11 +62,11 @@ const lineHeightStyle = (height?: string | 'small' | 'medium' | 'high') =>
   height
     ? css`
         line-height: ${height === 'small'
-          ? '0.5rem'
+          ? '.9rem'
           : height === 'medium'
-          ? '1rem'
+          ? '1.2rem'
           : height === 'high'
-          ? '1.5rem'
+          ? '1.8rem'
           : height};
       `
     : ''
