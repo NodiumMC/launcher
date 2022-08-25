@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { opacify } from 'polished'
+import { opacify, rgba } from 'polished'
 
 export const Style = createGlobalStyle`
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
@@ -108,7 +108,7 @@ export const Style = createGlobalStyle`
   }
 
   *::selection {
-    background: ${({ theme }) => opacify(0.7, theme.palette.accent.default)};
+    background: ${({ theme }) => rgba(theme.palette.accent.default, 0.321)};
   }
   
   * {
