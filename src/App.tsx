@@ -11,7 +11,7 @@ import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
-import { Text } from 'components/micro/Text'
+import { Routes } from 'Routes'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -47,6 +47,7 @@ export const App: FC = Observer(() => {
             <Defer depend={Preloader}>
               <AppPreloader />
             </Defer>
+            <Routes />
             <Defer depend={PopupService}>
               <PopupContainer />
             </Defer>
