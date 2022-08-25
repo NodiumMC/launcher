@@ -53,6 +53,8 @@ const AbsolutePreloader = styled(Preloader)`
   position: absolute;
   top: 50%;
   transform: translate(-32px, -50%);
+  mix-blend-mode: difference;
+  filter: brightness(50%);
 `
 
 const Stage = styled.div`
