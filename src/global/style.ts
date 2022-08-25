@@ -66,7 +66,7 @@ export const Style = createGlobalStyle`
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: ${({ theme }) => theme.shape.radius[0]};
     font-family: Rubik, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
     color: ${({ theme }) => theme.palette.front.shades[0]};
     transition: background-color, color, font-size ${({ theme }) =>

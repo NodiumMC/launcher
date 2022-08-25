@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   height: 40px;
   border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.shape.radius[1]};
   background-color: ${({ theme }) => theme.palette.back.default};
   transition: all ${({ theme }) => theme.transition.time};
   position: relative;
@@ -59,7 +59,7 @@ const Label = styled.span<LabelProps>`
 const IconWrapper = styled.div`
   width: 30px;
   height: 20px;
-  border-radius: 5px;
+  border-radius: ${({ theme }) => theme.shape.radius[0]};
   overflow: hidden;
   * {
     width: 100%;
@@ -93,7 +93,7 @@ const List = styled.div<ListProps>`
   max-height: 0;
   overflow: scroll;
   transition: inherit;
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.shape.radius[1]};
   border: 0px solid ${({ theme }) => theme.palette.back.shades[0]};
   ${({ opened, theme }) =>
     opened

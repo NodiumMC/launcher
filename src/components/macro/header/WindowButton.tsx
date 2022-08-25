@@ -17,7 +17,7 @@ interface ButtonProps {
 const Button = styled.div<ButtonProps>`
   width: 22px;
   height: 22px;
-  border-radius: 5px;
+  border-radius: ${({ theme }) => theme.shape.radius[0]};
   font-size: 100%;
   display: flex;
   justify-content: center;
