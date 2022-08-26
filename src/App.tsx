@@ -12,6 +12,7 @@ import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
+import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -36,6 +37,7 @@ export const App: FC = Observer(() => {
   useDeferredModule(Updater)
   useThemeToggleHotkey()
   useOnce(preload)
+  useFontawesomeLoader()
   return (
     <>
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
