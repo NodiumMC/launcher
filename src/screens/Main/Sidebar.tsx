@@ -7,7 +7,7 @@ import { Changeable } from 'utils/UtilityProps'
 
 interface SidebarItem<T extends string | number = number>
   extends Changeable<T> {
-  id?: T
+  id: T
   icon: IconName
 }
 
