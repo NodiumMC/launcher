@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 16px;
   background-color: ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: 5px;
+  border-radius: ${({ theme }) => theme.shape.radius[1]};
   overflow: hidden;
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
@@ -27,7 +27,7 @@ const Progress = styled.div<ProgressProps>`
   width: ${({ value }) => `${value}%`};
   height: 100%;
   background-color: ${({ theme }) => theme.palette.accent.default};
-  border-radius: 5px;
+  border-radius: ${({ theme }) => theme.shape.radius[1]};
   position: absolute;
   top: 0;
   left: 0;

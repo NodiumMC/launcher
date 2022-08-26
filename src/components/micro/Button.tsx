@@ -20,7 +20,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  border-radius: 5px;
+  border-radius: ${({ theme }) => theme.shape.radius[0]};
   height: 36px;
   padding: 0 20px;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};

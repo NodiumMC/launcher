@@ -24,7 +24,7 @@ const Popuup = styled.div`
   transition: all ${({ theme }) => theme.transition.time};
   gap: 20px;
   border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.shape.radius[1]};
 `
 
 const Icon = styled.div<Pick<IPopup, 'level'>>`
