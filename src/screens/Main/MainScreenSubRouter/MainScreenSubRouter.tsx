@@ -45,7 +45,6 @@ export const MainScreenSidebarSubrouter: FC<
 > = Observer(({ children }) => {
   const items = useMemo(() => children.map(v => v.props), [])
   const subrouter = useModule(MainScreenSubRouter)
-  console.log(subrouter.location)
   return (
     <Wrapper>
       <FixedSidebar
