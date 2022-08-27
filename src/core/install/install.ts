@@ -11,6 +11,7 @@ import { batchDownload } from 'core'
 import { unzipNatives } from 'core'
 
 export interface InstallOptions {
+  vid: string
   clientDir: string
   gameDataDir: string
   blakemap: BlakeMap
@@ -25,17 +26,18 @@ export interface VersionInstallEvent {
 }
 
 export const install = async ({
+  vid,
   gameDataDir,
   clientDir,
   blakemap,
 }: InstallOptions) => {
-  const version = await readVersionFile(await join(clientDir, 'version.json'))
+  const version = await readVersionFile(await join(clientDir, `${vid}.json`))
   const libs = await compileLibraries(version.libraries, gameDataDir, clientDir)
   const assets = await compileAssetIndex(version, gameDataDir)
   const batch = [
     ...libs,
     ...assets,
-    { ...version.downloads.client, local: await join(clientDir, 'client.jar') },
+    { ...version.downloads.client, local: await join(clientDir, `${vid}.jar`) },
   ]
   const hashAttachedBatch = batch.map(v => ({ ...v, hash: blakemap[v.local] }))
   const emitter = new EventEmitter<VersionInstallEvent>()

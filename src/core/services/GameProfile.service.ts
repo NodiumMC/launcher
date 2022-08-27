@@ -1,12 +1,16 @@
-import { singleton } from 'tsyringe'
 import { action, makeObservable, observable } from 'mobx'
 import { LauncherProfile, LauncherProfiles } from 'core'
 import { join } from '@tauri-apps/api/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
+import { Initable, Module } from 'mobmarch'
 
-@singleton()
-export class GameProfileService {
+@Module
+export class GameProfileService implements Initable {
   @observable private _profiles: LauncherProfile[] = []
+
+  init() {
+    return this.reloadProfiles()
+  }
 
   constructor() {
     makeObservable(this)

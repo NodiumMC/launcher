@@ -4,6 +4,7 @@ import { command } from 'native/shell'
 import { join } from '@tauri-apps/api/path'
 
 export interface LaunchOptions {
+  vid: string
   javaExecutable?: string
   javaArgs?: string[]
   minecraftArgs?: string[]
@@ -20,7 +21,7 @@ export interface LaunchOptions {
 
 export const launch = async (options: LaunchOptions) => {
   const version = await readVersionFile(
-    await join(options.clientDir, 'version.json'),
+    await join(options.clientDir, `${options.vid}.json`),
   )
   const vlaunch: VersionedLaunchOptions = { ...options, version }
   const args = await compileArguments(vlaunch)
