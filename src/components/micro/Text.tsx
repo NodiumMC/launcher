@@ -8,7 +8,7 @@ export interface TextProps {
   right?: boolean
   selectable?: boolean
   lineHeight?: string | 'small' | 'medium' | 'high'
-  bold?: boolean | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+  weight?: boolean | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
   max?: string | number
   shade?: number | 'low' | 'medium' | 'high'
   gradient?: boolean
@@ -90,7 +90,7 @@ export const Text = styled.span<TextProps>`
     ${props.right && rightStyle}
     ${selectableStyle(props.selectable)}
     ${props.lineHeight && lineHeightStyle(props.lineHeight)}
-    ${props.bold && boldStyle(props.bold)}
+    ${props.weight && boldStyle(props.weight)}
     ${props.max && maxStyle(props.max)}
     ${props.shade && shadeStyle(props.shade)}
     ${props.gradient && gradientStyle}
