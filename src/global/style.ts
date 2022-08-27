@@ -112,7 +112,8 @@ export const Style = createGlobalStyle`
   }
   
   * {
-    transition: color, background-color ${({ theme }) => theme.transition.time};
+    transition: color, background-color, border-color ${({ theme }) =>
+      theme.transition.time};
     &:after, &:before {
       transition: color, background-color ${({ theme }) =>
         theme.transition.time};
