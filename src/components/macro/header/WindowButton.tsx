@@ -26,7 +26,7 @@ const Button = styled.div<ButtonProps>`
   transition: color, background-color ${({ theme }) => theme.transition.time};
   &:hover {
     background-color: ${({ theme, danger }) =>
-      danger ? theme.palette.red.default : theme.palette.grayscale[5]};
+      danger ? theme.palette.red.default : theme.palette.back.shades[3]};
     color: ${({ theme }) => theme.palette.front.default};
   }
 `

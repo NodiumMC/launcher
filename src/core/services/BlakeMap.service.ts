@@ -1,9 +1,9 @@
-import { singleton } from 'tsyringe'
 import { join } from '@tauri-apps/api/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { BlakeMap } from 'core'
+import { Module } from 'mobmarch'
 
-@singleton()
+@Module
 export class BlakeMapService {
   map: BlakeMap = {}
 
@@ -13,7 +13,8 @@ export class BlakeMapService {
 
   async load() {
     const path = await this.path()
-    if (!(await exists(path))) return
+    if (!(await exists(path)))
+      await writeJsonFile(path, {})
     this.map = await readJsonFile(path)
   }
 

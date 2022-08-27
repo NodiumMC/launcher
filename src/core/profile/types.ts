@@ -12,11 +12,6 @@ export interface LauncherProfile {
   attached?: string
 }
 
-export interface NodiumUserProdfile {
-  accessToken: string
-  nid: string
-}
-
 export interface LauncherProfiles {
   profiles: Record<string, LauncherProfile>
 }
