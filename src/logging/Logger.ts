@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx'
+import { action, computed, makeObservable, observable } from 'mobx'
 
 export class Logger {
   private static MAX_LENGTH = 10000
@@ -13,7 +13,7 @@ export class Logger {
    */
   @action.bound
   log(...messages: string[]): this {
-    this.write(messages.join('\n'))
+    this.write(messages.map(v => v + '\n').join(''))
     return this
   }
 
@@ -27,6 +27,7 @@ export class Logger {
     return this
   }
 
+  @computed
   get stdout(): string {
     return this.std.substring(
       this.std.length - Logger.MAX_LENGTH,
