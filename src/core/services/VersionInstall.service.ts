@@ -3,7 +3,7 @@ import { install, VersionInstallEvent } from 'core'
 import EventEmitter from 'eventemitter3'
 import { Module } from 'mobmarch'
 import { join } from '@tauri-apps/api/path'
-import { GameDir } from 'native/filesystem'
+import { exists, GameDir } from 'native/filesystem'
 
 @Module([BlakeMapService])
 export class VersionInstallService {
@@ -30,10 +30,8 @@ export class VersionInstallService {
   }
 
   async install(vid: string) {
-    return this._install(
-      vid,
-      await join(await GameDir(), 'versions', vid),
-      await GameDir(),
-    )
+    const vpath = await join(await GameDir(), 'versions', vid)
+    if(!(await exists(vpath))) throw new Error(`There is no version ${vid}`)
+    return this._install(vid, vpath, await GameDir())
   }
 }

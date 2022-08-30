@@ -27,8 +27,8 @@ const placeholderifyArguments =
     return args.mapAsync(async arg =>
       arg
         .replaceAll('${auth_player_name}', options.username)
-        .replaceAll('${auth_access_token}', options.accessToken)
-        .replaceAll('${auth_uuid}', options.uuid)
+        .replaceAll('${auth_access_token}', options.accessToken ?? 'null')
+        .replaceAll('${auth_uuid}', options.uuid ?? '00000000-0000-0000-0000-000000000000')
         .replaceAll('${game_directory}', options.gameDir)
         .replaceAll('${version_name}', options.version.id)
         .replaceAll('${resolution_width}', options.windowWidth.toString())
@@ -44,7 +44,7 @@ const placeholderifyArguments =
         .replaceAll('${launcher_name}', 'NodiumLauncher')
         .replaceAll('${launcher_version}', await getVersion())
         .replaceAll('${user_type}', 'mojang')
-        .replaceAll('${clientid}', options.accessToken)
+        .replaceAll('${clientid}', options.accessToken ?? 'null')
         .replaceAll(
           '${library_directory}',
           await join(options.gameDataDir, 'libraries'),
@@ -64,6 +64,7 @@ export const compileArguments = async (
   const game = options.version.arguments.game ?? options.minecraftArgs
   const jvm = options.version.arguments.jvm ?? options.javaArgs
   const classPathString = await compileClasspath(
+    options.vid,
     options.version,
     options.gameDataDir,
     options.clientDir,
