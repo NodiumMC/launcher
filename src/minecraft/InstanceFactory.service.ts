@@ -3,7 +3,9 @@ import { VersionInstallService } from 'core/services/VersionInstall.service'
 import { LoggingPool } from 'logging'
 import { Instance } from 'minecraft/Instance'
 
-type OmitLast2<T extends any[]> = T extends [ ...infer Head, any, any ] ? Head : any[];
+type OmitLast2<T extends any[]> = T extends [...infer Head, any, any]
+  ? Head
+  : any[]
 
 @Module([VersionInstallService, LoggingPool])
 export class InstanceFactory {

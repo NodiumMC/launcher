@@ -28,7 +28,10 @@ const placeholderifyArguments =
       arg
         .replaceAll('${auth_player_name}', options.username)
         .replaceAll('${auth_access_token}', options.accessToken ?? 'null')
-        .replaceAll('${auth_uuid}', options.uuid ?? '00000000-0000-0000-0000-000000000000')
+        .replaceAll(
+          '${auth_uuid}',
+          options.uuid ?? '00000000-0000-0000-0000-000000000000',
+        )
         .replaceAll('${game_directory}', options.gameDir)
         .replaceAll('${version_name}', options.version.id)
         .replaceAll('${resolution_width}', options.windowWidth.toString())

@@ -26,9 +26,7 @@ export const Main: FC = () => {
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
           <Text>456</Text>
         </SubRoute>
-        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}>
-
-        </SubRoute>
+        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}></SubRoute>
       </MainScreenSidebarSubrouter>
     </Defer>
   )
