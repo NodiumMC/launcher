@@ -35,7 +35,7 @@ const Selector = styled.div<{ position: number }>`
   transform: translateY(calc(${({ position }) => position} * 100%));
   top: 0;
   left: 0;
-  background: ${({ theme }) => theme.gradients.mono} center;
+  border: 2px solid ${({ theme }) => theme.palette.accent.default};
   background-size: 200%;
   z-index: -1;
   ${transition('transform')}
@@ -61,7 +61,7 @@ const SidebarItem = styled.div<{ active: boolean }>`
   justify-content: center;
   align-items: center;
   color: ${({ theme, active }) =>
-    active ? theme.palette.front.shades[3] : 'white'};
+    active ? theme.palette.front.shades[3] : theme.palette.accent.default};
   font-size: 18px;
   cursor: pointer;
 `
