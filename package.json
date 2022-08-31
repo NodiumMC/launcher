@@ -45,6 +45,7 @@
     "reflect-metadata": "0.1.13",
     "rxjs": "7.5.6",
     "styled-components": "5.3.5",
+    "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch",
     "tsyringe": "4.7.0",
     "typed-emitter": "2.1.0",
     "webfontloader": "1.6.28"
