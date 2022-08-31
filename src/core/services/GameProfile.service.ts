@@ -3,12 +3,14 @@ import { LauncherProfile, LauncherProfiles } from 'core'
 import { join } from '@tauri-apps/api/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { Initable, Module } from 'mobmarch'
+import { watch } from 'tauri-plugin-fs-watch-api'
 
 @Module
 export class GameProfileService implements Initable {
   @observable private _profiles: LauncherProfile[] = []
 
-  init() {
+  async init() {
+    watch(await this.pathToProfile(), {}, this.reloadProfiles.bind(this))
     return this.reloadProfiles()
   }
 
