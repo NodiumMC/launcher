@@ -78,7 +78,7 @@ const L = styled.div`
     content: '';
     display: block;
     position: absolute;
-    background-color: ${({ theme }) => theme.palette.front.default};
+    background-color: white;
     z-index: 2;
   }
 

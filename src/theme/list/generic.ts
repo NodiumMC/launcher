@@ -8,6 +8,6 @@ export const generic = {
     time: '.3s',
   },
   shape: {
-    radius: ['6px', '12px', '20px'],
+    radius: ['6px', '10px', '12px'],
   },
 }
