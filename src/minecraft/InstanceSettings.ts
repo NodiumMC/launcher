@@ -1,3 +1,6 @@
 import { LaunchOptions } from 'core'
 
-export type InstanceSettings = Pick<LaunchOptions, 'alloc' | 'javaArgs' | 'javaExecutable' | 'minecraftArgs' | 'windowHeight' | 'windowWidth'>
+export interface InstanceSettings extends Pick<LaunchOptions, 'alloc' | 'javaArgs' | 'javaExecutable' | 'minecraftArgs' | 'windowHeight' | 'windowWidth'> {
+  vid: string
+  name: string
+}
