@@ -6,7 +6,9 @@ import { Observer } from 'mobmarch'
 export const PlaySubscreen: FC = Observer(() => {
   return (
     <Screen>
-      <Text pre style={{ fontSize: '11px' }}>123</Text>
+      <Text pre style={{ fontSize: '11px' }}>
+        123
+      </Text>
     </Screen>
   )
 })

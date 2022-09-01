@@ -1,2 +1,2 @@
 export * from './Instance'
-export * from './Instances.service'
+export * from './InstanceFactory.service'

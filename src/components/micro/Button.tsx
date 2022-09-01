@@ -24,7 +24,8 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   height: 36px;
   padding: 0 20px;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  color: white;
+  color: ${({ primary, theme }) =>
+    primary ? 'white' : theme.palette.front.default};
   ${({ theme }) => font(theme.fonts.interact)}
   user-select: none;
   background: ${({ theme, danger, disabled, primary }) =>

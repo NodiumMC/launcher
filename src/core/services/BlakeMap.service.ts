@@ -13,8 +13,7 @@ export class BlakeMapService {
 
   async load() {
     const path = await this.path()
-    if (!(await exists(path)))
-      await writeJsonFile(path, {})
+    if (!(await exists(path))) await writeJsonFile(path, {})
     this.map = await readJsonFile(path)
   }
 

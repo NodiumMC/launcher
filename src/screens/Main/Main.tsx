@@ -9,7 +9,8 @@ import { Defer } from 'mobmarch'
 import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
 import { VersionsSubscreen } from 'screens/Main/VersionsSubscreen'
-import { GameProfileService } from 'core/services/GameProfile.service'
+import { InstanceStore } from 'minecraft/InstanceStore.service'
+import { LoadingScreen } from 'components/utils/Screen'
 
 export const Main: FC = () => {
   return (
@@ -19,16 +20,14 @@ export const Main: FC = () => {
           <PlaySubscreen />
         </SubRoute>
         <SubRoute icon={'cubes'} to={MainScreenPage.VERSIONS}>
-          <Defer depend={GameProfileService}>
+          <Defer depend={InstanceStore} fallback={<LoadingScreen />}>
             <VersionsSubscreen />
           </Defer>
         </SubRoute>
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
           <Text>456</Text>
         </SubRoute>
-        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}>
-
-        </SubRoute>
+        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}></SubRoute>
       </MainScreenSidebarSubrouter>
     </Defer>
   )

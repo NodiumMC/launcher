@@ -28,11 +28,20 @@ const placeholderifyArguments =
       arg
         .replaceAll('${auth_player_name}', options.username)
         .replaceAll('${auth_access_token}', options.accessToken ?? 'null')
-        .replaceAll('${auth_uuid}', options.uuid ?? '00000000-0000-0000-0000-000000000000')
+        .replaceAll(
+          '${auth_uuid}',
+          options.uuid ?? '00000000-0000-0000-0000-000000000000',
+        )
         .replaceAll('${game_directory}', options.gameDir)
         .replaceAll('${version_name}', options.version.id)
-        .replaceAll('${resolution_width}', options.windowWidth.toString())
-        .replaceAll('${resolution_height}', options.windowHeight.toString())
+        .replaceAll(
+          '${resolution_width}',
+          options.windowWidth?.toString() ?? '1280',
+        )
+        .replaceAll(
+          '${resolution_height}',
+          options.windowHeight?.toString() ?? '720',
+        )
         .replaceAll('${assets_root}', await join(options.gameDataDir, 'assets'))
         .replaceAll('${game_assets}', await join(options.gameDataDir, 'assets'))
         .replaceAll('${assets_index_name}', options.version.assets)

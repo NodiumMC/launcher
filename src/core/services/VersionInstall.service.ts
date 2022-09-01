@@ -31,7 +31,7 @@ export class VersionInstallService {
 
   async install(vid: string) {
     const vpath = await join(await GameDir(), 'versions', vid)
-    if(!(await exists(vpath))) throw new Error(`There is no version ${vid}`)
+    if (!(await exists(vpath))) throw new Error(`There is no version ${vid}`)
     return this._install(vid, vpath, await GameDir())
   }
 }
