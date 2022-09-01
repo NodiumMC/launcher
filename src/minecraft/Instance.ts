@@ -56,8 +56,7 @@ export class Instance {
     if (!(await exists(clientDir)))
       throw new Error('No version is assigned to this instance')
     const gameDir = await join(await GameDir(), 'instances', this.settings.name)
-    if (!(await exists(gameDir)))
-      throw new Error('Instance is not exists')
+    if (!(await exists(gameDir))) throw new Error('Instance is not exists')
     const command = await launch({
       ...options,
       ...this.settings,
@@ -77,8 +76,11 @@ export class Instance {
     this.child = undefined
   }
 
-  get pid(){
-    if(!this.child) throw new Error('Process ID cannot be retrieved until the instance is started')
+  get pid() {
+    if (!this.child)
+      throw new Error(
+        'Process ID cannot be retrieved until the instance is started',
+      )
     return this.child?.pid
   }
 

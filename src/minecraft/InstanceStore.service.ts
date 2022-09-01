@@ -22,7 +22,7 @@ export class InstanceStore implements Initable {
     private readonly pool: LoggingPool,
     private readonly installer: VersionInstallService,
     private readonly profiles: GameProfileService,
-  ) { }
+  ) {}
 
   private async instancesPath() {
     return await join(await GameDir(), 'instances')
@@ -30,27 +30,44 @@ export class InstanceStore implements Initable {
 
   private async listAllInstanceFiles() {
     return readDir(await this.instancesPath(), { recursive: true })
-      .then(dir => dir.map(v => v.children?.find(file => file.name === 'instance.json')?.path))
+      .then(dir =>
+        dir.map(
+          v => v.children?.find(file => file.name === 'instance.json')?.path,
+        ),
+      )
       .then(unfiltered => unfiltered.filter(NonNullFilter))
   }
 
   private validateInstanceSettings(instance: InstanceSettings) {
-    return this.profiles.profiles.some(p => p.lastVersionId === instance.vid) && instance.name && instance.alloc
+    return (
+      this.profiles.profiles.some(p => p.lastVersionId === instance.vid) &&
+      instance.name &&
+      instance.alloc
+    )
   }
 
   async listNewInstances() {
     try {
       const instancePathes = await this.listAllInstanceFiles()
-      const instancesJson = await instancePathes.mapAsync(async file => {
-        try {
-          return readJsonFile<InstanceSettings>(file)
-        } catch (e) {
-          console.warn(`Failed to load ${file} instance file`)
-        }
-      }).then(v => v.filter(NonNullFilter))
-      const newInstances = instancesJson.filter(i => !this.instances.some(v => v.settings.vid === i.vid))
-      newInstances.filter(this.validateInstanceSettings.bind(this))
-        .forEach(settings => this.instances.push(new Instance(settings, this.pool, this.installer)))
+      const instancesJson = await instancePathes
+        .mapAsync(async file => {
+          try {
+            return readJsonFile<InstanceSettings>(file)
+          } catch (e) {
+            console.warn(`Failed to load ${file} instance file`)
+          }
+        })
+        .then(v => v.filter(NonNullFilter))
+      const newInstances = instancesJson.filter(
+        i => !this.instances.some(v => v.settings.vid === i.vid),
+      )
+      newInstances
+        .filter(this.validateInstanceSettings.bind(this))
+        .forEach(settings =>
+          this.instances.push(
+            new Instance(settings, this.pool, this.installer),
+          ),
+        )
     } catch (e) {
       console.warn('Failed to load new instances')
       // TODO: add noteup after implemented #NDML-2 (https://nodium.youtrack.cloud/issue/NDML-2/Noteup-sistema)

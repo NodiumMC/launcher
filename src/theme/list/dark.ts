@@ -88,10 +88,7 @@ export const dark = {
       toDirection: '45deg',
     }),
     mono: linearGradient({
-      colorStops: [
-        '#ff986c',
-        '#ffd06c'
-      ],
+      colorStops: ['#ff986c', '#ffd06c'],
       toDirection: '45deg',
     }),
   },

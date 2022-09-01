@@ -34,8 +34,14 @@ const placeholderifyArguments =
         )
         .replaceAll('${game_directory}', options.gameDir)
         .replaceAll('${version_name}', options.version.id)
-        .replaceAll('${resolution_width}', options.windowWidth?.toString() ?? '1280')
-        .replaceAll('${resolution_height}', options.windowHeight?.toString() ?? '720')
+        .replaceAll(
+          '${resolution_width}',
+          options.windowWidth?.toString() ?? '1280',
+        )
+        .replaceAll(
+          '${resolution_height}',
+          options.windowHeight?.toString() ?? '720',
+        )
         .replaceAll('${assets_root}', await join(options.gameDataDir, 'assets'))
         .replaceAll('${game_assets}', await join(options.gameDataDir, 'assets'))
         .replaceAll('${assets_index_name}', options.version.assets)
