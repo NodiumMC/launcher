@@ -10,11 +10,12 @@ import { InstanceSettings } from 'minecraft/InstanceSettings'
 import { GameProfileService } from 'core/services/GameProfile.service'
 
 @Module([VersionInstallService, LoggingPool, GameProfileService])
-export class InstanceManager implements Initable {
-  private instances: Instance[] = []
+export class InstanceStore implements Initable {
+  instances: Instance[] = []
 
   async init() {
-    return createDir(await this.instancesPath(), { recursive: true })
+    await createDir(await this.instancesPath(), { recursive: true })
+    await this.listNewInstances()
   }
 
   constructor(
@@ -55,5 +56,4 @@ export class InstanceManager implements Initable {
       // TODO: add noteup after implemented #NDML-2 (https://nodium.youtrack.cloud/issue/NDML-2/Noteup-sistema)
     }
   }
-
 }
