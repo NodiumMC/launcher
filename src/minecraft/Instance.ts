@@ -8,6 +8,7 @@ import { launch, LaunchOptions } from 'core'
 import { join } from '@tauri-apps/api/path'
 import { GameDir } from 'native/filesystem'
 import { Child } from '@tauri-apps/api/shell'
+import { InstanceSettings } from 'minecraft/InstanceSettings'
 
 export class Instance {
   private readonly loggerKey
@@ -20,6 +21,7 @@ export class Instance {
   constructor(
     name: string,
     vid: string,
+    public settings: InstanceSettings,
     private readonly loggingPool: LoggingPool,
     private readonly installer: VersionInstallService,
   ) {
@@ -54,13 +56,14 @@ export class Instance {
   async launch(
     options: Omit<
       LaunchOptions,
-      'clientDir' | 'gameDir' | 'gameDataDir' | 'vid'
+      'clientDir' | 'gameDir' | 'gameDataDir' | 'vid' | keyof InstanceSettings
     >,
   ) {
     if (!this.vid)
       throw new Error('No version is assigned to this instance')
     const command = await launch({
       ...options,
+      ...this.settings,
       vid: this.vid,
       clientDir: await join(await GameDir(), 'versions', this.vid),
       gameDir: await join(await GameDir(), 'instances', this.name),
