@@ -16,8 +16,8 @@ export interface LaunchOptions {
   username: string
   uuid?: string
   accessToken?: string
-  windowHeight: number
-  windowWidth: number
+  windowHeight?: number
+  windowWidth?: number
 }
 
 export const launch = async (options: LaunchOptions) => {
