@@ -1,5 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "schedule": ["every weekend"],
+  "branchPrefix": "deps/",
+  "labels": ["type: chore"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["pin", "patch"],
+      "automerge": true,
+      "automergeStrategy": "squash",
+      "commitMessagePrefix": "chore(deps):"
+    }
+  ],
   "extends": [
     "config:base"
   ]
