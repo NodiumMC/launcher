@@ -20,11 +20,12 @@ export class Instance {
     public settings: InstanceSettings,
     private readonly loggingPool: LoggingPool,
     private readonly installer: VersionInstallService,
+    public readonly path: string,
   ) {
     makeObservable(this)
     this.settings = settings
     this.loggerKey = Symbol(settings.name)
-    this.logger = loggingPool!.request(this.loggerKey)
+    this.logger = loggingPool.request(this.loggerKey)
   }
 
   get isInstalled() {
@@ -86,5 +87,9 @@ export class Instance {
 
   get isRunning() {
     return !!this.child
+  }
+
+  get asJson() {
+    return { ...this.settings }
   }
 }

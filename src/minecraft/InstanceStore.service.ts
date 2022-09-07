@@ -10,9 +10,7 @@ import { InstanceSettings } from 'minecraft/InstanceSettings'
 import { GameProfileService } from 'core/services/GameProfile.service'
 
 @Module([VersionInstallService, LoggingPool, GameProfileService])
-export class InstanceStore implements Initable {
-  instances: Instance[] = []
-
+export class InstanceStore extends Array<Instance> implements Initable {
   async init() {
     await createDir(await this.instancesPath(), { recursive: true })
     await this.listNewInstances()
@@ -22,7 +20,9 @@ export class InstanceStore implements Initable {
     private readonly pool: LoggingPool,
     private readonly installer: VersionInstallService,
     private readonly profiles: GameProfileService,
-  ) {}
+  ) {
+    super()
+  }
 
   private async instancesPath() {
     return await join(await GameDir(), 'instances')
@@ -41,8 +41,7 @@ export class InstanceStore implements Initable {
   private validateInstanceSettings(instance: InstanceSettings) {
     return (
       this.profiles.profiles.some(p => p.lastVersionId === instance.vid) &&
-      instance.name &&
-      instance.alloc
+      instance.name
     )
   }
 
@@ -52,20 +51,23 @@ export class InstanceStore implements Initable {
       const instancesJson = await instancePathes
         .mapAsync(async file => {
           try {
-            return readJsonFile<InstanceSettings>(file)
+            return {
+              ...(await readJsonFile<InstanceSettings>(file)),
+              path: file,
+            }
           } catch (e) {
             console.warn(`Failed to load ${file} instance file`)
           }
         })
         .then(v => v.filter(NonNullFilter))
       const newInstances = instancesJson.filter(
-        i => !this.instances.some(v => v.settings.vid === i.vid),
+        i => !this.some(v => v.settings.vid === i.vid),
       )
       newInstances
         .filter(this.validateInstanceSettings.bind(this))
         .forEach(settings =>
-          this.instances.push(
-            new Instance(settings, this.pool, this.installer),
+          this.push(
+            new Instance(settings, this.pool, this.installer, settings.path),
           ),
         )
     } catch (e) {
