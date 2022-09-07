@@ -3,12 +3,12 @@
   "schedule": ["every weekend"],
   "branchPrefix": "deps/",
   "labels": ["type: chore"],
+  "automergeStrategy": "squash",
+  "commitMessagePrefix": "chore(deps):",
   "packageRules": [
     {
       "matchUpdateTypes": ["pin", "patch"],
-      "automerge": true,
-      "automergeStrategy": "squash",
-      "commitMessagePrefix": "chore(deps):"
+      "automerge": true
     }
   ],
   "extends": [
