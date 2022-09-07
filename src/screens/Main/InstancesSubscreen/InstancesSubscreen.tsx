@@ -3,17 +3,17 @@ import { Observer, useModule } from 'mobmarch'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
-import { VersionItem } from 'screens/Main/VersionsSubscreen/VersionItem'
+import { InstanceItem } from 'screens/Main/InstancesSubscreen/VersionItem'
 
 const Page = styled(Screen)``
 
-export const VersionsSubscreen: FC = Observer(() => {
+export const InstancesSubscreen: FC = Observer(() => {
     const gp = useModule(GameProfileService)
 
     return (
       <Page>
         {gp.profiles.map(v => (
-          <VersionItem profile={v} key={v.lastVersionId} />
+          <InstanceItem profile={v} key={v.lastVersionId} />
         ))}
       </Page>
     )

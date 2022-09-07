@@ -6,11 +6,11 @@ import { Text } from 'components/micro/Text'
 import { ColoredTag } from 'components/micro/ColoredTag'
 import { linearGradient } from 'polished'
 
-export interface VersionItemProps {
+export interface InstanceItemProps {
   profile: LauncherProfile
 }
 
-const VersionItemStyled = styled.div`
+const InstanceItemStyled = styled.div`
   display: flex;
   gap: 10px;
   height: 70px;
@@ -41,7 +41,7 @@ const VersionIcon = styled(Img)`
   box-sizing: content-box;
 `
 
-export const VersionItem: FC<VersionItemProps> = ({ profile }) => {
+export const InstanceItem: FC<InstanceItemProps> = ({ profile }) => {
   const tagColor = useMemo(() => {
     switch (profile.type) {
       case 'custom':
@@ -63,10 +63,10 @@ export const VersionItem: FC<VersionItemProps> = ({ profile }) => {
     }
   }, [profile.type])
   return (
-    <VersionItemStyled>
+    <InstanceItemStyled>
       <VersionIcon src={profile.icon} />
       <Text>{profile.name}</Text>
       <ColoredTag color={tagColor}>{profile.type}</ColoredTag>
-    </VersionItemStyled>
+    </InstanceItemStyled>
   )
 }

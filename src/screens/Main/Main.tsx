@@ -8,7 +8,7 @@ import {
 import { Defer } from 'mobmarch'
 import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
-import { VersionsSubscreen } from 'screens/Main/VersionsSubscreen'
+import { InstancesSubscreen } from 'screens/Main/InstancesSubscreen'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { LoadingScreen } from 'components/utils/Screen'
 
@@ -21,7 +21,7 @@ export const Main: FC = () => {
         </SubRoute>
         <SubRoute icon={'cubes'} to={MainScreenPage.VERSIONS}>
           <Defer depend={InstanceStore} fallback={<LoadingScreen />}>
-            <VersionsSubscreen />
+            <InstancesSubscreen />
           </Defer>
         </SubRoute>
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
