@@ -11,7 +11,7 @@ export interface LaunchOptions {
   minecraftArgs?: string[]
   gameDir: string
   gameDataDir: string
-  alloc: number
+  alloc?: number
   clientDir: string
   username: string
   uuid?: string
@@ -27,6 +27,5 @@ export const launch = async (options: LaunchOptions) => {
   const version = await readVersionFile(versionFilePath)
   const vlaunch: VersionedLaunchOptions = { ...options, version }
   const args = await compileArguments(vlaunch)
-  console.log(args)
   return command(options.javaExecutable ?? 'java', args, options.gameDir)
 }
