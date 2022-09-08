@@ -2,7 +2,7 @@ import { Initable, Module } from 'mobmarch'
 import { VersionInstallService } from 'core/services/VersionInstall.service'
 import { LoggingPool } from 'logging'
 import { Instance } from 'minecraft/Instance'
-import { join } from '@tauri-apps/api/path'
+import { dirname, join } from '@tauri-apps/api/path'
 import { GameDir, readJsonFile } from 'native/filesystem'
 import { createDir, readDir } from '@tauri-apps/api/fs'
 import { NonNullFilter } from 'utils/filters'
@@ -53,7 +53,7 @@ export class InstanceStore extends Array<Instance> implements Initable {
           try {
             return {
               ...(await readJsonFile<InstanceSettings>(file)),
-              path: file,
+              path: await dirname(file),
             }
           } catch (e) {
             console.warn(`Failed to load ${file} instance file`)
