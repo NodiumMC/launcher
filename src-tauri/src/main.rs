@@ -5,6 +5,7 @@
 
 pub mod download;
 pub mod unzip;
+pub mod os;
 
 use tauri_plugin_fs_watch::Watcher;
 
@@ -14,7 +15,7 @@ async fn main() {
   let context = tauri::generate_context!();
   tauri::Builder::default()
     .plugin(Watcher::default())
-    .invoke_handler(tauri::generate_handler![download::download, download::download_abortable, unzip::unzip])
+    .invoke_handler(tauri::generate_handler![download::download, download::download_abortable, unzip::unzip, os::info])
     .run(context)
     .expect("error while running tauri application");
 }
