@@ -15,6 +15,13 @@ export const dark = {
     },
     front: {
       default: '#fff8e8',
+      tints: [
+        '#faf3e3',
+        '#f5eede',
+        '#f0e9d9',
+        '#ebe4d4',
+        '#e6dfcf',
+        '#e1daca'],
       shades: [
         '#ebe4d4',
         '#e1daca',
@@ -26,6 +33,7 @@ export const dark = {
     },
     back: {
       default: '#2c2525',
+      tints: ['#272020', '#221b1b', '#1d1616', '#181111', '#130c0c', '#0e0707'],
       shades: [
         '#362f2f',
         '#403939',
