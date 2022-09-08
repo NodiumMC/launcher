@@ -10,4 +10,15 @@ export const generic = {
   shape: {
     radius: ['6px', '10px', '12px'],
   },
+  size: {
+    font: {
+      xs: '8px',
+      s: '11px',
+      m: '16px',
+      l: '20px',
+      xl: '24px',
+      xxl: '32px',
+      xxxl: '42px',
+    },
+  },
 }
