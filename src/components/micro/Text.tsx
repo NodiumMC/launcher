@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components'
 import { ellipsis, mix } from 'polished'
 import { font } from 'components/utils/Font'
+import { shade, ShadeProps } from 'style'
 
-export interface TextProps {
+export interface TextProps extends ShadeProps {
   block?: boolean
   center?: boolean
   right?: boolean
@@ -10,10 +11,10 @@ export interface TextProps {
   lineHeight?: string | 'small' | 'medium' | 'high'
   weight?: boolean | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
   max?: string | number
-  shade?: number | 'low' | 'medium' | 'high'
   gradient?: boolean
   font?: string
   pre?: boolean
+  size?: string | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 }
 
 const blockStyle = css`
@@ -40,24 +41,6 @@ const maxStyle = (max?: number | string) => css`
   ${ellipsis(max)}
 `
 
-const shadeStyle = (level?: number | 'low' | 'medium' | 'high') =>
-  level
-    ? css`
-        color: ${({ theme }) =>
-          mix(
-            typeof level === 'string'
-              ? level === 'high'
-                ? 0.5
-                : level === 'medium'
-                ? 0.3
-                : 0.1
-              : level,
-            theme.palette.back.default,
-            theme.palette.front.default,
-          )};
-      `
-    : ''
-
 const lineHeightStyle = (height?: string | 'small' | 'medium' | 'high') =>
   height
     ? css`
@@ -80,6 +63,10 @@ const preStyle = css`
   white-space: pre-wrap;
 `
 
+const sizeStyle = (size: string) => css`
+  font-size: ${size};
+`
+
 export const Text = styled.span<TextProps>`
   display: inline-block;
   color: ${({ theme }) => theme.palette.front.default};
@@ -92,9 +79,14 @@ export const Text = styled.span<TextProps>`
     ${props.lineHeight && lineHeightStyle(props.lineHeight)}
     ${props.weight && boldStyle(props.weight)}
     ${props.max && maxStyle(props.max)}
-    ${props.shade && shadeStyle(props.shade)}
+    ${props.shade && shade(props.shade)}
     ${props.gradient && gradientStyle}
     ${props.font && font(props.font)}
     ${props.pre && preStyle}
+    ${props.size &&
+    sizeStyle(
+      props.theme.size.font[props.size as keyof typeof props.theme.size.font] ??
+        props.size,
+    )}
   `}
 `
