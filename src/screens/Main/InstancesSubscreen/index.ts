@@ -1,1 +1,1 @@
-export * from './VersionsSubscreen'
+export * from './InstancesSubscreen'

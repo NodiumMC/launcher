@@ -1,21 +1,32 @@
 import { FC } from 'react'
-import { Observer, useModule } from 'mobmarch'
-import { GameProfileService } from 'core/services/GameProfile.service'
+import { Defer, Observer, useModule } from 'mobmarch'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
-import { InstanceItem } from 'screens/Main/InstancesSubscreen/VersionItem'
+import { InstanceItem } from './InstanceItem'
+import { InstanceStore } from 'minecraft/InstanceStore.service'
+import { GameProfileService } from 'core/services/GameProfile.service'
 
-const Page = styled(Screen)``
+const Page = styled(Screen)`
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  overflow-y: scroll;
+  min-height: 100%;
+  width: auto;
+`
 
 export const InstancesSubscreen: FC = Observer(() => {
-    const gp = useModule(GameProfileService)
+  const istorage = useModule(InstanceStore)
 
-    return (
-      <Page>
-        {gp.profiles.map(v => (
-          <InstanceItem profile={v} key={v.lastVersionId} />
+  console.log(istorage)
+
+  return (
+    <Page>
+      <Defer depend={GameProfileService}>
+        {istorage.map(v => (
+          <InstanceItem instance={v} key={v.settings.name} />
         ))}
-      </Page>
-    )
-  }
-)
+      </Defer>
+    </Page>
+  )
+})
