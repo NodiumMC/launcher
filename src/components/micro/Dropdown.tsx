@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   height: 40px;
   border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[1]};
+  border-radius: ${({ theme }) => theme.shape.radius[0]};
   background-color: ${({ theme }) => theme.palette.back.default};
   transition: all ${({ theme }) => theme.transition.time};
   position: relative;
@@ -20,24 +20,26 @@ const Wrapper = styled.div`
 `
 
 export interface DropdownItem {
-  id: string
+  value: string
   label: string
   icon?: ReactNode
 }
 
-export interface DropdownProps extends DataInput<DropdownItem> {
+export interface DropdownProps extends DataInput<string> {
   items: DropdownItem[]
 }
 
 const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 40px;
+  height: 35px;
   gap: 10px;
   z-index: 1;
   transition: inherit;
   cursor: pointer;
   padding: 0 10px;
+  background-color: ${({ theme }) => theme.palette.back.default};
+  border-radius: inherit;
 
   &:not(:first-child) {
     border-top: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
@@ -59,8 +61,11 @@ const Label = styled.span<LabelProps>`
 const IconWrapper = styled.div`
   width: 30px;
   height: 20px;
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border-radius: inherit;
   overflow: hidden;
+  img {
+    object-fit: contain;
+  }
   * {
     width: 100%;
     height: 100%;
@@ -75,7 +80,7 @@ const Item: FC<{ selected: DropdownItem } & DataInput<DropdownItem>> = ({
   return (
     <ItemWrapper onClick={() => onChange?.(value!)}>
       <IconWrapper>{value?.icon}</IconWrapper>
-      <Label selected={selected.id === value?.id}>{value?.label}</Label>
+      <Label selected={selected.value === value?.value}>{value?.label}</Label>
     </ItemWrapper>
   )
 }
@@ -93,7 +98,7 @@ const List = styled.div<ListProps>`
   max-height: 0;
   overflow: scroll;
   transition: inherit;
-  border-radius: ${({ theme }) => theme.shape.radius[1]};
+  border-radius: inherit;
   border: 0px solid ${({ theme }) => theme.palette.back.shades[0]};
   ${({ opened, theme }) =>
     opened
@@ -118,12 +123,16 @@ const Open = styled.div`
 `
 
 export const Dropdown: FC<DropdownProps> = ({ items, value, onChange }) => {
+  const selectedItem = useMemo(() => items.find(v => v.value === value), [items, value])
+
   const normalized = useMemo(
     () => ({
-      ...value!,
+      ...selectedItem!,
       label:
-        value?.label.padEnd(Math.max(...items.map(v => v.label.length)), ' ') ??
-        '',
+        selectedItem?.label.padEnd(
+          Math.max(...items.map(v => v.label.length)),
+          ' ',
+        ) ?? '',
     }),
     [value],
   )
@@ -132,7 +141,7 @@ export const Dropdown: FC<DropdownProps> = ({ items, value, onChange }) => {
 
   return (
     <Wrapper>
-      <Item selected={value!} value={normalized} />
+      <Item selected={selectedItem!} value={normalized} />
       <Open
         tabIndex={0}
         onClick={() => setOpened(!opened)}
@@ -142,9 +151,14 @@ export const Dropdown: FC<DropdownProps> = ({ items, value, onChange }) => {
       </Open>
       <List opened={opened}>
         {items
-          .filter(i => value?.id !== i.id)
+          .filter(i => selectedItem?.value !== i.value)
           .map((i, key) => (
-            <Item key={key} selected={value!} value={i} onChange={onChange} />
+            <Item
+              key={key}
+              selected={selectedItem!}
+              value={i}
+              onChange={({ value }) => onChange?.(value)}
+            />
           ))}
       </List>
     </Wrapper>
