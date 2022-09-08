@@ -8,16 +8,17 @@ import { launch, LaunchOptions } from 'core'
 import { join } from '@tauri-apps/api/path'
 import { exists, GameDir } from 'native/filesystem'
 import { Child } from '@tauri-apps/api/shell'
-import { InstanceSettings } from 'minecraft/InstanceSettings'
+import type { InstanceSettings } from 'minecraft/InstanceSettings'
 
 export class Instance {
   private readonly loggerKey
   @observable private readonly logger: Logger
   @observable _installed = false
+  @observable readonly settings: InstanceSettings
   private child?: Child
 
   constructor(
-    public settings: InstanceSettings,
+    settings: InstanceSettings,
     private readonly loggingPool: LoggingPool,
     private readonly installer: VersionInstallService,
     public readonly path: string,
