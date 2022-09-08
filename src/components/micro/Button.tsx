@@ -53,8 +53,8 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   ${transition()}
 
   &:hover {
-    background-color: ${({ theme, danger, disabled, outlined }) =>
-      disabled || danger || !outlined
+    background-color: ${({ theme, danger, disabled, outlined, primary }) =>
+      disabled || danger || !outlined || primary
         ? 'none'
         : rgba(theme.palette.accent.default, 0.2)};
     box-shadow: ${({ theme, danger, disabled, outlined }) =>

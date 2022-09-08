@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import { DataInput, Value } from 'utils/UtilityProps'
+import { transition } from 'style'
 
 interface SubstrateProps {
   disabled?: boolean
@@ -15,7 +16,7 @@ const Substrate = styled.div<SubstrateProps>`
   background-color: ${({ theme, disabled }) =>
     disabled ? theme.palette.grayscale[2] : theme.palette.accent.default};
   position: relative;
-  transition: all ${({ theme }) => theme.transition.time};
+  ${transition('all', '100ms')}
 
   &:hover {
     ${({ disabled, theme }) =>
@@ -105,7 +106,7 @@ const Checked = styled.div<Value<boolean> & SubstrateProps>`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  transition: all ${({ theme }) => theme.transition.time};
+  ${transition('all', '50ms')}
   background-color: ${({ theme, disabled }) =>
     disabled ? theme.palette.grayscale[2] : theme.palette.accent.default};
   z-index: 2;
