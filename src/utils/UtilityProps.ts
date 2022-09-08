@@ -7,8 +7,10 @@ export interface Value<T> {
   value?: T
 }
 
-export interface Changeable<T> {
-  onChange?: (value: T) => void
+export type ChangeAction<T, R = unknown> = (value: T) => R
+
+export interface Changeable<T, R = unknown> {
+  onChange?: ChangeAction<T, R>
 }
 
 export type DataInput<T> = Value<T> & Changeable<T>
