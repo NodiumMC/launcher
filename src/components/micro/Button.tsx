@@ -1,28 +1,31 @@
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
 import { HasChildren, Clickable } from 'utils/UtilityProps'
-import { IconDefinition } from '@fortawesome/free-regular-svg-icons'
 import { font } from 'components/utils/Font'
 import { Preloader } from 'components/micro/Preloader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { transition } from 'style'
+import { shade, ShadeProps, transition } from 'style'
 import { rgba } from 'polished'
+import { IconName } from '@fortawesome/fontawesome-svg-core'
 
-interface ButtonWrapperProps {
+interface ButtonWrapperProps extends ShadeProps {
   primary?: boolean
   disabled?: boolean
   danger?: boolean
+  square?: boolean
+  outlined?: boolean
 }
 
 const ButtonWrapper = styled.div<ButtonWrapperProps>`
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ square }) => (square ? 'center' : 'space-between')};
   gap: 10px;
   border-radius: ${({ theme }) => theme.shape.radius[0]};
   height: 36px;
-  padding: 0 20px;
+  width: ${({ square }) => (square ? '36px' : 'auto')};
+  padding: ${({ square }) => (square ? '0' : '0 20px')};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   color: ${({ primary, theme }) =>
     primary ? 'white' : theme.palette.front.default};
@@ -37,19 +40,25 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
       ? theme.palette.accent.default
       : 'transparent'};
   border: 2px solid
-    ${({ theme, danger, disabled }) =>
+    ${({ theme, danger, disabled, outlined }) =>
       disabled
         ? theme.palette.grayscale[2]
         : danger
         ? theme.palette.red.default
         : disabled
         ? theme.palette.grayscale[2]
-        : theme.palette.accent.default};
+        : outlined
+        ? theme.palette.accent.default
+        : 'transparent'};
   ${transition()}
 
   &:hover {
-    box-shadow: ${({ theme, danger, disabled }) =>
-      disabled
+    background-color: ${({ theme, danger, disabled, outlined, primary }) =>
+      disabled || danger || !outlined || primary
+        ? 'none'
+        : rgba(theme.palette.accent.default, 0.2)};
+    box-shadow: ${({ theme, danger, disabled, outlined }) =>
+      disabled || !outlined
         ? 'none'
         : danger
         ? `
@@ -77,13 +86,17 @@ export interface ButtonProps
   extends ButtonWrapperProps,
     Clickable,
     HasChildren {
-  icon?: IconDefinition
+  icon?: IconName
   fetching?: boolean
 }
 
 const FetchingPreloader = styled(Preloader)`
   height: 16px;
   width: 16px;
+`
+
+const Icon = styled(FontAwesomeIcon)<ShadeProps>`
+  ${({ shade: level }) => shade(level)}
 `
 
 export const Button: FC<ButtonProps> = ({
@@ -94,8 +107,11 @@ export const Button: FC<ButtonProps> = ({
   primary,
   danger,
   children,
+  square,
+  outlined = true,
+  shade,
 }) => {
-  const wp = { danger, primary }
+  const wp = { danger, primary, square, outlined }
   const genericDisable = useMemo(
     () => disabled || fetching,
     [disabled, fetching],
@@ -106,7 +122,7 @@ export const Button: FC<ButtonProps> = ({
       onClick={() => !genericDisable && onClick?.()}
       disabled={genericDisable}
     >
-      {icon && <FontAwesomeIcon icon={icon} />}
+      {icon && <Icon icon={icon} shade={shade} />}
       {children}
       {fetching && <FetchingPreloader />}
     </ButtonWrapper>
