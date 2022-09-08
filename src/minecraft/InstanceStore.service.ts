@@ -3,7 +3,7 @@ import { VersionInstallService } from 'core/services/VersionInstall.service'
 import { LoggingPool } from 'logging'
 import { Instance } from 'minecraft/Instance'
 import { dirname, join } from '@tauri-apps/api/path'
-import { GameDir, readJsonFile } from 'native/filesystem'
+import { GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { createDir, readDir } from '@tauri-apps/api/fs'
 import { NonNullFilter } from 'utils/filters'
 import { InstanceSettings } from 'minecraft/InstanceSettings'
@@ -74,5 +74,13 @@ export class InstanceStore extends Array<Instance> implements Initable {
       console.warn('Failed to load new instances')
       // TODO: add noteup after implemented #NDML-2 (https://nodium.youtrack.cloud/issue/NDML-2/Noteup-sistema)
     }
+  }
+
+  async saveInstance(path: string) {
+    const instance = this.find(v => v.path === path)
+    if (!instance) throw new Error('Instance not found')
+    const serialized = instance.asJson
+    const instanceFilePath = await join(path, 'instance.json')
+    await writeJsonFile(instanceFilePath, serialized)
   }
 }
