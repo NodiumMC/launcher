@@ -11,6 +11,8 @@ import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
 import { InstancesSubscreen } from 'screens/Main/InstancesSubscreen'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { LoadingScreen } from 'components/utils/Screen'
+import { GameProfileService } from 'core/services/GameProfile.service'
+import { PopupService } from 'notifications'
 
 export const Main: FC = () => {
   return (
@@ -20,7 +22,10 @@ export const Main: FC = () => {
           <PlaySubscreen />
         </SubRoute>
         <SubRoute icon={'cubes'} to={MainScreenPage.VERSIONS}>
-          <Defer depend={InstanceStore} fallback={<LoadingScreen />}>
+          <Defer
+            depend={[InstanceStore, GameProfileService, PopupService]}
+            fallback={<LoadingScreen />}
+          >
             <InstancesSubscreen />
           </Defer>
         </SubRoute>

@@ -1,5 +1,5 @@
 import { IPopup } from './PopupProps'
-import { FC, useMemo } from 'react'
+import { FC, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Text } from '../../micro/Text'
 import { Button } from '../../micro/Button'
+import { isPromise } from 'utils/promise'
 
 const Popuup = styled.div`
   width: 580px;
@@ -78,6 +79,7 @@ export const Popup: FC<IPopup> = ({
       ),
     [level],
   )
+  const [waiting, setWaiting] = useState(false)
   return (
     <Popuup>
       <Icon level={level}>{icon}</Icon>
@@ -95,9 +97,16 @@ export const Popup: FC<IPopup> = ({
         {actions.map(({ label, action, isPrimary, isDanger }, index) => (
           <Button
             key={index}
-            onClick={() => close && action(close)}
+            onClick={() => {
+              const result = action(close)
+              if (isPromise(result)) {
+                setWaiting(true)
+                result.finally(() => (setWaiting(false), close()))
+              } else close()
+            }}
             primary={isPrimary}
             danger={isDanger}
+            disabled={waiting}
           >
             {label}
           </Button>

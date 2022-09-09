@@ -17,6 +17,7 @@ import { inputValue } from 'utils/react'
 import { Pair } from 'components/utils/Pair'
 import { useOsInfo } from 'hooks'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
+import { PopupService } from 'notifications'
 
 export interface InstanceItemProps {
   instance: Instance
@@ -107,6 +108,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
 
   const profileService = useModule(GameProfileService)
   const istore = useModule(InstanceStore)
+  const popup = useModule(PopupService)
 
   useEffect(() => {
     join(instance.path, 'icon.png').then(path =>
@@ -125,7 +127,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
 
   const save = useCallback(() => {
     instance.settings.vid = vid
-    instance.settings.name = name
+    instance.settings.name = name.trim()
     instance.settings.alloc = alloc
     instance.settings.windowHeight = windowHeight
     instance.settings.windowWidth = windowWidth
@@ -133,13 +135,40 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
     istore.saveInstance(instance.path).finally(() => setSaving(false))
   }, [instance, vid, name, alloc, windowWidth, windowHeight])
 
+  const deleteInstance = useCallback(() => {
+    popup.spawn({
+      level: 'warn',
+      title: `Удалить "${instance.settings.name}"?`,
+      description:
+        'Это приведёт к удалению всех сохранений(миров), модов и настроек игры. Продолжить?',
+      actions: [
+        {
+          label: 'Удалить',
+          isDanger: true,
+          action: () => istore.deleteInstance(instance.path),
+        },
+        {
+          label: 'Отмена',
+          isPrimary: true,
+          action: close => close(),
+        },
+      ],
+    })
+  }, [instance])
+
   const availableToSave = useMemo(
     () =>
-      instance.settings.vid != vid ||
-      instance.settings.name != name ||
-      instance.settings.alloc != alloc ||
-      instance.settings.windowHeight != windowHeight ||
-      instance.settings.windowWidth != windowWidth,
+      !!(
+        !saving &&
+        (instance.settings.vid != vid ||
+          instance.settings.name != name.trim() ||
+          (instance.settings.alloc &&
+            instance.settings.alloc != alloc &&
+            instance.settings.windowHeight &&
+            instance.settings.windowHeight != windowHeight &&
+            instance.settings.windowWidth &&
+            instance.settings.windowWidth != windowWidth))
+      ),
     [instance, vid, name, alloc, windowWidth, windowHeight, saving],
   )
 
@@ -209,14 +238,20 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
             <Text shade={'high'}>MB</Text>
           </Pair>
         </WindowOptions>
-        <SaveActions visible={availableToSave}>
-          <Button disabled={saving} onClick={reset}>
-            Отмена
+        <Pair>
+          <SaveActions visible={availableToSave}>
+            <Button disabled={saving} onClick={reset}>
+              Отмена
+            </Button>
+            <Button fetching={saving} primary onClick={save}>
+              Сохранить
+            </Button>
+          </SaveActions>
+          <Gap />
+          <Button danger icon={'trash'} onClick={deleteInstance}>
+            Удалить
           </Button>
-          <Button fetching={saving} primary onClick={save}>
-            Сохранить
-          </Button>
-        </SaveActions>
+        </Pair>
       </Options>
     </InstanceItemStyled>
   )
