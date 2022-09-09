@@ -21,7 +21,7 @@ export class Instance {
     settings: InstanceSettings,
     private readonly loggingPool: LoggingPool,
     private readonly installer: VersionInstallService,
-    public readonly path: string,
+    public path: string,
   ) {
     makeObservable(this)
     this.settings = settings
