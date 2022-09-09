@@ -12,12 +12,18 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true,
+      "window": {
+        "startDragging": true
+      },
+      "path": {
+        "all": true
+      },
       "protocol": {
         "all": true,
         "assetScope": ["**"]
       },
       "fs": {
+        "all": true,
         "scope": [
           "**"
         ]
