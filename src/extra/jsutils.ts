@@ -11,4 +11,11 @@ Array.prototype.filterAsync = async function filterAsync<T>(
   return this.filter((value, index) => filterMap[index])
 }
 
+Array.prototype.removeIf = function (predicate) {
+  const candidate = this.findIndex(predicate)
+  if (candidate === -1) return false
+  this.splice(candidate, candidate + 1)
+  return true
+}
+
 export {}
