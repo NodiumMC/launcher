@@ -15,6 +15,7 @@ export interface TextProps extends ShadeProps {
   font?: string
   pre?: boolean
   size?: string | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
+  interaction?: boolean
 }
 
 const blockStyle = css`
@@ -67,6 +68,10 @@ const sizeStyle = (size: string) => css`
   font-size: ${size};
 `
 
+const interactionStyle = css`
+  font-family: ${({ theme }) => theme.fonts.interact};
+`
+
 export const Text = styled.span<TextProps>`
   display: inline-block;
   color: ${({ theme }) => theme.palette.front.default};
@@ -83,6 +88,7 @@ export const Text = styled.span<TextProps>`
     ${props.gradient && gradientStyle}
     ${props.font && font(props.font)}
     ${props.pre && preStyle}
+    ${props.interaction && interactionStyle}
     ${props.size &&
     sizeStyle(
       props.theme.size.font[props.size as keyof typeof props.theme.size.font] ??
