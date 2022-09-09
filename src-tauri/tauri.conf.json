@@ -13,7 +13,7 @@
   "tauri": {
     "allowlist": {
       "window": {
-        "startDragging": true
+        "all": true
       },
       "path": {
         "all": true
