@@ -21,7 +21,7 @@ export const Main: FC = () => {
         <SubRoute icon={'play'} to={MainScreenPage.PLAY}>
           <PlaySubscreen />
         </SubRoute>
-        <SubRoute icon={'cubes'} to={MainScreenPage.VERSIONS}>
+        <SubRoute icon={'cubes'} to={MainScreenPage.INSTANCES}>
           <Defer
             depend={[InstanceStore, GameProfileService, PopupService]}
             fallback={<LoadingScreen />}
