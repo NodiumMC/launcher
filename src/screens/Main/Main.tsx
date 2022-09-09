@@ -1,10 +1,5 @@
 import { FC } from 'react'
-import {
-  MainScreenPage,
-  MainScreenSidebarSubrouter,
-  MainScreenSubRouter,
-  SubRoute,
-} from './MainScreenSubRouter'
+import { MainScreenPage, MainScreenSidebarSubrouter, MainScreenSubRouter, SubRoute } from './MainScreenSubRouter'
 import { Defer } from 'mobmarch'
 import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
@@ -13,6 +8,7 @@ import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { LoadingScreen } from 'components/utils/Screen'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { PopupService } from 'notifications'
+import { VersionsSubscreen } from 'screens/Main/VersionsSubscreen'
 
 export const Main: FC = () => {
   return (
@@ -21,12 +17,17 @@ export const Main: FC = () => {
         <SubRoute icon={'play'} to={MainScreenPage.PLAY}>
           <PlaySubscreen />
         </SubRoute>
-        <SubRoute icon={'cubes'} to={MainScreenPage.VERSIONS}>
+        <SubRoute icon={'cubes'} to={MainScreenPage.INSTANCES}>
           <Defer
             depend={[InstanceStore, GameProfileService, PopupService]}
             fallback={<LoadingScreen />}
           >
             <InstancesSubscreen />
+          </Defer>
+        </SubRoute>
+        <SubRoute icon={'download'} to={MainScreenPage.VERSIONS}>
+          <Defer depend={GameProfileService}>
+            <VersionsSubscreen />
           </Defer>
         </SubRoute>
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
