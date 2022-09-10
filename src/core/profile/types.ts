@@ -1,4 +1,4 @@
-export interface LauncherProfile {
+export interface LauncherProfileJSON {
   lastUsed?: string
   lastVersionId: string
   created: string
@@ -9,9 +9,9 @@ export interface LauncherProfile {
   javaDir?: string
   javaArgs?: string
   minecraftArgs?: string
-  attached?: string
+  ready: boolean
 }
 
 export interface LauncherProfiles {
-  profiles: Record<string, LauncherProfile>
+  profiles: Record<string, LauncherProfileJSON>
 }
