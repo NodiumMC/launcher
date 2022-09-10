@@ -1,9 +1,6 @@
 import { makeObservable, observable } from 'mobx'
 import type { LoggingPool } from 'logging/LoggingPool.service'
 import type { Logger } from 'logging'
-import { VersionInstallService } from 'core/services/VersionInstall.service'
-import { Observable } from 'rxjs'
-import { map } from 'utils/map'
 import { launch, LaunchOptions } from 'core'
 import { join } from '@tauri-apps/api/path'
 import { exists, GameDir } from 'native/filesystem'
@@ -13,39 +10,18 @@ import type { InstanceSettings } from 'minecraft/InstanceSettings'
 export class Instance {
   private readonly loggerKey
   @observable private readonly logger: Logger
-  @observable _installed = false
   @observable readonly settings: InstanceSettings
   private child?: Child
 
   constructor(
     settings: InstanceSettings,
     private readonly loggingPool: LoggingPool,
-    private readonly installer: VersionInstallService,
     public path: string,
   ) {
     makeObservable(this)
     this.settings = settings
     this.loggerKey = Symbol(settings.name)
     this.logger = loggingPool.request(this.loggerKey)
-  }
-
-  get isInstalled() {
-    return this._installed
-  }
-
-  async install() {
-    const progress = await this.installer?.install(this.settings.vid)
-    if (!progress) throw new Error('Installer instance not exists')
-    return new Observable<number>(o => {
-      progress.on('download', data =>
-        o.next(map(data.transferred, 0, data.total, 0, 100)),
-      )
-      progress.on('unzip', data =>
-        o.next(map(data.progress, 0, data.total, 0, -50)),
-      )
-      progress.on('done', () => (o.complete(), (this._installed = true)))
-      progress.on('error', o.error.bind(o))
-    })
   }
 
   async launch(

@@ -1,6 +1,5 @@
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
-import { map } from 'utils/map'
 import { As, Styled } from 'utils/UtilityProps'
 
 export interface ProgressBarProps {
@@ -45,8 +44,8 @@ export const ProgressBar: FC<ProgressBarProps & Styled & As> = ({
   total,
   className,
 }) => {
-  const $pre = useMemo(() => map(pre, 0, total, 0, 100), [pre, total])
-  const $value = useMemo(() => map(value, 0, total, 0, 100), [value, total])
+  const $pre = useMemo(() => pre.map(0, total), [pre, total])
+  const $value = useMemo(() => value.map(0, total), [value, total])
   return (
     <Wrapper className={className}>
       <Progress value={$value} />
