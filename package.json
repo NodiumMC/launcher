@@ -36,6 +36,7 @@
     "mobx-react": "7.5.3",
     "nanoid": "4.0.0",
     "polished": "4.2.2",
+    "rc-select": "^14.1.11",
     "react": "18.2.0",
     "react-beautiful-dnd": "13.1.1",
     "react-country-flag": "3.0.2",
