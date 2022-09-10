@@ -1,5 +1,4 @@
 import { Initable, Module } from 'mobmarch'
-import { VersionInstallService } from 'core/services/VersionInstall.service'
 import { LoggingPool } from 'logging'
 import { Instance } from 'minecraft/Instance'
 import { dirname, join } from '@tauri-apps/api/path'
@@ -11,7 +10,7 @@ import { GameProfileService } from 'core/services/GameProfile.service'
 import { makeObservable, observable } from 'mobx'
 import { Fastore } from 'interfaces/Fastore'
 
-@Module([VersionInstallService, LoggingPool, GameProfileService])
+@Module([LoggingPool, GameProfileService])
 export class InstanceStore implements Initable, Fastore<Instance> {
   @observable list: Instance[] = []
 
@@ -22,7 +21,6 @@ export class InstanceStore implements Initable, Fastore<Instance> {
 
   constructor(
     private readonly pool: LoggingPool,
-    private readonly installer: VersionInstallService,
     private readonly profiles: GameProfileService,
   ) {
     makeObservable(this)
@@ -67,9 +65,7 @@ export class InstanceStore implements Initable, Fastore<Instance> {
       newInstances
         .filter(this.validateInstanceSettings.bind(this))
         .forEach(settings =>
-          this.list.push(
-            new Instance(settings, this.pool, this.installer, settings.path),
-          ),
+          this.list.push(new Instance(settings, this.pool, settings.path)),
         )
     } catch (e) {
       console.warn('Failed to load new instances')
@@ -102,10 +98,9 @@ export class InstanceStore implements Initable, Fastore<Instance> {
       new Instance(
         {
           name,
-          vid: this.profiles.profiles[0]?.lastVersionId ?? 'Unspecified',
+          vid: this.profiles.list[0]?.options.lastVersionId ?? 'Unspecified',
         },
         this.pool,
-        this.installer,
         path,
       ),
     )
