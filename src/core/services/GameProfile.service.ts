@@ -1,20 +1,23 @@
 import { action, makeObservable, observable } from 'mobx'
-import { LauncherProfileJSON, LauncherProfiles } from 'core'
+import { LauncherProfiles } from 'core'
 import { join } from '@tauri-apps/api/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { Initable, Module } from 'mobmarch'
 import { watch } from 'tauri-plugin-fs-watch-api'
+import { Fastore } from 'interfaces/Fastore'
+import { LauncherProfile } from 'minecraft/LauncherProfile'
+import { BlakeMapService } from 'core/services/BlakeMap.service'
 
-@Module
-export class GameProfileService implements Initable {
-  @observable private _profiles: LauncherProfileJSON[] = []
+@Module([BlakeMapService])
+export class GameProfileService implements Initable, Fastore<LauncherProfile> {
+  @observable list: LauncherProfile[] = []
 
   async init() {
     watch(await this.pathToProfile(), {}, this.reloadProfiles.bind(this))
     return this.reloadProfiles()
   }
 
-  constructor() {
+  constructor(private readonly blake: BlakeMapService) {
     makeObservable(this)
   }
 
@@ -28,17 +31,18 @@ export class GameProfileService implements Initable {
       await this.createEmptyProfile()
       return
     }
-    this._profiles = await readJsonFile<LauncherProfiles>(pathToProfiles).then(
-      res => Object.values(res.profiles),
-    )
+    const profileOptions = await readJsonFile<LauncherProfiles>(
+      pathToProfiles,
+    ).then(({ profiles }) => Object.values(profiles))
+    this.list = profileOptions.map(o => new LauncherProfile(o, this.blake))
+  }
+
+  New() {
+    // TODO:
   }
 
   private createEmptyProfile = async () =>
     writeJsonFile(await this.pathToProfile(), {
       profiles: {},
     })
-
-  get profiles() {
-    return this._profiles
-  }
 }
