@@ -43,7 +43,7 @@ export const InstancesSubscreen: FC = Observer(() => {
   const create = useCallback(() => {
     setCreating(true)
     istorage
-      .new()
+      .New()
       .catch(/* TODO: add notify #NDML-2 */)
       .finally(() => setCreating(false))
   }, [istorage, profileService])

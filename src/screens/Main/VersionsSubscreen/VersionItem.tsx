@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { LauncherProfile } from 'core'
 import styled from 'styled-components'
 import { Img } from 'components/utils/Img'
 import { linearGradient } from 'polished'
@@ -8,6 +7,7 @@ import { transition } from 'style'
 import { Grow } from 'components/utils/Grow'
 import { Pair } from 'components/utils/Pair'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { LauncherProfile } from 'minecraft/LauncherProfile'
 
 export interface VersionItemProps {
   profile: LauncherProfile
@@ -71,13 +71,44 @@ const Action = styled.button<{ deleteButton?: boolean }>`
   cursor: pointer;
 `
 
+const MicroProgress = styled.div<{ progress: number }>`
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+
+  &:after,
+  &:before {
+    content: '';
+    inset: 0;
+    display: block;
+    position: absolute;
+    height: 100%;
+    ${transition('width')}
+  }
+
+  &:before {
+    z-index: 1;
+    width: ${({ progress }) => `${progress}%`};
+    background-color: ${({ theme }) => theme.palette.blue.default};
+  }
+
+  &:after {
+    z-index: 2;
+    width: ${({ progress }) => `${progress > 100 ? progress - 100 : 0}%`};
+    background-color: ${({ theme }) => theme.palette.green.default};
+  }
+`
+
 export const VersionItem: FC<VersionItemProps> = ({ profile }) => {
   return (
     <StyledVersionItem>
-      <Icon src={profile.icon} />
+      <MicroProgress progress={profile.progress} />
+      <Icon src={profile.options.icon} />
       <Pane>
-        <Text size={'s'}>{profile.name}</Text>
-        <Text size={'xs'}>{profile.lastVersionId}</Text>
+        <Text size={'s'}>{profile.options.name}</Text>
+        <Text size={'xs'}>{profile.options.lastVersionId}</Text>
         <Grow />
         <Pair>
           <Action deleteButton>
