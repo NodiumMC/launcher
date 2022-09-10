@@ -39,6 +39,10 @@
     "play": "Play",
     "instance": "Instance",
     "profile": "Profile",
-    "profiles": "Profiles"
+    "profiles": "Profiles",
+    "providers": {
+      "mojang": "Official client provider. Mods are not supported",
+      "fabric": "Client with support for Fabric-compatible modifications"
+    }
   }
 }
