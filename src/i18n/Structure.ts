@@ -40,5 +40,9 @@ export interface Structure<I = string> {
     instance: I
     profile: I
     profiles: I
+    providers: {
+      mojang: I
+      fabric: I
+    }
   }
 }
