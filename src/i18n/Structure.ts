@@ -40,6 +40,10 @@ export interface Structure<I = string> {
     instance: I
     profile: I
     profiles: I
+    select_provider: I
+    snapshots: I
+    old: I
+    version: I
     providers: {
       mojang: I
       fabric: I

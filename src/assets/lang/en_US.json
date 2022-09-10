@@ -40,6 +40,10 @@
     "instance": "Instance",
     "profile": "Profile",
     "profiles": "Profiles",
+    "select_provider": "Select client provider",
+    "snapshots": "Snapshots",
+    "old": "Old",
+    "version": "Version",
     "providers": {
       "mojang": "Official client provider. Mods are not supported",
       "fabric": "Client with support for Fabric-compatible modifications"
