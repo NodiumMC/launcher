@@ -18,4 +18,10 @@ Array.prototype.removeIf = function (predicate) {
   return true
 }
 
+Number.prototype.map = function (fromMin, fromMax, toMin = 0, toMax = 100) {
+  return (
+    ((this.valueOf() - fromMin) * (toMax - toMin)) / (fromMax - fromMin) + toMin
+  )
+}
+
 export {}

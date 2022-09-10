@@ -10,4 +10,12 @@ declare global {
     ): Promise<T[]>
     removeIf(predicate: (value: T, index: number, obj: T[]) => unknown): boolean
   }
+  interface Number {
+    map(
+      fromMin: number,
+      fromMax: number,
+      toMin?: number,
+      toMax?: number,
+    ): number
+  }
 }
