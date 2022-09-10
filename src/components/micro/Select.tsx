@@ -3,6 +3,7 @@ import ReactSelect, { Props } from 'react-select'
 import styled from 'styled-components'
 import { transition } from 'style'
 import { DataInput, Styled } from 'utils/UtilityProps'
+import { rgba } from 'polished'
 
 const StyledSelect = styled(ReactSelect)`
   .Select__control {
@@ -50,6 +51,9 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__option {
+    height: 38px;
+    display: flex;
+    align-items: center;
     img {
       height: 24px;
     }
@@ -62,7 +66,8 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__option--is-selected {
-    background-color: ${({ theme }) => theme.palette.accent.default} !important;
+    background-color: ${({ theme }) =>
+      rgba(theme.palette.accent.default, 0.2)} !important;
     color: ${({ theme }) => theme.palette.front.default};
   }
 
@@ -107,12 +112,15 @@ export interface SelectProps<Value = string, Label = unknown>
   options?: SelectOption<Label>[]
   menuPlacement?: Props['menuPlacement']
   placeholder?: Props['placeholder']
+  isLoading?: boolean
+  maxMenuHeight?: number
 }
 
 export const Select = <Value extends string = any, Label = unknown>({
   value,
   options = [],
   onChange,
+  maxMenuHeight = 5,
   ...props
 }: SelectProps<Value, Label> & Styled) => {
   const defaultValue = useMemo(
@@ -126,6 +134,7 @@ export const Select = <Value extends string = any, Label = unknown>({
       classNamePrefix={'Select'}
       options={options}
       defaultValue={defaultValue}
+      maxMenuHeight={maxMenuHeight * 38}
       onChange={v => onChange?.((v as any).value)}
     />
   )
