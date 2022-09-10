@@ -9,9 +9,10 @@ import { NonNullFilter } from 'utils/filters'
 import { InstanceSettings } from 'minecraft/InstanceSettings'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { makeObservable, observable } from 'mobx'
+import { Fastore } from 'interfaces/Fastore'
 
 @Module([VersionInstallService, LoggingPool, GameProfileService])
-export class InstanceStore implements Initable {
+export class InstanceStore implements Initable, Fastore<Instance> {
   @observable list: Instance[] = []
 
   async init() {
@@ -93,7 +94,7 @@ export class InstanceStore implements Initable {
     await removeDir(path, { recursive: true })
   }
 
-  async new() {
+  async New() {
     const name = 'Instance' + (this.list.length + 1)
     const path = await join(await this.instancesPath(), name)
     if (!(await exists(path))) await createDir(path)
