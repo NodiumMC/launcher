@@ -18,4 +18,23 @@ Array.prototype.removeIf = function (predicate) {
   return true
 }
 
+Array.prototype.chunk = function (size) {
+  return this.reduce((resultArray, item, index) => {
+    const chunkIndex = Math.floor(index / size)
+    if (!resultArray[chunkIndex]) resultArray[chunkIndex] = []
+    resultArray[chunkIndex].push(item)
+    return resultArray
+  }, [])
+}
+
+Array.prototype.underslice = function (offset) {
+  return this.slice(0, this.length - offset)
+}
+
+Number.prototype.map = function (fromMin, fromMax, toMin = 0, toMax = 100) {
+  return (
+    ((this.valueOf() - fromMin) * (toMax - toMin)) / (fromMax - fromMin) + toMin
+  )
+}
+
 export {}

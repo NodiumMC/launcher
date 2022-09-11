@@ -1,11 +1,15 @@
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { BlakeMap } from 'core'
-import { Module } from 'mobmarch'
+import { Initable, Module } from 'mobmarch'
 
 @Module
-export class BlakeMapService {
+export class BlakeMapService implements Initable{
   map: BlakeMap = {}
+
+  init() {
+    return this.load()
+  }
 
   async path() {
     return join(await GameDir(), 'blakemap.json')

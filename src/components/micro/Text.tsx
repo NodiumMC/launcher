@@ -74,7 +74,7 @@ const interactionStyle = css`
 
 export const Text = styled.span<TextProps>`
   display: inline-block;
-  color: ${({ theme }) => theme.palette.front.default};
+  color: ${({ theme, color }) => color ?? theme.palette.front.default};
   ${font('Rubik')}
   ${props => css`
     ${props.block && blockStyle}

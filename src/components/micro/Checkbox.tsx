@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { DataInput, Value } from 'utils/UtilityProps'
+import { DataInput, Styled, Value } from 'utils/UtilityProps'
 import { transition } from 'style'
 
 interface SubstrateProps {
@@ -112,15 +112,17 @@ const Checked = styled.div<Value<boolean> & SubstrateProps>`
   z-index: 2;
 `
 
-export const Checkbox: FC<SubstrateProps & DataInput<boolean>> = ({
+export const Checkbox: FC<SubstrateProps & DataInput<boolean> & Styled> = ({
   value,
   disabled,
   onChange,
+  ...props
 }) => {
   return (
     <Substrate
       disabled={disabled}
       onClick={() => !disabled && onChange?.(!value)}
+      {...props}
     >
       <Container disabled={disabled} value={value}>
         <Checked value={value} disabled={disabled}>

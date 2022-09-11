@@ -40,5 +40,16 @@ export interface Structure<I = string> {
     instance: I
     profile: I
     profiles: I
+    select_provider: I
+    snapshots: I
+    old: I
+    version: I
+    install: I
+    already_installed: I
+    please_wait_install: I
+    providers: {
+      vanilla: I
+      fabric: I
+    }
   }
 }

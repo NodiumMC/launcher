@@ -1,7 +1,7 @@
 import { readVersionFile } from 'core'
 import { compileArguments, VersionedLaunchOptions } from 'core'
 import { command } from 'native/shell'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 
 export interface LaunchOptions {
@@ -21,7 +21,7 @@ export interface LaunchOptions {
 }
 
 export const launch = async (options: LaunchOptions) => {
-  const versionFilePath = await join(options.clientDir, `${options.vid}.json`)
+  const versionFilePath = join(options.clientDir, `${options.vid}.json`)
   if (!(await exists(versionFilePath)))
     throw new Error(`There is no version ${options.vid}`)
   const version = await readVersionFile(versionFilePath)

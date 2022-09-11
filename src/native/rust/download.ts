@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api'
 import { listen } from '@tauri-apps/api/event'
 import { Nullable } from 'utils/types'
 import EventEmitter from 'eventemitter3'
-import { dirname } from '@tauri-apps/api/path'
+import { dirname } from 'native/path'
 import { createDir } from '@tauri-apps/api/fs'
 
 export interface RDownloadProgress {
@@ -33,7 +33,7 @@ export const Rdownload = async (
     else emitter.emit('done', `${payload}`)
     unlisten()
   }
-  const dir = await dirname(local)
+  const dir = dirname(local)
   await createDir(dir, { recursive: true })
   invoke('download', {
     url,

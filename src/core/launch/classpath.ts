@@ -1,19 +1,14 @@
 import { VersionFile } from 'core'
 import { compileLibArtifacts } from 'core'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 
-export const compileClasspath = async (
+export const compileClasspath = (
   vid: string,
   versionFile: VersionFile,
   gameDataDir: string,
   clientDir: string,
-): Promise<string[]> => {
-  const [libs] = await compileLibArtifacts(versionFile.libraries)
-  const client = await join(clientDir, `${vid}.jar`)
-  return [
-    ...(await libs.mapAsync(
-      async v => await join(gameDataDir, 'libraries', v.path),
-    )),
-    client,
-  ]
+): string[] => {
+  const [libs] = compileLibArtifacts(versionFile.libraries)
+  const client = join(clientDir, `${vid}.jar`)
+  return [...libs.map(v => join(gameDataDir, 'libraries', v.path)), client]
 }

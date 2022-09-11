@@ -1,27 +1,23 @@
 import { AssetIndex, AssetObject } from 'core'
 import { DownloadableResource } from 'core'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 import { VersionFile } from 'core'
 import { fetch } from '@tauri-apps/api/http'
 
-export const compileAssets = async (
-  objs: AssetObject[],
-): Promise<DownloadableResource[]> =>
-  objs.mapAsync(
-    async obj =>
+export const compileAssets = (objs: AssetObject[]): DownloadableResource[] => {
+  const assetObjects = join('assets', 'objects')
+  return objs.map(
+    obj =>
       ({
         url: `https://resources.download.minecraft.net/${obj.hash.substring(
           0,
           2,
         )}/${obj.hash}`,
-        local: await join(
-          await join('assets', 'objects'),
-          obj.hash.substring(0, 2),
-          obj.hash,
-        ),
+        local: join(assetObjects, obj.hash.substring(0, 2), obj.hash),
         size: obj.size,
       } as DownloadableResource),
   )
+}
 
 export const fetchAssetIndex = async (
   version: VersionFile,
@@ -40,20 +36,15 @@ export const compileAssetIndex = async (
   const batch: DownloadableResource[] = [
     {
       ...version.assetIndex,
-      local: await join(
-        gameDataDir,
-        'assets',
-        'indexes',
-        `${version.assets}.json`,
-      ),
+      local: join(gameDataDir, 'assets', 'indexes', `${version.assets}.json`),
     },
   ]
   const index = await fetchAssetIndex(version)
   const objects = Object.values(index.objects)
-  const compiled = await compileAssets(objects)
-  const located = await compiled.mapAsync(async v => ({
+  const compiled = compileAssets(objects)
+  const located = compiled.map(v => ({
     ...v,
-    local: await join(gameDataDir, v.local),
+    local: join(gameDataDir, v.local),
   }))
   batch.push(...located)
   return batch

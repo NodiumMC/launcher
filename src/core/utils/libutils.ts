@@ -3,47 +3,46 @@ import { os } from 'core'
 import { isRuled, ParseRules } from 'core'
 import { fetch } from '@tauri-apps/api/http'
 import { DownloadableResource } from 'core'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
+import { NonNullFilter } from 'utils/filters'
 
 export const isNativeLibrary = (lib: Library) => !!lib.natives
 
-export const nativeArtifact = async (lib: Library) => {
-  const native = lib?.natives?.[await os()]
+export const nativeArtifact = (lib: Library) => {
+  const native = lib?.natives?.[os]
   return native && lib.downloads?.classifiers?.[native]
 }
 
-export const compileLibArtifacts = async (
+export const compileLibArtifacts = (
   libs: Library[],
-): Promise<[libs: Artifact[], natives: Artifact[]]> => {
-  const ruledLibs = await libs.filterAsync(async lib =>
-    isRuled(lib) ? await ParseRules(lib).then(v => v.allow) : true,
+): [libs: Artifact[], natives: Artifact[]] => {
+  const ruledLibs = libs.filter(lib =>
+    isRuled(lib) ? ParseRules(lib).allow : true,
   )
   const nlibs = ruledLibs.filter(lib => isNativeLibrary(lib))
   return [
     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
     ruledLibs.map(v => v.downloads?.artifact!),
-    await nlibs
-      .mapAsync(async v => (await nativeArtifact(v))!)
-      .then(v => v.filter(v => !!v)),
+    nlibs.map(nativeArtifact).filter(NonNullFilter),
   ]
 }
 
-export const compileLibraries = async (
+export const compileLibraries = (
   libs: Library[],
   gameDataDir: string,
   clientDir: string,
-): Promise<DownloadableResource[]> => {
-  const librariesPath = await join(gameDataDir, 'libraries')
-  const [dlibs, natives] = await compileLibArtifacts(libs)
+): DownloadableResource[] => {
+  const librariesPath = join(gameDataDir, 'libraries')
+  const [dlibs, natives] = compileLibArtifacts(libs)
   return [
-    ...(await dlibs.mapAsync(async v => ({
+    ...dlibs.map(v => ({
       ...v,
-      local: await join(librariesPath, v.path),
-    }))),
-    ...(await natives.mapAsync(async v => ({
+      local: join(librariesPath, v.path),
+    })),
+    ...natives.map(v => ({
       ...v,
-      local: await join(clientDir, 'natives', libFile(v.path)),
-    }))),
+      local: join(clientDir, 'natives', libFile(v.path)),
+    })),
   ]
 }
 

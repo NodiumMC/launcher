@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Text } from 'components/micro/Text'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { transition } from 'style'
+import { useOnce } from 'hooks'
 
 const Page = styled(Screen)`
   display: flex;
@@ -43,7 +44,7 @@ export const InstancesSubscreen: FC = Observer(() => {
   const create = useCallback(() => {
     setCreating(true)
     istorage
-      .new()
+      .New()
       .catch(/* TODO: add notify #NDML-2 */)
       .finally(() => setCreating(false))
   }, [istorage, profileService])

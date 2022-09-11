@@ -1,4 +1,5 @@
 import { readJsonFile } from 'native/filesystem'
+import _ from 'lodash'
 
 export type OSType = 'osx' | 'windows' | 'linux' | 'unknown'
 export type ArchType = string
@@ -121,8 +122,14 @@ export const mergeVersions = (...versions: VersionFile[]) => {
   if (!next) return origin
   origin.mainClass = last.mainClass
   origin.type = last.type
-  origin.arguments.jvm.push(...versions.map(v => v.arguments.jvm).flat())
-  origin.arguments.game.push(...versions.map(v => v.arguments.game).flat())
+  origin.arguments.jvm = _.union(
+    origin.arguments.jvm,
+    versions.map(v => v.arguments.jvm).flat(),
+  )
+  origin.arguments.game = _.union(
+    origin.arguments.game,
+    versions.map(v => v.arguments.game).flat(),
+  )
   origin.libraries.push(...versions.map(v => v.libraries).flat())
   return origin
 }
