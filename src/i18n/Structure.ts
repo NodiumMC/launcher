@@ -44,8 +44,11 @@ export interface Structure<I = string> {
     snapshots: I
     old: I
     version: I
+    install: I
+    already_installed: I
+    please_wait_install: I
     providers: {
-      mojang: I
+      vanilla: I
       fabric: I
     }
   }
