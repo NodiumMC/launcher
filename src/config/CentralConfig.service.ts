@@ -1,4 +1,4 @@
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 import { makeObservable, observable } from 'mobx'
 import { AppData, exists, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { Initable, Module } from 'mobmarch'
@@ -6,7 +6,7 @@ import { Preloader } from 'preload'
 
 @Module([Preloader])
 export class CentralConfig implements Initable {
-  @observable private _data?: any
+  @observable private _data: any = {}
 
   init() {
     return this.preloader.add('Initializing Storage', this.load.bind(this))
@@ -35,6 +35,6 @@ export class CentralConfig implements Initable {
   }
 
   get data() {
-    return this._data ?? {}
+    return this._data
   }
 }

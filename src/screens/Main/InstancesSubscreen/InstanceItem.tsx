@@ -4,7 +4,7 @@ import { Instance } from 'minecraft'
 import { transition } from 'style'
 import { Img } from 'components/utils/Img'
 import { Text } from 'components/micro/Text'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 import { Button } from 'components/micro/Button'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
@@ -115,9 +115,8 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
   const popup = useModule(PopupService)
 
   useEffect(() => {
-    join(instance.path, 'icon.png').then(path =>
-      exists(path).then(exists => exists && setIconSrc(convertFileSrc(path))),
-    )
+    const path = join(instance.path, 'icon.png')
+    exists(path).then(exists => exists && setIconSrc(convertFileSrc(path)))
   }, [instance])
 
   const reset = useCallback(() => {

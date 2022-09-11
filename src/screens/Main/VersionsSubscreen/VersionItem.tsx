@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import styled from 'styled-components'
 import { Img } from 'components/utils/Img'
 import { linearGradient } from 'polished'
@@ -8,6 +8,8 @@ import { Grow } from 'components/utils/Grow'
 import { Pair } from 'components/utils/Pair'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LauncherProfile } from 'minecraft/LauncherProfile'
+import { Observer } from 'mobmarch'
+import { useOnce } from 'hooks'
 
 export interface VersionItemProps {
   profile: LauncherProfile
@@ -77,6 +79,17 @@ const MicroProgress = styled.div<{ progress: number }>`
   position: absolute;
   inset: 0;
   overflow: hidden;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  ${transition('height')}
+
+  ${Text} {
+    opacity: 0;
+    color: ${({ theme }) => theme.palette.back.default};
+  }
 
   &:after,
   &:before {
@@ -99,12 +112,36 @@ const MicroProgress = styled.div<{ progress: number }>`
     width: ${({ progress }) => `${progress > 100 ? progress - 100 : 0}%`};
     background-color: ${({ theme }) => theme.palette.green.default};
   }
+
+  &:hover {
+    &:before,
+    &:after {
+      opacity: 0;
+    }
+
+    background-color: ${({ theme }) => theme.palette.red.default};
+    height: 20px;
+
+    ${Text} {
+      opacity: 1;
+    }
+  }
 `
+
+export const VersionProgress: FC<VersionItemProps> = Observer(({ profile }) => {
+  return (
+    <MicroProgress progress={profile._progress}>
+      <Text shade={'low'}>
+        <FontAwesomeIcon icon={'xmark'} />
+      </Text>
+    </MicroProgress>
+  )
+})
 
 export const VersionItem: FC<VersionItemProps> = ({ profile }) => {
   return (
     <StyledVersionItem>
-      <MicroProgress progress={profile.progress} />
+      <VersionProgress profile={profile} />
       <Icon src={profile.options.icon} />
       <Pane>
         <Text size={'s'}>{profile.options.name}</Text>

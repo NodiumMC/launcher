@@ -1,8 +1,8 @@
 import { OSType } from 'core'
 import { platform } from 'native/os'
 
-export const os = async (): Promise<OSType> => {
-  switch (await platform()) {
+const _os = () => {
+  switch (platform) {
     case 'linux':
       return 'linux'
     case 'win32':
@@ -15,3 +15,5 @@ export const os = async (): Promise<OSType> => {
       return 'unknown'
   }
 }
+
+export const os: OSType = _os()

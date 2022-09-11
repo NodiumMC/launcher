@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Text } from 'components/micro/Text'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { transition } from 'style'
+import { useOnce } from 'hooks'
 
 const Page = styled(Screen)`
   display: flex;

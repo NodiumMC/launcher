@@ -9,7 +9,8 @@ export interface LauncherProfileJSON {
   javaDir?: string
   javaArgs?: string
   minecraftArgs?: string
-  ready: boolean
+  ready?: boolean
+  source?: string
 }
 
 export interface LauncherProfiles {

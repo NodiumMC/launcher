@@ -9,10 +9,11 @@ import { LoadingScreen } from 'components/utils/Screen'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { PopupService } from 'notifications'
 import { VersionsSubscreen } from 'screens/Main/VersionsSubscreen'
+import { I18n } from 'i18n'
 
 export const Main: FC = () => {
   return (
-    <Defer depend={MainScreenSubRouter}>
+    <Defer depend={[MainScreenSubRouter, I18n]}>
       <MainScreenSidebarSubrouter>
         <SubRoute icon={'play'} to={MainScreenPage.PLAY}>
           <PlaySubscreen />

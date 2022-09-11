@@ -1,5 +1,5 @@
 import { readDir } from '@tauri-apps/api/fs'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 
 const matchRegex = /^jdk-(.+?)$/
 

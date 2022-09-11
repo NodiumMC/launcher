@@ -27,6 +27,10 @@ Array.prototype.chunk = function (size) {
   }, [])
 }
 
+Array.prototype.underslice = function (offset) {
+  return this.slice(0, this.length - offset)
+}
+
 Number.prototype.map = function (fromMin, fromMax, toMin = 0, toMax = 100) {
   return (
     ((this.valueOf() - fromMin) * (toMax - toMin)) / (fromMax - fromMin) + toMin

@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,7 +17,10 @@ import useSWR from 'swr'
 import { fetcher } from 'api/swr'
 import { Checkbox } from 'components/micro/Checkbox'
 import { isOld, isRelease } from 'core'
-import { Observer } from 'mobmarch'
+import { Observer, useModule } from 'mobmarch'
+import { Button } from 'components/micro/Button'
+import { GameProfileService } from 'core/services/GameProfile.service'
+import { Grow } from 'components/utils/Grow'
 
 const InstallIcon: FC<Styled> = props => (
   <Text shade={'high'} size={'l'} {...props}>
@@ -42,6 +45,8 @@ const Content = styled.div`
   position: relative;
   display: flex;
   gap: 24px;
+  align-items: center;
+  height: 100%;
 `
 
 const StyledMenu = styled.div`
@@ -53,7 +58,7 @@ const StyledMenu = styled.div`
   background-color: ${({ theme }) => theme.palette.back.shades[0]};
 
   ${transition('height')}
-  &:hover {
+  &:hover, &:focus-within {
     ${StyledInstallIcon} {
       opacity: 0;
     }
@@ -108,6 +113,7 @@ const ProviderSelect: FC<DataInput<SupportedProviders>> = ({
 }
 
 const Sqbox = styled.div`
+  height: 100% !important;
   width: 200px;
   display: flex;
   flex-direction: column;
@@ -195,11 +201,38 @@ const SmallCheckbox = styled(Checkbox)`
   scale: 0.7;
 `
 
-export const InstallMenu: FC = () => {
+const Actions = styled.div`
+  width: 160px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+export const InstallMenu: FC = Observer(() => {
   const [provider, setProvider] = useState<SupportedProviders | undefined>()
   const [version, setVersion] = useState<string | undefined>()
 
   const i18n = useI18N()
+  const profiles = useModule(GameProfileService)
+
+  const already = useMemo(
+    () =>
+      profiles.list.some(
+        v => v.options.lastVersionId === `${provider}-${version}`,
+      ),
+    [provider, version, profiles.list],
+  )
+
+  const install = useCallback(() => {
+    if (!version || !provider) return
+    profiles.New(
+      provider,
+      `${provider.charAt(0).toUpperCase() + provider.slice(1)} ${version}`,
+      `${provider}-${version}`,
+      version,
+    )
+  }, [version, provider, profiles.list])
 
   return (
     <StyledMenu>
@@ -218,7 +251,23 @@ export const InstallMenu: FC = () => {
           onChange={setVersion}
           provider={provider}
         />
+        <Grow />
+        <Actions>
+          <Button
+            primary
+            icon={'download'}
+            disabled={already || !version || !provider}
+            onClick={install}
+          >
+            {i18n.translate.minecraft.install}
+          </Button>
+          <Text shade={'high'} size={'s'}>
+            {already
+              ? i18n.translate.minecraft.already_installed
+              : i18n.translate.minecraft.please_wait_install}
+          </Text>
+        </Actions>
       </Content>
     </StyledMenu>
   )
-}
+})

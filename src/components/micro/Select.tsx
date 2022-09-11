@@ -1,4 +1,4 @@
-import { FC, SetStateAction, useMemo } from 'react'
+import { useMemo } from 'react'
 import ReactSelect, { Props } from 'react-select'
 import styled from 'styled-components'
 import { transition } from 'style'
@@ -11,6 +11,12 @@ const StyledSelect = styled(ReactSelect)`
     border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
     border-radius: ${({ theme }) => theme.shape.radius[0]};
     box-shadow: none;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     img {
       height: 24px;
     }
@@ -51,7 +57,7 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__option {
-    height: 38px;
+    height: 36px;
     display: flex;
     align-items: center;
     img {

@@ -2,7 +2,7 @@ import { makeObservable, observable } from 'mobx'
 import type { LoggingPool } from 'logging/LoggingPool.service'
 import type { Logger } from 'logging'
 import { launch, LaunchOptions } from 'core'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 import { exists, GameDir } from 'native/filesystem'
 import { Child } from '@tauri-apps/api/shell'
 import type { InstanceSettings } from 'minecraft/InstanceSettings'
@@ -30,10 +30,10 @@ export class Instance {
       'clientDir' | 'gameDir' | 'gameDataDir' | 'vid' | keyof InstanceSettings
     >,
   ) {
-    const clientDir = await join(await GameDir(), 'versions', this.settings.vid)
+    const clientDir = join(await GameDir(), 'versions', this.settings.vid)
     if (!(await exists(clientDir)))
       throw new Error('No version is assigned to this instance')
-    const gameDir = await join(await GameDir(), 'instances', this.settings.name)
+    const gameDir = join(await GameDir(), 'instances', this.settings.name)
     if (!(await exists(gameDir))) throw new Error('Instance is not exists')
     const command = await launch({
       ...options,
