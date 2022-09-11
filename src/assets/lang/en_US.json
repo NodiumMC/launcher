@@ -44,8 +44,11 @@
     "snapshots": "Snapshots",
     "old": "Old",
     "version": "Version",
+    "install": "Install",
+    "already_installed": "This version already installed",
+    "please_wait_install": "Installation may take some time. Do not close the window.",
     "providers": {
-      "mojang": "Official client provider. Mods are not supported",
+      "vanilla": "Official client provider. Mods are not supported",
       "fabric": "Client with support for Fabric-compatible modifications"
     }
   }
