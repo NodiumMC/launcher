@@ -9,13 +9,13 @@ export interface RuleResult {
   features?: RuleType['features']
 }
 
-export const ParseRule = async (
+export const ParseRule = (
   rule: RuleType,
   features: string[] = [],
-): Promise<RuleResult> => {
-  const currentOs = rule.os ? await os() : null
-  const currentArch = rule.os ? ((await is64()) ? 'x64' : 'x32') : null
-  const osVersion = rule.os ? await release() : null
+): RuleResult => {
+  const currentOs = rule.os ? os : null
+  const currentArch = rule.os ? (is64 ? 'x64' : 'x32') : null
+  const osVersion = rule.os ? release : null
   const reasons: string[] = []
   if (rule.os) {
     const ruleOs = rule.os
@@ -44,11 +44,11 @@ export const ParseRule = async (
   }
 }
 
-export const ParseRules = async (
+export const ParseRules = (
   { rules = [], value }: RuleContainer,
   allowFeatures: string[] = [],
-): Promise<RuleResult> => {
-  const rrs = await rules.mapAsync(rule => ParseRule(rule, allowFeatures))
+): RuleResult => {
+  const rrs = rules.map(rule => ParseRule(rule, allowFeatures))
   const allow = rrs.every(rule => rule.allow)
   const reasons = rrs.map(rule => rule.reasons).flat()
   const features = Object.assign({}, ...rrs.map(rule => rule.features))

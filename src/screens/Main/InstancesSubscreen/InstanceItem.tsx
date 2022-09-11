@@ -4,11 +4,10 @@ import { Instance } from 'minecraft'
 import { transition } from 'style'
 import { Img } from 'components/utils/Img'
 import { Text } from 'components/micro/Text'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 import { Button } from 'components/micro/Button'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
-import { Dropdown } from 'components/micro/Dropdown'
 import { Observer, useModule } from 'mobmarch'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { Input } from 'components/micro/Input'
@@ -18,6 +17,7 @@ import { Pair } from 'components/utils/Pair'
 import { useOsInfo } from 'hooks'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { PopupService } from 'notifications'
+import { Select } from 'components/micro/Select'
 
 export interface InstanceItemProps {
   instance: Instance
@@ -90,6 +90,10 @@ const SaveActions = styled(Pair)<{ visible?: boolean }>`
   ${transition()}
 `
 
+const VersionSelect = styled(Select)`
+  flex-shrink: 0;
+`
+
 export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
   const { data } = useOsInfo()
 
@@ -111,9 +115,8 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
   const popup = useModule(PopupService)
 
   useEffect(() => {
-    join(instance.path, 'icon.png').then(path =>
-      exists(path).then(exists => exists && setIconSrc(convertFileSrc(path))),
-    )
+    const path = join(instance.path, 'icon.png')
+    exists(path).then(exists => exists && setIconSrc(convertFileSrc(path)))
   }, [instance])
 
   const reset = useCallback(() => {
@@ -196,14 +199,18 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
       </Header>
       <Options unfolded={unfolded}>
         <GenericOptions>
-          <Dropdown
-            items={profileService.profiles.map(v => ({
-              value: v.lastVersionId,
-              label: v.name,
-              icon: <Img src={v.icon} />,
+          <VersionSelect
+            options={profileService.list.map(v => ({
+              value: v.options.lastVersionId,
+              label: (
+                <Pair>
+                  <Img src={v.options.icon} />
+                  {v.options.name}
+                </Pair>
+              ),
             }))}
-            value={vid}
             onChange={setVid}
+            value={vid}
           />
           <Input value={name} onChange={inputValue(setName)} />
         </GenericOptions>

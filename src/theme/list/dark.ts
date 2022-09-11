@@ -58,7 +58,10 @@ export const dark = {
       default: '#bfff50',
     },
     yellow: {
-      default: '#fff791',
+      default: '#ffdc6a',
+    },
+    blue: {
+      default: '#8b71ff',
     },
     console: [
       '#000',

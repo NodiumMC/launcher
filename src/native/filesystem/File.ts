@@ -1,6 +1,6 @@
 import { readTextFile, writeTextFile, createDir } from '@tauri-apps/api/fs'
 import { GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
-import { join } from '@tauri-apps/api/path'
+import { join } from 'native/path'
 
 export class File {
   constructor(public readonly path: string) {}
@@ -11,7 +11,7 @@ export class File {
   }
 
   private async relativePath() {
-    return await join(await GameDir(), this.path)
+    return join(await GameDir(), this.path)
   }
 
   private async mkdirs() {

@@ -7,6 +7,7 @@ use futures_util::{
 };
 use reqwest::Url;
 use std::path::Path;
+use std::time::Duration;
 use tauri::{AppHandle, Manager, Runtime};
 use tokio::io::AsyncWriteExt;
 
@@ -70,12 +71,14 @@ pub async fn download<R: Runtime>(
 
     let mut file = tokio::fs::File::create(to).await?;
 
-    let res = reqwest::get(url).await?;
+    let res = reqwest::Client::builder().timeout(Duration::from_secs(5)).build()?.get(url).send().await?;
     // setup total_size and transferred variables for progress events
     let total_size = res.content_length().ok_or(DownloadError::NoContentLength)?;
     let mut transferred: u64 = 0;
 
     let mut stream = res.bytes_stream().map_err(DownloadError::from);
+
+    let mut buffer: usize = 0;
 
     while let Some(bytes) = stream.next().await {
         let bytes = bytes?;
@@ -86,18 +89,15 @@ pub async fn download<R: Runtime>(
         // calculate the new transferred amount of bytes
         transferred += bytes.len() as u64;
 
-        // emit the progress event to the backend
-        // we explicitly ignore the error here,
-        // bc failing to emit one progress event is not a faliure condition for the download
         let _ = app_handle
-            .emit_all(
-                &progress_id,
-                DownloadProgress {
-                    total: total_size,
-                    transferred,
-                    chunk: bytes.len() as u64,
-                },
-            );
+          .emit_all(
+              &progress_id,
+              DownloadProgress {
+                  total: total_size,
+                  transferred,
+                  chunk: bytes.len() as u64,
+              },
+          );
     }
 
     // check signature. But contrary to the first time we don't do any special handling we just remove the file on any error

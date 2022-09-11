@@ -12,6 +12,9 @@
   },
   "tauri": {
     "allowlist": {
+      "os": {
+        "all": true
+      },
       "window": {
         "all": true
       },
@@ -30,6 +33,7 @@
       },
       "http": {
         "scope": [
+          "https://nadmelas.nodium.ru/*",
           "https://piston-meta.mojang.com/*",
           "https://launchermeta.mojang.com/*",
           "https://resources.download.minecraft.net/*"

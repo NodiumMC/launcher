@@ -1,30 +1,28 @@
 import { ArgumentsArray, VersionFile } from 'core'
 import { ParseRules } from 'core'
 import { LaunchOptions } from 'core'
-import { delimiter, join } from '@tauri-apps/api/path'
-import { getVersion } from '@tauri-apps/api/app'
+import { delimiter, join } from 'native/path'
 import { compileClasspath } from 'core'
+import { version } from 'native/app'
 
-const rulifyArgumnets = async (args: ArgumentsArray): Promise<ArgumentsArray> =>
-  args.filterAsync(
-    async arg =>
+const rulifyArgumnets = (args: ArgumentsArray): ArgumentsArray =>
+  args.filter(
+    arg =>
       typeof arg === 'string' ||
-      (await ParseRules(arg, ['has_custom_resolution']).then(r => r.allow)),
+      ParseRules(arg, ['has_custom_resolution']).allow,
   )
 
-const flatArguments = async (args: ArgumentsArray): Promise<string[]> => {
-  const stringArgs = await args.mapAsync(async arg =>
-    typeof arg === 'string'
-      ? [arg]
-      : await ParseRules(arg).then(r => r.value ?? []),
+const flatArguments = (args: ArgumentsArray): string[] => {
+  const stringArgs = args.map(arg =>
+    typeof arg === 'string' ? [arg] : ParseRules(arg).value ?? [],
   )
   return stringArgs.flat()
 }
 
 const placeholderifyArguments =
   (options: VersionedLaunchOptions, classPath: string) =>
-  async (args: string[]): Promise<string[]> => {
-    return args.mapAsync(async arg =>
+  (args: string[]): string[] => {
+    return args.map(arg =>
       arg
         .replaceAll('${auth_player_name}', options.username)
         .replaceAll('${auth_access_token}', options.accessToken ?? 'null')
@@ -42,21 +40,18 @@ const placeholderifyArguments =
           '${resolution_height}',
           options.windowHeight?.toString() ?? '720',
         )
-        .replaceAll('${assets_root}', await join(options.gameDataDir, 'assets'))
-        .replaceAll('${game_assets}', await join(options.gameDataDir, 'assets'))
+        .replaceAll('${assets_root}', join(options.gameDataDir, 'assets'))
+        .replaceAll('${game_assets}', join(options.gameDataDir, 'assets'))
         .replaceAll('${assets_index_name}', options.version.assets)
         .replaceAll('${version_type}', options.version.type)
-        .replaceAll(
-          '${natives_directory}',
-          await join(options.clientDir, 'natives'),
-        )
+        .replaceAll('${natives_directory}', join(options.clientDir, 'natives'))
         .replaceAll('${launcher_name}', 'NodiumLauncher')
-        .replaceAll('${launcher_version}', await getVersion())
+        .replaceAll('${launcher_version}', version)
         .replaceAll('${user_type}', 'mojang')
         .replaceAll('${clientid}', options.accessToken ?? 'null')
         .replaceAll(
           '${library_directory}',
-          await join(options.gameDataDir, 'libraries'),
+          join(options.gameDataDir, 'libraries'),
         )
         .replaceAll('${classpath}', classPath)
         .replaceAll('${classpath_separator}', delimiter),
@@ -67,22 +62,22 @@ export interface VersionedLaunchOptions extends LaunchOptions {
   version: VersionFile
 }
 
-export const compileArguments = async (
-  options: VersionedLaunchOptions,
-): Promise<string[]> => {
+export const compileArguments = (options: VersionedLaunchOptions): string[] => {
   const game = options.version.arguments.game ?? options.minecraftArgs
   const jvm = options.version.arguments.jvm ?? options.javaArgs
-  const classPathString = await compileClasspath(
+  const classPathString = compileClasspath(
     options.vid,
     options.version,
     options.gameDataDir,
     options.clientDir,
-  ).then(v => v.join(delimiter))
-  const gargs = await rulifyArgumnets(game)
-    .then(flatArguments)
-    .then(placeholderifyArguments(options, classPathString))
-  const jargs = await rulifyArgumnets(jvm)
-    .then(flatArguments)
-    .then(placeholderifyArguments(options, classPathString))
+  ).join(delimiter)
+  const gargs = placeholderifyArguments(
+    options,
+    classPathString,
+  )(flatArguments(rulifyArgumnets(game)))
+  const jargs = placeholderifyArguments(
+    options,
+    classPathString,
+  )(flatArguments(rulifyArgumnets(jvm)))
   return [...jargs, options.version.mainClass, ...gargs]
 }

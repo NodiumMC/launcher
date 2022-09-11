@@ -2,7 +2,7 @@ import { command } from 'native/shell'
 
 export const javaMotd = async (javaHome = 'java') =>
   command(`${javaHome}`, ['-version'])
-    .then(v => v.execute())
+    .execute()
     .then(v => v.stderr)
 
 export interface JavaVersion {
