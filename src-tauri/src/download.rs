@@ -77,6 +77,8 @@ pub async fn download<R: Runtime>(
 
     let mut stream = res.bytes_stream().map_err(DownloadError::from);
 
+    let mut buffer: usize = 0;
+
     while let Some(bytes) = stream.next().await {
         let bytes = bytes?;
 
@@ -86,18 +88,20 @@ pub async fn download<R: Runtime>(
         // calculate the new transferred amount of bytes
         transferred += bytes.len() as u64;
 
-        // emit the progress event to the backend
-        // we explicitly ignore the error here,
-        // bc failing to emit one progress event is not a faliure condition for the download
-        let _ = app_handle
+        if buffer > 65536 || transferred > total_size {
+            let _ = app_handle
             .emit_all(
                 &progress_id,
                 DownloadProgress {
                     total: total_size,
                     transferred,
-                    chunk: bytes.len() as u64,
+                    chunk: buffer as u64,
                 },
             );
+            buffer = 0;
+        } else {
+            buffer += bytes.len();
+        }
     }
 
     // check signature. But contrary to the first time we don't do any special handling we just remove the file on any error
