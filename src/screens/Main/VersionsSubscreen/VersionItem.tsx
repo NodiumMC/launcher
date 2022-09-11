@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect } from 'react'
 import styled from 'styled-components'
 import { Img } from 'components/utils/Img'
 import { linearGradient } from 'polished'
@@ -9,7 +9,8 @@ import { Pair } from 'components/utils/Pair'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LauncherProfile } from 'minecraft/LauncherProfile'
 import { Observer } from 'mobmarch'
-import { useOnce } from 'hooks'
+import { toJS } from 'mobx'
+import { Clickable, HasChildren } from 'utils/UtilityProps'
 
 export interface VersionItemProps {
   profile: LauncherProfile
@@ -46,6 +47,7 @@ const StyledVersionItem = styled.div`
   border-radius: ${({ theme }) => theme.shape.radius[0]};
   position: relative;
   overflow: hidden;
+
   &:hover ${Pane} {
     translate: 0 0;
   }
@@ -73,7 +75,7 @@ const Action = styled.button<{ deleteButton?: boolean }>`
   cursor: pointer;
 `
 
-const MicroProgress = styled.div<{ progress: number }>`
+const StyledMicroProgress = styled.div`
   width: 100%;
   height: 5px;
   position: absolute;
@@ -84,41 +86,14 @@ const MicroProgress = styled.div<{ progress: number }>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  ${transition('height')}
 
+  ${transition('height')}
   ${Text} {
     opacity: 0;
     color: ${({ theme }) => theme.palette.back.default};
   }
 
-  &:after,
-  &:before {
-    content: '';
-    inset: 0;
-    display: block;
-    position: absolute;
-    height: 100%;
-    ${transition('width')}
-  }
-
-  &:before {
-    z-index: 1;
-    width: ${({ progress }) => `${progress}%`};
-    background-color: ${({ theme }) => theme.palette.blue.default};
-  }
-
-  &:after {
-    z-index: 2;
-    width: ${({ progress }) => `${progress > 100 ? progress - 100 : 0}%`};
-    background-color: ${({ theme }) => theme.palette.green.default};
-  }
-
   &:hover {
-    &:before,
-    &:after {
-      opacity: 0;
-    }
-
     background-color: ${({ theme }) => theme.palette.red.default};
     height: 20px;
 
@@ -128,9 +103,50 @@ const MicroProgress = styled.div<{ progress: number }>`
   }
 `
 
+const MicroProgressInner = styled.div`
+  inset: 0;
+  display: block;
+  position: absolute;
+  height: 100%;
+  ${transition('width')}
+
+  &:hover {
+    &:nth-child(1),
+    &:nth-child(2) {
+      opacity: 0;
+    }
+  }
+
+  &:nth-child(1) {
+    z-index: 1;
+    background-color: ${({ theme }) => theme.palette.blue.default};
+  }
+
+  &:nth-child(2) {
+    z-index: 2;
+    background-color: ${({ theme }) => theme.palette.green.default};
+  }
+`
+
+const MicroProgress: FC<{ progress: number } & HasChildren & Clickable> = ({
+  progress,
+  children,
+  onClick,
+}) => {
+  return (
+    <StyledMicroProgress onClick={onClick}>
+      <MicroProgressInner style={{ width: `${progress}%` }} />
+      <MicroProgressInner
+        style={{ width: `${progress > 100 ? progress - 100 : 0}%` }}
+      />
+      {children}
+    </StyledMicroProgress>
+  )
+}
+
 export const VersionProgress: FC<VersionItemProps> = Observer(({ profile }) => {
   return (
-    <MicroProgress progress={profile._progress}>
+    <MicroProgress progress={profile.progress} onClick={() => profile.abort()}>
       <Text shade={'low'}>
         <FontAwesomeIcon icon={'xmark'} />
       </Text>

@@ -27,10 +27,7 @@ export const VersionsSubscreen: FC = Observer(() => {
     <Page>
       <VesionContainer>
         {profileService.list.map(profile => (
-          <VersionItem
-            key={profile.options.lastVersionId}
-            profile={profile}
-          />
+          <VersionItem key={profile.options.lastVersionId} profile={profile} />
         ))}
       </VesionContainer>
       <InstallMenu />

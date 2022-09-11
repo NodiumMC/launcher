@@ -29,7 +29,7 @@ export const batchDownload = async (
   let progress = 0
   const remap = async (rs: DownloadableResource[], _retries = 0) => {
     if (signal?.aborted) {
-      emitter.emit('error', new Error('Download aborted'))
+      emitter.emit('error', new Error('aborted'))
       return
     }
     if (_retries > 10) {
@@ -41,7 +41,7 @@ export const batchDownload = async (
       await r.mapAsync(item =>
         new Promise<void>(async resolve => {
           if (signal?.aborted) {
-            emitter.emit('error', new Error('Download aborted'))
+            emitter.emit('error', new Error('aborted'))
             return
           }
           const dp = await download(item)

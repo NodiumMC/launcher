@@ -12,7 +12,7 @@ import { createDir } from '@tauri-apps/api/fs'
 
 @Module([BlakeMapService])
 export class GameProfileService implements Initable, Fastore<LauncherProfile> {
-  @observable _list: LauncherProfile[] = []
+  @observable private _list: LauncherProfile[] = []
 
   get list() {
     return this._list
@@ -30,7 +30,7 @@ export class GameProfileService implements Initable, Fastore<LauncherProfile> {
   private pathToProfile = async () =>
     join(await GameDir(), 'launcher_profiles.json')
 
-  @action.bound
+  @action
   async reloadProfiles() {
     const pathToProfiles = await this.pathToProfile()
     if (!(await exists(pathToProfiles))) {
@@ -43,6 +43,7 @@ export class GameProfileService implements Initable, Fastore<LauncherProfile> {
     this._list = profileOptions.map(o => new LauncherProfile(o, this.blake))
   }
 
+  @action
   async save() {
     await writeJsonFile<LauncherProfiles>(await this.pathToProfile(), {
       profiles: Object.fromEntries(
@@ -51,6 +52,7 @@ export class GameProfileService implements Initable, Fastore<LauncherProfile> {
     })
   }
 
+  @action
   async New(provider: string, name: string, id: string, tag: string) {
     const source = `https://nadmelas.nodium.ru/version/${provider}/${tag}`
     const profile = new LauncherProfile(

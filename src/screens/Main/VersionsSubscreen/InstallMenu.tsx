@@ -216,6 +216,8 @@ export const InstallMenu: FC = Observer(() => {
   const i18n = useI18N()
   const profiles = useModule(GameProfileService)
 
+  console.log('REload')
+
   const already = useMemo(
     () =>
       profiles.list.some(
