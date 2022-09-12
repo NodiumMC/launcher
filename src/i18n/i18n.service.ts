@@ -3,6 +3,7 @@ import type { SupportedLang } from 'i18n/langs'
 import { Launguage } from 'i18n/langs'
 import { CentralConfig } from 'config'
 import { Module } from 'mobmarch'
+import { R18T } from 'i18n/index'
 
 const fallback: SupportedLang = 'en_US'
 
@@ -30,5 +31,9 @@ export class I18n {
 
   get translate() {
     return Launguage[this.check() ? this.lang : fallback]
+  }
+
+  resolve(fn: R18T | string): string {
+    return typeof fn === 'string' ? fn : fn(this.translate)
   }
 }

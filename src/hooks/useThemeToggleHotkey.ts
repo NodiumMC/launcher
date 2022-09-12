@@ -17,7 +17,7 @@ export const useThemeToggleHotkey = (hotkey = 'F4') => {
           theme.current === 'dark'
             ? theme.setTheme('light')
             : theme.setTheme('dark')
-          upfall?.drop('ok', 'Тема изменена')
+          upfall?.drop('ok', r => r.appearance.theme.reloading)
         })
       return () => s.unsubscribe()
     }

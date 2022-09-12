@@ -8,7 +8,7 @@ import { UpfallService } from 'notifications/upfall/Upfall.service'
 import { animated, useTransition } from 'react-spring'
 import { mix, rgba } from 'polished'
 import { Styled } from 'utils/UtilityProps'
-import { useOnce } from 'hooks'
+import { useI18N, useOnce } from 'hooks'
 
 const Icon = styled.div`
   display: flex;
