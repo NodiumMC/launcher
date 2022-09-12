@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { HasChildren, Styled } from 'utils/UtilityProps'
 import { animated } from 'react-spring'
 import { rgba } from 'polished'
-import { IPopup } from 'components/macro/popup/PopupProps'
+import { IPopup } from '.'
 
 const Popup = styled.div`
   position: absolute;

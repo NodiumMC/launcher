@@ -14,7 +14,7 @@ export const generic = {
     font: {
       xs: '8px',
       s: '11px',
-      m: '16px',
+      m: '14px',
       l: '20px',
       xl: '24px',
       xxl: '32px',

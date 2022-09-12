@@ -4,7 +4,7 @@ import { AppPreloader } from 'components/macro/AppPreloader'
 import { Header } from 'components/macro/header'
 import { useOnce, useThemeToggleHotkey } from 'hooks'
 import { Style } from 'global'
-import { PopupContainer } from 'components/macro/popup'
+import { PopupContainer, UpfallService } from 'notifications'
 import { Fonts, preload } from 'components/utils/Font'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
@@ -13,6 +13,7 @@ import { Preloader } from 'preload'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
+import { UpfallConatiner } from 'notifications'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -52,6 +53,9 @@ export const App: FC = Observer(() => {
             <Routes />
             <Defer depend={PopupService}>
               <PopupContainer />
+            </Defer>
+            <Defer depend={UpfallService}>
+              <UpfallConatiner />
             </Defer>
           </View>
         </AppRoot>

@@ -89,10 +89,14 @@ export const Text = styled.span<TextProps>`
     ${props.font && font(props.font)}
     ${props.pre && preStyle}
     ${props.interaction && interactionStyle}
-    ${props.size &&
-    sizeStyle(
-      props.theme.size.font[props.size as keyof typeof props.theme.size.font] ??
-        props.size,
-    )}
+    ${props.size
+      ? sizeStyle(
+          props.theme.size.font[
+            props.size as keyof typeof props.theme.size.font
+          ] ?? props.size,
+        )
+      : css`
+          font-size: ${({ theme }) => theme.size.font.m};
+        `}
   `}
 `
