@@ -33,7 +33,7 @@ export class I18n {
     return Launguage[this.check() ? this.lang : fallback]
   }
 
-  resolve(fn: R18T) {
-    return fn(this.translate)
+  resolve(fn: R18T | string): string {
+    return typeof fn === 'string' ? fn : fn(this.translate)
   }
 }
