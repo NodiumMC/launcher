@@ -21,7 +21,7 @@ export interface Clickable {
 
 export interface Styled {
   className?: string
-  style?: never
+  style?: any
 }
 
 export interface As {

@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
 import { Module } from 'mobmarch'
-import type { IPopup } from 'components/macro/popup/PopupProps'
+import type { IPopup } from '.'
 
 @Module
 export class PopupService {
@@ -10,7 +10,7 @@ export class PopupService {
     makeObservable(this)
   }
 
-  get popups() {
+  get entries() {
     return this._popups
   }
 
