@@ -2,7 +2,7 @@ import { Module } from 'mobmarch'
 import { action, computed, makeObservable, observable } from 'mobx'
 import { Upfall } from '.'
 import { nanoid } from 'nanoid'
-import { I18n } from 'i18n'
+import { I18n, R18T } from 'i18n'
 
 @Module([I18n])
 export class UpfallService {
@@ -14,7 +14,7 @@ export class UpfallService {
   }
 
   @action
-  drop(type: Upfall['type'], content: string, icon?: Upfall['icon']) {
+  drop(type: Upfall['type'], content: string | R18T, icon?: Upfall['icon']) {
     const id = nanoid()
     this._upfalls.push({
       id,
