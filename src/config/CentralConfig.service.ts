@@ -1,14 +1,14 @@
 import { join } from 'native/path'
 import { makeObservable, observable } from 'mobx'
 import { AppData, exists, readJsonFile, writeJsonFile } from 'native/filesystem'
-import { Initable, Module } from 'mobmarch'
+import { BeforeResolve, Module } from 'mobmarch'
 import { Preloader } from 'preload'
 
 @Module([Preloader])
-export class CentralConfig implements Initable {
+export class CentralConfig {
   @observable private _data: any = {}
 
-  init() {
+  private [BeforeResolve]() {
     return this.preloader.add('Initializing Storage', this.load.bind(this))
   }
 

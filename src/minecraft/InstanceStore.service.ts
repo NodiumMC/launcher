@@ -1,4 +1,4 @@
-import { Initable, Module } from 'mobmarch'
+import { BeforeResolve, Module } from 'mobmarch'
 import { LoggingPool } from 'logging'
 import { Instance } from 'minecraft/Instance'
 import { dirname, join } from 'native/path'
@@ -11,10 +11,10 @@ import { makeObservable, observable } from 'mobx'
 import { Fastore } from 'interfaces/Fastore'
 
 @Module([LoggingPool, GameProfileService])
-export class InstanceStore implements Initable, Fastore<Instance> {
+export class InstanceStore implements Fastore<Instance> {
   @observable list: Instance[] = []
 
-  async init() {
+  private async [BeforeResolve]() {
     await createDir(await this.instancesPath(), { recursive: true })
     await this.listNewInstances()
   }

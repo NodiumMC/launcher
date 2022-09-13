@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx'
 import { LauncherProfiles } from 'core'
 import { join } from 'native/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
-import { Initable, Module } from 'mobmarch'
+import { BeforeResolve, Module } from 'mobmarch'
 import { watch } from 'tauri-plugin-fs-watch-api'
 import { Fastore } from 'interfaces/Fastore'
 import { LauncherProfile } from 'minecraft/LauncherProfile'
@@ -11,14 +11,14 @@ import { fetch } from '@tauri-apps/api/http'
 import { createDir } from '@tauri-apps/api/fs'
 
 @Module([BlakeMapService])
-export class GameProfileService implements Initable, Fastore<LauncherProfile> {
+export class GameProfileService implements Fastore<LauncherProfile> {
   @observable private _list: LauncherProfile[] = []
 
   get list() {
     return this._list
   }
 
-  async init() {
+  private async [BeforeResolve]() {
     watch(await this.pathToProfile(), {}, this.reloadProfiles.bind(this))
     return this.reloadProfiles()
   }

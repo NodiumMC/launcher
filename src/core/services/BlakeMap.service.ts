@@ -1,13 +1,13 @@
 import { join } from 'native/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { BlakeMap } from 'core'
-import { Initable, Module } from 'mobmarch'
+import { BeforeResolve, Module } from 'mobmarch'
 
 @Module
-export class BlakeMapService implements Initable{
+export class BlakeMapService {
   map: BlakeMap = {}
 
-  init() {
+  private [BeforeResolve]() {
     return this.load()
   }
 
