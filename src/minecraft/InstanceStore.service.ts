@@ -7,7 +7,7 @@ import { createDir, readDir, removeDir, renameFile } from '@tauri-apps/api/fs'
 import { NonNullFilter } from 'utils/filters'
 import { InstanceSettings } from 'minecraft/InstanceSettings'
 import { GameProfileService } from 'core/services/GameProfile.service'
-import { makeObservable, observable } from 'mobx'
+import { action, computed, makeObservable, observable } from 'mobx'
 import { Fastore } from 'interfaces/Fastore'
 
 @Module([LoggingPool, GameProfileService])
@@ -44,6 +44,7 @@ export class InstanceStore implements Fastore<Instance> {
     return !!instance.name
   }
 
+  @action
   async listNewInstances() {
     try {
       const instancePathes = await this.listAllInstanceFiles()
@@ -80,16 +81,18 @@ export class InstanceStore implements Fastore<Instance> {
     instance.path = newPath
     await renameFile(path, newPath)
     const serialized = instance.asJson
-    const instanceFilePath = join(path, 'instance.json')
+    const instanceFilePath = join(newPath, 'instance.json')
     await writeJsonFile(instanceFilePath, serialized)
   }
 
+  @action
   async deleteInstance(path: string) {
     if (!path.includes('instances')) return
     this.list.removeIf(v => v.path === path)
     await removeDir(path, { recursive: true })
   }
 
+  @action
   async New() {
     const name = 'Instance' + (this.list.length + 1)
     const path = join(await this.instancesPath(), name)
@@ -107,6 +110,7 @@ export class InstanceStore implements Fastore<Instance> {
     await this.saveInstance(path)
   }
 
+  @computed
   get sorted() {
     return [...this.list].sort()
   }
