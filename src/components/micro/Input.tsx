@@ -13,7 +13,7 @@ export const Input = styled.input<InputProps>`
   border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
   border-radius: ${({ theme }) => theme.shape.radius[0]};
   background-color: ${({ theme }) => theme.palette.back.default};
-  height: 40px;
+  height: 38px;
   margin: 0;
   padding: 0 10px;
 
