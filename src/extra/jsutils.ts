@@ -37,4 +37,10 @@ Number.prototype.map = function (fromMin, fromMax, toMin = 0, toMax = 100) {
   )
 }
 
+String.prototype.explain = function (placeholders) {
+  return this.replace(/%(?<key>\w+)%/g, (...[, key]) =>
+    String(placeholders[key]),
+  )
+}
+
 export {}
