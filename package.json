@@ -44,7 +44,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.4.1",
     "react-select": "5.4.0",
-    "react-spring": "9.5.3",
+    "react-spring": "9.5.5",
     "reflect-metadata": "0.1.13",
     "rxjs": "7.5.6",
     "styled-components": "5.3.5",
