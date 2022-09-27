@@ -4225,10 +4225,10 @@ minimist@^1.2.5, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
-mobmarch@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/mobmarch/-/mobmarch-0.1.2.tgz#0b9f2eb4d8170e32753e8814bef1d8c9674e9d86"
-  integrity sha512-tfjeGA5atLINunAIDWIYQ8RFelalJA+NYuIOG17BU/Jhb88gW40owdJjQPv8tn0r7spxIXOpUImh1WPJXIh3Pg==
+mobmarch@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/mobmarch/-/mobmarch-1.0.2.tgz#706a391aecdda281a8bf98c4901ec368ee450ad1"
+  integrity sha512-qZYlvOjvLGcVWlwqh58wIKfOm5O2XTSBsFmZQ6ZzNNepilzS/QwLQCl8uXSzLDymsdhxDtBZmpvqYlbzc8TFvA==
   dependencies:
     reflect-metadata "0.1.13"
 
