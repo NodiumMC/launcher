@@ -22,7 +22,7 @@ export interface BatchDownloadEvent {
 export const batchDownload = async (
   resources: DownloadableResource[],
   signal: AbortSignal,
-  batchSize = 64,
+  batchSize = 32,
 ) => {
   const totalSize = resources.reduce((acc, cur) => acc + cur.size, 0)
   const emitter = new EventEmitter<BatchDownloadEvent>()
@@ -32,7 +32,7 @@ export const batchDownload = async (
       emitter.emit('error', new Error('aborted'))
       return
     }
-    if (_retries > 10) {
+    if (_retries > 50) {
       emitter.emit('error', new Error('Too many retries'))
       return
     }
