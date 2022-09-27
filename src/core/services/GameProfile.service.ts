@@ -9,6 +9,7 @@ import { LauncherProfile } from 'minecraft/LauncherProfile'
 import { BlakeMapService } from 'core/services/BlakeMap.service'
 import { fetch } from '@tauri-apps/api/http'
 import { createDir } from '@tauri-apps/api/fs'
+import { UpfallService } from 'notifications'
 
 @Module([BlakeMapService])
 export class GameProfileService implements Fastore<LauncherProfile> {
@@ -23,7 +24,10 @@ export class GameProfileService implements Fastore<LauncherProfile> {
     return this.reloadProfiles()
   }
 
-  constructor(private readonly blake: BlakeMapService) {
+  constructor(
+    private readonly blake: BlakeMapService,
+    private readonly upfall: UpfallService,
+  ) {
     makeObservable(this)
   }
 
@@ -72,7 +76,23 @@ export class GameProfileService implements Fastore<LauncherProfile> {
     const versionPath = join(await GameDir(), 'versions', id)
     await createDir(versionPath, { recursive: true })
     await writeJsonFile(join(versionPath, `${id}.json`), version)
-    await profile.install().finally(() => this.save())
+    this.upfall.drop('default', r => r.minecraft.added_new_version)
+    let failed = false
+    await profile
+      .install()
+      .catch((e: any) => {
+        failed = true
+        this.upfall.drop('error', r =>
+          r.minecraft.version_install_failed.explain({
+            reason: e.message,
+          }),
+        )
+      })
+      .then(() => {
+        if (failed) return
+        this.upfall.drop('ok', r => r.minecraft.version_install_successful)
+      })
+      .finally(() => this.save())
     return profile
   }
 
