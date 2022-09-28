@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { Img } from 'components/utils/Img'
 import { linearGradient } from 'polished'
@@ -9,8 +9,6 @@ import { Pair } from 'components/utils/Pair'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LauncherProfile } from 'minecraft/LauncherProfile'
 import { Observer } from 'mobmarch'
-import { toJS } from 'mobx'
-import { Clickable, HasChildren } from 'utils/UtilityProps'
 
 export interface VersionItemProps {
   profile: LauncherProfile
@@ -32,8 +30,8 @@ const Pane = styled.div`
     linearGradient({
       colorStops: [
         'transparent',
-        theme.palette.back.tints[3],
-        theme.palette.back.tints[3],
+        theme.master.shade(0.15),
+        theme.master.shade(0.15),
       ],
       toDirection: 'to bottom',
     })};
@@ -43,8 +41,8 @@ const StyledVersionItem = styled.div`
   display: flex;
   width: 120px;
   height: 100px;
-  border: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border: 1px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius()};
   position: relative;
   overflow: hidden;
 
@@ -69,9 +67,9 @@ const Action = styled.button<{ deleteButton?: boolean }>`
   min-width: 20px;
   height: 20px;
   flex-grow: ${({ deleteButton }) => +!deleteButton};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border-radius: ${({ theme }) => theme.radius()};
   background: ${({ theme, deleteButton }) =>
-    deleteButton ? theme.palette.red.default : theme.palette.accent.default};
+    deleteButton ? theme.palette.red : theme.accent.primary};
   cursor: pointer;
 `
 
@@ -90,11 +88,11 @@ const StyledMicroProgress = styled.div`
   ${transition('height')}
   ${Text} {
     opacity: 0;
-    color: ${({ theme }) => theme.palette.back.default};
+    color: ${({ theme }) => theme.master.back};
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.palette.red.default};
+    background-color: ${({ theme }) => theme.palette.red};
     height: 20px;
 
     ${Text} {
@@ -119,20 +117,18 @@ const MicroProgressInner = styled.div`
 
   &:nth-child(1) {
     z-index: 1;
-    background-color: ${({ theme }) => theme.palette.blue.default};
+    background-color: ${({ theme }) => theme.palette.blue};
   }
 
   &:nth-child(2) {
     z-index: 2;
-    background-color: ${({ theme }) => theme.palette.green.default};
+    background-color: ${({ theme }) => theme.palette.green};
   }
 `
 
-const MicroProgress: FC<{ progress: number } & HasChildren & Clickable> = ({
-  progress,
-  children,
-  onClick,
-}) => {
+const MicroProgress: FC<
+  { progress: number } & ExtraProps.HasChildren & ExtraProps.Clickable
+> = ({ progress, children, onClick }) => {
   return (
     <StyledMicroProgress onClick={onClick}>
       <MicroProgressInner style={{ width: `${progress}%` }} />
@@ -160,17 +156,17 @@ export const VersionItem: FC<VersionItemProps> = ({ profile }) => {
       <VersionProgress profile={profile} />
       <Icon src={profile.options.icon} />
       <Pane>
-        <Text size={'s'}>{profile.options.name}</Text>
-        <Text size={'xs'}>{profile.options.lastVersionId}</Text>
+        <Text size={7}>{profile.options.name}</Text>
+        <Text size={5}>{profile.options.lastVersionId}</Text>
         <Grow />
         <Pair>
           <Action deleteButton>
-            <Text size={'s'}>
+            <Text size={7}>
               <FontAwesomeIcon icon={'trash'} />
             </Text>
           </Action>
           <Action>
-            <Text size={'s'}>
+            <Text size={7}>
               <FontAwesomeIcon icon={'info'} />
             </Text>
           </Action>

@@ -3,9 +3,9 @@ import { Theme } from 'theme/type'
 
 export const light: Theme = {
   ...dark,
-  palette: {
-    ...dark.palette,
-    front: { ...dark.palette.back },
-    back: { ...dark.palette.front },
+  master: {
+    ...dark.master,
+    back: dark.master.front,
+    front: dark.master.back,
   },
 }

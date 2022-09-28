@@ -2,7 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { Empty } from '../../utils/Empty'
 import { WindowControl } from './WindowControl'
-import { font } from 'components/utils/Font'
+import { font } from 'style'
 
 const HeaderBlock = styled.div`
   height: 26px;
@@ -28,7 +28,7 @@ const HeaderBlock = styled.div`
   &:after {
     @property --hdcolor {
       syntax: '<color>';
-      initial-value: ${({ theme }) => theme.palette.back.shades[0]};
+      initial-value: ${({ theme }) => theme.master.shade()};
       inherits: false;
     }
     background: linear-gradient(
@@ -37,14 +37,14 @@ const HeaderBlock = styled.div`
       var(--hdcolor),
       transparent
     );
-    --hdcolor: ${({ theme }) => theme.palette.back.shades[0]};
+    --hdcolor: ${({ theme }) => theme.master.shade()};
     transition: --hdcolor ${({ theme }) => theme.transition.time};
   }
 `
 
 const Title = styled.div`
   ${({ theme }) => font(theme.fonts.interact)}
-  color: ${({ theme }) => theme.palette.back.shades[2]};
+  color: ${({ theme }) => theme.master.shade(0.15)};
   user-select: none;
   transition: color ${({ theme }) => theme.transition.time};
   position: absolute;

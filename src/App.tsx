@@ -3,9 +3,8 @@ import styled, { ThemeProvider } from 'styled-components'
 import { AppPreloader } from 'components/macro/AppPreloader'
 import { Header } from 'components/macro/header'
 import { useOnce, useThemeToggleHotkey } from 'hooks'
-import { Style } from 'global'
 import { PopupContainer, UpfallService } from 'notifications'
-import { Fonts, preload } from 'components/utils/Font'
+import { Fonts, preload } from 'style'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
 import { PopupService } from 'notifications'
@@ -14,11 +13,12 @@ import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { UpfallConatiner } from 'notifications'
+import { Style } from 'style'
 
 const AppRoot = styled.div`
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.palette.back.default};
+  background: ${({ theme }) => theme.master.back};
   padding: 6px;
   transition: background-color ${({ theme }) => theme.transition.time};
   display: flex;

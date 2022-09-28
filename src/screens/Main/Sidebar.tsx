@@ -3,10 +3,9 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconName } from '@fortawesome/fontawesome-svg-core'
 import { transition } from 'style'
-import { Changeable } from 'utils/UtilityProps'
 
 interface SidebarItem<T extends string | number = number>
-  extends Changeable<T> {
+  extends ExtraProps.Changeable<T> {
   id: T
   icon: IconName
 }
@@ -20,9 +19,9 @@ const StyledSidebar = styled.div`
   position: relative;
   width: 50px;
   height: 100%;
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border-radius: ${({ theme }) => theme.radius()};
   z-index: 1;
-  border-right: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
+  border-right: 1px solid ${({ theme }) => theme.master.shade()};
   padding-right: 6px;
   box-sizing: content-box;
 `
@@ -35,7 +34,7 @@ const Selector = styled.div<{ position: number }>`
   transform: translateY(calc(${({ position }) => position} * 100%));
   top: 0;
   left: 0;
-  border: 2px solid ${({ theme }) => theme.palette.accent.default};
+  border: 2px solid ${({ theme }) => theme.accent.primary};
   background-size: 200%;
   z-index: -1;
   ${transition('transform')}
@@ -61,7 +60,7 @@ const SidebarItem = styled.div<{ active: boolean }>`
   justify-content: center;
   align-items: center;
   color: ${({ theme, active }) =>
-    active ? theme.palette.front.shades[3] : theme.palette.accent.default};
+    active ? theme.master.reshade(0.15) : theme.accent.primary};
   font-size: 18px;
   cursor: pointer;
 `

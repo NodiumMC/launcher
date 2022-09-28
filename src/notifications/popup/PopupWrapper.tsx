@@ -1,6 +1,6 @@
 import { Children, cloneElement, FC, isValidElement } from 'react'
 import styled from 'styled-components'
-import { HasChildren, Styled } from 'utils/UtilityProps'
+
 import { animated } from 'react-spring'
 import { rgba } from 'polished'
 import { IPopup } from '.'
@@ -16,13 +16,13 @@ const Popup = styled.div`
   align-items: center;
   backdrop-filter: blur(20px);
   z-index: 1000;
-  border-radius: ${({ theme }) => theme.shape.radius[1]};
-  background-color: ${({ theme }) => rgba(theme.palette.back.default, 0.6)};
+  border-radius: ${({ theme }) => theme.radius(2)};
+  background-color: ${({ theme }) => rgba(theme.master.back, 0.6)};
   transition: background-color ${({ theme }) => theme.transition.time};
 `
 
 export const PopupWrapper: FC<
-  { close: IPopup['close'] } & HasChildren & Styled
+  { close: IPopup['close'] } & ExtraProps.HasChildren & ExtraProps.Styled
 > = ({ close, children, style }) => {
   const childrenWithProps = Children.map(children, child => {
     if (isValidElement(child))

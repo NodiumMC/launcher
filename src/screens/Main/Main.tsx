@@ -1,5 +1,10 @@
 import { FC } from 'react'
-import { MainScreenPage, MainScreenSidebarSubrouter, MainScreenSubRouter, SubRoute } from './MainScreenSubRouter'
+import {
+  MainScreenPage,
+  MainScreenSidebarSubrouter,
+  MainScreenSubRouter,
+  SubRoute,
+} from './MainScreenSubRouter'
 import { Defer } from 'mobmarch'
 import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'

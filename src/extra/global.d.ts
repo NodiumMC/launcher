@@ -1,5 +1,3 @@
-import { Tuple } from 'utils/types'
-
 export {}
 
 declare global {

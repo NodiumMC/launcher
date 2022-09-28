@@ -1,8 +1,7 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DataInput, Styled } from 'utils/UtilityProps'
 import { transition } from 'style'
 import { Select } from 'components/micro/Select'
 import {
@@ -22,8 +21,8 @@ import { Button } from 'components/micro/Button'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { Grow } from 'components/utils/Grow'
 
-const InstallIcon: FC<Styled> = props => (
-  <Text shade={'high'} size={'l'} {...props}>
+const InstallIcon: FC<ExtraProps.Styled> = props => (
+  <Text shade={'high'} size={12} {...props}>
     <FontAwesomeIcon icon={'download'} />
   </Text>
 )
@@ -53,9 +52,9 @@ const StyledMenu = styled.div`
   position: relative;
   height: 40px;
   width: 100%;
-  border: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
-  background-color: ${({ theme }) => theme.palette.back.shades[0]};
+  border: 1px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius()};
+  background-color: ${({ theme }) => theme.master.shade()};
 
   ${transition('height')}
   &:hover, &:focus-within {
@@ -70,7 +69,7 @@ const StyledMenu = styled.div`
     }
 
     height: 100px;
-    background-color: ${({ theme }) => theme.palette.back.default};
+    background-color: ${({ theme }) => theme.master.back};
 
     &:before {
       height: 100px;
@@ -89,7 +88,7 @@ const StyledMenu = styled.div`
   }
 `
 
-const ProviderSelect: FC<DataInput<SupportedProviders>> = ({
+const ProviderSelect: FC<ExtraProps.DataInput<SupportedProviders>> = ({
   onChange,
   value,
 }) => {
@@ -127,7 +126,7 @@ interface Version {
   time: string
 }
 
-const VersionSelect: FC<DataInput<string> & { provider?: SupportedProviders }> =
+const VersionSelect: FC<ExtraProps.DataInput<string> & { provider?: SupportedProviders }> =
   Observer(({ provider, onChange, value }) => {
     const i18n = useI18N()
 
@@ -187,13 +186,13 @@ const VersionSelect: FC<DataInput<string> & { provider?: SupportedProviders }> =
         <Pair gap={'small'}>
           <Pair gap={'small'}>
             <SmallCheckbox value={snapshots} onChange={setSnapshots} />
-            <Text shade={'high'} size={'s'}>
+            <Text shade={'high'} size={7}>
               {i18n.translate.minecraft.snapshots}
             </Text>
           </Pair>
           <Pair gap={'small'}>
             <SmallCheckbox value={old} onChange={setOld} />
-            <Text shade={'high'} size={'s'}>
+            <Text shade={'high'} size={7}>
               {i18n.translate.minecraft.old}
             </Text>
           </Pair>
@@ -245,7 +244,7 @@ export const InstallMenu: FC = Observer(() => {
       <Content>
         <Sqbox>
           <ProviderSelect value={provider} onChange={setProvider} />
-          <Text shade={'high'} size={'s'}>
+          <Text shade={'high'} size={7}>
             {provider
               ? i18n.translate.minecraft.providers[provider]
               : i18n.translate.minecraft.select_provider}
@@ -266,7 +265,7 @@ export const InstallMenu: FC = Observer(() => {
           >
             {i18n.translate.minecraft.install}
           </Button>
-          <Text shade={'high'} size={'s'}>
+          <Text shade={'high'} size={7}>
             {already
               ? i18n.translate.minecraft.already_installed
               : i18n.translate.minecraft.please_wait_install}

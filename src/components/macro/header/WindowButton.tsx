@@ -17,17 +17,17 @@ interface ButtonProps {
 const Button = styled.div<ButtonProps>`
   width: 22px;
   height: 22px;
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border-radius: ${({ theme }) => theme.radius()};
   font-size: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme }) => theme.palette.grayscale[2]};
+  color: ${({ theme }) => theme.master.reshade(0.35)};
   transition: color, background-color ${({ theme }) => theme.transition.time};
   &:hover {
     background-color: ${({ theme, danger }) =>
-      danger ? theme.palette.red.default : theme.palette.back.shades[3]};
-    color: ${({ theme }) => theme.palette.front.default};
+      danger ? theme.palette.red : theme.master.shade(0.15)};
+    color: ${({ theme }) => theme.master.front};
   }
 `
 

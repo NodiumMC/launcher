@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Ansi } from './Ansi'
-import { FN } from 'utils/UtilityTypes'
+
 
 const AnsiHtml = styled.span`
   display: inline-block;
@@ -10,7 +10,7 @@ const AnsiHtml = styled.span`
   font-size: 11px;
   white-space: pre;
   line-height: 14px !important;
-  color: ${({ theme }) => theme.palette.grayscale[3]};
+  color: ${({ theme }) => theme.master.shade(0.25)};
   transition: all ${({ theme }) => theme.transition.time};
 `
 

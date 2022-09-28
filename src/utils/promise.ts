@@ -1,5 +1,3 @@
-import { Awaitable } from 'utils/types'
-
 export const isPromise = <T>(
   possiblePromise: Awaitable<T>,
 ): possiblePromise is Promise<T> =>

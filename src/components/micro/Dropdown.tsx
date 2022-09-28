@@ -1,18 +1,17 @@
 import { FC, ReactNode, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { DataInput } from 'utils/UtilityProps'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import { font } from 'components/utils/Font'
+import { font } from 'style'
 
 const Wrapper = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   height: 40px;
-  border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
-  background-color: ${({ theme }) => theme.palette.back.default};
+  border: 2px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius()};
+  background-color: ${({ theme }) => theme.master.back};
   transition: all ${({ theme }) => theme.transition.time};
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
@@ -25,7 +24,7 @@ export interface DropdownItem {
   icon?: ReactNode
 }
 
-export interface DropdownProps extends DataInput<string> {
+export interface DropdownProps extends ExtraProps.DataInput<string> {
   items: DropdownItem[]
 }
 
@@ -38,11 +37,11 @@ const ItemWrapper = styled.div`
   transition: inherit;
   cursor: pointer;
   padding: 0 10px;
-  background-color: ${({ theme }) => theme.palette.back.default};
+  background-color: ${({ theme }) => theme.master.back};
   border-radius: inherit;
 
   &:not(:first-child) {
-    border-top: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
+    border-top: 1px solid ${({ theme }) => theme.master.shade()};
   }
 `
 
@@ -53,7 +52,7 @@ interface LabelProps {
 const Label = styled.span<LabelProps>`
   ${({ theme }) => font(theme.fonts.interact)};
   color: ${({ theme, selected }) =>
-    selected ? theme.palette.accent.default : theme.palette.front.default};
+    selected ? theme.accent.primary : theme.master.front};
   user-select: none;
   transition: inherit;
 `
@@ -72,7 +71,7 @@ const IconWrapper = styled.div`
   }
 `
 
-const Item: FC<{ selected: DropdownItem } & DataInput<DropdownItem>> = ({
+const Item: FC<{ selected: DropdownItem } & ExtraProps.DataInput<DropdownItem>> = ({
   selected,
   onChange,
   value,
@@ -99,12 +98,12 @@ const List = styled.div<ListProps>`
   overflow: scroll;
   transition: inherit;
   border-radius: inherit;
-  border: 0px solid ${({ theme }) => theme.palette.back.shades[0]};
+  border: 0px solid ${({ theme }) => theme.master.shade()};
   ${({ opened, theme }) =>
     opened
       ? `
     max-height: calc(3 * 40px);
-    border: 2px solid ${theme.palette.back.shades[0]};
+    border: 2px solid ${theme.master.shade()};
   `
       : ''};
   transition-duration: 0.35s;
@@ -116,8 +115,8 @@ const Open = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme }) => theme.palette.back.shades[5]};
-  border-left: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
+  color: ${({ theme }) => theme.master.shade(0.3)};
+  border-left: 1px solid ${({ theme }) => theme.master.shade()};
   cursor: pointer;
   transition: inherit;
 `

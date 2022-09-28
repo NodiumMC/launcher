@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
-import { ellipsis, mix } from 'polished'
-import { font } from 'components/utils/Font'
+import { ellipsis } from 'polished'
+import { font } from 'style'
 import { shade, ShadeProps } from 'style'
 
 export interface TextProps extends ShadeProps {
@@ -14,7 +14,7 @@ export interface TextProps extends ShadeProps {
   gradient?: boolean
   font?: string
   pre?: boolean
-  size?: string | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
+  size?: number
   interaction?: boolean
 }
 
@@ -64,8 +64,8 @@ const preStyle = css`
   white-space: pre-wrap;
 `
 
-const sizeStyle = (size: string) => css`
-  font-size: ${size};
+const sizeStyle = (size: number) => css`
+  font-size: ${({ theme }) => theme.size(size)};
 `
 
 const interactionStyle = css`
@@ -74,8 +74,8 @@ const interactionStyle = css`
 
 export const Text = styled.span<TextProps>`
   display: inline-block;
-  color: ${({ theme, color }) => color ?? theme.palette.front.default};
-  ${font('Rubik')}
+  color: ${({ theme, color }) => color ?? theme.master.front};
+  ${font()}
   ${props => css`
     ${props.block && blockStyle}
     ${props.center && centerStyle}
@@ -90,13 +90,9 @@ export const Text = styled.span<TextProps>`
     ${props.pre && preStyle}
     ${props.interaction && interactionStyle}
     ${props.size
-      ? sizeStyle(
-          props.theme.size.font[
-            props.size as keyof typeof props.theme.size.font
-          ] ?? props.size,
-        )
+      ? sizeStyle(props.size)
       : css`
-          font-size: ${({ theme }) => theme.size.font.m};
+          font-size: ${({ theme }) => theme.size(10)};
         `}
   `}
 `

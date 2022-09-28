@@ -28,8 +28,8 @@ export const shade = (level?: number | 'low' | 'medium' | 'high') =>
                 ? 0.3
                 : 0.1
               : level,
-            theme.palette.back.default,
-            theme.palette.front.default,
+            theme.master.back,
+            theme.master.front,
           )};
       `
     : ''
