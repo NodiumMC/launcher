@@ -7,8 +7,7 @@ import { Observer, useModule } from 'mobmarch'
 import { UpfallService } from 'notifications/upfall/Upfall.service'
 import { animated, useTransition } from 'react-spring'
 import { mix, rgba } from 'polished'
-import { Styled } from 'utils/UtilityProps'
-import { useI18N, useOnce } from 'hooks'
+import { useOnce } from 'hooks'
 
 const Icon = styled.div`
   display: flex;
@@ -16,7 +15,7 @@ const Icon = styled.div`
   justify-content: center;
   align-items: center;
   padding-right: 12px;
-  border-right: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
+  border-right: 1px solid ${({ theme }) => theme.master.shade()};
 `
 
 const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(
@@ -24,25 +23,13 @@ const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(
     typecolor: (() => {
       switch (type) {
         default:
-          return theme.palette.back.default
+          return theme.master.back
         case 'ok':
-          return mix(
-            0.7,
-            theme.palette.green.default,
-            theme.palette.front.default,
-          )
+          return mix(0.7, theme.palette.green, theme.master.front)
         case 'warn':
-          return mix(
-            0.7,
-            theme.palette.yellow.default,
-            theme.palette.front.default,
-          )
+          return mix(0.7, theme.palette.yellow, theme.master.front)
         case 'error':
-          return mix(
-            0.7,
-            theme.palette.red.default,
-            theme.palette.front.default,
-          )
+          return mix(0.7, theme.palette.red, theme.master.front)
       }
     })(),
   }),
@@ -57,25 +44,25 @@ const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
   border: 1px solid
     ${({ typecolor, type, theme }) =>
-      type === 'default' ? theme.palette.back.shades[0] : typecolor};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+      type === 'default' ? theme.master.shade() : typecolor};
+  border-radius: ${({ theme }) => theme.radius()};
 
   &,
   ${Text} {
     color: ${({ typecolor, type, theme }) =>
-      type === 'default' ? theme.palette.front.default : typecolor};
+      type === 'default' ? theme.master.front : typecolor};
   }
 
   ${Icon} {
     border-color: ${({ typecolor, theme, type }) =>
-      type === 'default' ? theme.palette.back.shades[0] : rgba(typecolor!, 0.3)};
+      type === 'default' ? theme.master.shade() : rgba(typecolor!, 0.3)};
   }
 
   background: ${({ theme, typecolor }) =>
-    mix(0.2, typecolor!, theme.palette.back.default)};
+    mix(0.2, typecolor!, theme.master.back)};
 `
 
-export const UpfallItem: FC<{ upfall: Upfall; key: string } & Styled> = ({
+export const UpfallItem: FC<{ upfall: Upfall; key: string } & ExtraProps.Styled> = ({
   upfall: { content, type, icon, remove },
   style,
 }) => {

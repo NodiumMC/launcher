@@ -1,5 +1,4 @@
 import { action, makeObservable, observable } from 'mobx'
-import { Awaitable } from 'utils/types'
 import { Module } from 'mobmarch'
 
 export type PreloaderQueueTask = () => Awaitable

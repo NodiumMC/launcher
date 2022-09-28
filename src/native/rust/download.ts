@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { invoke } from '@tauri-apps/api'
 import { listen } from '@tauri-apps/api/event'
-import { Nullable } from 'utils/types'
+
 import EventEmitter from 'eventemitter3'
 import { dirname } from 'native/path'
 import { createDir } from '@tauri-apps/api/fs'

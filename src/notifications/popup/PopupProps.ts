@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { Awaitable } from 'utils/types'
 
 export interface PopupAction {
   label: string

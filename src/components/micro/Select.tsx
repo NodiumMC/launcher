@@ -2,14 +2,13 @@ import { useMemo } from 'react'
 import ReactSelect, { Props } from 'react-select'
 import styled from 'styled-components'
 import { transition } from 'style'
-import { DataInput, Styled } from 'utils/UtilityProps'
 import { rgba } from 'polished'
 
 const StyledSelect = styled(ReactSelect)`
   .Select__control {
-    background: ${({ theme }) => theme.palette.back.default};
-    border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-    border-radius: ${({ theme }) => theme.shape.radius[0]};
+    background: ${({ theme }) => theme.master.back};
+    border: 2px solid ${({ theme }) => theme.master.shade()};
+    border-radius: ${({ theme }) => theme.radius()};
     box-shadow: none;
     height: 36px;
     display: flex;
@@ -22,37 +21,37 @@ const StyledSelect = styled(ReactSelect)`
     }
 
     &:hover {
-      border-color: ${({ theme }) => theme.palette.back.shades[1]};
+      border-color: ${({ theme }) => theme.master.shade(0.1)};
     }
   }
 
   .Select__control--is-focused {
-    border-color: ${({ theme }) => theme.palette.accent.default} !important;
+    border-color: ${({ theme }) => theme.accent.primary} !important;
   }
 
   .Select__indicator-separator {
-    background-color: ${({ theme }) => theme.palette.back.shades[0]};
+    background-color: ${({ theme }) => theme.master.shade()};
     width: 2px;
   }
 
   .Select__dropdown-indicator {
-    color: ${({ theme }) => theme.palette.back.shades[4]};
+    color: ${({ theme }) => theme.master.shade(0.25)};
 
     &:hover {
-      color: ${({ theme }) => theme.palette.back.shades[5]};
+      color: ${({ theme }) => theme.master.shade(0.3)};
     }
   }
 
   .Select__menu {
-    background: ${({ theme }) => theme.palette.back.default};
-    border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-    border-radius: ${({ theme }) => theme.shape.radius[0]};
+    background: ${({ theme }) => theme.master.back};
+    border: 2px solid ${({ theme }) => theme.master.shade()};
+    border-radius: ${({ theme }) => theme.radius()};
     padding: 0;
   }
 
   .Select__value-container--has-value {
     .Select__single-value {
-      color: ${({ theme }) => theme.palette.accent.default};
+      color: ${({ theme }) => theme.accent.primary};
     }
   }
 
@@ -68,31 +67,31 @@ const StyledSelect = styled(ReactSelect)`
 
   .Select__option:hover,
   .Select__option--is-focused {
-    background-color: ${({ theme }) => theme.palette.back.shades[0]};
+    background-color: ${({ theme }) => theme.master.shade()};
   }
 
   .Select__option--is-selected {
     background-color: ${({ theme }) =>
-      rgba(theme.palette.accent.default, 0.2)} !important;
-    color: ${({ theme }) => theme.palette.front.default};
+      rgba(theme.accent.primary, 0.2)} !important;
+    color: ${({ theme }) => theme.master.front};
   }
 
   .Select__control--is-disabled {
-    background-color: ${({ theme }) => theme.palette.back.shades[0]};
+    background-color: ${({ theme }) => theme.master.shade()};
   }
 
   .Select__multi-value {
-    background-color: ${({ theme }) => theme.palette.back.shades[1]};
+    background-color: ${({ theme }) => theme.master.shade(0.1)};
   }
 
   .Select__multi-value__label {
-    color: ${({ theme }) => theme.palette.front.default};
+    color: ${({ theme }) => theme.master.front};
   }
 
   .Select__multi-value__remove {
     &:hover {
-      background-color: ${({ theme }) => theme.palette.red.default};
-      color: ${({ theme }) => theme.palette.front.default};
+      background-color: ${({ theme }) => theme.palette.red};
+      color: ${({ theme }) => theme.master.front};
     }
 
     margin-left: 6px;
@@ -100,7 +99,7 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__input-container {
-    color: ${({ theme }) => theme.palette.back.shades[3]};
+    color: ${({ theme }) => theme.master.shade(0.2)};
   }
 
   height: 40px;
@@ -114,7 +113,7 @@ export interface SelectOption<Label> {
 }
 
 export interface SelectProps<Value = string, Label = unknown>
-  extends DataInput<Value> {
+  extends ExtraProps.DataInput<Value> {
   options?: SelectOption<Label>[]
   menuPlacement?: Props['menuPlacement']
   placeholder?: Props['placeholder']
@@ -128,7 +127,7 @@ export const Select = <Value extends string = any, Label = unknown>({
   onChange,
   maxMenuHeight = 5,
   ...props
-}: SelectProps<Value, Label> & Styled) => {
+}: SelectProps<Value, Label> & ExtraProps.Styled) => {
   const defaultValue = useMemo(
     () => options?.find(v => v.value === value),
     [options, value],

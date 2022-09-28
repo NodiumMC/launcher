@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { opacify, rgba } from 'polished'
+import { rgba } from 'polished'
 
 export const Style = createGlobalStyle`
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
@@ -72,10 +72,10 @@ export const Style = createGlobalStyle`
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: ${({ theme }) => theme.shape.radius[0]};
+    border-radius: ${({ theme }) => theme.radius()};
     font-family: Rubik, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
-    color: ${({ theme }) => theme.palette.front.shades[0]};
-    font-size: ${({ theme }) => theme.size.font.m};
+    color: ${({ theme }) => theme.master.reshade()};
+    font-size: 14px;
     transition: background-color, color, font-size ${({ theme }) =>
       theme.transition.time};
   }
@@ -115,7 +115,7 @@ export const Style = createGlobalStyle`
   }
 
   *::selection {
-    background: ${({ theme }) => rgba(theme.palette.accent.default, 0.321)};
+    background: ${({ theme }) => rgba(theme.accent.primary, 0.321)};
   }
   
   * {

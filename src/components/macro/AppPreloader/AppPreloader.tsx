@@ -4,7 +4,7 @@ import { Empty } from '../../utils/Empty'
 import { Preloader } from '../../micro/Preloader'
 import { animated, useTransition } from 'react-spring'
 import { ProgressBar } from '../../micro/ProgressBar'
-import { font } from 'components/utils/Font'
+import { font } from 'style'
 import { Observer, useModule } from 'mobmarch'
 import { Preloader as PreloaderService } from 'preload'
 
@@ -14,7 +14,7 @@ const AppPreloaderWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.palette.back.default};
+  background-color: ${({ theme }) => theme.master.back};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@ const Title = styled.div`
   ${({ theme }) => font(theme.fonts.title)}
   font-weight: 600;
   font-style: italic;
-  background: ${({ theme }) => theme.gradients.primary};
+  background: ${({ theme }) => theme.accent.gradient()};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   user-select: none;
@@ -59,7 +59,7 @@ const AbsolutePreloader = styled(Preloader)`
 
 const Stage = styled.div`
   position: relative;
-  color: ${({ theme }) => theme.palette.grayscale[2]};
+  color: ${({ theme }) => theme.master.shade(0.5)};
 `
 
 const StageWrapper = styled.div`

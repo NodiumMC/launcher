@@ -1,6 +1,5 @@
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
-import { As, Styled } from 'utils/UtilityProps'
 
 export interface ProgressBarProps {
   total: number
@@ -11,8 +10,8 @@ export interface ProgressBarProps {
 const Wrapper = styled.div`
   width: 100%;
   height: 16px;
-  background-color: ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[1]};
+  background-color: ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius(2)};
   overflow: hidden;
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
@@ -25,8 +24,8 @@ interface ProgressProps {
 const Progress = styled.div<ProgressProps>`
   width: ${({ value }) => `${value}%`};
   height: 100%;
-  background-color: ${({ theme }) => theme.palette.accent.default};
-  border-radius: ${({ theme }) => theme.shape.radius[1]};
+  background-color: ${({ theme }) => theme.accent.primary};
+  border-radius: ${({ theme }) => theme.radius(2)};
   position: absolute;
   top: 0;
   left: 0;
@@ -38,12 +37,9 @@ const MaskedProgress = styled(Progress)`
   mask-size: 2px 2px;
 `
 
-export const ProgressBar: FC<ProgressBarProps & Styled & As> = ({
-  pre,
-  value,
-  total,
-  className,
-}) => {
+export const ProgressBar: FC<
+  ProgressBarProps & ExtraProps.Styled & ExtraProps.As
+> = ({ pre, value, total, className }) => {
   const $pre = useMemo(() => pre.map(0, total), [pre, total])
   const $value = useMemo(() => value.map(0, total), [value, total])
   return (

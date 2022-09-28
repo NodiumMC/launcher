@@ -20,8 +20,8 @@ const Page = styled(Screen)`
 `
 
 const AddNewButton = styled.button`
-  border: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border: 1px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius()};
   height: 80px;
   display: flex;
   align-items: center;
@@ -29,7 +29,7 @@ const AddNewButton = styled.button`
   ${transition()}
   flex-shrink: 0;
   &:hover {
-    background-color: ${({ theme }) => theme.palette.back.shades[0]};
+    background-color: ${({ theme }) => theme.master.shade()};
   }
   &[disabled] {
     cursor: not-allowed;
@@ -55,7 +55,7 @@ export const InstancesSubscreen: FC = Observer(() => {
         <InstanceItem instance={v} key={v.settings.name} />
       ))}
       <AddNewButton disabled={creating} onClick={create}>
-        <Text shade={'high'} size={'l'}>
+        <Text shade={'high'} size={12}>
           <FontAwesomeIcon icon={'plus'} />
         </Text>
       </AddNewButton>

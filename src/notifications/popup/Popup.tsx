@@ -16,7 +16,7 @@ import { isPromise } from 'utils/promise'
 const Popuup = styled.div`
   width: 580px;
   height: 320px;
-  background-color: ${({ theme }) => theme.palette.back.default};
+  background-color: ${({ theme }) => theme.master.back};
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -24,8 +24,8 @@ const Popuup = styled.div`
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
   gap: 20px;
-  border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[1]};
+  border: 2px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius(2)};
 `
 
 const Icon = styled.div<Pick<IPopup, 'level'>>`
@@ -35,15 +35,15 @@ const Icon = styled.div<Pick<IPopup, 'level'>>`
   color: ${({ theme, level }) => {
     switch (level) {
       case 'ok':
-        return theme.palette.green.default
+        return theme.palette.green
       case 'warn':
-        return theme.palette.yellow.default
+        return theme.palette.yellow
       case 'error':
-        return theme.palette.red.default
+        return theme.palette.red
       case 'question':
-        return theme.palette.accent.default
+        return theme.accent.primary
       case 'info':
-        return theme.palette.accent.default
+        return theme.accent.primary
     }
   }};
   transition: background-color ${({ theme }) => theme.transition.time};
@@ -83,7 +83,7 @@ export const Popup: FC<IPopup> = ({
   return (
     <Popuup>
       <Icon level={level}>{icon}</Icon>
-      <Text size={'l'} center weight>
+      <Text size={15} center weight>
         {title}
       </Text>
       {typeof description !== 'object' ? (

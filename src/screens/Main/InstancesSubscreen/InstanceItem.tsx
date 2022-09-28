@@ -25,8 +25,8 @@ export interface InstanceItemProps {
 
 const InstanceItemStyled = styled.div<{ unfolded?: boolean }>`
   display: flex;
-  border: 1px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border: 1px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius()};
   min-height: 80px;
   cursor: ${({ unfolded }) => (unfolded ? 'default' : 'pointer')};
   padding: 0 20px;
@@ -35,7 +35,7 @@ const InstanceItemStyled = styled.div<{ unfolded?: boolean }>`
   ${transition('background-color, max-height')}
   &:hover {
     background-color: ${({ theme, unfolded }) =>
-      !unfolded && theme.palette.back.shades[0]};
+      !unfolded && theme.master.shade()};
   }
 `
 
@@ -51,7 +51,7 @@ const Header = styled.div`
 const Icon = styled(Img)`
   width: 40px;
   height: 40px;
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
+  border-radius: ${({ theme }) => theme.radius()};
 `
 const Gap = styled.div`
   flex-grow: 1;
@@ -182,7 +182,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
       <Header>
         <Icon src={iconSrc} />
         <Text shade={'low'}>{instance.settings.name}</Text>
-        <Text shade={'high'} size={'s'}>
+        <Text shade={'high'} size={7}>
           {instance.settings.vid}
         </Text>
         <Gap />
@@ -222,7 +222,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
             value={windowWidth}
             onChange={inputValue(setWindowWidth, true)}
           />
-          <Text shade={'high'} size={'l'}>
+          <Text shade={'high'} size={12}>
             <FontAwesomeIcon icon={'xmark'} />
           </Text>
           <Input

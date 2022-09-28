@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { nanoid } from 'nanoid'
 import { listen } from '@tauri-apps/api/event'
-import { Nullable } from 'utils/types'
+
 import { invoke } from '@tauri-apps/api'
 
 export interface RUnzipProgress {

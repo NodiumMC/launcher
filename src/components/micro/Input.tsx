@@ -10,9 +10,9 @@ const centerStyle = css`
 `
 
 export const Input = styled.input<InputProps>`
-  border: 2px solid ${({ theme }) => theme.palette.back.shades[0]};
-  border-radius: ${({ theme }) => theme.shape.radius[0]};
-  background-color: ${({ theme }) => theme.palette.back.default};
+  border: 2px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius()};
+  background-color: ${({ theme }) => theme.master.back};
   height: 38px;
   margin: 0;
   padding: 0 10px;
@@ -23,7 +23,7 @@ export const Input = styled.input<InputProps>`
 
   ${transition()}
   &:focus {
-    background-color: ${({ theme }) => theme.palette.back.tints[0]};
-    border-color: ${({ theme }) => theme.palette.accent.default};
+    background-color: ${({ theme }) => theme.master.shade()};
+    border-color: ${({ theme }) => theme.accent.primary};
   }
 `

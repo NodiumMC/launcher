@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { DataInput, Styled, Value } from 'utils/UtilityProps'
+
 import { transition } from 'style'
 
 interface SubstrateProps {
@@ -14,7 +14,7 @@ const Substrate = styled.div<SubstrateProps>`
   width: 18px;
   height: 18px;
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.grayscale[2] : theme.palette.accent.default};
+    disabled ? theme.master.shade(0.2) : theme.accent.primary};
   position: relative;
   ${transition('all', '100ms')}
 
@@ -22,7 +22,7 @@ const Substrate = styled.div<SubstrateProps>`
     ${({ disabled, theme }) =>
       !disabled
         ? `
-    box-shadow: 0 0 10px 1px ${theme.palette.accent.default}3F
+    box-shadow: 0 0 10px 1px ${theme.accent.primary}3F
     `
         : ''}
   }
@@ -51,11 +51,11 @@ const Substrate = styled.div<SubstrateProps>`
   }
 `
 
-const Container = styled(Substrate)<Value<boolean>>`
+const Container = styled(Substrate)<ExtraProps.Value<boolean>>`
   width: 16px;
   height: 16px;
   background-color: ${({ theme, value }) =>
-    value ? theme.palette.accent.default : theme.palette.back.default};
+    value ? theme.accent.primary : theme.master.back};
   z-index: 1;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 
@@ -98,7 +98,7 @@ const L = styled.div`
   }
 `
 
-const Checked = styled.div<Value<boolean> & SubstrateProps>`
+const Checked = styled.div<ExtraProps.Value<boolean> & SubstrateProps>`
   position: absolute;
   width: ${({ value }) => (value ? '100%' : 0)};
   height: ${({ value }) => (value ? '100%' : 0)};
@@ -108,16 +108,13 @@ const Checked = styled.div<Value<boolean> & SubstrateProps>`
   border-radius: 50%;
   ${transition('all', '50ms')}
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.grayscale[2] : theme.palette.accent.default};
+    disabled ? theme.master.reshade(0.6) : theme.accent.primary};
   z-index: 2;
 `
 
-export const Checkbox: FC<SubstrateProps & DataInput<boolean> & Styled> = ({
-  value,
-  disabled,
-  onChange,
-  ...props
-}) => {
+export const Checkbox: FC<
+  SubstrateProps & ExtraProps.DataInput<boolean> & ExtraProps.Styled
+> = ({ value, disabled, onChange, ...props }) => {
   return (
     <Substrate
       disabled={disabled}

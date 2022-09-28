@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import preloader from 'assets/img/preloader.svg'
-import { Styled } from 'utils/UtilityProps'
 
 const PreloaderImg = styled.img`
   width: 100%;
@@ -32,7 +31,7 @@ const Wrapper = styled.div`
   position: relative;
 `
 
-export const Preloader: FC<Styled> = ({ className }) => {
+export const Preloader: FC<ExtraProps.Styled> = ({ className }) => {
   return (
     <Wrapper className={className}>
       <PreloaderImg src={preloader} />

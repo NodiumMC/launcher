@@ -1,6 +1,5 @@
 import { FC, ReactElement, ReactNode, useMemo } from 'react'
 import { IconName } from '@fortawesome/fontawesome-svg-core'
-import { HasChildren } from 'utils/UtilityProps'
 import { Sidebar } from 'screens/Main/Sidebar'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
@@ -10,7 +9,7 @@ import { MainScreenSubRouter } from 'screens/Main/MainScreenSubRouter/MainScreen
 import { Observer } from 'mobmarch'
 import { transition } from 'style'
 
-interface SubrouteProps extends HasChildren<ReactNode> {
+interface SubrouteProps extends ExtraProps.HasChildren<ReactNode> {
   icon: IconName
   to: MainScreenPage
 }
@@ -41,7 +40,7 @@ const Page = styled.div<{ position: number }>`
 
 export const SubRoute: FC<SubrouteProps> = () => <></>
 export const MainScreenSidebarSubrouter: FC<
-  Required<HasChildren<Array<ReactElement<SubrouteProps>>>>
+  Required<ExtraProps.HasChildren<Array<ReactElement<SubrouteProps>>>>
 > = Observer(({ children }) => {
   const items = useMemo(() => children.map(v => v.props), [])
   const subrouter = useModule(MainScreenSubRouter)

@@ -1,106 +1,34 @@
-import { generic } from 'theme/list/generic'
-import { darken, lighten, linearGradient } from 'polished'
+import { generic } from 'theme/list'
+import { mix } from 'polished'
 
 export const dark = {
   ...generic,
-  palette: {
-    accent: {
-      default: '#ff986c',
-      get light() {
-        return lighten(0.1, this.default)
-      },
-      get dark() {
-        return darken(0.1, this.default)
-      },
+  master: {
+    back: generic.palette.black,
+    front: generic.palette.white,
+    shade(factor = 0.05) {
+      return mix(factor >= 0 ? factor : 1 - factor * -1, this.front, this.back)
     },
-    front: {
-      default: '#fff8e8',
-      tints: [
-        '#faf3e3',
-        '#f5eede',
-        '#f0e9d9',
-        '#ebe4d4',
-        '#e6dfcf',
-        '#e1daca'],
-      shades: [
-        '#ebe4d4',
-        '#e1daca',
-        '#d7d0c0',
-        '#cdc6b6',
-        '#c3bcac',
-        '#b9b2a2',
-      ],
+    reshade(factor = 0.05) {
+      return mix(factor >= 0 ? factor : 1 - factor * -1, this.back, this.front)
     },
-    back: {
-      default: '#2c2525',
-      tints: ['#272020', '#221b1b', '#1d1616', '#181111', '#130c0c', '#0e0707'],
-      shades: [
-        '#362f2f',
-        '#403939',
-        '#4a4343',
-        '#544d4d',
-        '#5e5757',
-        '#686161',
-      ],
-    },
-    grayscale: [
-      '#403939',
-      '#544d4d',
-      '#686161',
-      '#7c7575',
-      '#908989',
-      '#a49d9d',
-    ],
-    red: {
-      default: '#ff5050',
-    },
-    green: {
-      default: '#bfff50',
-    },
-    yellow: {
-      default: '#ffdc6a',
-    },
-    blue: {
-      default: '#8b71ff',
-    },
-    console: [
-      '#000',
-      '#ff5050',
-      '#bfff50',
-      '#ffdc50',
-      '#55F',
-      '#F5F',
-      '#5FF',
-      '#AAA',
-      '#555',
-      '#ff245d',
-      '#80ff2c',
-      '#ffcf11',
-      '#6237ff',
-      '#d231ff',
-      '#00ff8b',
-      '#FFF',
-    ],
   },
-  gradients: {
-    primary: linearGradient({
-      colorStops: ['#7458f5', '#ee3ec9', '#ff5293', '#ffc552', '#f9f871'],
-      toDirection: '327deg',
-    }),
-    accent: linearGradient({
-      colorStops: [
-        '#ff986c',
-        '#f37e7d',
-        '#da6d8e',
-        '#b6639a',
-        '#885e9e',
-        '#535997',
-      ],
-      toDirection: '45deg',
-    }),
-    mono: linearGradient({
-      colorStops: ['#ff986c', '#ffd06c'],
-      toDirection: '45deg',
-    }),
-  },
+  console: [
+    '#000',
+    '#ff5050',
+    '#bfff50',
+    '#ffdc50',
+    '#55F',
+    '#F5F',
+    '#5FF',
+    '#AAA',
+    '#555',
+    '#ff245d',
+    '#80ff2c',
+    '#ffcf11',
+    '#6237ff',
+    '#d231ff',
+    '#00ff8b',
+    '#FFF',
+  ],
 }
