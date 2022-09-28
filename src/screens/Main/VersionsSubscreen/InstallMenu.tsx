@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -138,34 +138,39 @@ const VersionSelect: FC<DataInput<string> & { provider?: SupportedProviders }> =
       fetcher('https://nadmelas.nodium.ru/list'),
     )
 
-    const options = useMemo(
+    const versions = useMemo(
       () =>
         data
           ?.filter?.(v => snapshots || isRelease(v.value))
-          ?.filter?.(v => old || !isOld(v.value))
-          .map?.(v => ({
-            value: v.value,
-            label: (
-              <Pair>
-                <Text>{v.value}</Text>
-                {v.latest && (
-                  <Text color={'#f3ff73'}>
-                    <FontAwesomeIcon icon={'l'} />
-                  </Text>
-                )}
-                {!isRelease(v.value) && (
-                  <Text color={'#8400ff'}>
-                    <FontAwesomeIcon icon={'s'} />
-                  </Text>
-                )}
-                {isOld(v.value) && (
-                  <Text color={'#93f5ff'}>
-                    <FontAwesomeIcon icon={'o'} />
-                  </Text>
-                )}
-              </Pair>
-            ),
-          })),
+          ?.filter?.(v => old || !isOld(v.value)),
+      [data],
+    )
+
+    const options = useMemo(
+      () =>
+        versions?.map?.(v => ({
+          value: v.value,
+          label: (
+            <Pair>
+              <Text>{v.value}</Text>
+              {v.latest && (
+                <Text color={'#f3ff73'}>
+                  <FontAwesomeIcon icon={'l'} />
+                </Text>
+              )}
+              {!isRelease(v.value) && (
+                <Text color={'#8400ff'}>
+                  <FontAwesomeIcon icon={'s'} />
+                </Text>
+              )}
+              {isOld(v.value) && (
+                <Text color={'#93f5ff'}>
+                  <FontAwesomeIcon icon={'o'} />
+                </Text>
+              )}
+            </Pair>
+          ),
+        })),
       [value, data, old, snapshots],
     )
 
@@ -215,8 +220,6 @@ export const InstallMenu: FC = Observer(() => {
 
   const i18n = useI18N()
   const profiles = useModule(GameProfileService)
-
-  console.log('REload')
 
   const already = useMemo(
     () =>

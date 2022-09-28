@@ -47,6 +47,9 @@ export interface Structure<I = string> {
     install: I
     already_installed: I
     please_wait_install: I
+    version_install_failed: I
+    version_install_successful: I
+    added_new_version: I
     providers: {
       vanilla: I
       fabric: I

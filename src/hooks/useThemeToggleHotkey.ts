@@ -21,5 +21,5 @@ export const useThemeToggleHotkey = (hotkey = 'F4') => {
         })
       return () => s.unsubscribe()
     }
-  }, [theme])
+  }, [theme, upfall])
 }

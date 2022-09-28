@@ -21,39 +21,41 @@ export class LauncherProfile {
     options: LauncherProfileJSON,
     private readonly blake: BlakeMapService,
   ) {
-    makeObservable(this)
     this.options = options
+    makeObservable(this)
   }
 
-  @action.bound
+  @action
   private async _install(clientDir: string, gameDataDir: string) {
-    const vid = this.options.lastVersionId
-    const inp = await install(
-      {
-        clientDir,
-        gameDataDir,
-        blakemap: this.blake.map,
-        vid,
-      },
-      this.abortController.signal,
-    )
-    this._state = ProfileState.INSTALLING
-    inp.on('unit', (name, hash) => {
-      this.blake.map[name] = hash
+    return new Promise<void>(async (resolve, reject) => {
+      const vid = this.options.lastVersionId
+      const inp = await install(
+        {
+          clientDir,
+          gameDataDir,
+          blakemap: this.blake.map,
+          vid,
+        },
+        this.abortController.signal,
+      )
+      this._state = ProfileState.INSTALLING
+      inp.on('unit', (name, hash) => {
+        this.blake.map[name] = hash
+      })
+      inp.on('download', progress => {
+        this._progress = progress.transferred.map(0, progress.total)
+      })
+      inp.on('unzip', progress => {
+        this._progress = progress.progress.map(0, progress.total, 100, 200)
+      })
+      inp.on('done', async () => {
+        await this.blake.save()
+        this._state = ProfileState.READY
+        this._progress = 0
+        resolve()
+      })
+      inp.on('error', reject)
     })
-    inp.on('download', progress => {
-      this._progress = progress.transferred.map(0, progress.total)
-    })
-    inp.on('unzip', progress => {
-      this._progress = progress.progress.map(0, progress.total, 100, 200)
-    })
-    inp.on('done', async () => {
-      await this.blake.save()
-      this._state = ProfileState.READY
-      this._progress = 0
-      console.log('done')
-    })
-    inp.on('error', console.log)
   }
 
   get progress() {
@@ -64,7 +66,7 @@ export class LauncherProfile {
     return this._state
   }
 
-  @action.bound
+  @action
   async install() {
     const vid = this.options.lastVersionId
     const vpath = join(await GameDir(), 'versions', vid)

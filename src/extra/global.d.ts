@@ -22,4 +22,7 @@ declare global {
       toMax?: number,
     ): number
   }
+  interface String {
+    explain(placeholders: Record<string, string>): string
+  }
 }

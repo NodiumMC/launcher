@@ -2,14 +2,18 @@ import { makeObservable, observable } from 'mobx'
 import type { SupportedLang } from 'i18n/langs'
 import { Launguage } from 'i18n/langs'
 import { CentralConfig } from 'config'
-import { Module } from 'mobmarch'
+import { BeforeResolve, Module } from 'mobmarch'
 import { R18T } from 'i18n/index'
 
 const fallback: SupportedLang = 'en_US'
 
 @Module([CentralConfig])
 export class I18n {
-  @observable _lang: SupportedLang = 'ru_RU'
+  @observable _lang: SupportedLang = fallback
+
+  private [BeforeResolve]() {
+    this._lang = this.cc.data.appearance.lang ?? fallback
+  }
 
   get lang() {
     return this._lang
@@ -22,7 +26,6 @@ export class I18n {
 
   constructor(private readonly cc: CentralConfig) {
     makeObservable(this)
-    this._lang = this.cc.data.appearance.lang ?? 'ru_RU'
   }
 
   private check() {

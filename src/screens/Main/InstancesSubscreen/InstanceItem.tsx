@@ -165,11 +165,10 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
         !saving &&
         (instance.settings.vid != vid ||
           instance.settings.name != name.trim() ||
-          (instance.settings.alloc &&
-            instance.settings.alloc != alloc &&
-            instance.settings.windowHeight &&
-            instance.settings.windowHeight != windowHeight &&
-            instance.settings.windowWidth &&
+          (instance.settings.alloc && instance.settings.alloc != alloc) ||
+          (instance.settings.windowHeight &&
+            instance.settings.windowHeight != windowHeight) ||
+          (instance.settings.windowWidth &&
             instance.settings.windowWidth != windowWidth))
       ),
     [instance, vid, name, alloc, windowWidth, windowHeight, saving],
@@ -221,7 +220,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
             max={7680}
             center
             value={windowWidth}
-            onChange={inputValue(setWindowWidth)}
+            onChange={inputValue(setWindowWidth, true)}
           />
           <Text shade={'high'} size={'l'}>
             <FontAwesomeIcon icon={'xmark'} />
@@ -232,13 +231,13 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
             max={4320}
             center
             value={windowHeight}
-            onChange={inputValue(setWindowHeight)}
+            onChange={inputValue(setWindowHeight, true)}
           />
           <Pair>
             <Text shade={'low'}>RAM</Text>
             <Input
               value={alloc}
-              onChange={inputValue(setAlloc)}
+              onChange={inputValue(setAlloc, true)}
               center
               type={'number'}
             />
