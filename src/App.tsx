@@ -14,6 +14,7 @@ import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { UpfallConatiner } from 'notifications'
 import { Style } from 'style'
+import { useDebugHotkey } from 'hooks/useDebug'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -39,6 +40,7 @@ export const App: FC = Observer(() => {
   useThemeToggleHotkey()
   useOnce(preload)
   useFontawesomeLoader()
+  useDebugHotkey()
   return (
     <>
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
