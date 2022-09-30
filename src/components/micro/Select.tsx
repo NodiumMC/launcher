@@ -16,6 +16,7 @@ const StyledSelect = styled(ReactSelect)`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    min-width: 200px;
     img {
       height: 24px;
     }

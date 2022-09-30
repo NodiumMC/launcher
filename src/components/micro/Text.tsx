@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components'
 import { ellipsis } from 'polished'
 import { font } from 'style'
 import { shade, ShadeProps } from 'style'
+import { normalizeFontWeight } from 'utils'
+import { Styles } from 'polished/lib/types/style'
 
 export interface TextProps extends ShadeProps {
   block?: boolean
@@ -9,9 +11,9 @@ export interface TextProps extends ShadeProps {
   right?: boolean
   selectable?: boolean
   lineHeight?: string | 'small' | 'medium' | 'high'
-  weight?: boolean | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+  weight?: FontWeightLike
   max?: string | number
-  gradient?: boolean
+  gradient?: Styles | string | boolean
   font?: string
   pre?: boolean
   size?: number
@@ -34,8 +36,8 @@ const selectableStyle = (selectable?: boolean) => css`
   user-select: ${selectable ? 'auto' : 'none'};
 `
 
-const boldStyle = (bold?: boolean | number) => css`
-  font-weight: ${bold ? (typeof bold === 'number' ? bold : 'bold') : 'normal'};
+const boldStyle = (weight?: FontWeightLike) => css`
+  font-weight: ${normalizeFontWeight(weight)};
 `
 
 const maxStyle = (max?: number | string) => css`
@@ -55,9 +57,13 @@ const lineHeightStyle = (height?: string | 'small' | 'medium' | 'high') =>
       `
     : ''
 
-const gradientStyle = css`
+const gradientStyle = (gradient?: string | Styles) => css`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  ${gradient &&
+  css`
+    background: ${gradient};
+  `}
 `
 
 const preStyle = css`
@@ -85,7 +91,7 @@ export const Text = styled.span<TextProps>`
     ${props.weight && boldStyle(props.weight)}
     ${props.max && maxStyle(props.max)}
     ${props.shade && shade(props.shade)}
-    ${props.gradient && gradientStyle}
+    ${props.gradient && gradientStyle(props.gradient)}
     ${props.font && font(props.font)}
     ${props.pre && preStyle}
     ${props.interaction && interactionStyle}

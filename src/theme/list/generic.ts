@@ -51,5 +51,6 @@ export const generic = {
   },
   radius: (value = 1) => 6 * value + 'px',
   size: (value = 10) => value / 10 + 'rem',
+  space: (value = 1) => 6 * value + 'px',
 }
 

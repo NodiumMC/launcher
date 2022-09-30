@@ -1,5 +1,5 @@
 import { generic } from 'theme/list'
-import { mix } from 'polished'
+import { invert, mix, readableColor, shade, tint } from 'polished'
 
 export const dark = {
   ...generic,
@@ -11,6 +11,19 @@ export const dark = {
     },
     reshade(factor = 0.05) {
       return mix(factor >= 0 ? factor : 1 - factor * -1, this.back, this.front)
+    },
+    tint(factor = 0.05) {
+      return shade(factor >= 0 ? factor : 1 - factor * -1, this.back)
+    },
+    retint(factor = 0.05) {
+      return tint(factor >= 0 ? factor : 1 - factor * -1, this.front)
+    },
+    edge(factor = 0.05) {
+      return mix(
+        factor >= 0 ? factor : 1 - factor * -1,
+        invert(readableColor(this.back)),
+        this.back,
+      )
     },
   },
   console: [
