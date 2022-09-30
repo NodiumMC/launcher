@@ -1,6 +1,6 @@
 import { useDeferredModule } from 'mobmarch'
 import { DebugService } from 'debug/debug.service'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { filter, fromEvent } from 'rxjs'
 
 export const useDebugHotkey = () => {
@@ -20,4 +20,9 @@ export const useDebugHotkey = () => {
       .subscribe(() => debug.toggle())
     return () => sub.unsubscribe()
   }, [debug])
+}
+
+export const useDebugMode = () => {
+  const [, debug] = useDeferredModule(DebugService)
+  return useMemo(() => !!debug?.isEnabled, [debug?.isEnabled])
 }

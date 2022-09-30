@@ -8,10 +8,12 @@ import { useModule } from 'mobmarch'
 import { MainScreenSubRouter } from 'screens/Main/MainScreenSubRouter/MainScreenSubRouter.service'
 import { Observer } from 'mobmarch'
 import { transition } from 'style'
+import { useDebugMode } from 'hooks'
 
 interface SubrouteProps extends ExtraProps.HasChildren<ReactNode> {
   icon: IconName
   to: MainScreenPage
+  debug?: boolean
 }
 
 const Wrapper = styled(Screen)`
@@ -42,7 +44,11 @@ export const SubRoute: FC<SubrouteProps> = () => <></>
 export const MainScreenSidebarSubrouter: FC<
   Required<ExtraProps.HasChildren<Array<ReactElement<SubrouteProps>>>>
 > = Observer(({ children }) => {
-  const items = useMemo(() => children.map(v => v.props), [])
+  const debug = useDebugMode()
+  const items = useMemo(
+    () => children.filter(v => !v.props.debug || debug).map(v => v.props),
+    [debug],
+  )
   const subrouter = useModule(MainScreenSubRouter)
   return (
     <Wrapper>

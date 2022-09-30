@@ -9,6 +9,10 @@ export class DebugService {
     makeAutoObservable(this)
   }
 
+  get isEnabled() {
+    return this.enabled
+  }
+
   @action
   toggle() {
     this.enabled = !this.enabled

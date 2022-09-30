@@ -13,8 +13,9 @@ import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { LoadingScreen } from 'components/utils/Screen'
 import { GameProfileService } from 'core/services/GameProfile.service'
 import { PopupService } from 'notifications'
-import { VersionsSubscreen } from 'screens/Main/VersionsSubscreen'
+import { VersionsSubscreen } from './VersionsSubscreen'
 import { I18n } from 'i18n'
+import { Components } from './DebugSubscreens'
 
 export const Main: FC = () => {
   return (
@@ -40,6 +41,10 @@ export const Main: FC = () => {
           <Text>456</Text>
         </SubRoute>
         <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}></SubRoute>
+        <SubRoute icon={'puzzle-piece'} to={MainScreenPage.COMPONENTS} debug>
+          <Components />
+        </SubRoute>
+        <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug />
       </MainScreenSidebarSubrouter>
     </Defer>
   )

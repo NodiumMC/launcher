@@ -6,6 +6,7 @@ import { font } from 'style'
 import { Observer, useDeferredModule } from 'mobmarch'
 import { DebugService } from 'debug/debug.service'
 import { Text } from 'components/micro/Text'
+import { useDebugMode } from 'hooks'
 
 const HeaderBlock = styled.div`
   height: 26px;
@@ -62,13 +63,13 @@ const Debug = styled.span`
 `
 
 export const Header: FC = Observer(() => {
-  const [, debug] = useDeferredModule(DebugService)
+  const debug = useDebugMode()
 
   return (
     <HeaderBlock data-tauri-drag-region>
       <Empty />
       <Title data-tauri-drag-region>
-        Nodium Launcher {debug?.enabled && <Debug>Debug</Debug>}
+        Nodium Launcher {debug && <Debug>Debug</Debug>}
       </Title>
       <WindowControl />
     </HeaderBlock>
