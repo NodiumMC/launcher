@@ -36,7 +36,7 @@ const Page = styled.div<{ position: number }>`
   left: 0;
   width: 100%;
   height: 100%;
-  transform: translateY(calc(${({ position }) => position} * (100% + 6px)));
+  transform: translateY(calc(${({ position }) => position} * (110% + 6px)));
   ${transition('transform')}
 `
 
