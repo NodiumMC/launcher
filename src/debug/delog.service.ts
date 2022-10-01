@@ -52,7 +52,7 @@ export class DelogService {
       type: 'default',
       id: performance.now(),
       args: [
-        'Welcome to the internal debugging logs. Please copy all logs or the full screenshot when reporting.',
+        'Добро пожаловать в консоль разработчика. Если вы обычный пользователь, советуем покинуть консоль, т.к. ввод команд сюда может нарушить вашу конфиденциальность',
       ],
     })
     timed()

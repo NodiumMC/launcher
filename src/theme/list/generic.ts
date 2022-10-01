@@ -1,4 +1,4 @@
-import { hsl, linearGradient, parseToHsl, shade, tint } from 'polished'
+import { hsl, linearGradient, mix, parseToHsl, shade, tint } from 'polished'
 import { time } from 'debug'
 
 const deshade = (color: string, value: number) => {
@@ -58,4 +58,3 @@ export const generic = {
   size: (value = 10) => value / 10 + 'rem',
   space: (value = 1) => 6 * value + 'px',
 }
-

@@ -2,20 +2,19 @@ import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { AppPreloader } from 'components/macro/AppPreloader'
 import { Header } from 'components/macro/header'
-import { useOnce, useThemeToggleHotkey } from 'hooks'
-import { PopupContainer, UpfallService } from 'notifications'
-import { Fonts, preload } from 'style'
+import { useThemeToggleHotkey } from 'hooks'
+import { PopupContainer, PopupService, UpfallConatiner, UpfallService } from 'notifications'
+import { Fonts, Style } from 'style'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
-import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
-import { UpfallConatiner } from 'notifications'
-import { Style } from 'style'
 import { useDebugHotkey } from 'hooks/useDebug'
-import { endTime } from 'debug'
+import { log } from 'debug'
+import { container } from 'tsyringe'
+import { AceStyle } from 'debug/commander'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -39,14 +38,15 @@ export const App: FC = Observer(() => {
   const [, theme] = useDeferredModule(ThemeService)
   useDeferredModule(Updater)
   useThemeToggleHotkey()
-  useOnce(preload)
   useFontawesomeLoader()
   useDebugHotkey()
+  log((container as any)['_registry']['_registryMap'])
   return (
     <>
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
         <Style />
         <Fonts />
+        <AceStyle />
         <AppRoot>
           <Header />
           <View>

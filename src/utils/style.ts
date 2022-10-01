@@ -1,3 +1,6 @@
+import { css } from 'styled-components'
+import { mix, readableColor } from 'polished'
+
 const FontWeightMap: Record<FontWeightSemantic, FontWeightNumeric> = {
   thin: 100,
   extralight: 200,
@@ -14,3 +17,13 @@ const FontWeightMap: Record<FontWeightSemantic, FontWeightNumeric> = {
 export const normalizeFontWeight = (weight: FontWeightLike) => {
   return typeof weight === 'string' ? FontWeightMap[weight] : weight
 }
+
+export const normalizeColor = (color: string, factor = 0.2) =>
+  css`
+    ${({ theme }) =>
+      mix(
+        factor,
+        readableColor(theme.master.back, theme.master.front, color, false),
+        color,
+      )}
+  `

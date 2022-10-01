@@ -7,6 +7,7 @@ import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { transition } from 'style'
 import ms from 'pretty-ms'
+import { normalizeColor } from 'utils'
 
 export type DelogType = 'default' | 'warn' | 'error' | 'time'
 
@@ -26,7 +27,7 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
   const clr = () => {
     switch (type) {
       default:
-        return theme.master.front
+        return theme.master.shade()
       case 'warn':
         return theme.palette.yellow
       case 'error':
@@ -39,11 +40,14 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
     color: clr(),
   }
 })<{ type: DelogType }>`
-  color: ${({ color, theme }) => mix(0.2, theme.master.front, color!)};
+  color: ${({ color, theme }) =>
+    color !== theme.master.shade()
+      ? normalizeColor(color!)
+      : theme.master.front};
   background-color: ${({ color, theme }) =>
-    color !== theme.master.front
+    color !== theme.master.shade()
       ? mix(0.2, color!, theme.master.back)
-      : theme.master.back};
+      : theme.master.shade()};
   display: flex;
   padding: ${({ theme }) => theme.space(1)};
   ${transition('color, background-color')}
@@ -59,6 +63,8 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
 
 const IconWrapper = styled.div`
   width: ${({ theme }) => theme.space(5)};
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
 `
 
@@ -69,15 +75,15 @@ const Content = styled(Text).attrs(() => ({
 `
 
 const Time = styled(Text)`
-  color: ${({ theme }) => mix(0.2, theme.master.front, theme.accent.primary)};
+  color: ${({ theme }) => normalizeColor(theme.accent.primary)};
   font-weight: bold;
 `
 
 const Delta = styled(Text)<{ sign?: boolean }>`
   color: ${({ sign, theme }) =>
     sign
-      ? mix(0.2, theme.master.front, theme.palette.green)
-      : mix(0.2, theme.master.front, theme.palette.red)};
+      ? normalizeColor(theme.palette.green)
+      : normalizeColor(theme.palette.red)};
 `
 
 export const LogLine: FC<LogLineProps> = ({ line }) => {
@@ -97,7 +103,7 @@ export const LogLine: FC<LogLineProps> = ({ line }) => {
   return (
     <Container type={line.type}>
       <IconWrapper>{icon}</IconWrapper>
-      <Content pre>
+      <Content pre selectable>
         {line.args.map(arg =>
           typeof arg === 'string' ? arg : <ObjectRenderer target={toJS(arg)} />,
         )}

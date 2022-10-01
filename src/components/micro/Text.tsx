@@ -57,10 +57,10 @@ const lineHeightStyle = (height?: string | 'small' | 'medium' | 'high') =>
       `
     : ''
 
-const gradientStyle = (gradient?: string | Styles) => css`
+const gradientStyle = (gradient?: string | Styles | boolean) => css`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  ${gradient &&
+  ${typeof gradient !== 'boolean' &&
   css`
     background: ${gradient};
   `}
@@ -81,7 +81,7 @@ const interactionStyle = css`
 export const Text = styled.span<TextProps>`
   display: inline-block;
   color: ${({ theme, color }) => color ?? 'inherit'};
-  ${font()}
+  font-size: inherit;
   ${props => css`
     ${props.block && blockStyle}
     ${props.center && centerStyle}

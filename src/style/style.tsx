@@ -115,7 +115,7 @@ export const Style = createGlobalStyle`
   }
 
   *::selection {
-    background: ${({ theme }) => rgba(theme.accent.primary, 0.321)};
+    background: ${({ theme }) => rgba(theme.master.front, 0.321)};
   }
   
   * {

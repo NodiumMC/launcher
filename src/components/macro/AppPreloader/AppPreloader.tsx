@@ -39,7 +39,7 @@ const Title = styled.div`
 
 const SubTitle = styled(Title)`
   font-size: 22px;
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
 `
 

@@ -22,10 +22,11 @@ const revealProperties = (target: any): Property[] => {
     props.push({
       type: typeof key === 'symbol' ? 'symbol' : 'default',
       key: typeof key === 'symbol' ? key.description ?? 'symbol' : key,
-      value: descriptor?.get ? descriptor?.value : target?.[key],
+      value: descriptor?.value,
     })
   })
   if (target.__proto__) {
+    console.log(target.__proto__)
     props.push({
       key: '[[prototype]]',
       type: 'hidden',
@@ -145,8 +146,16 @@ const Children = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: ${({ theme }) => theme.space(3)};
-  border-left: 1px solid ${({ theme }) => theme.master.shade(0.1)};
-  margin-left: 3px;
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -10px;
+    height: 100%;
+    width: 1px;
+    background-color: ${({ theme }) => theme.master.shade(0.1)};
+  }
 `
 
 export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
@@ -199,7 +208,7 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
     } else if (typeof target === 'function') {
       return (
         <>
-          function <TypeYellow>{target.name}</TypeYellow> {rbo}
+          function {rbo}
           {rbc}
         </>
       )
