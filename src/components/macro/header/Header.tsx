@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import { Empty } from '../../utils/Empty'
 import { WindowControl } from './WindowControl'
 import { font } from 'style'
+import { Observer, useDeferredModule } from 'mobmarch'
+import { DebugService } from 'debug/debug.service'
+import { Text } from 'components/micro/Text'
+import { useDebugMode } from 'hooks'
 
 const HeaderBlock = styled.div`
   height: 26px;
@@ -52,12 +56,22 @@ const Title = styled.div`
   transform: translateX(-50%);
 `
 
-export const Header: FC = () => {
+const Debug = styled.span`
+  color: ${({ theme }) => theme.palette.red};
+  user-select: none;
+  pointer-events: none;
+`
+
+export const Header: FC = Observer(() => {
+  const debug = useDebugMode()
+
   return (
     <HeaderBlock data-tauri-drag-region>
       <Empty />
-      <Title data-tauri-drag-region>Nodium Launcher</Title>
+      <Title data-tauri-drag-region>
+        Nodium Launcher {debug && <Debug>Debug</Debug>}
+      </Title>
       <WindowControl />
     </HeaderBlock>
   )
-}
+})

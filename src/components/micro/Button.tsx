@@ -18,6 +18,7 @@ interface ButtonWrapperProps extends ShadeProps {
 const ButtonWrapper = styled.div<ButtonWrapperProps>`
   position: relative;
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: ${({ square }) => (square ? 'center' : 'space-between')};
   gap: 10px;
@@ -26,8 +27,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   width: ${({ square }) => (square ? '36px' : 'auto')};
   padding: ${({ square }) => (square ? '0' : '0 20px')};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  color: ${({ primary, theme }) =>
-    primary ? 'white' : theme.master.front};
+  color: ${({ primary, theme }) => (primary ? 'white' : theme.master.front)};
   ${({ theme }) => font(theme.fonts.interact)}
   user-select: none;
   background: ${({ theme, danger, disabled, primary }) =>

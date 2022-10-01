@@ -4,6 +4,9 @@ import 'reflect-metadata'
 import { App } from 'App'
 import { MarchProvider } from 'mobmarch'
 import { MemoryRouter } from 'react-router-dom'
+import { time } from 'debug'
+
+time('Startup', 'startup')
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 ReactDOM.createRoot(document.getElementById('root')!).render(

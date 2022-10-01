@@ -1,4 +1,5 @@
 import { hsl, linearGradient, parseToHsl, shade, tint } from 'polished'
+import { time } from 'debug'
 
 const deshade = (color: string, value: number) => {
   const parsed = parseToHsl(shade(value, generic.accent.primary))
@@ -34,6 +35,10 @@ export const generic = {
     green: '#a7ff77',
     blue: '#779eff',
     yellow: '#ffdf77',
+    orange: '#ffa259',
+    cyan: '#5effdf',
+    magenta: '#d059ff',
+    pink: '#ff58b7',
     get black() {
       return deshade(generic.accent.primary, 0.85)
     },
@@ -51,5 +56,6 @@ export const generic = {
   },
   radius: (value = 1) => 6 * value + 'px',
   size: (value = 10) => value / 10 + 'rem',
+  space: (value = 1) => 6 * value + 'px',
 }
 
