@@ -2,7 +2,6 @@ import { FC, ReactNode, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { mix } from 'polished'
-import { l } from 'utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export interface Property {
@@ -11,14 +10,18 @@ export interface Property {
   value: any
 }
 
-const revealProperties = (target: object): Property[] => {
+const revealProperties = (target: any): Property[] => {
   const props: Property[] = []
   Reflect.ownKeys(target).forEach(key => {
     const descriptor = Reflect.getOwnPropertyDescriptor(target, key)
-    if (['caller', 'callee', 'arguments'].includes(key)) return
+    if (
+      typeof key === 'string' &&
+      ['caller', 'callee', 'arguments'].includes(key)
+    )
+      return
     props.push({
       type: typeof key === 'symbol' ? 'symbol' : 'default',
-      key: typeof key === 'symbol' ? key.description : key,
+      key: typeof key === 'symbol' ? key.description ?? 'symbol' : key,
       value: descriptor?.get ? descriptor?.value : target?.[key],
     })
   })
@@ -53,7 +56,7 @@ const previewArray = (array: any[], ellipsis = false) => {
   ))
 }
 
-const previewObject = (object: object) => {
+const previewObject = (object: any) => {
   const length = Object.keys(object).length
   const ellipsis = length > 10
   const comma = (i: number) => i < length - 1
@@ -77,15 +80,7 @@ const previewObject = (object: object) => {
 }
 
 export interface ObjectRendererProps {
-  target:
-    | number
-    | string
-    | undefined
-    | null
-    | symbol
-    | bigint
-    | object
-    | boolean
+  target: any
   name?: ReactNode
 }
 

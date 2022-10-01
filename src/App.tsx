@@ -15,6 +15,7 @@ import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { UpfallConatiner } from 'notifications'
 import { Style } from 'style'
 import { useDebugHotkey } from 'hooks/useDebug'
+import { endTime } from 'debug'
 
 const AppRoot = styled.div`
   width: 100%;

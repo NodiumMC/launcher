@@ -37,7 +37,7 @@ const selectableStyle = (selectable?: boolean) => css`
 `
 
 const boldStyle = (weight?: FontWeightLike) => css`
-  font-weight: ${normalizeFontWeight(weight)};
+  font-weight: ${normalizeFontWeight(weight ?? 'regular')};
 `
 
 const maxStyle = (max?: number | string) => css`

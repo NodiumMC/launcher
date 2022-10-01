@@ -1,20 +1,28 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
-import { Observer, useModule } from 'mobmarch'
-import { DebugService } from 'debug'
-import { ObjectRenderer } from 'debug/object-renderer'
+import { Observer, useDeferredModule } from 'mobmarch'
+import { DelogService } from 'debug'
+import { LogLine } from 'debug'
 
 const Page = styled(Screen)`
   overflow-y: scroll;
-  padding: 0 20px;
+`
+
+const LogsContainer = styled.div`
+  width: 100%;
 `
 
 export const Logs: FC = Observer(() => {
-  const debug = useModule(DebugService)
+  const [, delog] = useDeferredModule(DelogService)
+
   return (
     <Page>
-
+      <LogsContainer>
+        {delog?.logs.map(v => (
+          <LogLine line={v} key={v.id} />
+        ))}
+      </LogsContainer>
     </Page>
   )
 })

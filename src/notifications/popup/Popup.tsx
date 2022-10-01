@@ -83,7 +83,7 @@ export const Popup: FC<IPopup> = ({
   return (
     <Popuup>
       <Icon level={level}>{icon}</Icon>
-      <Text size={15} center weight>
+      <Text size={15} center weight={'bold'}>
         {title}
       </Text>
       {typeof description !== 'object' ? (
