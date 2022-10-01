@@ -80,7 +80,7 @@ const interactionStyle = css`
 
 export const Text = styled.span<TextProps>`
   display: inline-block;
-  color: ${({ theme, color }) => color ?? theme.master.front};
+  color: ${({ theme, color }) => color ?? 'inherit'};
   ${font()}
   ${props => css`
     ${props.block && blockStyle}

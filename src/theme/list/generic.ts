@@ -34,6 +34,10 @@ export const generic = {
     green: '#a7ff77',
     blue: '#779eff',
     yellow: '#ffdf77',
+    orange: '#ffa259',
+    cyan: '#5effdf',
+    magenta: '#d059ff',
+    pink: '#ff58b7',
     get black() {
       return deshade(generic.accent.primary, 0.85)
     },

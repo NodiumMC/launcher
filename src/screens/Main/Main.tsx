@@ -15,7 +15,8 @@ import { GameProfileService } from 'core/services/GameProfile.service'
 import { PopupService } from 'notifications'
 import { VersionsSubscreen } from './VersionsSubscreen'
 import { I18n } from 'i18n'
-import { Components } from './DebugSubscreens'
+import { Components, Logs } from './DebugSubscreens'
+import { DebugService } from 'debug'
 
 export const Main: FC = () => {
   return (
@@ -44,7 +45,11 @@ export const Main: FC = () => {
         <SubRoute icon={'puzzle-piece'} to={MainScreenPage.COMPONENTS} debug>
           <Components />
         </SubRoute>
-        <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug />
+        <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug>
+          <Defer depend={DebugService}>
+            <Logs />
+          </Defer>
+        </SubRoute>
       </MainScreenSidebarSubrouter>
     </Defer>
   )

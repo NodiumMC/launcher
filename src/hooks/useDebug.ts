@@ -1,5 +1,5 @@
 import { useDeferredModule } from 'mobmarch'
-import { DebugService } from 'debug/debug.service'
+import { DebugService } from 'debug'
 import { useEffect, useMemo } from 'react'
 import { filter, fromEvent } from 'rxjs'
 
