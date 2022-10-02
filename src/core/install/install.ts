@@ -23,18 +23,11 @@ export interface VersionInstallEvent {
   error: (e: Error) => void
 }
 
-export const install = async (
-  { vid, gameDataDir, clientDir, blakemap }: InstallOptions,
-  signal: AbortSignal,
-) => {
+export const install = async ({ vid, gameDataDir, clientDir, blakemap }: InstallOptions, signal: AbortSignal) => {
   const version = await readVersionFile(join(clientDir, `${vid}.json`))
   const libs = compileLibraries(version.libraries, gameDataDir, clientDir)
   const assets = await compileAssetIndex(version, gameDataDir)
-  const batch = [
-    ...libs,
-    ...assets,
-    { ...version.downloads.client, local: join(clientDir, `${vid}.jar`) },
-  ]
+  const batch = [...libs, ...assets, { ...version.downloads.client, local: join(clientDir, `${vid}.jar`) }]
   const hashAttachedBatch = batch.map(v => ({ ...v, hash: blakemap[v.local] }))
   const emitter = new EventEmitter<VersionInstallEvent>()
   const bdp = await batchDownload(hashAttachedBatch, signal)

@@ -1,10 +1,5 @@
 import { FC } from 'react'
-import {
-  MainScreenPage,
-  MainScreenSidebarSubrouter,
-  MainScreenSubRouter,
-  SubRoute,
-} from './MainScreenSubRouter'
+import { MainScreenPage, MainScreenSidebarSubrouter, MainScreenSubRouter, SubRoute } from './MainScreenSubRouter'
 import { Defer } from 'mobmarch'
 import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
@@ -26,10 +21,7 @@ export const Main: FC = () => {
           <PlaySubscreen />
         </SubRoute>
         <SubRoute icon={'cubes'} to={MainScreenPage.INSTANCES}>
-          <Defer
-            depend={[InstanceStore, GameProfileService, PopupService]}
-            fallback={<LoadingScreen />}
-          >
+          <Defer depend={[InstanceStore, GameProfileService, PopupService]} fallback={<LoadingScreen />}>
             <InstancesSubscreen />
           </Defer>
         </SubRoute>

@@ -65,12 +65,7 @@ export const Components: FC = () => {
       <Container v>
         <Input />
         <Input placeholder={'Ну а начать откисать вообще на изи'} />
-        <Input
-          disabled
-          placeholder={
-            'Говорят, что если написать сюда желание, то оно сбудется'
-          }
-        />
+        <Input disabled placeholder={'Говорят, что если написать сюда желание, то оно сбудется'} />
       </Container>
       <Split>Тэгусы</Split>
       <Container>

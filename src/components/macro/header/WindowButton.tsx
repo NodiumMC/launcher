@@ -25,17 +25,12 @@ const Button = styled.div<ButtonProps>`
   color: ${({ theme }) => theme.master.reshade(0.35)};
   transition: color, background-color ${({ theme }) => theme.transition.time};
   &:hover {
-    background-color: ${({ theme, danger }) =>
-      danger ? theme.palette.red : theme.master.shade(0.15)};
+    background-color: ${({ theme, danger }) => (danger ? theme.palette.red : theme.master.shade(0.15))};
     color: ${({ theme }) => theme.master.front};
   }
 `
 
-export const WindowButton: FC<WindowButtonProps> = ({
-  type,
-  action,
-  danger,
-}) => {
+export const WindowButton: FC<WindowButtonProps> = ({ type, action, danger }) => {
   const Icon = useCallback(() => {
     switch (type) {
       case 'close':

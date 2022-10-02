@@ -20,6 +20,10 @@ export const AceStyle = createGlobalStyle`
       font-family: 'Fira Code', sans-serif;
       padding-left: ${({ theme }) => theme.space(2)};
     }
+    .ace_line .ace_completion-highlight {
+        font-weight: 900;
+        color: ${({ theme }) => theme.accent.secondary};
+    }
     .ace_line .ace_{
       font-weight: bold;
     }
@@ -29,8 +33,7 @@ export const AceStyle = createGlobalStyle`
   }
   
   .ace_autocomplete .ace_layer.ace_marker-layer .ace_line-hover {
-    background-color: ${({ theme }) =>
-      mix(0.2, theme.accent.primary, theme.master.back)};
+    background-color: ${({ theme }) => mix(0.2, theme.accent.primary, theme.master.back)};
     border: 1px solid ${({ theme }) => theme.accent.primary};
   }
   

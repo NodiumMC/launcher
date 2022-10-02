@@ -17,10 +17,7 @@ export class LauncherProfile {
   @observable private _state: ProfileState = ProfileState.EMPTY
   @observable private abortController = new AbortController()
 
-  constructor(
-    options: LauncherProfileJSON,
-    private readonly blake: BlakeMapService,
-  ) {
+  constructor(options: LauncherProfileJSON, private readonly blake: BlakeMapService) {
     this.options = options
     makeObservable(this)
   }

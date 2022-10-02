@@ -19,10 +19,7 @@ export class InstanceStore implements Fastore<Instance> {
     await this.listNewInstances()
   }
 
-  constructor(
-    private readonly pool: LoggingPool,
-    private readonly profiles: GameProfileService,
-  ) {
+  constructor(private readonly pool: LoggingPool, private readonly profiles: GameProfileService) {
     makeObservable(this)
   }
 
@@ -32,11 +29,7 @@ export class InstanceStore implements Fastore<Instance> {
 
   private async listAllInstanceFiles() {
     return readDir(await this.instancesPath(), { recursive: true })
-      .then(dir =>
-        dir.map(
-          v => v.children?.find(file => file.name === 'instance.json')?.path,
-        ),
-      )
+      .then(dir => dir.map(v => v.children?.find(file => file.name === 'instance.json')?.path))
       .then(unfiltered => unfiltered.filter(NonNullFilter))
   }
 
@@ -60,14 +53,10 @@ export class InstanceStore implements Fastore<Instance> {
           }
         })
         .then(v => v.filter(NonNullFilter))
-      const newInstances = instancesJson.filter(
-        i => !this.list.some(v => v.settings.vid === i.vid),
-      )
+      const newInstances = instancesJson.filter(i => !this.list.some(v => v.settings.vid === i.vid))
       newInstances
         .filter(this.validateInstanceSettings.bind(this))
-        .forEach(settings =>
-          this.list.push(new Instance(settings, this.pool, settings.path)),
-        )
+        .forEach(settings => this.list.push(new Instance(settings, this.pool, settings.path)))
     } catch (e) {
       console.warn('Failed to load new instances')
       // TODO: add noteup after implemented #NDML-2 (https://nodium.youtrack.cloud/issue/NDML-2/Noteup-sistema)

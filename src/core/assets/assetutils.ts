@@ -9,19 +9,14 @@ export const compileAssets = (objs: AssetObject[]): DownloadableResource[] => {
   return objs.map(
     obj =>
       ({
-        url: `https://resources.download.minecraft.net/${obj.hash.substring(
-          0,
-          2,
-        )}/${obj.hash}`,
+        url: `https://resources.download.minecraft.net/${obj.hash.substring(0, 2)}/${obj.hash}`,
         local: join(assetObjects, obj.hash.substring(0, 2), obj.hash),
         size: obj.size,
       } as DownloadableResource),
   )
 }
 
-export const fetchAssetIndex = async (
-  version: VersionFile,
-): Promise<AssetIndex> => {
+export const fetchAssetIndex = async (version: VersionFile): Promise<AssetIndex> => {
   const res = await fetch<AssetIndex>(version.assetIndex.url, {
     timeout: 5000,
     method: 'GET',
@@ -29,10 +24,7 @@ export const fetchAssetIndex = async (
   return res.data
 }
 
-export const compileAssetIndex = async (
-  version: VersionFile,
-  gameDataDir: string,
-): Promise<DownloadableResource[]> => {
+export const compileAssetIndex = async (version: VersionFile, gameDataDir: string): Promise<DownloadableResource[]> => {
   const batch: DownloadableResource[] = [
     {
       ...version.assetIndex,

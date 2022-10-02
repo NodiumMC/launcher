@@ -12,8 +12,6 @@ import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { useDebugHotkey } from 'hooks/useDebug'
-import { log } from 'debug'
-import { container } from 'tsyringe'
 import { AceStyle } from 'debug/commander'
 
 const AppRoot = styled.div`
@@ -40,7 +38,6 @@ export const App: FC = Observer(() => {
   useThemeToggleHotkey()
   useFontawesomeLoader()
   useDebugHotkey()
-  log((container as any)['_registry']['_registryMap'])
   return (
     <>
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>

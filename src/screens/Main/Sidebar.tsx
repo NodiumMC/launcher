@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconName } from '@fortawesome/fontawesome-svg-core'
 import { transition } from 'style'
 
-interface SidebarItem<T extends string | number = number>
-  extends ExtraProps.Changeable<T> {
+interface SidebarItem<T extends string | number = number> extends ExtraProps.Changeable<T> {
   id: T
   icon: IconName
 }
@@ -59,27 +58,19 @@ const SidebarItem = styled.div<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme, active }) =>
-    active ? theme.master.reshade(0.15) : theme.accent.primary};
+  color: ${({ theme, active }) => (active ? theme.master.reshade(0.15) : theme.accent.primary)};
   font-size: 18px;
   cursor: pointer;
 `
 
 export const Sidebar: FC<SidebarProps> = ({ items, selected }) => {
-  const selectedPosition = useMemo(
-    () => items.findIndex(v => v.id === selected),
-    [selected],
-  )
+  const selectedPosition = useMemo(() => items.findIndex(v => v.id === selected), [selected])
 
   return (
     <StyledSidebar>
       <Selector position={selectedPosition} />
       {items.map((v, i) => (
-        <SidebarItem
-          key={v.id}
-          active={selectedPosition !== i}
-          onClick={() => v.onChange?.(v.id)}
-        >
+        <SidebarItem key={v.id} active={selectedPosition !== i} onClick={() => v.onChange?.(v.id)}>
           <FontAwesomeIcon icon={v.icon} />
         </SidebarItem>
       ))}

@@ -37,9 +37,12 @@ const MaskedProgress = styled(Progress)`
   mask-size: 2px 2px;
 `
 
-export const ProgressBar: FC<
-  ProgressBarProps & ExtraProps.Styled & ExtraProps.As
-> = ({ pre, value, total, className }) => {
+export const ProgressBar: FC<ProgressBarProps & ExtraProps.Styled & ExtraProps.As> = ({
+  pre,
+  value,
+  total,
+  className,
+}) => {
   const $pre = useMemo(() => pre.map(0, total), [pre, total])
   const $value = useMemo(() => value.map(0, total), [value, total])
   return (

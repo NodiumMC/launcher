@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import AceEditor from 'react-ace'
 
 import 'ace-builds/src-noconflict/mode-javascript'
@@ -7,6 +7,9 @@ import 'ace-builds/src-noconflict/snippets/javascript'
 import 'ace-builds/src-noconflict/ext-language_tools'
 import styled from 'styled-components'
 import { normalizeColor } from 'utils'
+import ReactAce from 'react-ace'
+import { filter, fromEvent } from 'rxjs'
+import { usePrevious } from 'hooks'
 
 const Container = styled.div`
   padding: ${({ theme }) => theme.space(2)};
@@ -17,7 +20,7 @@ const Container = styled.div`
 const Editor = styled(AceEditor)`
   background-color: transparent;
   font-size: 1rem;
-  font-family: 'Fira Code';
+  font-family: 'Fira Code', sans-serif;
   color: ${({ theme }) => theme.master.front};
   max-height: ${({ theme }) => theme.size(50)};
 
@@ -148,10 +151,28 @@ const Editor = styled(AceEditor)`
   }
 `
 
-export const CommandPrompt: FC = () => {
+export interface CommandPromptProps {
+  send?: (code: string) => void
+}
+
+export const CommandPrompt: FC<CommandPromptProps & ExtraProps.DataInput<string>> = ({ onChange, value, send }) => {
+  const editor = useRef<ReactAce>(null)
+
+  useEffect(() => {
+    if (!editor.current) return
+    const sub = fromEvent(editor.current.refEditor, 'keypress')
+      .pipe(filter(event => (event as KeyboardEvent).key === 'Enter' && !(event as KeyboardEvent).shiftKey))
+      .subscribe(() => {
+        send?.(value ?? '')
+        setTimeout(() => onChange?.(''), 0)
+      })
+    return () => sub.unsubscribe()
+  }, [editor, value])
+
   return (
     <Container>
       <Editor
+        ref={editor}
         mode={'javascript'}
         name={'command-prompt'}
         fontSize={14}
@@ -159,32 +180,35 @@ export const CommandPrompt: FC = () => {
         highlightActiveLine={false}
         placeholder={'/Enter command/'}
         enableBasicAutocompletion
-        enableLiveAutocompletion
         tabSize={2}
         editorProps={{ $blockScrolling: true }}
-        onLoad={editor => {
-          editor.getSession().getMode().getCompletions = (
-            state: string,
-            session: any,
-            pos: any,
-            prefix: string,
-          ) => {
-            return [
-              {
-                value: '/self/',
-                meta: 'command',
-                caption: '/self/',
-                score: 0,
-              },
-              {
-                value: '/log/',
-                meta: 'command',
-                caption: '/log/',
-                score: 0,
-              },
-            ]
-          }
-        }}
+        value={value}
+        onChange={onChange}
+        width={'100%'}
+        showPrintMargin={false}
+        // onLoad={editor => {
+        //   editor.getSession().getMode().getCompletions = (
+        //     state: string,
+        //     session: any,
+        //     pos: any,
+        //     prefix: string,
+        //   ) => {
+        //     return [
+        //       {
+        //         value: '/self/',
+        //         meta: 'command',
+        //         caption: '/self/',
+        //         score: 0,
+        //       },
+        //       {
+        //         value: '/log/',
+        //         meta: 'command',
+        //         caption: '/log/',
+        //         score: 0,
+        //       },
+        //     ]
+        //   }
+        // }}
       />
     </Container>
   )

@@ -24,15 +24,11 @@ export class GameProfileService implements Fastore<LauncherProfile> {
     return this.reloadProfiles()
   }
 
-  constructor(
-    private readonly blake: BlakeMapService,
-    private readonly upfall: UpfallService,
-  ) {
+  constructor(private readonly blake: BlakeMapService, private readonly upfall: UpfallService) {
     makeObservable(this)
   }
 
-  private pathToProfile = async () =>
-    join(await GameDir(), 'launcher_profiles.json')
+  private pathToProfile = async () => join(await GameDir(), 'launcher_profiles.json')
 
   @action
   async reloadProfiles() {
@@ -41,18 +37,16 @@ export class GameProfileService implements Fastore<LauncherProfile> {
       await this.createEmptyProfile()
       return
     }
-    const profileOptions = await readJsonFile<LauncherProfiles>(
-      pathToProfiles,
-    ).then(({ profiles }) => Object.values(profiles))
+    const profileOptions = await readJsonFile<LauncherProfiles>(pathToProfiles).then(({ profiles }) =>
+      Object.values(profiles),
+    )
     this._list = profileOptions.map(o => new LauncherProfile(o, this.blake))
   }
 
   @action
   async save() {
     await writeJsonFile<LauncherProfiles>(await this.pathToProfile(), {
-      profiles: Object.fromEntries(
-        this._list.map(v => [v.options.lastVersionId, v.options]),
-      ),
+      profiles: Object.fromEntries(this._list.map(v => [v.options.lastVersionId, v.options])),
     })
   }
 

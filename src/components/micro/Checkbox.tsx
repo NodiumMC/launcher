@@ -13,8 +13,7 @@ const Substrate = styled.div<SubstrateProps>`
   align-items: center;
   width: 18px;
   height: 18px;
-  background-color: ${({ theme, disabled }) =>
-    disabled ? theme.master.shade(0.2) : theme.accent.primary};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.master.shade(0.2) : theme.accent.primary)};
   position: relative;
   ${transition('all', '100ms')}
 
@@ -54,8 +53,7 @@ const Substrate = styled.div<SubstrateProps>`
 const Container = styled(Substrate)<ExtraProps.Value<boolean>>`
   width: 16px;
   height: 16px;
-  background-color: ${({ theme, value }) =>
-    value ? theme.accent.primary : theme.master.back};
+  background-color: ${({ theme, value }) => (value ? theme.accent.primary : theme.master.back)};
   z-index: 1;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 
@@ -107,20 +105,18 @@ const Checked = styled.div<ExtraProps.Value<boolean> & SubstrateProps>`
   transform: translate(-50%, -50%);
   border-radius: 50%;
   ${transition('all', '50ms')}
-  background-color: ${({ theme, disabled }) =>
-    disabled ? theme.master.reshade(0.6) : theme.accent.primary};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.master.reshade(0.6) : theme.accent.primary)};
   z-index: 2;
 `
 
-export const Checkbox: FC<
-  SubstrateProps & ExtraProps.DataInput<boolean> & ExtraProps.Styled
-> = ({ value, disabled, onChange, ...props }) => {
+export const Checkbox: FC<SubstrateProps & ExtraProps.DataInput<boolean> & ExtraProps.Styled> = ({
+  value,
+  disabled,
+  onChange,
+  ...props
+}) => {
   return (
-    <Substrate
-      disabled={disabled}
-      onClick={() => !disabled && onChange?.(!value)}
-      {...props}
-    >
+    <Substrate disabled={disabled} onClick={() => !disabled && onChange?.(!value)} {...props}>
       <Container disabled={disabled} value={value}>
         <Checked value={value} disabled={disabled}>
           <L />

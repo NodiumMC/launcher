@@ -32,15 +32,11 @@ Array.prototype.underslice = function (offset) {
 }
 
 Number.prototype.map = function (fromMin, fromMax, toMin = 0, toMax = 100) {
-  return (
-    ((this.valueOf() - fromMin) * (toMax - toMin)) / (fromMax - fromMin) + toMin
-  )
+  return ((this.valueOf() - fromMin) * (toMax - toMin)) / (fromMax - fromMin) + toMin
 }
 
 String.prototype.explain = function (placeholders) {
-  return this.replace(/%(?<key>\w+)%/g, (...[, key]) =>
-    String(placeholders[key]),
-  )
+  return this.replace(/%(?<key>\w+)%/g, (...[, key]) => String(placeholders[key]))
 }
 
 export {}

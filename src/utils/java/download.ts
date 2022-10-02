@@ -22,10 +22,7 @@ export const downloadJava = () =>
       const $platform = platform
       const $arch = arch
       const target = javaSources?.[$platform]?.[$arch]
-      if (!target)
-        return subscriber.error(
-          new Error(`Unsupported platform or arch: ${$platform} ${$arch}`),
-        )
+      if (!target) return subscriber.error(new Error(`Unsupported platform or arch: ${$platform} ${$arch}`))
       const dp = await Rdownload(target, join(await GameDir(), 'jdk.zip'))
       dp.on('progress', subscriber.next.bind(subscriber))
       dp.on('done', subscriber.complete.bind(subscriber))

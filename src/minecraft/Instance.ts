@@ -13,26 +13,16 @@ export class Instance {
   @observable readonly settings: InstanceSettings
   private child?: Child
 
-  constructor(
-    settings: InstanceSettings,
-    private readonly loggingPool: LoggingPool,
-    public path: string,
-  ) {
+  constructor(settings: InstanceSettings, private readonly loggingPool: LoggingPool, public path: string) {
     makeObservable(this)
     this.settings = settings
     this.loggerKey = Symbol(settings.name)
     this.logger = loggingPool.request(this.loggerKey)
   }
 
-  async launch(
-    options: Omit<
-      LaunchOptions,
-      'clientDir' | 'gameDir' | 'gameDataDir' | 'vid' | keyof InstanceSettings
-    >,
-  ) {
+  async launch(options: Omit<LaunchOptions, 'clientDir' | 'gameDir' | 'gameDataDir' | 'vid' | keyof InstanceSettings>) {
     const clientDir = join(await GameDir(), 'versions', this.settings.vid)
-    if (!(await exists(clientDir)))
-      throw new Error('No version is assigned to this instance')
+    if (!(await exists(clientDir))) throw new Error('No version is assigned to this instance')
     const gameDir = join(await GameDir(), 'instances', this.settings.name)
     if (!(await exists(gameDir))) throw new Error('Instance is not exists')
     const command = await launch({
@@ -55,10 +45,7 @@ export class Instance {
   }
 
   get pid() {
-    if (!this.child)
-      throw new Error(
-        'Process ID cannot be retrieved until the instance is started',
-      )
+    if (!this.child) throw new Error('Process ID cannot be retrieved until the instance is started')
     return this.child?.pid
   }
 

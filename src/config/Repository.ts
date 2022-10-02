@@ -5,8 +5,7 @@ import { CentralConfig } from 'config/CentralConfig.service'
 export class Repository<T> {
   constructor(private readonly cc?: CentralConfig) {}
   get data(): T {
-    if (!this.cc?.data)
-      throw new Error('Central config used before initialized')
+    if (!this.cc?.data) throw new Error('Central config used before initialized')
     return this.cc?.data as unknown as T
   }
 

@@ -34,8 +34,7 @@ const InstanceItemStyled = styled.div<{ unfolded?: boolean }>`
   flex-shrink: 0;
   ${transition('background-color, max-height')}
   &:hover {
-    background-color: ${({ theme, unfolded }) =>
-      !unfolded && theme.master.shade()};
+    background-color: ${({ theme, unfolded }) => !unfolded && theme.master.shade()};
   }
 `
 
@@ -101,12 +100,8 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
   const [iconSrc, setIconSrc] = useState<string | undefined>()
   const [vid, setVid] = useState(instance.settings.vid)
   const [name, setName] = useState(instance.settings.name)
-  const [windowWidth, setWindowWidth] = useState(
-    instance.settings.windowWidth ?? 1280,
-  )
-  const [windowHeight, setWindowHeight] = useState(
-    instance.settings.windowHeight ?? 720,
-  )
+  const [windowWidth, setWindowWidth] = useState(instance.settings.windowWidth ?? 1280)
+  const [windowHeight, setWindowHeight] = useState(instance.settings.windowHeight ?? 720)
   const [alloc, setAlloc] = useState(instance.settings.alloc ?? 2048)
   const [saving, setSaving] = useState(false)
 
@@ -142,8 +137,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
     popup.spawn({
       level: 'warn',
       title: `Удалить "${instance.settings.name}"?`,
-      description:
-        'Это приведёт к удалению всех сохранений(миров), модов и настроек игры. Продолжить?',
+      description: 'Это приведёт к удалению всех сохранений(миров), модов и настроек игры. Продолжить?',
       actions: [
         {
           label: 'Удалить',
@@ -166,19 +160,14 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
         (instance.settings.vid != vid ||
           instance.settings.name != name.trim() ||
           (instance.settings.alloc && instance.settings.alloc != alloc) ||
-          (instance.settings.windowHeight &&
-            instance.settings.windowHeight != windowHeight) ||
-          (instance.settings.windowWidth &&
-            instance.settings.windowWidth != windowWidth))
+          (instance.settings.windowHeight && instance.settings.windowHeight != windowHeight) ||
+          (instance.settings.windowWidth && instance.settings.windowWidth != windowWidth))
       ),
     [instance, vid, name, alloc, windowWidth, windowHeight, saving],
   )
 
   return (
-    <InstanceItemStyled
-      unfolded={unfolded}
-      onClick={() => !unfolded && setUnfolded(true)}
-    >
+    <InstanceItemStyled unfolded={unfolded} onClick={() => !unfolded && setUnfolded(true)}>
       <Header>
         <Icon src={iconSrc} />
         <Text shade={'low'}>{instance.settings.name}</Text>
@@ -187,13 +176,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
         </Text>
         <Gap />
         {unfolded && (
-          <Button
-            icon={'angle-up'}
-            square
-            outlined={false}
-            shade={'high'}
-            onClick={() => setUnfolded(false)}
-          />
+          <Button icon={'angle-up'} square outlined={false} shade={'high'} onClick={() => setUnfolded(false)} />
         )}
       </Header>
       <Options unfolded={unfolded}>
@@ -235,12 +218,7 @@ export const InstanceItem: FC<InstanceItemProps> = Observer(({ instance }) => {
           />
           <Pair>
             <Text shade={'low'}>RAM</Text>
-            <Input
-              value={alloc}
-              onChange={inputValue(setAlloc, true)}
-              center
-              type={'number'}
-            />
+            <Input value={alloc} onChange={inputValue(setAlloc, true)} center type={'number'} />
             <Text shade={'high'}>MB</Text>
           </Pair>
         </WindowOptions>

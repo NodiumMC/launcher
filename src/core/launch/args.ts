@@ -6,16 +6,10 @@ import { compileClasspath } from 'core'
 import { version } from 'native/app'
 
 const rulifyArgumnets = (args: ArgumentsArray): ArgumentsArray =>
-  args.filter(
-    arg =>
-      typeof arg === 'string' ||
-      ParseRules(arg, ['has_custom_resolution']).allow,
-  )
+  args.filter(arg => typeof arg === 'string' || ParseRules(arg, ['has_custom_resolution']).allow)
 
 const flatArguments = (args: ArgumentsArray): string[] => {
-  const stringArgs = args.map(arg =>
-    typeof arg === 'string' ? [arg] : ParseRules(arg).value ?? [],
-  )
+  const stringArgs = args.map(arg => (typeof arg === 'string' ? [arg] : ParseRules(arg).value ?? []))
   return stringArgs.flat()
 }
 
@@ -26,20 +20,11 @@ const placeholderifyArguments =
       arg
         .replaceAll('${auth_player_name}', options.username)
         .replaceAll('${auth_access_token}', options.accessToken ?? 'null')
-        .replaceAll(
-          '${auth_uuid}',
-          options.uuid ?? '00000000-0000-0000-0000-000000000000',
-        )
+        .replaceAll('${auth_uuid}', options.uuid ?? '00000000-0000-0000-0000-000000000000')
         .replaceAll('${game_directory}', options.gameDir)
         .replaceAll('${version_name}', options.version.id)
-        .replaceAll(
-          '${resolution_width}',
-          options.windowWidth?.toString() ?? '1280',
-        )
-        .replaceAll(
-          '${resolution_height}',
-          options.windowHeight?.toString() ?? '720',
-        )
+        .replaceAll('${resolution_width}', options.windowWidth?.toString() ?? '1280')
+        .replaceAll('${resolution_height}', options.windowHeight?.toString() ?? '720')
         .replaceAll('${assets_root}', join(options.gameDataDir, 'assets'))
         .replaceAll('${game_assets}', join(options.gameDataDir, 'assets'))
         .replaceAll('${assets_index_name}', options.version.assets)
@@ -49,10 +34,7 @@ const placeholderifyArguments =
         .replaceAll('${launcher_version}', version)
         .replaceAll('${user_type}', 'mojang')
         .replaceAll('${clientid}', options.accessToken ?? 'null')
-        .replaceAll(
-          '${library_directory}',
-          join(options.gameDataDir, 'libraries'),
-        )
+        .replaceAll('${library_directory}', join(options.gameDataDir, 'libraries'))
         .replaceAll('${classpath}', classPath)
         .replaceAll('${classpath_separator}', delimiter),
     )
@@ -65,19 +47,10 @@ export interface VersionedLaunchOptions extends LaunchOptions {
 export const compileArguments = (options: VersionedLaunchOptions): string[] => {
   const game = options.version.arguments.game ?? options.minecraftArgs
   const jvm = options.version.arguments.jvm ?? options.javaArgs
-  const classPathString = compileClasspath(
-    options.vid,
-    options.version,
-    options.gameDataDir,
-    options.clientDir,
-  ).join(delimiter)
-  const gargs = placeholderifyArguments(
-    options,
-    classPathString,
-  )(flatArguments(rulifyArgumnets(game)))
-  const jargs = placeholderifyArguments(
-    options,
-    classPathString,
-  )(flatArguments(rulifyArgumnets(jvm)))
+  const classPathString = compileClasspath(options.vid, options.version, options.gameDataDir, options.clientDir).join(
+    delimiter,
+  )
+  const gargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(game)))
+  const jargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(jvm)))
   return [...jargs, options.version.mainClass, ...gargs]
 }

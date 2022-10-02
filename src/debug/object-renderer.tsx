@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo, useState } from 'react'
+import { FC, Fragment, ReactNode, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { mix } from 'polished'
@@ -14,11 +14,7 @@ const revealProperties = (target: any): Property[] => {
   const props: Property[] = []
   Reflect.ownKeys(target).forEach(key => {
     const descriptor = Reflect.getOwnPropertyDescriptor(target, key)
-    if (
-      typeof key === 'string' &&
-      ['caller', 'callee', 'arguments'].includes(key)
-    )
-      return
+    if (typeof key === 'string' && ['caller', 'callee', 'arguments'].includes(key)) return
     props.push({
       type: typeof key === 'symbol' ? 'symbol' : 'default',
       key: typeof key === 'symbol' ? key.description ?? 'symbol' : key,
@@ -26,7 +22,6 @@ const revealProperties = (target: any): Property[] => {
     })
   })
   if (target.__proto__) {
-    console.log(target.__proto__)
     props.push({
       key: '[[prototype]]',
       type: 'hidden',
@@ -43,7 +38,7 @@ const isPrimitive = (target: any) => {
 const previewArray = (array: any[], ellipsis = false) => {
   const comma = (i: number) => i < array.length - 1
   return array.map((v, i) => (
-    <>
+    <Fragment key={i}>
       {isPrimitive(v) ? (
         <ObjectRenderer target={v} />
       ) : Array.isArray(v) ? (
@@ -53,7 +48,7 @@ const previewArray = (array: any[], ellipsis = false) => {
       )}
       {comma(i) && <TypeShadow pre>, </TypeShadow>}
       {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
-    </>
+    </Fragment>
   ))
 }
 
@@ -64,7 +59,7 @@ const previewObject = (object: any) => {
   return Object.entries(object)
     .slice(0, 10)
     .map(([key, value], i) => (
-      <>
+      <Fragment key={i}>
         <TypeCyan>{key}</TypeCyan>
         <TypeTint pre>: </TypeTint>
         {isPrimitive(value) ? (
@@ -76,7 +71,7 @@ const previewObject = (object: any) => {
         )}
         {comma(i) && <TypeShadow pre>, </TypeShadow>}
         {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
-      </>
+      </Fragment>
     ))
 }
 
@@ -85,7 +80,9 @@ export interface ObjectRendererProps {
   name?: ReactNode
 }
 
-export const Container = styled.div``
+export const Container = styled.span`
+  margin-left: ${({ theme }) => theme.space(2)};
+`
 
 const TypeBlue = styled(Text)`
   color: ${({ theme }) => mix(0.2, theme.master.front, theme.palette.blue)};
@@ -130,7 +127,8 @@ const HeaderOpen = styled.span<{ active?: boolean }>`
 
 const Header = styled.div`
   position: relative;
-  display: flex;
+  display: inline-flex;
+  width: 100%;
   gap: ${({ theme }) => theme.space()};
   align-items: center;
 `
@@ -151,7 +149,7 @@ const Children = styled.div`
     content: '';
     display: block;
     position: absolute;
-    left: -10px;
+    left: 1px;
     height: 100%;
     width: 1px;
     background-color: ${({ theme }) => theme.master.shade(0.1)};
@@ -242,9 +240,7 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
                     {v.type === 'hidden' ? (
                       <TypeShadow>{v.key}</TypeShadow>
                     ) : (
-                      <TypeCyan>
-                        {v.type === 'symbol' ? `@${v.key}` : v.key}
-                      </TypeCyan>
+                      <TypeCyan>{v.type === 'symbol' ? `@${v.key}` : v.key}</TypeCyan>
                     )}
                     <TypeTint pre>:{'  '}</TypeTint>
                   </>

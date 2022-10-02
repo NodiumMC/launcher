@@ -40,14 +40,9 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
     color: clr(),
   }
 })<{ type: DelogType }>`
-  color: ${({ color, theme }) =>
-    color !== theme.master.shade()
-      ? normalizeColor(color!)
-      : theme.master.front};
+  color: ${({ color, theme }) => (color !== theme.master.shade() ? normalizeColor(color!) : theme.master.front)};
   background-color: ${({ color, theme }) =>
-    color !== theme.master.shade()
-      ? mix(0.2, color!, theme.master.back)
-      : theme.master.shade()};
+    color !== theme.master.shade() ? mix(0.2, color!, theme.master.back) : theme.master.shade()};
   display: flex;
   padding: ${({ theme }) => theme.space(1)};
   ${transition('color, background-color')}
@@ -80,10 +75,7 @@ const Time = styled(Text)`
 `
 
 const Delta = styled(Text)<{ sign?: boolean }>`
-  color: ${({ sign, theme }) =>
-    sign
-      ? normalizeColor(theme.palette.green)
-      : normalizeColor(theme.palette.red)};
+  color: ${({ sign, theme }) => (sign ? normalizeColor(theme.palette.green) : normalizeColor(theme.palette.red))};
 `
 
 export const LogLine: FC<LogLineProps> = ({ line }) => {
@@ -104,12 +96,18 @@ export const LogLine: FC<LogLineProps> = ({ line }) => {
     <Container type={line.type}>
       <IconWrapper>{icon}</IconWrapper>
       <Content pre selectable>
-        {line.args.map(arg =>
-          typeof arg === 'string' ? arg : <ObjectRenderer target={toJS(arg)} />,
+        {line.args.map((arg, i) =>
+          typeof arg === 'string' ? (
+            <Text pre selectable key={i}>
+              {arg}{' '}
+            </Text>
+          ) : (
+            <>
+              <ObjectRenderer key={i} target={toJS(arg)} />{' '}
+            </>
+          ),
         )}
-        {line.time && (
-          <Time pre> {ms(line.time, { millisecondsDecimalDigits: 1 })}</Time>
-        )}
+        {line.time && <Time pre> {ms(line.time, { millisecondsDecimalDigits: 1 })}</Time>}
         {line.delta !== undefined && line.delta !== 0 && (
           <Delta pre sign={line.delta <= 0}>
             {'  '}

@@ -51,8 +51,7 @@ interface LabelProps {
 
 const Label = styled.span<LabelProps>`
   ${({ theme }) => font(theme.fonts.interact)};
-  color: ${({ theme, selected }) =>
-    selected ? theme.accent.primary : theme.master.front};
+  color: ${({ theme, selected }) => (selected ? theme.accent.primary : theme.master.front)};
   user-select: none;
   transition: inherit;
 `
@@ -71,11 +70,7 @@ const IconWrapper = styled.div`
   }
 `
 
-const Item: FC<{ selected: DropdownItem } & ExtraProps.DataInput<DropdownItem>> = ({
-  selected,
-  onChange,
-  value,
-}) => {
+const Item: FC<{ selected: DropdownItem } & ExtraProps.DataInput<DropdownItem>> = ({ selected, onChange, value }) => {
   return (
     <ItemWrapper onClick={() => onChange?.(value!)}>
       <IconWrapper>{value?.icon}</IconWrapper>
@@ -127,11 +122,7 @@ export const Dropdown: FC<DropdownProps> = ({ items, value, onChange }) => {
   const normalized = useMemo(
     () => ({
       ...selectedItem!,
-      label:
-        selectedItem?.label.padEnd(
-          Math.max(...items.map(v => v.label.length)),
-          ' ',
-        ) ?? '',
+      label: selectedItem?.label.padEnd(Math.max(...items.map(v => v.label.length)), ' ') ?? '',
     }),
     [value],
   )
@@ -141,23 +132,14 @@ export const Dropdown: FC<DropdownProps> = ({ items, value, onChange }) => {
   return (
     <Wrapper>
       <Item selected={selectedItem!} value={normalized} />
-      <Open
-        tabIndex={0}
-        onClick={() => setOpened(!opened)}
-        onBlur={() => setOpened(false)}
-      >
+      <Open tabIndex={0} onClick={() => setOpened(!opened)} onBlur={() => setOpened(false)}>
         <FontAwesomeIcon icon={faAngleDown} />
       </Open>
       <List opened={opened}>
         {items
           .filter(i => selectedItem?.value !== i.value)
           .map((i, key) => (
-            <Item
-              key={key}
-              selected={selectedItem!}
-              value={i}
-              onChange={({ value }) => onChange?.(value)}
-            />
+            <Item key={key} selected={selectedItem!} value={i} onChange={({ value }) => onChange?.(value)} />
           ))}
       </List>
     </Wrapper>

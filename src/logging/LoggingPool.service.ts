@@ -11,9 +11,7 @@ import { Module } from 'mobmarch'
 @Module
 export class LoggingPool {
   static readonly Main = Symbol()
-  @observable private _pool: Map<symbol, Logger> = new Map([
-    [LoggingPool.Main, new Logger()],
-  ])
+  @observable private _pool: Map<symbol, Logger> = new Map([[LoggingPool.Main, new Logger()]])
 
   constructor() {
     makeObservable(this)

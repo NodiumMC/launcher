@@ -72,8 +72,7 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__option--is-selected {
-    background-color: ${({ theme }) =>
-      rgba(theme.accent.primary, 0.2)} !important;
+    background-color: ${({ theme }) => rgba(theme.accent.primary, 0.2)} !important;
     color: ${({ theme }) => theme.master.front};
   }
 
@@ -113,8 +112,7 @@ export interface SelectOption<Label> {
   label: Label
 }
 
-export interface SelectProps<Value = string, Label = unknown>
-  extends ExtraProps.DataInput<Value> {
+export interface SelectProps<Value = string, Label = unknown> extends ExtraProps.DataInput<Value> {
   options?: SelectOption<Label>[]
   menuPlacement?: Props['menuPlacement']
   placeholder?: Props['placeholder']
@@ -129,10 +127,7 @@ export const Select = <Value extends string = any, Label = unknown>({
   maxMenuHeight = 5,
   ...props
 }: SelectProps<Value, Label> & ExtraProps.Styled) => {
-  const defaultValue = useMemo(
-    () => options?.find(v => v.value === value),
-    [options, value],
-  )
+  const defaultValue = useMemo(() => options?.find(v => v.value === value), [options, value])
 
   return (
     <StyledSelect

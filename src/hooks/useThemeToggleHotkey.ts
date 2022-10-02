@@ -16,9 +16,7 @@ export const useThemeToggleHotkey = (hotkey = 'F4') => {
         .pipe(filter(event => (event as KeyboardEvent).key === hotkey))
         .subscribe(() => {
           const end = time('Theme changed', 'theme_change')
-          theme.current === 'dark'
-            ? theme.setTheme('light')
-            : theme.setTheme('dark')
+          theme.current === 'dark' ? theme.setTheme('light') : theme.setTheme('dark')
           upfall?.drop('ok', r => r.appearance.theme.reloading)
           end()
         })

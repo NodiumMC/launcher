@@ -18,22 +18,20 @@ const Icon = styled.div`
   border-right: 1px solid ${({ theme }) => theme.master.shade()};
 `
 
-const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(
-  ({ theme, type }) => ({
-    typecolor: (() => {
-      switch (type) {
-        default:
-          return theme.master.back
-        case 'ok':
-          return mix(0.7, theme.palette.green, theme.master.front)
-        case 'warn':
-          return mix(0.7, theme.palette.yellow, theme.master.front)
-        case 'error':
-          return mix(0.7, theme.palette.red, theme.master.front)
-      }
-    })(),
-  }),
-)<Pick<Upfall, 'type'> & { typecolor?: string }>`
+const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(({ theme, type }) => ({
+  typecolor: (() => {
+    switch (type) {
+      default:
+        return theme.master.back
+      case 'ok':
+        return mix(0.7, theme.palette.green, theme.master.front)
+      case 'warn':
+        return mix(0.7, theme.palette.yellow, theme.master.front)
+      case 'error':
+        return mix(0.7, theme.palette.red, theme.master.front)
+    }
+  })(),
+}))<Pick<Upfall, 'type'> & { typecolor?: string }>`
   display: flex;
   gap: 12px;
   padding: 6px 12px;
@@ -42,15 +40,12 @@ const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(
   min-height: 36px;
   align-items: center;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
-  border: 1px solid
-    ${({ typecolor, type, theme }) =>
-      type === 'default' ? theme.master.shade() : typecolor};
+  border: 1px solid ${({ typecolor, type, theme }) => (type === 'default' ? theme.master.shade() : typecolor)};
   border-radius: ${({ theme }) => theme.radius()};
 
   &,
   ${Text} {
-    color: ${({ typecolor, type, theme }) =>
-      type === 'default' ? theme.master.front : typecolor};
+    color: ${({ typecolor, type, theme }) => (type === 'default' ? theme.master.front : typecolor)};
   }
 
   ${Icon} {
@@ -58,8 +53,7 @@ const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(
       type === 'default' ? theme.master.shade() : rgba(typecolor!, 0.3)};
   }
 
-  background: ${({ theme, typecolor }) =>
-    mix(0.2, typecolor!, theme.master.back)};
+  background: ${({ theme, typecolor }) => mix(0.2, typecolor!, theme.master.back)};
 `
 
 export const UpfallItem: FC<{ upfall: Upfall; key: string } & ExtraProps.Styled> = ({
@@ -74,15 +68,7 @@ export const UpfallItem: FC<{ upfall: Upfall; key: string } & ExtraProps.Styled>
     <UpfallItemStyled type={type} as={animated.div} style={style}>
       <Icon>
         <FontAwesomeIcon
-          icon={
-            icon ?? type === 'ok'
-              ? 'check'
-              : type === 'warn'
-              ? 'warning'
-              : type === 'error'
-              ? 'xmark'
-              : 'info'
-          }
+          icon={icon ?? type === 'ok' ? 'check' : type === 'warn' ? 'warning' : type === 'error' ? 'xmark' : 'info'}
         />
       </Icon>
       <Text>{content}</Text>

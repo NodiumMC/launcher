@@ -9,9 +9,7 @@ export interface UnzipNativesEvent {
 }
 
 export const unzipNatives = async (dir: string) => {
-  const files = await readDir(dir).then(v =>
-    v.filter(v => v.name?.endsWith('.jar')),
-  )
+  const files = await readDir(dir).then(v => v.filter(v => v.name?.endsWith('.jar')))
   const emitter = new EventEmitter<UnzipNativesEvent>()
   let total = 0
   let progress = 0

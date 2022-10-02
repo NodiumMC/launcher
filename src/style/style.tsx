@@ -76,8 +76,7 @@ export const Style = createGlobalStyle`
     font-family: Rubik, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
     color: ${({ theme }) => theme.master.reshade()};
     font-size: 14px;
-    transition: background-color, color, font-size ${({ theme }) =>
-      theme.transition.time};
+    transition: background-color, color, font-size ${({ theme }) => theme.transition.time};
   }
 
   img, button {
@@ -119,11 +118,9 @@ export const Style = createGlobalStyle`
   }
   
   * {
-    transition: color, background-color, border-color ${({ theme }) =>
-      theme.transition.time};
+    transition: color, background-color, border-color ${({ theme }) => theme.transition.time};
     &:after, &:before {
-      transition: color, background-color ${({ theme }) =>
-        theme.transition.time};
+      transition: color, background-color ${({ theme }) => theme.transition.time};
     }
   }
 `
