@@ -47,47 +47,39 @@ const maxStyle = (max?: number | string) => css`
 const lineHeightStyle = (height?: string | 'small' | 'medium' | 'high') =>
   height
     ? css`
-        line-height: ${height === 'small'
-          ? '.9rem'
-          : height === 'medium'
-          ? '1.2rem'
-          : height === 'high'
-          ? '1.8rem'
-          : height};
+        ${height === 'small' ? '.9rem' : height === 'medium' ? '1.2rem' : height === 'high' ? '1.8rem' : height};
       `
-    : ''
+    : undefined
 
 const gradientStyle = (gradient?: string | Styles | boolean) => css`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  ${typeof gradient !== 'boolean' &&
-  css`
-    background: ${gradient};
-  `}
+  background: ${gradient};
 `
 
 const preStyle = css`
   white-space: pre-wrap;
 `
 
-const sizeStyle = (size: number) => css`
-  font-size: ${({ theme }) => theme.size(size)};
-`
-
 const interactionStyle = css`
   font-family: ${({ theme }) => theme.fonts.interact};
 `
 
-export const Text = styled.span<TextProps>`
+export const Text = styled.span.attrs<TextProps>(({ theme, ...props }) => ({
+  style: {
+    color: props.color,
+    fontSize: theme.size(props.size),
+    lineHeight: lineHeightStyle(props.lineHeight),
+  },
+}))<TextProps>`
   display: inline-block;
-  color: ${({ theme, color }) => color ?? 'inherit'};
+  color: inherit;
   font-size: inherit;
   ${props => css`
     ${props.block && blockStyle}
     ${props.center && centerStyle}
     ${props.right && rightStyle}
     ${selectableStyle(props.selectable)}
-    ${props.lineHeight && lineHeightStyle(props.lineHeight)}
     ${props.weight && boldStyle(props.weight)}
     ${props.max && maxStyle(props.max)}
     ${props.shade && shade(props.shade)}
@@ -95,10 +87,5 @@ export const Text = styled.span<TextProps>`
     ${props.font && font(props.font)}
     ${props.pre && preStyle}
     ${props.interaction && interactionStyle}
-    ${props.size
-      ? sizeStyle(props.size)
-      : css`
-          font-size: ${({ theme }) => theme.size(10)};
-        `}
   `}
 `

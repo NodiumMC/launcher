@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { FC, Fragment, useMemo } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { ObjectRenderer } from 'debug'
@@ -36,15 +36,19 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
         return theme.palette.blue
     }
   }
+  const color = clr()
+  const textColor = color !== theme.master.shade() ? normalizeColor(color!) : theme.master.front
   return {
-    color: clr(),
+    color: textColor,
+    backgroundColor: color !== theme.master.shade() ? mix(0.2, color!, theme.master.back) : theme.master.shade(),
+    borderColor: textColor,
   }
-})<{ type: DelogType }>`
-  color: ${({ color, theme }) => (color !== theme.master.shade() ? normalizeColor(color!) : theme.master.front)};
-  background-color: ${({ color, theme }) =>
-    color !== theme.master.shade() ? mix(0.2, color!, theme.master.back) : theme.master.shade()};
+})<{ type: DelogType; backgroundColor?: string }>`
   display: flex;
-  padding: ${({ theme }) => theme.space(1)};
+  padding: ${({ theme }) => theme.space(0.6)} 0;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ color }) => color};
+  border-radius: ${({ theme }) => theme.radius(0.5)};
   ${transition('color, background-color')}
   &:first-child {
     border-top-left-radius: ${({ theme }) => theme.radius()};
@@ -60,7 +64,10 @@ const IconWrapper = styled.div`
   width: ${({ theme }) => theme.space(5)};
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   flex-shrink: 0;
+  font-size: ${({ theme }) => theme.size(8)};
 `
 
 const Content = styled(Text).attrs(() => ({
@@ -103,17 +110,25 @@ export const LogLine: FC<LogLineProps> = ({ line }) => {
                 {arg}{' '}
               </Text>
             )
+          } else if (arg.props) {
+            return <Fragment key={i}>{arg}</Fragment>
           } else {
             return (
-              <>
-                <ObjectRenderer key={i} target={toJS(arg)} />{' '}
-              </>
+              <Fragment key={i}>
+                <ObjectRenderer target={toJS(arg)} />
+                {i < line.args.length - 1 && ' '}
+              </Fragment>
             )
           }
         })}
-        {line.time && <Time pre> {ms(line.time, { millisecondsDecimalDigits: 1 })}</Time>}
+        {line.time && (
+          <Time pre selectable>
+            {' '}
+            {ms(line.time, { millisecondsDecimalDigits: 1 })}
+          </Time>
+        )}
         {line.delta !== undefined && line.delta !== 0 && (
-          <Delta pre sign={line.delta <= 0}>
+          <Delta selectable pre sign={line.delta <= 0}>
             {'  '}
             {line.delta > 0 && '+'}
             {ms(line.delta, { millisecondsDecimalDigits: 1 })}

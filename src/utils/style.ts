@@ -22,3 +22,8 @@ export const normalizeColor = (color: string, factor = 0.2) =>
   css`
     ${({ theme }) => mix(factor, readableColor(theme.master.back, theme.master.front, color, false), color)}
   `
+
+export const lighten = (color: string, factor = 0.2) =>
+  css`
+    ${({ theme }) => mix(factor, theme.master.front, color)}
+  `

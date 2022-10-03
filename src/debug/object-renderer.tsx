@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { parse } from 'stack-trace'
 
 export interface Property {
   type: 'default' | 'symbol' | 'hidden'
@@ -93,25 +94,27 @@ const TypeCyan = styled(Text)`
   color: ${({ theme }) => mix(0.4, theme.master.front, theme.palette.cyan)};
 `
 
-const TypeGreen = styled(Text)`
-  color: ${({ theme }) => mix(0.4, theme.master.front, theme.palette.green)};
+const TypeAdaptive = styled(Text)`
+  color: inherit;
 `
 
 const TypeShadow = styled(Text)`
-  color: ${({ theme }) => theme.master.shade(0.1)};
-  font-weight: bold;
+  color: inherit;
+  opacity: 0.5;
 `
 
 const TypeTint = styled(Text)`
-  color: ${({ theme }) => theme.master.shade(0.5)};
+  color: inherit;
+  opacity: 0.5;
 `
 
 const HeaderOpen = styled.span<{ active?: boolean }>`
   position: absolute;
   left: 0;
   translate: ${({ theme }) => `calc(-100% - ${theme.space()})`};
-  color: ${({ theme }) => theme.master.shade(0.3)};
+  color: inherit;
   cursor: pointer;
+  opacity: 0.5;
   svg {
     rotate: ${({ active }) => (active ? '90deg' : '0')};
     transition: rotate 0.3s;
@@ -142,50 +145,92 @@ const Children = styled.div`
     content: '';
     display: block;
     position: absolute;
-    left: 1px;
+    left: 2px;
     height: 100%;
-    width: 1px;
-    background-color: ${({ theme }) => theme.master.shade(0.1)};
+    width: 0;
+    border-color: inherit;
+    border-right: 1px solid;
+    opacity: 0.2;
   }
+`
+
+const Entry = styled(Container)`
+  display: inline-flex;
+`
+
+const ErrorContainer = styled.div`
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+`
+
+const ErrorStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: ${({ theme }) => theme.space(2)};
 `
 
 export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
   const [opened, setOpened] = useState(false)
   if (typeof target === 'number' || typeof target === 'bigint')
     return (
-      <>
+      <Entry>
         {name}
         <TypeBlue>{Number(target)}</TypeBlue>
-      </>
+      </Entry>
     )
   if (typeof target === 'string')
     return (
-      <>
+      <Entry>
         {name}
-        <TypeYellow>&apos;{target}&apos;</TypeYellow>
-      </>
+        <TypeAdaptive>&apos;{target}&apos;</TypeAdaptive>
+      </Entry>
     )
   if (typeof target === 'boolean')
     return (
-      <>
+      <Entry>
         {name}
         <TypeBlue>{target ? 'true' : 'false'}</TypeBlue>
-      </>
+      </Entry>
     )
   if (target === null)
     return (
-      <>
+      <Entry>
         {name}
         <TypeOrange>null</TypeOrange>
-      </>
+      </Entry>
     )
   if (target === undefined)
     return (
-      <>
+      <Entry>
         {name}
         <TypeOrange>undefined</TypeOrange>
-      </>
+      </Entry>
     )
+  if (target instanceof Error) {
+    return (
+      <ErrorContainer>
+        <Text pre selectable block>
+          <Text selectable weight={'bold'}>
+            {target.name}
+          </Text>
+          : {target.message}
+        </Text>
+        <ErrorStack>
+          {parse(target).slice(3).map((line, i) => (
+            <Text block selectable key={i}>
+              <Text selectable weight={'bold'}>
+                at {line.getFileName()}
+              </Text>
+              <Text selectable>
+                :{line.getLineNumber()}:{line.getColumnNumber()} -> {line.getFunctionName()}
+              </Text>
+            </Text>
+          ))}
+        </ErrorStack>
+      </ErrorContainer>
+    )
+  }
   const properties = useMemo(() => revealProperties(target), [target])
   const preview = useMemo(() => {
     if (Array.isArray(target)) {
@@ -217,10 +262,10 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
         <HeaderOpen active={opened} onClick={() => setOpened(!opened)}>
           <FontAwesomeIcon icon={'caret-right'} />
         </HeaderOpen>
-        <TypeGreen>
+        <TypeAdaptive>
           {name}
           {name ? <TypeTint>{preview}</TypeTint> : preview}
-        </TypeGreen>
+        </TypeAdaptive>
       </Header>
       {opened && (
         <Children>

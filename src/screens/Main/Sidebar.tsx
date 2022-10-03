@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconName } from '@fortawesome/fontawesome-svg-core'
 import { transition } from 'style'
+import { rgba } from 'polished'
+import { lighten, normalizeColor } from 'utils'
 
 interface SidebarItem<T extends string | number = number> extends ExtraProps.Changeable<T> {
   id: T
@@ -36,6 +38,7 @@ const Selector = styled.div<{ position: number }>`
   border: 2px solid ${({ theme }) => theme.accent.primary};
   background-size: 200%;
   z-index: -1;
+  background-color: ${({ theme }) => rgba(theme.accent.primary, 0.2)};
   ${transition('transform')}
   &:after {
     content: '';
@@ -58,7 +61,7 @@ const SidebarItem = styled.div<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme, active }) => (active ? theme.master.reshade(0.15) : theme.accent.primary)};
+  color: ${({ theme, active }) => (active ? theme.master.reshade(0.15) : normalizeColor(theme.accent.primary))};
   font-size: 18px;
   cursor: pointer;
 `

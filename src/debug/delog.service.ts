@@ -2,6 +2,7 @@ import { Module } from 'mobmarch'
 import { action, makeAutoObservable, makeObservable, observable, runInAction } from 'mobx'
 import { DelogLine } from 'debug'
 import { container } from 'tsyringe'
+import inject from 'flinject'
 
 // const Sopfire = Symbol('Stack overflow prevent flag')
 
@@ -47,15 +48,9 @@ export class DelogService {
 
   constructor() {
     makeObservable(this)
-    const timed = this.takeTime('Simplified message output:')
-    this._delogs.push({
-      type: 'default',
-      id: performance.now(),
-      args: [
-        'Добро пожаловать в консоль разработчика. Если вы обычный пользователь, советуем покинуть консоль, т.к. ввод команд сюда может нарушить вашу конфиденциальность',
-      ],
-    })
-    timed()
+    console.log = inject(console.log, (_, ...args) => log(...args))
+    console.warn = inject(console.warn, (_, ...args) => warn(...args))
+    console.error = inject(console.error, (_, ...args) => error(...args))
   }
 }
 

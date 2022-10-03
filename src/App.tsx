@@ -13,6 +13,8 @@ import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
+import { CrashOverlay } from 'components/macro/CrashOverlay'
+import { ReportService } from 'debug/report.service'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -56,6 +58,9 @@ export const App: FC = Observer(() => {
             </Defer>
             <Defer depend={UpfallService}>
               <UpfallConatiner />
+            </Defer>
+            <Defer depend={ReportService}>
+              <CrashOverlay />
             </Defer>
           </View>
         </AppRoot>
