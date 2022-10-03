@@ -21,13 +21,6 @@ const revealProperties = (target: any): Property[] => {
       value: descriptor?.value,
     })
   })
-  if (target.__proto__) {
-    props.push({
-      key: '[[prototype]]',
-      type: 'hidden',
-      value: target.__proto__,
-    })
-  }
   return props
 }
 

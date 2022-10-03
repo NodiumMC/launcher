@@ -5,7 +5,8 @@ import { resolve } from 'mobmarch'
 
 const applyAsync = (input: string): string => {
   return `
-  return (async () => {
+  return (async function* () {
+    yield undefined
     ${input}
   })()
   `
@@ -28,8 +29,8 @@ const applyContainer = (input: string): string => {
 }
 
 const applyReturn = (input: string): string => {
-  return input.replace(/^\s*<\s(\w+)/gm, (_, value) => {
-    return `return ${value}`
+  return input.replace(/<<\s(.+)/gm, (_, value) => {
+    return `yield ${value}`
   })
 }
 
@@ -48,11 +49,11 @@ const context = {
 
 export const execute = async (code: string) => {
   try {
-    log(
-      await new Function(...Object.keys(context), applyReturn(applyContainer(applyContextSyntax(applyAsync(code)))))(
-        ...Object.values(context),
-      ),
-    )
+    const it = await new Function(
+      ...Object.keys(context),
+      applyReturn(applyContainer(applyContextSyntax(applyAsync(code)))),
+    )(...Object.values(context))
+    for await (const i of it) if (i !== undefined && i !== null) log(i)
   } catch (e: any) {
     error(e)
   }

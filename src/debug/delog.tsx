@@ -96,17 +96,21 @@ export const LogLine: FC<LogLineProps> = ({ line }) => {
     <Container type={line.type}>
       <IconWrapper>{icon}</IconWrapper>
       <Content pre selectable>
-        {line.args.map((arg, i) =>
-          typeof arg === 'string' ? (
-            <Text pre selectable key={i}>
-              {arg}{' '}
-            </Text>
-          ) : (
-            <>
-              <ObjectRenderer key={i} target={toJS(arg)} />{' '}
-            </>
-          ),
-        )}
+        {line.args.map((arg, i) => {
+          if (typeof arg === 'string') {
+            return (
+              <Text pre selectable key={i}>
+                {arg}{' '}
+              </Text>
+            )
+          } else {
+            return (
+              <>
+                <ObjectRenderer key={i} target={toJS(arg)} />{' '}
+              </>
+            )
+          }
+        })}
         {line.time && <Time pre> {ms(line.time, { millisecondsDecimalDigits: 1 })}</Time>}
         {line.delta !== undefined && line.delta !== 0 && (
           <Delta pre sign={line.delta <= 0}>
