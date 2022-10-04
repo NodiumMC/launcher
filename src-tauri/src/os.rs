@@ -1,6 +1,7 @@
 use sysinfo::{System, SystemExt};
+use serde::Serialize;
 
-#[derive(Debug, serde::Serialize)]
+#[derive(Debug, Serialize)]
 pub struct OSInfo {
   total_mem: u64,
   free_mem: u64,

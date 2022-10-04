@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { Observer, useModule } from 'mobmarch'
@@ -23,10 +23,12 @@ const VesionContainer = styled.div`
 export const VersionsSubscreen: FC = Observer(() => {
   const profileService = useModule(GameProfileService)
 
+  const list = useMemo(() => profileService.list, [profileService, profileService.list])
+
   return (
     <Page>
       <VesionContainer>
-        {profileService.list.map(profile => (
+        {list.map(profile => (
           <VersionItem key={profile.options.lastVersionId} profile={profile} />
         ))}
       </VesionContainer>

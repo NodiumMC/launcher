@@ -7,6 +7,7 @@ import { MarchProvider } from 'mobmarch'
 import { MemoryRouter } from 'react-router-dom'
 import { time } from 'debug'
 import { configure } from 'mobx'
+import { ErrorBoundary } from 'debug/ErrorBoundary'
 
 configure({
   enforceActions: 'never',
@@ -18,7 +19,9 @@ time('Startup', 'startup')
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <MemoryRouter>
     <MarchProvider>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </MarchProvider>
   </MemoryRouter>,
 )

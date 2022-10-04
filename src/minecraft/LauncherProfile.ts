@@ -1,6 +1,6 @@
 import type { LauncherProfileJSON } from 'core'
 import { install } from 'core'
-import { action, makeObservable, observable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { BlakeMapService } from 'core/services/BlakeMap.service'
 import { join } from 'native/path'
 import { exists, GameDir } from 'native/filesystem'
@@ -12,17 +12,16 @@ enum ProfileState {
 }
 
 export class LauncherProfile {
-  @observable options: LauncherProfileJSON
-  @observable private _progress = 0
-  @observable private _state: ProfileState = ProfileState.EMPTY
-  @observable private abortController = new AbortController()
+  options: LauncherProfileJSON
+  private _progress = 0
+  private _state: ProfileState = ProfileState.EMPTY
+  private abortController = new AbortController()
 
   constructor(options: LauncherProfileJSON, private readonly blake: BlakeMapService) {
     this.options = options
-    makeObservable(this)
+    makeAutoObservable(this)
   }
 
-  @action
   private async _install(clientDir: string, gameDataDir: string) {
     return new Promise<void>(async (resolve, reject) => {
       const vid = this.options.lastVersionId
@@ -41,6 +40,7 @@ export class LauncherProfile {
       })
       inp.on('download', progress => {
         this._progress = progress.transferred.map(0, progress.total)
+        console.log(progress)
       })
       inp.on('unzip', progress => {
         this._progress = progress.progress.map(0, progress.total, 100, 200)
@@ -63,7 +63,6 @@ export class LauncherProfile {
     return this._state
   }
 
-  @action
   async install() {
     const vid = this.options.lastVersionId
     const vpath = join(await GameDir(), 'versions', vid)

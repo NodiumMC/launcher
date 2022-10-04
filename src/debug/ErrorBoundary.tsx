@@ -2,6 +2,7 @@ import { error } from 'debug'
 import { ErrorInfo, PureComponent } from 'react'
 import { ReportService } from 'debug/report.service'
 import { container } from 'tsyringe'
+import { Text } from 'components/micro/Text'
 
 export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {
   constructor(props: any) {
@@ -20,7 +21,7 @@ export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {
 
   render() {
     if (this.state.hasError) {
-      return <></>
+      return <Text>ERROR</Text>
     }
 
     return this.props.children
