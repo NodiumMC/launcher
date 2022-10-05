@@ -25,7 +25,7 @@ pub enum BlakeError {
     #[error(transparent)]
     Hex(#[from] HexError),
     #[error("Hash mismatched. Expected: {expected}. Received: ${found}")]
-    HashMismatch { expected: Hash, found: Hash },
+    HashMismatch { expected: String, found: String },
 }
 
 pub fn create_hash_for_file(path: &Path) -> Result<Hash, BlakeError> {
@@ -36,12 +36,11 @@ pub fn create_hash_for_file(path: &Path) -> Result<Hash, BlakeError> {
     Ok(found_hash)
 }
 
-pub fn check_file_integrity(path: &Path, expected_hash: &str) -> Result<(), BlakeError> {
-    let expected = Hash::from_hex(expected_hash)?;
-    let found = create_hash_for_file(path)?;
+pub fn check_file_integrity(path: &Path, expected: &str) -> Result<(), BlakeError> {
+    let found = create_hash_for_file(path)?.as_string();
     if expected == found {
         Ok(())
     } else {
-      Err(BlakeError::HashMismatch { expected, found })
+      Err(BlakeError::HashMismatch { expected: expected.to_string(), found: found.to_string() })
     }
 }

@@ -11,7 +11,7 @@ use tauri::{AppHandle, Manager, Runtime};
 use thiserror::Error;
 use tokio::io::AsyncWriteExt;
 
-use self::hash::{BlakeError, BlakeHash};
+use self::hash::{BlakeHash};
 mod hash;
 
 /// Represents all possbible error that can happen when downloading
@@ -61,14 +61,11 @@ pub async fn download_file<R: Runtime>(
     expected_checksum: Option<String>,
     progress_id: String,
 ) -> Result<String, DownloadError> {
-    let hash = expected_checksum.unwrap_or_default();
-    if &hash.len() > &0 && to.exists() && to.is_file() {
+    if !expected_checksum.is_none() && to.exists() && to.is_file() {
+        let hash = expected_checksum.unwrap_or_default();
         match hash::check_file_integrity(to, &hash) {
             Ok(_) => return Ok(hash),
-            Err(BlakeError::HashMismatch { .. }) => {
-                std::fs::remove_file(to)?;
-            }
-            Err(e) => return Err(DownloadError::from(e)),
+            Err(_) => {},
         }
     }
 
@@ -89,7 +86,7 @@ pub async fn download_file<R: Runtime>(
         file.write(&bytes).await?;
         transferred += bytes.len() as u64;
 
-        if long_time {
+        if !long_time {
             continue;
         }
 
@@ -108,7 +105,7 @@ pub async fn download_file<R: Runtime>(
         DownloadProgress {
             total: total_size,
             transferred,
-            chunk: if long_time { transferred } else { 0 },
+            chunk: if !long_time { transferred } else { 0 },
         },
     );
 
@@ -134,7 +131,7 @@ pub async fn download<R: Runtime>(
                 task,
                 abort_registration,
             );
-        
+
             app_handle.listen_global(id, move |_| {
                 abort_handle.abort();
             });
