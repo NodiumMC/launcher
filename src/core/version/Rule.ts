@@ -9,10 +9,7 @@ export interface RuleResult {
   features?: RuleType['features']
 }
 
-export const ParseRule = (
-  rule: RuleType,
-  features: string[] = [],
-): RuleResult => {
+export const ParseRule = (rule: RuleType, features: string[] = []): RuleResult => {
   const currentOs = rule.os ? os : null
   const currentArch = rule.os ? (is64 ? 'x64' : 'x32') : null
   const osVersion = rule.os ? release : null
@@ -20,23 +17,14 @@ export const ParseRule = (
   if (rule.os) {
     const ruleOs = rule.os
     if (ruleOs.arch === 'x86') ruleOs.arch = 'x32'
-    if (currentOs === 'unknown')
-      reasons.push(
-        'Unknown platform. Supported platforms: Windows, Macos, Linux',
-      )
-    else if (currentOs !== ruleOs.name)
-      reasons.push(`Incompatible platform. Expected: ${ruleOs.name}`)
+    if (currentOs === 'unknown') reasons.push('Unknown platform. Supported platforms: Windows, Macos, Linux')
+    else if (currentOs !== ruleOs.name) reasons.push(`Incompatible platform. Expected: ${ruleOs.name}`)
     if (ruleOs.version && osVersion && !RegExp(ruleOs.version).test(osVersion))
-      reasons.push(
-        `Incompatible os version. Expected: ${ruleOs.name} v${ruleOs.version}`,
-      )
+      reasons.push(`Incompatible os version. Expected: ${ruleOs.name} v${ruleOs.version}`)
     if (ruleOs.arch && currentArch && currentArch !== ruleOs.arch)
       reasons.push(`Incompatible arch. Expected: ${ruleOs.arch}`)
   }
-  const allow =
-    reasons.length === 0 &&
-    (!rule.features ||
-      Object.keys(rule.features).every(f => features.includes(f)))
+  const allow = reasons.length === 0 && (!rule.features || Object.keys(rule.features).every(f => features.includes(f)))
   return {
     allow: rule.action === 'allow' ? allow : !allow,
     reasons,
@@ -44,10 +32,7 @@ export const ParseRule = (
   }
 }
 
-export const ParseRules = (
-  { rules = [], value }: RuleContainer,
-  allowFeatures: string[] = [],
-): RuleResult => {
+export const ParseRules = ({ rules = [], value }: RuleContainer, allowFeatures: string[] = []): RuleResult => {
   const rrs = rules.map(rule => ParseRule(rule, allowFeatures))
   const allow = rrs.every(rule => rule.allow)
   const reasons = rrs.map(rule => rule.reasons).flat()

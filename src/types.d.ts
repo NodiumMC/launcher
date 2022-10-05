@@ -1,14 +1,4 @@
-declare type FontWeightNumeric =
-  | 100
-  | 200
-  | 300
-  | 400
-  | 500
-  | 600
-  | 700
-  | 800
-  | 900
-  | 950
+declare type FontWeightNumeric = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
 
 declare type FontWeightSemantic =
   | 'thin'
@@ -61,17 +51,9 @@ declare namespace ExtraProps {
 }
 
 declare type Awaitable<T = any> = Promise<T> | T
-declare type Nullable<T> = T extends object
-  ? { [P in keyof T]: Nullable<T[P]> }
-  : T | null | undefined
+declare type Nullable<T> = T extends object ? { [P in keyof T]: Nullable<T[P]> } : T | null | undefined
 
 declare type FN = (...args: never[]) => unknown
 
-type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N
-  ? R
-  : _TupleOf<T, N, [T, ...R]>
-declare type Tuple<T, N extends number> = N extends N
-  ? number extends N
-    ? T[]
-    : _TupleOf<T, N, []>
-  : never
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>
+declare type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never

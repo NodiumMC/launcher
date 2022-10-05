@@ -29,9 +29,6 @@ export class Logger {
 
   @computed
   get stdout(): string {
-    return this.std.substring(
-      this.std.length - Logger.MAX_LENGTH,
-      this.std.length,
-    )
+    return this.std.substring(this.std.length - Logger.MAX_LENGTH, this.std.length)
   }
 }

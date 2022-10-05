@@ -7,13 +7,8 @@ import { endTime } from 'debug'
 @Module([I18n, Preloader])
 export class Updater {
   private [BeforeResolve]() {
-    return this.preloader
-      .add(this.i18n.translate.loading.updating, updateApp)
-      .then(v => endTime('startup'))
+    return this.preloader.add(this.i18n.translate.loading.updating, updateApp).then(v => endTime('startup'))
   }
 
-  constructor(
-    private readonly preloader: Preloader,
-    private readonly i18n: I18n,
-  ) {}
+  constructor(private readonly preloader: Preloader, private readonly i18n: I18n) {}
 }

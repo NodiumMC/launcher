@@ -13,12 +13,8 @@ export const nativeArtifact = (lib: Library) => {
   return native && lib.downloads?.classifiers?.[native]
 }
 
-export const compileLibArtifacts = (
-  libs: Library[],
-): [libs: Artifact[], natives: Artifact[]] => {
-  const ruledLibs = libs.filter(lib =>
-    isRuled(lib) ? ParseRules(lib).allow : true,
-  )
+export const compileLibArtifacts = (libs: Library[]): [libs: Artifact[], natives: Artifact[]] => {
+  const ruledLibs = libs.filter(lib => (isRuled(lib) ? ParseRules(lib).allow : true))
   const nlibs = ruledLibs.filter(lib => isNativeLibrary(lib))
   return [
     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
@@ -27,11 +23,7 @@ export const compileLibArtifacts = (
   ]
 }
 
-export const compileLibraries = (
-  libs: Library[],
-  gameDataDir: string,
-  clientDir: string,
-): DownloadableResource[] => {
+export const compileLibraries = (libs: Library[], gameDataDir: string, clientDir: string): DownloadableResource[] => {
   const librariesPath = join(gameDataDir, 'libraries')
   const [dlibs, natives] = compileLibArtifacts(libs)
   return [

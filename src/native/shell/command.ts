@@ -6,9 +6,6 @@ export const command = (command: string, args: string[], cwd?: string) => {
   const metaCmd = isWindows ? 'cmd' : 'sh'
   const metaArgs = isWindows ? ['/C'] : ['-c']
   // FIXME: fix this shit
-  const fullArgs = [
-    ...metaArgs,
-    `${command} ${args.filter(v => !v.includes('Dos')).join(' ')}`,
-  ]
+  const fullArgs = [...metaArgs, `${command} ${args.filter(v => !v.includes('Dos')).join(' ')}`]
   return new Command(metaCmd, fullArgs, { cwd })
 }

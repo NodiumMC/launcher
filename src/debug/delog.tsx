@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { FC, Fragment, useMemo } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { ObjectRenderer } from 'debug'
@@ -7,6 +7,7 @@ import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { transition } from 'style'
 import ms from 'pretty-ms'
+import { normalizeColor } from 'utils'
 
 export type DelogType = 'default' | 'warn' | 'error' | 'time'
 
@@ -26,7 +27,7 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
   const clr = () => {
     switch (type) {
       default:
-        return theme.master.front
+        return theme.master.shade()
       case 'warn':
         return theme.palette.yellow
       case 'error':
@@ -35,17 +36,19 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
         return theme.palette.blue
     }
   }
+  const color = clr()
+  const textColor = color !== theme.master.shade() ? normalizeColor(color!) : theme.master.front
   return {
-    color: clr(),
+    color: textColor,
+    backgroundColor: color !== theme.master.shade() ? mix(0.2, color!, theme.master.back) : theme.master.shade(),
+    borderColor: textColor,
   }
-})<{ type: DelogType }>`
-  color: ${({ color, theme }) => mix(0.2, theme.master.front, color!)};
-  background-color: ${({ color, theme }) =>
-    color !== theme.master.front
-      ? mix(0.2, color!, theme.master.back)
-      : theme.master.back};
+})<{ type: DelogType; backgroundColor?: string }>`
   display: flex;
-  padding: ${({ theme }) => theme.space(1)};
+  padding: ${({ theme }) => theme.space(0.6)} 0;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ color }) => color};
+  border-radius: ${({ theme }) => theme.radius(0.5)};
   ${transition('color, background-color')}
   &:first-child {
     border-top-left-radius: ${({ theme }) => theme.radius()};
@@ -59,7 +62,12 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
 
 const IconWrapper = styled.div`
   width: ${({ theme }) => theme.space(5)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   flex-shrink: 0;
+  font-size: ${({ theme }) => theme.size(8)};
 `
 
 const Content = styled(Text).attrs(() => ({
@@ -69,15 +77,12 @@ const Content = styled(Text).attrs(() => ({
 `
 
 const Time = styled(Text)`
-  color: ${({ theme }) => mix(0.2, theme.master.front, theme.accent.primary)};
+  color: ${({ theme }) => normalizeColor(theme.accent.primary)};
   font-weight: bold;
 `
 
 const Delta = styled(Text)<{ sign?: boolean }>`
-  color: ${({ sign, theme }) =>
-    sign
-      ? mix(0.2, theme.master.front, theme.palette.green)
-      : mix(0.2, theme.master.front, theme.palette.red)};
+  color: ${({ sign, theme }) => (sign ? normalizeColor(theme.palette.green) : normalizeColor(theme.palette.red))};
 `
 
 export const LogLine: FC<LogLineProps> = ({ line }) => {
@@ -97,15 +102,33 @@ export const LogLine: FC<LogLineProps> = ({ line }) => {
   return (
     <Container type={line.type}>
       <IconWrapper>{icon}</IconWrapper>
-      <Content pre>
-        {line.args.map(arg =>
-          typeof arg === 'string' ? arg : <ObjectRenderer target={toJS(arg)} />,
-        )}
+      <Content pre selectable>
+        {line.args.map((arg, i) => {
+          if (typeof arg === 'string') {
+            return (
+              <Text pre selectable key={i}>
+                {arg}{' '}
+              </Text>
+            )
+          } else if (arg.props) {
+            return <Fragment key={i}>{arg}</Fragment>
+          } else {
+            return (
+              <Fragment key={i}>
+                <ObjectRenderer target={toJS(arg)} />
+                {i < line.args.length - 1 && ' '}
+              </Fragment>
+            )
+          }
+        })}
         {line.time && (
-          <Time pre> {ms(line.time, { millisecondsDecimalDigits: 1 })}</Time>
+          <Time pre selectable>
+            {' '}
+            {ms(line.time, { millisecondsDecimalDigits: 1 })}
+          </Time>
         )}
         {line.delta !== undefined && line.delta !== 0 && (
-          <Delta pre sign={line.delta <= 0}>
+          <Delta selectable pre sign={line.delta <= 0}>
             {'  '}
             {line.delta > 0 && '+'}
             {ms(line.delta, { millisecondsDecimalDigits: 1 })}

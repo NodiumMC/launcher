@@ -2,20 +2,19 @@ import { FC } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { AppPreloader } from 'components/macro/AppPreloader'
 import { Header } from 'components/macro/header'
-import { useOnce, useThemeToggleHotkey } from 'hooks'
-import { PopupContainer, UpfallService } from 'notifications'
-import { Fonts, preload } from 'style'
+import { useThemeToggleHotkey } from 'hooks'
+import { PopupContainer, PopupService, UpfallConatiner, UpfallService } from 'notifications'
+import { Fonts, Style } from 'style'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
-import { PopupService } from 'notifications'
 import { Preloader } from 'preload'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
-import { UpfallConatiner } from 'notifications'
-import { Style } from 'style'
 import { useDebugHotkey } from 'hooks/useDebug'
-import { endTime } from 'debug'
+import { AceStyle } from 'debug/commander'
+import { CrashOverlay } from 'components/macro/CrashOverlay'
+import { ReportService } from 'debug/report.service'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -39,7 +38,6 @@ export const App: FC = Observer(() => {
   const [, theme] = useDeferredModule(ThemeService)
   useDeferredModule(Updater)
   useThemeToggleHotkey()
-  useOnce(preload)
   useFontawesomeLoader()
   useDebugHotkey()
   return (
@@ -47,6 +45,7 @@ export const App: FC = Observer(() => {
       <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
         <Style />
         <Fonts />
+        <AceStyle />
         <AppRoot>
           <Header />
           <View>
@@ -59,6 +58,9 @@ export const App: FC = Observer(() => {
             </Defer>
             <Defer depend={UpfallService}>
               <UpfallConatiner />
+            </Defer>
+            <Defer depend={ReportService}>
+              <CrashOverlay />
             </Defer>
           </View>
         </AppRoot>

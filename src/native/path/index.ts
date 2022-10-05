@@ -14,7 +14,6 @@ export const normalize = (path?: string) => {
     .replaceAll('//', separator)
 }
 
-export const dirname = (path: string) =>
-  normalize(split(normalize(path)).underslice(1).join(separator))
+export const dirname = (path: string) => normalize(split(normalize(path)).underslice(1).join(separator))
 
 export const join = (...paths: string[]) => normalize(paths.join(separator))

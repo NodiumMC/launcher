@@ -39,7 +39,7 @@ const Title = styled.div`
 
 const SubTitle = styled(Title)`
   font-size: 22px;
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
 `
 
@@ -78,8 +78,7 @@ const StagedProgressBar = styled(ProgressBar)`
 `
 
 export const AppPreloader: FC = Observer(() => {
-  const { inProcess, pre, progressActive, progress, currentTaskName } =
-    useModule(PreloaderService)
+  const { inProcess, pre, progressActive, progress, currentTaskName } = useModule(PreloaderService)
   const transition = useTransition(inProcess, {
     from: { opacity: 1, scale: 3 },
     enter: { opacity: 1, scale: 1 },
@@ -108,12 +107,7 @@ export const AppPreloader: FC = Observer(() => {
               <AbsolutePreloader />
               {currentTaskName}
             </Stage>
-            {progressHide(
-              (style, item) =>
-                item && (
-                  <StagedProgressBar value={progress} pre={pre} total={100} />
-                ),
-            )}
+            {progressHide((style, item) => item && <StagedProgressBar value={progress} pre={pre} total={100} />)}
           </StageWrapper>
         </AppPreloaderWrapper>
       ),

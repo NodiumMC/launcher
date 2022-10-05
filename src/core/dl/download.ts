@@ -9,8 +9,7 @@ export interface DownloadableResource {
   after?: (resource: DownloadableResource) => PromiseLike<void> | void
 }
 
-export const download = async (resource: DownloadableResource) =>
-  Rdownload(resource.url, resource.local, resource.hash)
+export const download = async (resource: DownloadableResource) => Rdownload(resource.url, resource.local, resource.hash)
 
 export interface BatchDownloadEvent {
   progress: (progress: RDownloadProgress) => void
@@ -19,11 +18,7 @@ export interface BatchDownloadEvent {
   error: (e: Error) => void
 }
 
-export const batchDownload = async (
-  resources: DownloadableResource[],
-  signal: AbortSignal,
-  batchSize = 32,
-) => {
+export const batchDownload = async (resources: DownloadableResource[], signal: AbortSignal, batchSize = 32) => {
   const totalSize = resources.reduce((acc, cur) => acc + cur.size, 0)
   const emitter = new EventEmitter<BatchDownloadEvent>()
   let progress = 0

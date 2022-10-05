@@ -3,12 +3,7 @@ import _ from 'lodash'
 
 export type OSType = 'osx' | 'windows' | 'linux' | 'unknown'
 export type ArchType = string
-export type NativesType =
-  | 'javadoc'
-  | 'natives-linux'
-  | 'natives-windows'
-  | 'natives-macos'
-  | 'natives-osx'
+export type NativesType = 'javadoc' | 'natives-linux' | 'natives-windows' | 'natives-macos' | 'natives-osx'
 
 export interface Rule {
   action: 'allow' | 'disallow'
@@ -122,17 +117,10 @@ export const mergeVersions = (...versions: VersionFile[]) => {
   if (!next) return origin
   origin.mainClass = last.mainClass
   origin.type = last.type
-  origin.arguments.jvm = _.union(
-    origin.arguments.jvm,
-    versions.map(v => v.arguments.jvm).flat(),
-  )
-  origin.arguments.game = _.union(
-    origin.arguments.game,
-    versions.map(v => v.arguments.game).flat(),
-  )
+  origin.arguments.jvm = _.union(origin.arguments.jvm, versions.map(v => v.arguments.jvm).flat())
+  origin.arguments.game = _.union(origin.arguments.game, versions.map(v => v.arguments.game).flat())
   origin.libraries.push(...versions.map(v => v.libraries).flat())
   return origin
 }
 
-export const readVersionFile = async (path: string): Promise<VersionFile> =>
-  readJsonFile(path)
+export const readVersionFile = async (path: string): Promise<VersionFile> => readJsonFile(path)

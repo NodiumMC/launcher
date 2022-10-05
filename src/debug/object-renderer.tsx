@@ -1,8 +1,9 @@
-import { FC, ReactNode, useMemo, useState } from 'react'
+import { FC, Fragment, ReactNode, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { parse } from 'stack-trace'
 
 export interface Property {
   type: 'default' | 'symbol' | 'hidden'
@@ -14,24 +15,13 @@ const revealProperties = (target: any): Property[] => {
   const props: Property[] = []
   Reflect.ownKeys(target).forEach(key => {
     const descriptor = Reflect.getOwnPropertyDescriptor(target, key)
-    if (
-      typeof key === 'string' &&
-      ['caller', 'callee', 'arguments'].includes(key)
-    )
-      return
+    if (typeof key === 'string' && ['caller', 'callee', 'arguments'].includes(key)) return
     props.push({
       type: typeof key === 'symbol' ? 'symbol' : 'default',
       key: typeof key === 'symbol' ? key.description ?? 'symbol' : key,
-      value: descriptor?.get ? descriptor?.value : target?.[key],
+      value: descriptor?.value,
     })
   })
-  if (target.__proto__) {
-    props.push({
-      key: '[[prototype]]',
-      type: 'hidden',
-      value: target.__proto__,
-    })
-  }
   return props
 }
 
@@ -42,7 +32,7 @@ const isPrimitive = (target: any) => {
 const previewArray = (array: any[], ellipsis = false) => {
   const comma = (i: number) => i < array.length - 1
   return array.map((v, i) => (
-    <>
+    <Fragment key={i}>
       {isPrimitive(v) ? (
         <ObjectRenderer target={v} />
       ) : Array.isArray(v) ? (
@@ -52,7 +42,7 @@ const previewArray = (array: any[], ellipsis = false) => {
       )}
       {comma(i) && <TypeShadow pre>, </TypeShadow>}
       {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
-    </>
+    </Fragment>
   ))
 }
 
@@ -63,7 +53,7 @@ const previewObject = (object: any) => {
   return Object.entries(object)
     .slice(0, 10)
     .map(([key, value], i) => (
-      <>
+      <Fragment key={i}>
         <TypeCyan>{key}</TypeCyan>
         <TypeTint pre>: </TypeTint>
         {isPrimitive(value) ? (
@@ -75,7 +65,7 @@ const previewObject = (object: any) => {
         )}
         {comma(i) && <TypeShadow pre>, </TypeShadow>}
         {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
-      </>
+      </Fragment>
     ))
 }
 
@@ -84,7 +74,9 @@ export interface ObjectRendererProps {
   name?: ReactNode
 }
 
-export const Container = styled.div``
+export const Container = styled.span`
+  margin-left: ${({ theme }) => theme.space(2)};
+`
 
 const TypeBlue = styled(Text)`
   color: ${({ theme }) => mix(0.2, theme.master.front, theme.palette.blue)};
@@ -102,25 +94,27 @@ const TypeCyan = styled(Text)`
   color: ${({ theme }) => mix(0.4, theme.master.front, theme.palette.cyan)};
 `
 
-const TypeGreen = styled(Text)`
-  color: ${({ theme }) => mix(0.4, theme.master.front, theme.palette.green)};
+const TypeAdaptive = styled(Text)`
+  color: inherit;
 `
 
 const TypeShadow = styled(Text)`
-  color: ${({ theme }) => theme.master.shade(0.1)};
-  font-weight: bold;
+  color: inherit;
+  opacity: 0.5;
 `
 
 const TypeTint = styled(Text)`
-  color: ${({ theme }) => theme.master.shade(0.5)};
+  color: inherit;
+  opacity: 0.5;
 `
 
 const HeaderOpen = styled.span<{ active?: boolean }>`
   position: absolute;
   left: 0;
   translate: ${({ theme }) => `calc(-100% - ${theme.space()})`};
-  color: ${({ theme }) => theme.master.shade(0.3)};
+  color: inherit;
   cursor: pointer;
+  opacity: 0.5;
   svg {
     rotate: ${({ active }) => (active ? '90deg' : '0')};
     transition: rotate 0.3s;
@@ -129,7 +123,8 @@ const HeaderOpen = styled.span<{ active?: boolean }>`
 
 const Header = styled.div`
   position: relative;
-  display: flex;
+  display: inline-flex;
+  width: 100%;
   gap: ${({ theme }) => theme.space()};
   align-items: center;
 `
@@ -145,47 +140,97 @@ const Children = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: ${({ theme }) => theme.space(3)};
-  border-left: 1px solid ${({ theme }) => theme.master.shade(0.1)};
-  margin-left: 3px;
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 2px;
+    height: 100%;
+    width: 0;
+    border-color: inherit;
+    border-right: 1px solid;
+    opacity: 0.2;
+  }
+`
+
+const Entry = styled(Container)`
+  display: inline-flex;
+`
+
+const ErrorContainer = styled.div`
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+`
+
+const ErrorStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: ${({ theme }) => theme.space(2)};
 `
 
 export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
   const [opened, setOpened] = useState(false)
   if (typeof target === 'number' || typeof target === 'bigint')
     return (
-      <>
+      <Entry>
         {name}
         <TypeBlue>{Number(target)}</TypeBlue>
-      </>
+      </Entry>
     )
   if (typeof target === 'string')
     return (
-      <>
+      <Entry>
         {name}
-        <TypeYellow>&apos;{target}&apos;</TypeYellow>
-      </>
+        <TypeAdaptive>&apos;{target}&apos;</TypeAdaptive>
+      </Entry>
     )
   if (typeof target === 'boolean')
     return (
-      <>
+      <Entry>
         {name}
         <TypeBlue>{target ? 'true' : 'false'}</TypeBlue>
-      </>
+      </Entry>
     )
   if (target === null)
     return (
-      <>
+      <Entry>
         {name}
         <TypeOrange>null</TypeOrange>
-      </>
+      </Entry>
     )
   if (target === undefined)
     return (
-      <>
+      <Entry>
         {name}
         <TypeOrange>undefined</TypeOrange>
-      </>
+      </Entry>
     )
+  if (target instanceof Error) {
+    return (
+      <ErrorContainer>
+        <Text pre selectable block>
+          <Text selectable weight={'bold'}>
+            {target.name}
+          </Text>
+          : {target.message}
+        </Text>
+        <ErrorStack>
+          {parse(target).slice(3).map((line, i) => (
+            <Text block selectable key={i}>
+              <Text selectable weight={'bold'}>
+                at {line.getFileName()}
+              </Text>
+              <Text selectable>
+                :{line.getLineNumber()}:{line.getColumnNumber()} -> {line.getFunctionName()}
+              </Text>
+            </Text>
+          ))}
+        </ErrorStack>
+      </ErrorContainer>
+    )
+  }
   const properties = useMemo(() => revealProperties(target), [target])
   const preview = useMemo(() => {
     if (Array.isArray(target)) {
@@ -199,7 +244,7 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
     } else if (typeof target === 'function') {
       return (
         <>
-          function <TypeYellow>{target.name}</TypeYellow> {rbo}
+          function {rbo}
           {rbc}
         </>
       )
@@ -217,10 +262,10 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
         <HeaderOpen active={opened} onClick={() => setOpened(!opened)}>
           <FontAwesomeIcon icon={'caret-right'} />
         </HeaderOpen>
-        <TypeGreen>
+        <TypeAdaptive>
           {name}
           {name ? <TypeTint>{preview}</TypeTint> : preview}
-        </TypeGreen>
+        </TypeAdaptive>
       </Header>
       {opened && (
         <Children>
@@ -233,9 +278,7 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
                     {v.type === 'hidden' ? (
                       <TypeShadow>{v.key}</TypeShadow>
                     ) : (
-                      <TypeCyan>
-                        {v.type === 'symbol' ? `@${v.key}` : v.key}
-                      </TypeCyan>
+                      <TypeCyan>{v.type === 'symbol' ? `@${v.key}` : v.key}</TypeCyan>
                     )}
                     <TypeTint pre>:{'  '}</TypeTint>
                   </>

@@ -31,13 +31,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   ${({ theme }) => font(theme.fonts.interact)}
   user-select: none;
   background: ${({ theme, danger, disabled, primary }) =>
-    disabled
-      ? theme.master.shade(0.2)
-      : danger
-      ? theme.palette.red
-      : primary
-      ? theme.accent.primary
-      : 'transparent'};
+    disabled ? theme.master.shade(0.2) : danger ? theme.palette.red : primary ? theme.accent.primary : 'transparent'};
   border: 2px solid
     ${({ theme, danger, disabled, outlined }) =>
       disabled
@@ -53,9 +47,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
 
   &:hover {
     background-color: ${({ theme, danger, disabled, outlined, primary }) =>
-      disabled || danger || !outlined || primary
-        ? 'none'
-        : rgba(theme.accent.primary, 0.2)};
+      disabled || danger || !outlined || primary ? 'none' : rgba(theme.accent.primary, 0.2)};
     box-shadow: ${({ theme, danger, disabled, outlined }) =>
       disabled || !outlined
         ? 'none'
@@ -81,10 +73,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   }
 `
 
-export interface ButtonProps
-  extends ButtonWrapperProps,
-    ExtraProps.Clickable,
-    ExtraProps.HasChildren {
+export interface ButtonProps extends ButtonWrapperProps, ExtraProps.Clickable, ExtraProps.HasChildren {
   icon?: IconName
   fetching?: boolean
 }
@@ -111,16 +100,9 @@ export const Button: FC<ButtonProps> = ({
   shade,
 }) => {
   const wp = { danger, primary, square, outlined }
-  const genericDisable = useMemo(
-    () => disabled || fetching,
-    [disabled, fetching],
-  )
+  const genericDisable = useMemo(() => disabled || fetching, [disabled, fetching])
   return (
-    <ButtonWrapper
-      {...wp}
-      onClick={() => !genericDisable && onClick?.()}
-      disabled={genericDisable}
-    >
+    <ButtonWrapper {...wp} onClick={() => !genericDisable && onClick?.()} disabled={genericDisable}>
       {icon && <Icon icon={icon} shade={shade} />}
       {children}
       {fetching && <FetchingPreloader />}

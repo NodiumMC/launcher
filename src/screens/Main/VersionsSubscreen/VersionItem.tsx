@@ -28,11 +28,7 @@ const Pane = styled.div`
   ${transition()}
   background: ${({ theme }) =>
     linearGradient({
-      colorStops: [
-        'transparent',
-        theme.master.shade(0.15),
-        theme.master.shade(0.15),
-      ],
+      colorStops: ['transparent', theme.master.shade(0.15), theme.master.shade(0.15)],
       toDirection: 'to bottom',
     })};
 `
@@ -68,8 +64,7 @@ const Action = styled.button<{ deleteButton?: boolean }>`
   height: 20px;
   flex-grow: ${({ deleteButton }) => +!deleteButton};
   border-radius: ${({ theme }) => theme.radius()};
-  background: ${({ theme, deleteButton }) =>
-    deleteButton ? theme.palette.red : theme.accent.primary};
+  background: ${({ theme, deleteButton }) => (deleteButton ? theme.palette.red : theme.accent.primary)};
   cursor: pointer;
 `
 
@@ -126,15 +121,15 @@ const MicroProgressInner = styled.div`
   }
 `
 
-const MicroProgress: FC<
-  { progress: number } & ExtraProps.HasChildren & ExtraProps.Clickable
-> = ({ progress, children, onClick }) => {
+const MicroProgress: FC<{ progress: number } & ExtraProps.HasChildren & ExtraProps.Clickable> = ({
+  progress,
+  children,
+  onClick,
+}) => {
   return (
     <StyledMicroProgress onClick={onClick}>
       <MicroProgressInner style={{ width: `${progress}%` }} />
-      <MicroProgressInner
-        style={{ width: `${progress > 100 ? progress - 100 : 0}%` }}
-      />
+      <MicroProgressInner style={{ width: `${progress > 100 ? progress - 100 : 0}%` }} />
       {children}
     </StyledMicroProgress>
   )

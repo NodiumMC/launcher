@@ -1,8 +1,4 @@
-import {
-  arch as tauriArch,
-  version,
-  platform as tauriPlatform,
-} from '@tauri-apps/api/os'
+import { arch as tauriArch, version, platform as tauriPlatform } from '@tauri-apps/api/os'
 
 export const arch = await tauriArch().then(a => a.replace('x86_64', 'x64'))
 export const is64 = arch.includes('64')

@@ -19,11 +19,7 @@ export const dark = {
       return tint(factor >= 0 ? factor : 1 - factor * -1, this.front)
     },
     edge(factor = 0.05) {
-      return mix(
-        factor >= 0 ? factor : 1 - factor * -1,
-        invert(readableColor(this.back)),
-        this.back,
-      )
+      return mix(factor >= 0 ? factor : 1 - factor * -1, invert(readableColor(this.back)), this.back)
     },
   },
   console: [

@@ -4,5 +4,6 @@
   "arrowParens": "avoid",
   "singleQuote": true,
   "trailingComma": "all",
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "printWidth": 120
 }

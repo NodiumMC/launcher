@@ -41,32 +41,28 @@ const Page = styled.div<{ position: number }>`
 `
 
 export const SubRoute: FC<SubrouteProps> = () => <></>
-export const MainScreenSidebarSubrouter: FC<
-  Required<ExtraProps.HasChildren<Array<ReactElement<SubrouteProps>>>>
-> = Observer(({ children }) => {
-  const debug = useDebugMode()
-  const items = useMemo(
-    () => children.filter(v => !v.props.debug || debug).map(v => v.props),
-    [debug],
-  )
-  const subrouter = useModule(MainScreenSubRouter)
-  return (
-    <Wrapper>
-      <FixedSidebar
-        items={items.map((v, i) => ({
-          ...v,
-          id: i,
-          onChange: id => subrouter.locate(id),
-        }))}
-        selected={subrouter.location}
-      />
-      <Content>
-        {items.map(({ children, to }, i) => (
-          <Page key={to} position={i - subrouter.location}>
-            {children}
-          </Page>
-        ))}
-      </Content>
-    </Wrapper>
-  )
-})
+export const MainScreenSidebarSubrouter: FC<Required<ExtraProps.HasChildren<Array<ReactElement<SubrouteProps>>>>> =
+  Observer(({ children }) => {
+    const debug = useDebugMode()
+    const items = useMemo(() => children.filter(v => !v.props.debug || debug).map(v => v.props), [debug])
+    const subrouter = useModule(MainScreenSubRouter)
+    return (
+      <Wrapper>
+        <FixedSidebar
+          items={items.map((v, i) => ({
+            ...v,
+            id: i,
+            onChange: id => subrouter.locate(id),
+          }))}
+          selected={subrouter.location}
+        />
+        <Content>
+          {items.map(({ children, to }, i) => (
+            <Page key={to} position={i - subrouter.location}>
+              {children}
+            </Page>
+          ))}
+        </Content>
+      </Wrapper>
+    )
+  })

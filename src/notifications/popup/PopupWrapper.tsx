@@ -21,12 +21,13 @@ const Popup = styled.div`
   transition: background-color ${({ theme }) => theme.transition.time};
 `
 
-export const PopupWrapper: FC<
-  { close: IPopup['close'] } & ExtraProps.HasChildren & ExtraProps.Styled
-> = ({ close, children, style }) => {
+export const PopupWrapper: FC<{ close: IPopup['close'] } & ExtraProps.HasChildren & ExtraProps.Styled> = ({
+  close,
+  children,
+  style,
+}) => {
   const childrenWithProps = Children.map(children, child => {
-    if (isValidElement(child))
-      return cloneElement(child, { ...(child as any).props, close })
+    if (isValidElement(child)) return cloneElement(child, { ...(child as any).props, close })
     return child
   })
 

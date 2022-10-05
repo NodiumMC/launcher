@@ -18,16 +18,10 @@ export interface RDownloadEvent {
   error: (error: string) => void
 }
 
-export const Rdownload = async (
-  url: string,
-  local: string,
-  checksum?: string,
-) => {
+export const Rdownload = async (url: string, local: string, checksum?: string) => {
   const progressId = nanoid()
   const emitter = new EventEmitter<RDownloadEvent>()
-  const unlisten = await listen(progressId, ({ payload }) =>
-    emitter.emit('progress', payload as RDownloadProgress),
-  )
+  const unlisten = await listen(progressId, ({ payload }) => emitter.emit('progress', payload as RDownloadProgress))
   const complete = <T>(payload?: Nullable<T>, isError = false) => {
     if (isError) emitter.emit('error', `${payload}`)
     else emitter.emit('done', `${payload}`)
@@ -38,7 +32,7 @@ export const Rdownload = async (
   invoke('download', {
     url,
     to: local,
-    expectedChecksum: checksum ?? '',
+    hash: checksum,
     progressId,
   }).then(complete, err => complete(err, true))
   return emitter

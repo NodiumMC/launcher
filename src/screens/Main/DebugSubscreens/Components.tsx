@@ -8,6 +8,8 @@ import { Input } from 'components/micro/Input'
 import { ColoredTag } from 'components/micro/ColoredTag'
 import { linearGradient } from 'polished'
 import { Select } from 'components/micro/Select'
+import { ObjectRenderer } from 'debug'
+import { CommandPrompt } from 'debug/commander/CommandPrompt'
 
 const Page = styled(Screen)`
   padding: 0 50px 50px 50px;
@@ -63,12 +65,7 @@ export const Components: FC = () => {
       <Container v>
         <Input />
         <Input placeholder={'Ну а начать откисать вообще на изи'} />
-        <Input
-          disabled
-          placeholder={
-            'Говорят, что если написать сюда желание, то оно сбудется'
-          }
-        />
+        <Input disabled placeholder={'Говорят, что если написать сюда желание, то оно сбудется'} />
       </Container>
       <Split>Тэгусы</Split>
       <Container>
@@ -119,6 +116,30 @@ export const Components: FC = () => {
             },
           ]}
         />
+      </Container>
+      <Split>Всяко разное</Split>
+      <Container v>
+        <ObjectRenderer
+          target={{
+            string: 'str',
+            number: 15,
+            bool: true,
+            nil: null,
+            undef: undefined,
+            arr: [
+              1,
+              2,
+              3,
+              4,
+              5,
+              {
+                others: [],
+              },
+            ],
+          }}
+        />
+        <ObjectRenderer target={[{}, {}, {}, {}]} />
+        <CommandPrompt />
       </Container>
     </Page>
   )

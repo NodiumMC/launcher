@@ -74,10 +74,9 @@ export const Style = createGlobalStyle`
     overflow: hidden;
     border-radius: ${({ theme }) => theme.radius()};
     font-family: Rubik, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
-    color: ${({ theme }) => theme.master.reshade()};
+    color: ${({ theme }) => theme.master.front};
     font-size: 14px;
-    transition: background-color, color, font-size ${({ theme }) =>
-      theme.transition.time};
+    transition: background-color, color, font-size ${({ theme }) => theme.transition.time};
   }
 
   img, button {
@@ -115,15 +114,13 @@ export const Style = createGlobalStyle`
   }
 
   *::selection {
-    background: ${({ theme }) => rgba(theme.accent.primary, 0.321)};
+    background: ${({ theme }) => rgba(theme.master.front, 0.321)};
   }
   
   * {
-    transition: color, background-color, border-color ${({ theme }) =>
-      theme.transition.time};
+    transition: color, background-color, border-color ${({ theme }) => theme.transition.time};
     &:after, &:before {
-      transition: color, background-color ${({ theme }) =>
-        theme.transition.time};
+      transition: color, background-color ${({ theme }) => theme.transition.time};
     }
   }
 `

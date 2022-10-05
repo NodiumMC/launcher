@@ -35,12 +35,7 @@ const HeaderBlock = styled.div`
       initial-value: ${({ theme }) => theme.master.shade()};
       inherits: false;
     }
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--hdcolor),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, var(--hdcolor), transparent);
     --hdcolor: ${({ theme }) => theme.master.shade()};
     transition: --hdcolor ${({ theme }) => theme.transition.time};
   }
@@ -68,9 +63,7 @@ export const Header: FC = Observer(() => {
   return (
     <HeaderBlock data-tauri-drag-region>
       <Empty />
-      <Title data-tauri-drag-region>
-        Nodium Launcher {debug && <Debug>Debug</Debug>}
-      </Title>
+      <Title data-tauri-drag-region>Nodium Launcher {debug && <Debug>Debug</Debug>}</Title>
       <WindowControl />
     </HeaderBlock>
   )

@@ -57,13 +57,7 @@ const Actions = styled.div`
   align-items: flex-end;
 `
 
-export const Popup: FC<IPopup> = ({
-  level,
-  close,
-  actions,
-  title,
-  description,
-}) => {
+export const Popup: FC<IPopup> = ({ level, close, actions, title, description }) => {
   const icon = useMemo(
     () =>
       level === 'ok' ? (

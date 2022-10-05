@@ -8,7 +8,6 @@ export class DebugService {
 
   constructor(private readonly delog: DelogService) {
     makeAutoObservable(this)
-    warn('Hello warn!')
   }
 
   get isEnabled() {

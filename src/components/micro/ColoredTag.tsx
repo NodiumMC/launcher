@@ -16,15 +16,13 @@ const StyledColoredTag = styled.div<{ color?: string | Styles }>`
   align-items: center;
   padding: 3px 8px;
   border-radius: ${({ theme }) => theme.radius()};
-  background: ${({ color, theme }) =>
-    color ? mix(0.2, color, theme.master.back) : theme.master.shade()};
+  background: ${({ color, theme }) => (color ? mix(0.2, color, theme.master.back) : theme.master.shade())};
   border: 1px solid ${({ color, theme }) => color ?? theme.master.shade()};
 `
 
 const TagText = styled(Text)<{ color?: string }>`
   font-size: ${({ theme }) => theme.size()};
-  color: ${({ theme, color }) =>
-    color ? mix(0.4, theme.master.front, color) : theme.master.front};
+  color: ${({ theme, color }) => (color ? mix(0.4, theme.master.front, color) : theme.master.front)};
 `
 
 const IconWrapper = styled.span`
@@ -32,11 +30,7 @@ const IconWrapper = styled.span`
   padding-right: ${({ theme }) => theme.space()};
 `
 
-export const ColoredTag: FC<ColoredTagProps & ExtraProps.HasChildren> = ({
-  color,
-  children,
-  icon,
-}) => {
+export const ColoredTag: FC<ColoredTagProps & ExtraProps.HasChildren> = ({ color, children, icon }) => {
   return (
     <StyledColoredTag color={color}>
       {icon && (

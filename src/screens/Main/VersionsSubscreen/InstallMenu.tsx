@@ -4,11 +4,7 @@ import { Text } from 'components/micro/Text'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { transition } from 'style'
 import { Select } from 'components/micro/Select'
-import {
-  ProviderIcon,
-  SupportedProviders,
-  VersionProvider,
-} from 'core/client-providers'
+import { ProviderIcon, SupportedProviders, VersionProvider } from 'core/client-providers'
 import { Pair } from 'components/utils/Pair'
 import { Img } from 'components/utils/Img'
 import { useI18N } from 'hooks'
@@ -88,10 +84,7 @@ const StyledMenu = styled.div`
   }
 `
 
-const ProviderSelect: FC<ExtraProps.DataInput<SupportedProviders>> = ({
-  onChange,
-  value,
-}) => {
+const ProviderSelect: FC<ExtraProps.DataInput<SupportedProviders>> = ({ onChange, value }) => {
   return (
     <Select<SupportedProviders>
       menuPlacement={'top'}
@@ -126,22 +119,16 @@ interface Version {
   time: string
 }
 
-const VersionSelect: FC<ExtraProps.DataInput<string> & { provider?: SupportedProviders }> =
-  Observer(({ provider, onChange, value }) => {
+const VersionSelect: FC<ExtraProps.DataInput<string> & { provider?: SupportedProviders }> = Observer(
+  ({ provider, onChange, value }) => {
     const i18n = useI18N()
 
     const [snapshots, setSnapshots] = useState(false)
     const [old, setOld] = useState(false)
-    const { data, error } = useSWR<Version[]>(
-      `/${provider}`,
-      fetcher('https://nadmelas.nodium.ru/list'),
-    )
+    const { data, error } = useSWR<Version[]>(`/${provider}`, fetcher('https://nadmelas.nodium.ru/list'))
 
     const versions = useMemo(
-      () =>
-        data
-          ?.filter?.(v => snapshots || isRelease(v.value))
-          ?.filter?.(v => old || !isOld(v.value)),
+      () => data?.filter?.(v => snapshots || isRelease(v.value))?.filter?.(v => old || !isOld(v.value)),
       [data],
     )
 
@@ -199,7 +186,8 @@ const VersionSelect: FC<ExtraProps.DataInput<string> & { provider?: SupportedPro
         </Pair>
       </Sqbox>
     )
-  })
+  },
+)
 
 const SmallCheckbox = styled(Checkbox)`
   scale: 0.7;
@@ -221,10 +209,7 @@ export const InstallMenu: FC = Observer(() => {
   const profiles = useModule(GameProfileService)
 
   const already = useMemo(
-    () =>
-      profiles.list.some(
-        v => v.options.lastVersionId === `${provider}-${version}`,
-      ),
+    () => profiles.list.some(v => v.options.lastVersionId === `${provider}-${version}`),
     [provider, version, profiles.list],
   )
 
@@ -245,30 +230,17 @@ export const InstallMenu: FC = Observer(() => {
         <Sqbox>
           <ProviderSelect value={provider} onChange={setProvider} />
           <Text shade={'high'} size={7}>
-            {provider
-              ? i18n.translate.minecraft.providers[provider]
-              : i18n.translate.minecraft.select_provider}
+            {provider ? i18n.translate.minecraft.providers[provider] : i18n.translate.minecraft.select_provider}
           </Text>
         </Sqbox>
-        <VersionSelect
-          value={version}
-          onChange={setVersion}
-          provider={provider}
-        />
+        <VersionSelect value={version} onChange={setVersion} provider={provider} />
         <Grow />
         <Actions>
-          <Button
-            primary
-            icon={'download'}
-            disabled={already || !version || !provider}
-            onClick={install}
-          >
+          <Button primary icon={'download'} disabled={already || !version || !provider} onClick={install}>
             {i18n.translate.minecraft.install}
           </Button>
           <Text shade={'high'} size={7}>
-            {already
-              ? i18n.translate.minecraft.already_installed
-              : i18n.translate.minecraft.please_wait_install}
+            {already ? i18n.translate.minecraft.already_installed : i18n.translate.minecraft.please_wait_install}
           </Text>
         </Actions>
       </Content>

@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Ansi } from './Ansi'
 
-
 const AnsiHtml = styled.span`
   display: inline-block;
   font-family: 'Red Hat Mono', monospace;
