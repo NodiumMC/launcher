@@ -32,7 +32,7 @@ export const Rdownload = async (url: string, local: string, checksum?: string) =
   invoke('download', {
     url,
     to: local,
-    expectedChecksum: checksum ?? '',
+    hash: checksum,
     progressId,
   }).then(complete, err => complete(err, true))
   return emitter
