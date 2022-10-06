@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import { rgba } from 'polished'
+import { transition } from 'style/snippets'
 
 export const Style = createGlobalStyle`
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
@@ -115,12 +116,5 @@ export const Style = createGlobalStyle`
 
   *::selection {
     background: ${({ theme }) => rgba(theme.master.front, 0.321)};
-  }
-  
-  * {
-    transition: color, background-color, border-color ${({ theme }) => theme.transition.time};
-    &:after, &:before {
-      transition: color, background-color ${({ theme }) => theme.transition.time};
-    }
   }
 `
