@@ -217,16 +217,18 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
           : {target.message}
         </Text>
         <ErrorStack>
-          {parse(target).slice(3).map((line, i) => (
-            <Text block selectable key={i}>
-              <Text selectable weight={'bold'}>
-                at {line.getFileName()}
+          {parse(target)
+            .slice(3)
+            .map((line, i) => (
+              <Text block selectable key={i}>
+                <Text selectable weight={'bold'}>
+                  at {line.getFileName()}
+                </Text>
+                <Text selectable>
+                  :{line.getLineNumber()}:{line.getColumnNumber()} {'->'} {line.getFunctionName()}
+                </Text>
               </Text>
-              <Text selectable>
-                :{line.getLineNumber()}:{line.getColumnNumber()} -> {line.getFunctionName()}
-              </Text>
-            </Text>
-          ))}
+            ))}
         </ErrorStack>
       </ErrorContainer>
     )
