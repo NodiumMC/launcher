@@ -5,6 +5,7 @@ import { Styles } from 'polished/lib/types/style'
 import { mix, readableColor } from 'polished'
 import { IconName } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { normalizeColor } from 'utils'
 
 export interface ColoredTagProps {
   color?: string | (string & Styles)
@@ -22,7 +23,7 @@ const StyledColoredTag = styled.div<{ color?: string | Styles }>`
 
 const TagText = styled(Text)<{ color?: string }>`
   font-size: ${({ theme }) => theme.size()};
-  color: ${({ theme, color }) => (color ? mix(0.4, theme.master.front, color) : theme.master.front)};
+  color: ${({ theme, color }) => (color ? mix(0.4, theme.master.front, color) : theme.master.front)} !important;
 `
 
 const IconWrapper = styled.span`

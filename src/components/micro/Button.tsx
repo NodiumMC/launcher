@@ -23,7 +23,8 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   justify-content: ${({ square }) => (square ? 'center' : 'space-between')};
   gap: 10px;
   border-radius: ${({ theme }) => theme.radius()};
-  height: 36px;
+  height: 38px;
+  translate: 0 -1px;
   width: ${({ square }) => (square ? '36px' : 'auto')};
   padding: ${({ square }) => (square ? '0' : '0 20px')};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
@@ -87,7 +88,7 @@ const Icon = styled(FontAwesomeIcon)<ShadeProps>`
   ${({ shade: level }) => shade(level)}
 `
 
-export const Button: FC<ButtonProps> = ({
+export const Button: FC<ButtonProps & ExtraProps.Styled> = ({
   icon,
   fetching,
   disabled,
@@ -98,11 +99,17 @@ export const Button: FC<ButtonProps> = ({
   square,
   outlined = true,
   shade,
+  className,
 }) => {
   const wp = { danger, primary, square, outlined }
   const genericDisable = useMemo(() => disabled || fetching, [disabled, fetching])
   return (
-    <ButtonWrapper {...wp} onClick={() => !genericDisable && onClick?.()} disabled={genericDisable}>
+    <ButtonWrapper
+      className={className}
+      {...wp}
+      onClick={() => !genericDisable && onClick?.()}
+      disabled={genericDisable}
+    >
       {icon && <Icon icon={icon} shade={shade} />}
       {children}
       {fetching && <FetchingPreloader />}

@@ -7,7 +7,8 @@ import { rgba } from 'polished'
 const StyledSelect = styled(ReactSelect)`
   .Select__control {
     background: ${({ theme }) => theme.master.back};
-    border: 2px solid ${({ theme }) => theme.master.shade()};
+    border: 0px solid ${({ theme }) => theme.master.shade()};
+    background-color: ${({ theme }) => theme.master.shade()};
     border-radius: ${({ theme }) => theme.radius()};
     box-shadow: none;
     height: 36px;
@@ -31,7 +32,7 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__indicator-separator {
-    background-color: ${({ theme }) => theme.master.shade()};
+    background-color: ${({ theme }) => theme.master.shade(0.1)};
     width: 2px;
   }
 
@@ -50,7 +51,12 @@ const StyledSelect = styled(ReactSelect)`
     padding: 0;
   }
 
+  .Select__value-container .Select__placeholder {
+    font-weight: bold;
+    color: ${({ theme }) => theme.master.shade(0.35)};
+  }
   .Select__value-container--has-value {
+    font-weight: bold;
     .Select__single-value {
       color: ${({ theme }) => theme.accent.primary};
     }
@@ -99,7 +105,7 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__input-container {
-    color: ${({ theme }) => theme.master.shade(0.2)};
+    color: ${({ theme }) => theme.master.shade(0.5)};
   }
 
   height: 40px;
