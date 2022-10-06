@@ -1,4 +1,5 @@
 export interface Structure<I = string> {
+  not_implemented: I
   loading: {
     loading: I
     initialization: I
