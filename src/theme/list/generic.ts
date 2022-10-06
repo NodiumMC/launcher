@@ -1,5 +1,4 @@
-import { hsl, linearGradient, mix, parseToHsl, shade, tint } from 'polished'
-import { time } from 'debug'
+import { hsl, linearGradient, parseToHsl, shade, tint } from 'polished'
 
 const deshade = (color: string, value: number) => {
   const parsed = parseToHsl(shade(value, generic.accent.primary))
@@ -19,8 +18,8 @@ const detint = (color: string, value: number) => {
 
 export const generic = {
   accent: {
-    primary: '#ffa052',
-    secondary: '#ff552e',
+    primary: '#5297ff',
+    secondary: '#7b2eff',
     // primary: '#7980ff',
     // secondary: '#aa79ff',
     gradient(direction?: string) {
@@ -40,10 +39,10 @@ export const generic = {
     magenta: '#d059ff',
     pink: '#ff58b7',
     get black() {
-      return deshade(generic.accent.primary, 0.85)
+      return deshade(generic.accent.primary, 0.8)
     },
     get white() {
-      return detint(generic.accent.primary, 0.85)
+      return detint(generic.accent.primary, 0.8)
     },
   },
   fonts: {
@@ -52,7 +51,7 @@ export const generic = {
     title: 'Tomorrow',
   },
   transition: {
-    time: '.3s',
+    time: '300ms',
   },
   radius: (value = 1) => 6 * value + 'px',
   size: (value = 10) => value / 10 + 'rem',
