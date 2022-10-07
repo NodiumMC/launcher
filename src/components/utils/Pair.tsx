@@ -7,5 +7,5 @@ export interface PairProps {
 export const Pair = styled.div<PairProps>`
   display: flex;
   align-items: center;
-  gap: ${({ gap }) => (gap === 'big' ? '24px' : gap === 'small' ? '6px' : '12px')};
+  gap: ${({ theme, gap }) => (gap === 'big' ? theme.space(3) : gap === 'medium' ? theme.space(2) : theme.space(1))};
 `

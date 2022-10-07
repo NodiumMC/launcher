@@ -24,7 +24,6 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   gap: 10px;
   border-radius: ${({ theme }) => theme.radius()};
   height: 38px;
-  translate: 0 -1px;
   width: ${({ square }) => (square ? '36px' : 'auto')};
   padding: ${({ square }) => (square ? '0' : '0 20px')};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};

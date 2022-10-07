@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import ReactSelect, { Props } from 'react-select'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { transition } from 'style'
 import { rgba } from 'polished'
 
-const StyledSelect = styled(ReactSelect)`
+const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
   .Select__control {
     background: ${({ theme }) => theme.master.back};
-    border: 0px solid ${({ theme }) => theme.master.shade()};
+    border: 0 solid ${({ theme }) => theme.master.shade()};
     background-color: ${({ theme }) => theme.master.shade()};
     border-radius: ${({ theme }) => theme.radius()};
     box-shadow: none;
@@ -17,7 +17,8 @@ const StyledSelect = styled(ReactSelect)`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    min-width: 200px;
+    min-width: 38px;
+    width: ${({ square }) => (square ? '38px' : 'initial')};
     img {
       height: 24px;
     }
@@ -25,6 +26,10 @@ const StyledSelect = styled(ReactSelect)`
     &:hover {
       border-color: ${({ theme }) => theme.master.shade(0.1)};
     }
+  }
+
+  .Select__indicators {
+    ${({ mini }) => mini && 'display: none;'}
   }
 
   .Select__control--is-focused {
@@ -45,20 +50,34 @@ const StyledSelect = styled(ReactSelect)`
   }
 
   .Select__menu {
-    background: ${({ theme }) => theme.master.back};
-    border: 2px solid ${({ theme }) => theme.master.shade()};
+    background: ${({ theme, mini }) => (mini ? theme.master.shade() : theme.master.back)};
+    border: ${({ mini, theme }) => (mini ? 'none' : `2px solid ${theme.master.shade()}`)};
     border-radius: ${({ theme }) => theme.radius()};
-    padding: 0;
+    padding: 0 !important;
+    min-height: 38px;
+    ${({ mini }) => mini && 'margin: 0; bottom: 0;'}
+  }
+
+  .Select__menu-notice {
+    ${({ mini }) => mini && 'display: none;'}
+  }
+
+  .Select__value-container {
+    ${({ mini }) => mini && 'margin: 0; padding: 0;'}
   }
 
   .Select__value-container .Select__placeholder {
     font-weight: bold;
     color: ${({ theme }) => theme.master.shade(0.35)};
+    ${({ mini }) => mini && 'display: none;'}
   }
   .Select__value-container--has-value {
     font-weight: bold;
     .Select__single-value {
       color: ${({ theme }) => theme.accent.primary};
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -66,6 +85,15 @@ const StyledSelect = styled(ReactSelect)`
     height: 36px;
     display: flex;
     align-items: center;
+    ${({ mini }) =>
+      mini &&
+      css`
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      `}
     img {
       height: 24px;
     }
@@ -107,10 +135,6 @@ const StyledSelect = styled(ReactSelect)`
   .Select__input-container {
     color: ${({ theme }) => theme.master.shade(0.5)};
   }
-
-  height: 40px;
-  max-width: 200px;
-  border: 0;
 `
 
 export interface SelectOption<Label> {
@@ -124,6 +148,8 @@ export interface SelectProps<Value = string, Label = unknown> extends ExtraProps
   placeholder?: Props['placeholder']
   isLoading?: boolean
   maxMenuHeight?: number
+  mini?: boolean
+  square?: boolean
 }
 
 export const Select = <Value extends string = any, Label = unknown>({
@@ -131,6 +157,7 @@ export const Select = <Value extends string = any, Label = unknown>({
   options = [],
   onChange,
   maxMenuHeight = 5,
+  mini,
   ...props
 }: SelectProps<Value, Label> & ExtraProps.Styled) => {
   const defaultValue = useMemo(() => options?.find(v => v.value === value), [options, value])
@@ -138,11 +165,14 @@ export const Select = <Value extends string = any, Label = unknown>({
   return (
     <StyledSelect
       {...props}
+      mini={mini}
       classNamePrefix={'Select'}
       options={options}
       defaultValue={defaultValue}
       maxMenuHeight={maxMenuHeight * 38}
       onChange={v => onChange?.((v as any).value)}
+      isSearchable={!mini}
+      hideSelectedOptions={mini}
     />
   )
 }
