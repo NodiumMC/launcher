@@ -1,6 +1,7 @@
 import { dataDir } from '@tauri-apps/api/path'
 import { join, dirname } from 'native/path'
 import { readDir, createDir, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
+import JSON5 from 'json5'
 
 export const exists = async (path: string) => {
   const dir = await readDir(dirname(path))
@@ -14,6 +15,15 @@ export const readJsonFile = async <T>(path: string): Promise<T> => {
 export const writeJsonFile = async <T>(path: string, data: T): Promise<void> => {
   await writeTextFile(path, JSON.stringify(data))
 }
+
+export const readJson5File = async <T>(path: string): Promise<T> => {
+  return JSON5.parse(await readTextFile(path))
+}
+
+export const writeJson5File = async <T>(path: string, data: T): Promise<void> => {
+  await writeTextFile(path, JSON5.stringify(data))
+}
+
 
 const ddir = await dataDir()
 
