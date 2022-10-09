@@ -1,8 +1,9 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import ReactSelect, { Props } from 'react-select'
 import styled, { css } from 'styled-components'
 import { transition } from 'style'
 import { rgba } from 'polished'
+import { useCachedState } from 'hooks/useCachedState'
 
 const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
   .Select__control {
@@ -19,6 +20,7 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
     box-sizing: border-box;
     min-width: 38px;
     width: ${({ square }) => (square ? '38px' : 'initial')};
+
     img {
       height: 24px;
     }
@@ -71,8 +73,10 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
     color: ${({ theme }) => theme.master.shade(0.35)};
     ${({ mini }) => mini && 'display: none;'}
   }
+
   .Select__value-container--has-value {
     font-weight: bold;
+
     .Select__single-value {
       color: ${({ theme }) => theme.accent.primary};
       display: flex;
@@ -85,6 +89,7 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
     height: 36px;
     display: flex;
     align-items: center;
+
     ${({ mini }) =>
       mini &&
       css`
@@ -97,6 +102,7 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
     img {
       height: 24px;
     }
+
     ${transition()}
   }
 
@@ -142,7 +148,7 @@ export interface SelectOption<Label> {
   label: Label
 }
 
-export interface SelectProps<Value = string, Label = unknown> extends ExtraProps.DataInput<Value> {
+export interface SelectProps<Value = string, Label = unknown> extends ExtraProps.DataInput<Value>, ExtraProps.Cached {
   options?: SelectOption<Label>[]
   menuPlacement?: Props['menuPlacement']
   placeholder?: Props['placeholder']
@@ -158,9 +164,20 @@ export const Select = <Value extends string = any, Label = unknown>({
   onChange,
   maxMenuHeight = 5,
   mini,
+  unique,
   ...props
 }: SelectProps<Value, Label> & ExtraProps.Styled) => {
-  const defaultValue = useMemo(() => options?.find(v => v.value === value), [options, value])
+  const [cached, setCached] = useCachedState<Value>('select', unique)
+
+  const defaultValue = useMemo(() => options?.find(v => v.value === (value ?? cached)), [options, value, cached])
+
+  const setValue = useCallback(
+    (value: { value: Value }) => {
+      setCached(value.value)
+      onChange?.(value.value)
+    },
+    [onChange],
+  )
 
   return (
     <StyledSelect
@@ -170,7 +187,8 @@ export const Select = <Value extends string = any, Label = unknown>({
       options={options}
       defaultValue={defaultValue}
       maxMenuHeight={maxMenuHeight * 38}
-      onChange={v => onChange?.((v as any).value)}
+      onChange={setValue as any}
+      value={defaultValue}
       isSearchable={!mini}
       hideSelectedOptions={mini}
     />

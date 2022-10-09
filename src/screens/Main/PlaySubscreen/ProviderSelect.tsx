@@ -9,6 +9,7 @@ export const ProviderSelect: FC<ExtraProps.Changeable<SupportedProviders>> = pro
     mini
     menuPlacement={'top'}
     square
+    unique={'provider'}
     options={Object.entries(VersionProvider)
       .reverse()
       .map(([value]) => ({

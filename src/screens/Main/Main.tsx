@@ -5,7 +5,7 @@ import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
 import { I18n } from 'i18n'
 import { Components, Logs } from './DebugSubscreens'
-import { DebugService } from 'debug'
+import { DebugService, DelogService } from 'debug'
 
 export const Main: FC = () => {
   return (
@@ -32,7 +32,7 @@ export const Main: FC = () => {
           <Components />
         </SubRoute>
         <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug>
-          <Defer depend={DebugService}>
+          <Defer depend={[DebugService, DelogService]}>
             <Logs />
           </Defer>
         </SubRoute>
