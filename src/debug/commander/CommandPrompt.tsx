@@ -155,8 +155,10 @@ export interface CommandPromptProps {
   send?: (code: string) => void
 }
 
-export const CommandPrompt: FC<CommandPromptProps & ExtraProps.DataInput<string>> = ({ onChange, value, send }) => {
+export const CommandPrompt: FC<CommandPromptProps> = ({ send }) => {
   const editor = useRef<ReactAce>(null)
+
+  const [value, onChange] = useState('')
 
   useEffect(() => {
     if (!editor.current) return

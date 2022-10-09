@@ -1,18 +1,8 @@
 import { Module } from 'mobmarch'
-import { action, makeAutoObservable, makeObservable, observable, runInAction } from 'mobx'
+import { action, makeObservable, observable, runInAction, toJS } from 'mobx'
 import { DelogLine } from 'debug'
 import { container } from 'tsyringe'
 import inject from 'flinject'
-
-// const Sopfire = Symbol('Stack overflow prevent flag')
-
-// const up = (logs: DelogLine[], args: any[]) => {
-//   const candidate = logs[0].args.every((v, i) => v === args[i])
-//   if (candidate) {
-//     logs[0].times++
-//     return true
-//   } else return false
-// }
 
 @Module
 export class DelogService {
