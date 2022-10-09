@@ -15,6 +15,7 @@ import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
 import { CrashOverlay } from 'components/macro/CrashOverlay'
 import { ReportService } from 'debug/report.service'
+import { PersistentCacheService } from 'storage'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -52,7 +53,9 @@ export const App: FC = Observer(() => {
             <Defer depend={Preloader}>
               <AppPreloader />
             </Defer>
-            <Routes />
+            <Defer depend={[PersistentCacheService]}>
+              <Routes />
+            </Defer>
             <Defer depend={PopupService}>
               <PopupContainer />
             </Defer>

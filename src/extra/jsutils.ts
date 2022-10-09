@@ -31,6 +31,18 @@ Array.prototype.underslice = function (offset) {
   return this.slice(0, this.length - offset)
 }
 
+Reflect.defineProperty(Array.prototype, 'first', {
+  get(): any {
+    return this[0]
+  },
+})
+
+Reflect.defineProperty(Array.prototype, 'last', {
+  get(): any {
+    return this.at(-1)
+  },
+})
+
 Number.prototype.map = function (fromMin, fromMax, toMin = 0, toMax = 100) {
   return ((this.valueOf() - fromMin) * (toMax - toMin)) / (fromMax - fromMin) + toMin
 }

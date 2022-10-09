@@ -28,6 +28,10 @@ const applyContainer = (input: string): string => {
   })
 }
 
+const applyImport = (input: string): string => {
+  return input.replace(/import\s*\(["']([A-z/0-9]+?)["']\)/gm, (_, path) => `import('../../${path}')`)
+}
+
 const applyReturn = (input: string): string => {
   return input.replace(/<<\s(.+)/gm, (_, value) => {
     return `yield ${value}`
@@ -51,7 +55,7 @@ export const execute = async (code: string) => {
   try {
     const it = await new Function(
       ...Object.keys(context),
-      applyReturn(applyContainer(applyContextSyntax(applyAsync(code)))),
+      applyImport(applyReturn(applyContainer(applyContextSyntax(applyAsync(code))))),
     )(...Object.values(context))
     for await (const i of it) if (i !== undefined && i !== null) log(i)
   } catch (e: any) {

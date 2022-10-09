@@ -40,7 +40,6 @@ export class LauncherProfile {
       })
       inp.on('download', progress => {
         this._progress = progress.transferred.map(0, progress.total)
-        console.log(progress)
       })
       inp.on('unzip', progress => {
         this._progress = progress.progress.map(0, progress.total, 100, 200)

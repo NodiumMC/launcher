@@ -48,6 +48,10 @@ declare namespace ExtraProps {
   declare interface As {
     as?: string
   }
+
+  declare interface Cached {
+    unique?: string
+  }
 }
 
 declare type Awaitable<T = any> = Promise<T> | T
@@ -57,3 +61,19 @@ declare type FN = (...args: never[]) => unknown
 
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>
 declare type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never
+
+declare type JoinPath<K, P> = K extends string | number
+  ? P extends string | number
+    ? `${K}${'' extends P ? '' : '.'}${P}`
+    : never
+  : never
+
+type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...0[]]
+
+declare type ObjectPaths<T, D extends number = 10> = [D] extends [never]
+  ? never
+  : T extends object
+  ? {
+      [K in keyof T]-?: K extends string | number ? `${K}` | JoinPath<K, ObjectPaths<T[K], Prev[D]>> : never
+    }[keyof T]
+  : ''

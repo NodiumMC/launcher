@@ -3,15 +3,9 @@ import { MainScreenPage, MainScreenSidebarSubrouter, MainScreenSubRouter, SubRou
 import { Defer } from 'mobmarch'
 import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
-import { InstancesSubscreen } from 'screens/Main/InstancesSubscreen'
-import { InstanceStore } from 'minecraft/InstanceStore.service'
-import { LoadingScreen } from 'components/utils/Screen'
-import { GameProfileService } from 'core/services/GameProfile.service'
-import { PopupService } from 'notifications'
-import { VersionsSubscreen } from './VersionsSubscreen'
 import { I18n } from 'i18n'
 import { Components, Logs } from './DebugSubscreens'
-import { DebugService } from 'debug'
+import { DebugService, DelogService } from 'debug'
 
 export const Main: FC = () => {
   return (
@@ -20,16 +14,16 @@ export const Main: FC = () => {
         <SubRoute icon={'play'} to={MainScreenPage.PLAY}>
           <PlaySubscreen />
         </SubRoute>
-        <SubRoute icon={'cubes'} to={MainScreenPage.INSTANCES}>
-          <Defer depend={[InstanceStore, GameProfileService, PopupService]} fallback={<LoadingScreen />}>
-            <InstancesSubscreen />
-          </Defer>
-        </SubRoute>
-        <SubRoute icon={'download'} to={MainScreenPage.VERSIONS}>
-          <Defer depend={GameProfileService}>
-            <VersionsSubscreen />
-          </Defer>
-        </SubRoute>
+        {/*<SubRoute icon={'cubes'} to={MainScreenPage.INSTANCES}>*/}
+        {/*  <Defer depend={[InstanceStore, GameProfileService, PopupService]} fallback={<LoadingScreen />}>*/}
+        {/*    <InstancesSubscreen />*/}
+        {/*  </Defer>*/}
+        {/*</SubRoute>*/}
+        {/*<SubRoute icon={'download'} to={MainScreenPage.VERSIONS}>*/}
+        {/*  <Defer depend={GameProfileService}>*/}
+        {/*    <VersionsSubscreen />*/}
+        {/*  </Defer>*/}
+        {/*</SubRoute>*/}
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
           <Text>456</Text>
         </SubRoute>
@@ -38,7 +32,7 @@ export const Main: FC = () => {
           <Components />
         </SubRoute>
         <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug>
-          <Defer depend={DebugService}>
+          <Defer depend={[DebugService, DelogService]}>
             <Logs />
           </Defer>
         </SubRoute>
