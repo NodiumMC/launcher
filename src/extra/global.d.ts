@@ -7,6 +7,8 @@ declare global {
     removeIf(predicate: (value: T, index: number, obj: T[]) => unknown): boolean
     chunk<N extends number>(size: N): Array<Tuple<T, N>>
     underslice(offset: number): T[]
+    get first(): T
+    get last(): T
   }
   interface Number {
     map(fromMin: number, fromMax: number, toMin?: number, toMax?: number): number
