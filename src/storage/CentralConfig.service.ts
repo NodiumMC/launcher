@@ -6,7 +6,11 @@ import { Preloader } from 'preload'
 
 @Module([Preloader])
 export class DataStorage {
-  data: any = {}
+  private _data: any = {}
+
+  get data() {
+    return this._data ?? {}
+  }
 
   private [BeforeResolve]() {
     return this.preloader.add('Initializing Storage', this.load.bind(this))
@@ -14,7 +18,11 @@ export class DataStorage {
 
   constructor(private readonly preloader: Preloader) {
     makeAutoObservable(this)
-    autorun(async () => await writeJson5File(await this.path(), toJS(this.data)))
+    autorun(() => {
+      if (Object.keys(this._data).length === 0) return
+      const toSave = toJS(this.data)
+      return this.path().then(path => writeJson5File(path, toSave))
+    })
   }
 
   private async path() {
@@ -23,7 +31,7 @@ export class DataStorage {
 
   private async load() {
     const path = await this.path()
-    if (!(await exists(path))) await writeJson5File(path, this.data)
-    this.data = await readJson5File(path)
+    if (!(await exists(path))) await writeJson5File(path, this._data ?? {})
+    this._data = await readJson5File(path)
   }
 }
