@@ -167,7 +167,7 @@ export const Select = <Value extends string = any, Label = unknown>({
   unique,
   ...props
 }: SelectProps<Value, Label> & ExtraProps.Styled) => {
-  const [cached, setCached] = useCachedState<Value>('select', unique)
+  const [cached, setCached] = useCachedState<Value>('ui.select', unique)
 
   const defaultValue = useMemo(() => options?.find(v => v.value === (value ?? cached)), [options, value, cached])
 

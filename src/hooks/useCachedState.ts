@@ -13,13 +13,12 @@ export const useCachedState = <T>(
 
   useOnce(() => {
     if (!memoId) return
-    storage.data[group] = storage.data[group] ?? {}
-    if (storage.data[group][memoId]) setState(storage.data[group][memoId])
+    if (storage.has(group)) setState(storage.get([group, memoId].join('.')))
   })
 
   useEffect(() => {
     if (!memoId) return
-    storage.data[group][memoId] = state
+    storage.set([group, memoId].join('.'), state)
   }, [state])
 
   return [state, setState]
