@@ -47,7 +47,7 @@
     "react-country-flag": "3.0.2",
     "react-dom": "18.2.0",
     "react-router-dom": "6.4.2",
-    "react-select": "5.4.0",
+    "react-select": "5.5.7",
     "react-spring": "9.5.5",
     "reflect-metadata": "0.1.13",
     "rxjs": "7.5.7",
