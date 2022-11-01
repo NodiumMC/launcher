@@ -70,7 +70,7 @@
     "@types/jest": "29.2.0",
     "@types/lodash": "4.14.186",
     "@types/node": "18.11.9",
-    "@types/react": "18.0.21",
+    "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
     "@types/testing-library__jest-dom": "5.14.5",
     "@types/throttle-debounce": "5.0.0",
