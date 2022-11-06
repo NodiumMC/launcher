@@ -190,7 +190,6 @@ export const Select = <Value extends string = any, Label = unknown>({
       onChange={setValue as any}
       value={defaultValue}
       isSearchable={!mini}
-      hideSelectedOptions={mini}
     />
   )
 }
