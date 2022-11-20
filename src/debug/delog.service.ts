@@ -1,10 +1,9 @@
-import { Module } from 'mobmarch'
-import { action, makeObservable, observable, runInAction, toJS } from 'mobx'
+import { action, makeObservable, observable, runInAction } from 'mobx'
 import { DelogLine } from 'debug'
-import { container } from 'tsyringe'
+import { container, singleton } from 'tsyringe'
 import inject from 'flinject'
 
-@Module
+@singleton()
 export class DelogService {
   @observable private _delogs: DelogLine[] = []
   private _times: Record<string | symbol, number> = {}

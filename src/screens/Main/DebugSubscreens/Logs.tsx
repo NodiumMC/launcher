@@ -7,6 +7,7 @@ import { LogLine } from 'debug'
 import { CommandPrompt, execute } from 'debug/commander'
 import { Text } from 'components/micro/Text'
 import { toJS } from 'mobx'
+import { container } from 'tsyringe'
 
 const Page = styled(Screen)`
   display: flex;
@@ -26,7 +27,7 @@ const LogsContainer = styled.div`
 `
 
 export const Logs: FC = Observer(() => {
-  const delog = useModule(DelogService)
+  const delog = container.resolve(DelogService)
   const latest = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
