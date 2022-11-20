@@ -48,7 +48,7 @@
     "install": "Установить",
     "already_installed": "Эта версия уже установлена",
     "please_wait_install": "Установка может занять некоторое время. Не закрывайте лаунчер.",
-    "version_install_failed": "Установка не удалась. Причина: %reason%",
+    "version_install_failed": "Установка не удалась. Причина: {reason}",
     "version_install_successful": "Установка завершена",
     "added_new_version": "Добавлен новый профиль версии",
     "providers": {
