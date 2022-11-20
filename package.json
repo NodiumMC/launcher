@@ -22,7 +22,7 @@
     "@fortawesome/free-regular-svg-icons": "6.2.0",
     "@fortawesome/free-solid-svg-icons": "6.2.0",
     "@fortawesome/react-fontawesome": "0.2.0",
-    "@tauri-apps/api": "1.1.0",
+    "@tauri-apps/api": "1.2.0",
     "@types/stack-trace": "0.0.30",
     "@types/styled-components": "5.1.26",
     "ansi-to-html": "0.7.2",
@@ -62,7 +62,7 @@
     "webfontloader": "1.6.28"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "1.1.1",
+    "@tauri-apps/cli": "1.2.0",
     "@testing-library/dom": "8.19.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",

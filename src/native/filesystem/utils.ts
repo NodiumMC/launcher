@@ -1,11 +1,10 @@
 import { dataDir } from '@tauri-apps/api/path'
-import { join, dirname } from 'native/path'
-import { readDir, createDir, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
+import { join } from 'native/path'
+import { createDir, exists as fsExists, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
 import JSON5 from 'json5'
 
 export const exists = async (path: string) => {
-  const dir = await readDir(dirname(path))
-  return dir.some(v => v.path.includes(path))
+  return fsExists(path)
 }
 
 export const readJsonFile = async <T>(path: string): Promise<T> => {
