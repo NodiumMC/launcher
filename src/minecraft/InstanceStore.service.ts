@@ -1,18 +1,18 @@
 import { BeforeResolve, Module } from 'mobmarch'
 import { LoggingPool } from 'logging'
-import { Instance } from 'minecraft/Instance'
+import { Launcher } from 'minecraft/Instance'
 import { dirname, join } from 'native/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { createDir, readDir, removeDir, renameFile } from '@tauri-apps/api/fs'
 import { NonNullFilter } from 'utils/filters'
 import { InstanceSettings } from 'minecraft/InstanceSettings'
-import { GameProfileService } from 'core/services/GameProfile.service'
+import { GameProfileService } from 'minecraft/GameProfile.service'
 import { action, computed, makeObservable, observable } from 'mobx'
 import { Fastore } from 'interfaces/Fastore'
 
 @Module([LoggingPool, GameProfileService])
-export class InstanceStore implements Fastore<Instance> {
-  @observable list: Instance[] = []
+export class InstanceStore implements Fastore<Launcher> {
+  @observable list: Launcher[] = []
 
   private async [BeforeResolve]() {
     await createDir(await this.instancesPath(), { recursive: true })
@@ -56,7 +56,7 @@ export class InstanceStore implements Fastore<Instance> {
       const newInstances = instancesJson.filter(i => !this.list.some(v => v.settings.vid === i.vid))
       newInstances
         .filter(this.validateInstanceSettings.bind(this))
-        .forEach(settings => this.list.push(new Instance(settings, this.pool, settings.path)))
+        .forEach(settings => this.list.push(new Launcher(settings, this.pool, settings.path)))
     } catch (e) {
       console.warn('Failed to load new instances')
       // TODO: add noteup after implemented #NDML-2 (https://nodium.youtrack.cloud/issue/NDML-2/Noteup-sistema)
@@ -87,10 +87,10 @@ export class InstanceStore implements Fastore<Instance> {
     const path = join(await this.instancesPath(), name)
     if (!(await exists(path))) await createDir(path)
     this.list.push(
-      new Instance(
+      new Launcher(
         {
           name,
-          vid: this.profiles.list[0]?.options.lastVersionId ?? 'Unspecified',
+          vid: this.profiles.list[0]?.lastVersionId ?? 'Unspecified',
         },
         this.pool,
         path,

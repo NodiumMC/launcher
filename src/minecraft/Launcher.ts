@@ -7,7 +7,7 @@ import { exists, GameDir } from 'native/filesystem'
 import { Child } from '@tauri-apps/api/shell'
 import type { InstanceSettings } from 'minecraft/InstanceSettings'
 
-export class Instance {
+export class Launcher {
   private readonly loggerKey
   @observable private readonly logger: Logger
   @observable readonly settings: InstanceSettings

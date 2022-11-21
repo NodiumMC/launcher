@@ -1,7 +1,7 @@
 import type { LauncherProfileJSON } from 'core'
 import { install } from 'core'
 import { makeAutoObservable } from 'mobx'
-import { BlakeMapService } from 'core/services/BlakeMap.service'
+import { BlakeMapService } from 'minecraft/BlakeMap.service'
 import { join } from 'native/path'
 import { exists, GameDir } from 'native/filesystem'
 
