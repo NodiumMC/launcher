@@ -46,24 +46,19 @@
         "all": true,
         "scope": [
           {
-            "name": "sh",
-            "cmd": "sh",
-            "args": [
-              "-c",
-              {
-                "validator": "\\S+"
-              }
-            ]
+            "name": "java",
+            "cmd": "java",
+            "args": true
           },
           {
-            "name": "cmd",
-            "cmd": "cmd",
-            "args": [
-              "/C",
-              {
-                "validator": "\\S+"
-              }
-            ]
+            "name": "set",
+            "cmd": "set",
+            "args": true
+          },
+          {
+            "name": "export",
+            "cmd": "export",
+            "args": true
           }
         ],
         "execute": true,
