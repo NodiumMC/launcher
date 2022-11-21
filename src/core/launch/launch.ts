@@ -1,6 +1,6 @@
 import { readVersionFile } from 'core'
 import { compileArguments, VersionedLaunchOptions } from 'core'
-import { command } from 'native/shell'
+import { java } from 'native/shell'
 import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 
@@ -25,6 +25,6 @@ export const launch = async (options: LaunchOptions) => {
   if (!(await exists(versionFilePath))) throw new Error(`There is no version ${options.vid}`)
   const version = await readVersionFile(versionFilePath)
   const vlaunch: VersionedLaunchOptions = { ...options, version }
-  const args = await compileArguments(vlaunch)
-  return command(options.javaExecutable ?? 'java', args, options.gameDir)
+  const args = compileArguments(vlaunch)
+  return java(args, options.gameDir)
 }
