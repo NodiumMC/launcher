@@ -6,10 +6,11 @@ import { useOnce } from 'hooks/useOnce'
 export const useCachedState = <T>(
   group: string,
   memoId?: string,
-): [T | undefined, Dispatch<SetStateAction<T | undefined>>] => {
+  value?: T,
+): [T, Dispatch<SetStateAction<T | undefined>>] => {
   const storage = useModule(PersistentCacheService)
 
-  const [state, setState] = useState<T | undefined>()
+  const [state, setState] = useState<T | undefined>(value)
 
   useOnce(() => {
     if (!memoId) return
@@ -21,5 +22,5 @@ export const useCachedState = <T>(
     storage.set([group, memoId].join('.'), state)
   }, [state])
 
-  return [state, setState]
+  return [state as T, setState]
 }
