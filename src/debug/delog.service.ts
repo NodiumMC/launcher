@@ -49,7 +49,7 @@ export const log = (...args: any[]) => {
     delog.logs.push({
       type: 'default',
       id: performance.now(),
-      args,
+      args: args ?? [],
     })
   })
 }
@@ -60,7 +60,7 @@ export const warn = (...args: any[]) => {
     delog.logs.push({
       type: 'warn',
       id: performance.now(),
-      args,
+      args: args ?? [],
     })
   })
 }
@@ -71,7 +71,7 @@ export const error = (...args: any[]) => {
     delog.logs.push({
       type: 'error',
       id: performance.now(),
-      args,
+      args: args ?? [],
     })
   })
 }
