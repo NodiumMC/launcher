@@ -13,7 +13,7 @@ export class Instance {
   @observable readonly settings: InstanceSettings
   private child?: Child
 
-  constructor(settings: InstanceSettings, private readonly loggingPool: LoggingPool, public path: string) {
+  constructor(settings: InstanceSettings, private readonly loggingPool: LoggingPool) {
     makeObservable(this)
     this.settings = settings
     this.loggerKey = Symbol(settings.name)

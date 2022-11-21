@@ -4,15 +4,12 @@ import { join } from 'native/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { BeforeResolve, Module } from 'mobmarch'
 import { watch } from 'tauri-plugin-fs-watch-api'
-import { Fastore } from 'interfaces/Fastore'
 import { LauncherProfile } from 'minecraft/LauncherProfile'
 import { BlakeMapService } from 'core/services/BlakeMap.service'
-import { fetch } from '@tauri-apps/api/http'
-import { createDir } from '@tauri-apps/api/fs'
 import { UpfallService } from 'notifications'
 
 @Module([BlakeMapService])
-export class GameProfileService implements Fastore<LauncherProfile> {
+export class GameProfileService {
   @observable private _list: LauncherProfile[] = []
 
   get list() {
@@ -50,45 +47,45 @@ export class GameProfileService implements Fastore<LauncherProfile> {
     })
   }
 
-  @action
-  async New(provider: string, name: string, id: string, tag: string) {
-    const source = `https://nadmelas.nodium.ru/version/${provider}/${tag}`
-    const profile = new LauncherProfile(
-      {
-        lastVersionId: id,
-        source,
-        name,
-        type: 'custom',
-        ready: false,
-        created: new Date().toISOString(),
-      },
-      this.blake,
-    )
-    this._list.push(profile)
-    await this.save()
-    const version = await fetch(source).then(v => v.data)
-    const versionPath = join(await GameDir(), 'versions', id)
-    await createDir(versionPath, { recursive: true })
-    await writeJsonFile(join(versionPath, `${id}.json`), version)
-    this.upfall.drop('default', r => r.minecraft.added_new_version)
-    let failed = false
-    await profile
-      .install()
-      .catch((e: any) => {
-        failed = true
-        this.upfall.drop('error', r =>
-          r.minecraft.version_install_failed.explain({
-            reason: e.message,
-          }),
-        )
-      })
-      .then(() => {
-        if (failed) return
-        this.upfall.drop('ok', r => r.minecraft.version_install_successful)
-      })
-      .finally(() => this.save())
-    return profile
-  }
+  // @action
+  // async New(provider: string, name: string, id: string, tag: string) {
+  //   const source = `https://nadmelas.nodium.ru/version/${provider}/${tag}`
+  //   const profile = new LauncherProfile(
+  //     {
+  //       lastVersionId: id,
+  //       source,
+  //       name,
+  //       type: 'custom',
+  //       ready: false,
+  //       created: new Date().toISOString(),
+  //     },
+  //     this.blake,
+  //   )
+  //   this._list.push(profile)
+  //   await this.save()
+  //   const version = await fetch(source).then(v => v.data)
+  //   const versionPath = join(await GameDir(), 'versions', id)
+  //   await createDir(versionPath, { recursive: true })
+  //   await writeJsonFile(join(versionPath, `${id}.json`), version)
+  //   this.upfall.drop('default', r => r.minecraft.added_new_version)
+  //   let failed = false
+  //   await profile
+  //     .install()
+  //     .catch((e: any) => {
+  //       failed = true
+  //       this.upfall.drop('error', r =>
+  //         r.minecraft.version_install_failed.explain({
+  //           reason: e.message,
+  //         }),
+  //       )
+  //     })
+  //     .then(() => {
+  //       if (failed) return
+  //       this.upfall.drop('ok', r => r.minecraft.version_install_successful)
+  //     })
+  //     .finally(() => this.save())
+  //   return profile
+  // }
 
   private createEmptyProfile = async () =>
     writeJsonFile(await this.pathToProfile(), {
