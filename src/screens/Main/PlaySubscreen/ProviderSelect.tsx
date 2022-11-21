@@ -1,9 +1,8 @@
 import { FC } from 'react'
-import { ProviderIcon, SupportedProviders, VersionProvider } from 'core/client-providers'
-import { Img } from 'components/utils/Img'
+import { ProviderIcon, SupportedProviders, VersionProvider } from 'core/providers'
 import { Select } from 'components/micro/Select'
 
-export const ProviderSelect: FC<ExtraProps.Changeable<SupportedProviders>> = props => (
+export const ProviderSelect: FC<ExtraProps.DataInput<SupportedProviders>> = props => (
   <Select
     {...props}
     mini
@@ -14,7 +13,7 @@ export const ProviderSelect: FC<ExtraProps.Changeable<SupportedProviders>> = pro
       .reverse()
       .map(([value]) => ({
         value,
-        label: <Img src={ProviderIcon[value as SupportedProviders]} />,
+        label: ProviderIcon[value as SupportedProviders],
       }))}
   />
 )

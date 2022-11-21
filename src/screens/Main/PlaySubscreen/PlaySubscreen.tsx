@@ -1,24 +1,25 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Screen } from 'components/utils/Screen'
-import { Observer } from 'mobmarch'
-import styled, { css } from 'styled-components'
+import { Defer, Observer, useModule } from 'mobmarch'
+import styled from 'styled-components'
 import { NotImplemented } from 'components/micro/NotImplemented'
 import { DownloadBar } from 'screens/Main/PlaySubscreen/DownloadBar'
 import { Button } from 'components/micro/Button'
 import { Pair } from 'components/utils/Pair'
-import { rgba } from 'polished'
-import { Select } from 'components/micro/Select'
-import { ProviderIcon, SupportedProviders, VersionProvider } from 'core/client-providers'
-import { Img } from 'components/utils/Img'
-import { Text } from 'components/micro/Text'
 import { ProviderSelect } from 'screens/Main/PlaySubscreen/ProviderSelect'
-import { VersionSelector } from 'screens/Main/PlaySubscreen/VersionSelector'
+import { SimpleHandler } from 'minecraft/SimpleHandler'
+import { Select } from 'components/micro/Select'
+import { VersionUnion } from 'core/providers/types'
+import { Input } from 'components/micro/Input'
+import { useCachedState } from 'hooks/useCachedState'
+import { inputValue } from 'utils'
 
 const Page = styled(Screen)`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space()};
   height: 100%;
+  position: relative;
 `
 
 const Nimpl = styled(NotImplemented)`
@@ -26,66 +27,71 @@ const Nimpl = styled(NotImplemented)`
 `
 
 const PlayBtn = styled(Button)`
-  ${({ theme }) => css`
-    background: conic-gradient(from 101.77deg at 0% 56%, ${theme.accent.secondary} 45.12%, ${theme.accent.primary} 100%),
-      conic-gradient(from 315deg at 92% 100%, ${theme.accent.secondary} 0%, ${theme.accent.primary} 25.94%),
-      repeating-radial-gradient(ellipse at 95% 2%, ${theme.accent.secondary} 0%, ${theme.accent.primary} 100%),
-      repeating-linear-gradient(
-        225deg,
-        ${theme.accent.primary} 0%,
-        ${theme.accent.secondary} 45.27027027027027%,
-        ${theme.accent.primary} 100%
-      ),
-      linear-gradient(45deg, ${theme.accent.primary} 1%, ${theme.accent.secondary} 100%);
-    background-blend-mode: saturation, saturation, darken, color, normal;
-  `}
-  border: none;
-  color: ${({ theme }) => theme.master.back};
-
-  &:hover {
-    box-shadow: none;
-  }
-
-  &:before,
-  &:after {
-    display: block;
-    content: '';
-    position: absolute;
-    left: 50%;
-    translate: -50%;
-    top: 6px;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    background: inherit;
-    filter: blur(8px);
-    z-index: -1;
-    opacity: 0.5;
-  }
-
-  &:after {
-    top: 12px;
-    width: 110%;
-    opacity: 0.2;
-    filter: blur(15px);
-  }
-
   &[disabled] {
     filter: saturate(0);
   }
 `
 
+const PlayZone: FC = Observer(() => {
+  const handler = useModule(SimpleHandler)
+  const [versions, setVersions] = useState<VersionUnion[]>([])
+  const [nickname, setNickname] = useCachedState('devchaotic', '00_nickname', 'Player')
+  const [loading, setLoading] = useState(false)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    handler.versions().then(v => {
+      setVersions(v.filter(v => v.isRelease && !v.isOld))
+      if (handler.version !== null && !v.find(l => l.id === handler?.version?.id)) handler.version = v[0]
+    })
+  }, [handler.provider])
+
+  return (
+    <>
+      <Pair>
+        <ProviderSelect value={handler.provider} onChange={v => (handler.provider = v)} />
+        <Input placeholder={'Никнейм'} onChange={inputValue(setNickname)} value={nickname} />
+        <Select<string>
+          width={'200px'}
+          menuPlacement={'top'}
+          options={versions.map(v => {
+            return {
+              value: v.id,
+              label: v.name,
+            }
+          })}
+          onChange={v => (handler.version = versions.find(l => l.id === v) ?? null)}
+          value={handler?.version?.id ?? undefined}
+        />
+        <PlayBtn
+          primary
+          fetching={loading}
+          icon={'bolt'}
+          disabled={!handler.version}
+          onClick={() => {
+            if (loading) return
+            setLoading(true)
+            handler.go(nickname).subscribe(value => {
+              if (value.done) setLoading(false)
+              if (value.progress) setProgress(value.progress)
+            })
+          }}
+        >
+          Играть
+        </PlayBtn>
+      </Pair>
+      <DownloadBar prepare={0} value={loading ? progress : 0} style={{ position: 'absolute', bottom: '-6px' }} />
+    </>
+  )
+})
+
 export const PlaySubscreen: FC = Observer(() => {
   return (
     <Page>
       <Nimpl />
-      <Pair>
-        {/*<Select menuPlacement={'top'} placeholder={'аккаунт'} />*/}
-        <ProviderSelect />
-        <VersionSelector />
-        <PlayBtn icon={'bolt'}>Играть</PlayBtn>
-      </Pair>
-      <DownloadBar prepare={0} value={0} />
+      <Defer depend={SimpleHandler}>
+        <PlayZone />
+      </Defer>
     </Page>
   )
 })
