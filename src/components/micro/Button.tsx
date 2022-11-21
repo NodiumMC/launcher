@@ -27,7 +27,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   width: ${({ square }) => (square ? '36px' : 'auto')};
   padding: ${({ square }) => (square ? '0' : '0 20px')};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  color: ${({ primary, theme }) => (primary ? 'white' : theme.master.front)};
+  color: ${({ primary, theme }) => (primary ? theme.master.back : theme.master.front)};
   ${({ theme }) => font(theme.fonts.interact)}
   user-select: none;
   background: ${({ theme, danger, disabled, primary }) =>

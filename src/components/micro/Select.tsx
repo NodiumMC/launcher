@@ -18,7 +18,7 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
     margin: 0;
     box-sizing: border-box;
     min-width: 38px;
-    width: ${({ square }) => (square ? '38px' : 'initial')};
+    width: ${({ square, width }) => (square ? '38px' : width ?? 'initial')};
 
     img {
       height: 24px;
@@ -155,6 +155,7 @@ export interface SelectProps<Value = string, Label = unknown> extends ExtraProps
   maxMenuHeight?: number
   mini?: boolean
   square?: boolean
+  width?: string
 }
 
 export const Select = <Value extends string = any, Label = unknown>({
