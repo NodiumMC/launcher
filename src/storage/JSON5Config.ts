@@ -1,8 +1,6 @@
-import { action, autorun, computed, makeObservable, observable, toJS } from 'mobx'
+import { action, autorun, makeObservable, observable, toJS } from 'mobx'
 import { AppData, exists, readJson5File, writeJson5File } from 'native/filesystem'
 import { join } from 'native/path'
-import { watch } from 'tauri-plugin-fs-watch-api'
-import _ from 'lodash'
 
 export class JSON5Config<T = any> {
   @observable private _data: any = {}
@@ -31,12 +29,7 @@ export class JSON5Config<T = any> {
   async load() {
     const path = await this.path()
     if (!(await exists(path))) await writeJson5File(path, this.data ?? {})
-    const local = await readJson5File(path)
-    this._data = local
-    const stop = await watch(path, {}, () => {
-      stop()
-      if (!_.isEqual(this.data, local)) this.load()
-    })
+    this._data = await readJson5File(path)
   }
 
   @action
