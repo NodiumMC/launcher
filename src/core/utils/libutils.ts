@@ -51,7 +51,7 @@ export const populateLib = async (plib: PartialLib): Promise<Library> => {
     const contentLength = await fetch(artifactUrl, {
       method: 'HEAD',
       timeout: 5000,
-    }).then(res => +res.headers['Content-Length'])
+    }).then(res => +res.headers['content-length'])
     if (isNaN(contentLength)) throw new Error('Invalid content length')
     return {
       name: plib.name,
@@ -64,6 +64,6 @@ export const populateLib = async (plib: PartialLib): Promise<Library> => {
       },
     }
   } catch (e: any) {
-    throw new Error('Failed to populate library for reason: ' + e.message)
+    throw new Error('Failed to populate library for reason: ' + e)
   }
 }

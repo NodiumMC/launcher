@@ -23,7 +23,7 @@ export interface VersionInstallEvent {
   error: (e: Error) => void
 }
 
-export const install = async ({ vid, gameDataDir, clientDir, blakemap }: InstallOptions, signal: AbortSignal) => {
+export const install = async ({ vid, gameDataDir, clientDir, blakemap }: InstallOptions, signal?: AbortSignal) => {
   const version = await readVersionFile(join(clientDir, `${vid}.json`))
   const libs = compileLibraries(version.libraries, gameDataDir, clientDir)
   const assets = await compileAssetIndex(version, gameDataDir)
@@ -41,6 +41,9 @@ export const install = async ({ vid, gameDataDir, clientDir, blakemap }: Install
     unp.on('error', e => emitter.emit('error', e))
     unp.on('done', () => emitter.emit('done'))
   })
-  bdp.on('unit', (name, hash) => emitter.emit('unit', name, hash))
+  bdp.on('unit', (name, hash) => {
+    blakemap[name] = hash
+    emitter.emit('unit', name, hash)
+  })
   return emitter
 }

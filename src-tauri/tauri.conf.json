@@ -33,10 +33,11 @@
       },
       "http": {
         "scope": [
-          "https://nadmelas.nodium.ru/*",
           "https://piston-meta.mojang.com/*",
           "https://launchermeta.mojang.com/*",
-          "https://resources.download.minecraft.net/*"
+          "https://resources.download.minecraft.net/*",
+          "https://meta.fabricmc.net/v2/*",
+          "https://maven.fabricmc.net/*"
         ],
         "all": true
       },
@@ -44,24 +45,19 @@
         "all": true,
         "scope": [
           {
-            "name": "sh",
-            "cmd": "sh",
-            "args": [
-              "-c",
-              {
-                "validator": "\\S+"
-              }
-            ]
+            "name": "java",
+            "cmd": "java",
+            "args": true
           },
           {
-            "name": "cmd",
-            "cmd": "cmd",
-            "args": [
-              "/C",
-              {
-                "validator": "\\S+"
-              }
-            ]
+            "name": "set",
+            "cmd": "set",
+            "args": true
+          },
+          {
+            "name": "export",
+            "cmd": "export",
+            "args": true
           }
         ],
         "execute": true,
@@ -70,7 +66,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Game",
       "copyright": "(c) Nodium 2020 - 2022",
       "deb": {
         "depends": []
@@ -84,7 +80,7 @@
         "icons/icon.ico"
       ],
       "identifier": "com.nodium.launcher",
-      "longDescription": "",
+      "longDescription": "Nodium Minecraft Launcher",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -101,14 +97,13 @@
         "timestampUrl": ""
       }
     },
-    "security": {
-      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
-    },
     "updater": {
       "active": true,
       "dialog": false,
       "endpoints": [
-        "https://0.0.0.0"
+        "https://ndml-update.limpix.workers.dev/{{target}}/{{current_version}}",
+        "https://update.nodium.ru/{{target}}/{{current_version}}",
+        "https://nodium.ru/update/{{target}}/{{current_version}}"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVGRUE5NUNFODkyQTlFQ0MKUldUTW5pcUp6cFhxWCtYMzR3ZEhYUFlGUFR0Nzhsd1lxT2ZqQTh2ZWlZdkdJYVg0eUtFZTVqQTkK",
       "windows": {

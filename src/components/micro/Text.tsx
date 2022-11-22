@@ -54,7 +54,7 @@ const lineHeightStyle = (height?: string | 'small' | 'medium' | 'high') =>
 const gradientStyle = (gradient?: string | Styles | boolean) => css`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background: ${gradient};
+  background: ${gradient as any};
 `
 
 const preStyle = css`
@@ -68,7 +68,7 @@ const interactionStyle = css`
 export const Text = styled.span.attrs<TextProps>(({ theme, ...props }) => ({
   style: {
     color: props.color,
-    fontSize: theme.size(props.size),
+    fontSize: theme?.size?.(props.size),
     lineHeight: lineHeightStyle(props.lineHeight),
   },
 }))<TextProps>`

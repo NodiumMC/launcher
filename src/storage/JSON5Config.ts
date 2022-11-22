@@ -52,7 +52,9 @@ export class JSON5Config<T = any> {
     obj[pathArr.last] = value
   }
 
-  get<V>(path: ObjectPaths<T>, defaultValue: V): V {
+  get<V>(path: ObjectPaths<T>): V | undefined
+  get<V>(path: ObjectPaths<T>, defaultValue: V): V
+  get<V>(path: ObjectPaths<T>, defaultValue?: V): V | undefined {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const pathArr = (path as string).split('.')
@@ -61,5 +63,11 @@ export class JSON5Config<T = any> {
       obj = obj?.[property]
     }
     return obj ?? defaultValue
+  }
+
+  has(path: ObjectPaths<T>) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return !!this.get(path as string)
   }
 }

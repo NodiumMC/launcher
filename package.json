@@ -1,7 +1,7 @@
 {
   "name": "nodium-launcher",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "moduleDirectories": [
     "node_modules",
     "src"
@@ -26,6 +26,7 @@
     "@types/stack-trace": "0.0.30",
     "@types/styled-components": "5.1.26",
     "ansi-to-html": "0.7.2",
+    "axios": "^1.1.2",
     "class-transformer": "0.5.1",
     "country-flag-icons": "1.5.5",
     "dotenv-cli": "6.0.0",
@@ -34,7 +35,7 @@
     "html-react-parser": "3.0.4",
     "json5": "2.2.1",
     "lodash": "4.17.21",
-    "mobmarch": "1.0.3",
+    "mobmarch": "^1.0.4",
     "mobx": "6.7.0",
     "mobx-react": "7.5.3",
     "nanoid": "4.0.0",

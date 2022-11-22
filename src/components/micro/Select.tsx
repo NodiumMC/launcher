@@ -1,11 +1,10 @@
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import ReactSelect, { Props } from 'react-select'
 import styled, { css } from 'styled-components'
 import { transition } from 'style'
 import { rgba } from 'polished'
-import { useCachedState } from 'hooks/useCachedState'
 
-const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
+const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square' | 'width'>>`
   .Select__control {
     background: ${({ theme }) => theme.master.back};
     border: 0 solid ${({ theme }) => theme.master.shade()};
@@ -19,7 +18,7 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
     margin: 0;
     box-sizing: border-box;
     min-width: 38px;
-    width: ${({ square }) => (square ? '38px' : 'initial')};
+    width: ${({ square, width }) => (square ? '38px' : width ?? 'initial')};
 
     img {
       height: 24px;
@@ -156,6 +155,7 @@ export interface SelectProps<Value = string, Label = unknown> extends ExtraProps
   maxMenuHeight?: number
   mini?: boolean
   square?: boolean
+  width?: string
 }
 
 export const Select = <Value extends string = any, Label = unknown>({
@@ -164,20 +164,9 @@ export const Select = <Value extends string = any, Label = unknown>({
   onChange,
   maxMenuHeight = 5,
   mini,
-  unique,
   ...props
 }: SelectProps<Value, Label> & ExtraProps.Styled) => {
-  const [cached, setCached] = useCachedState<Value>('select', unique)
-
-  const defaultValue = useMemo(() => options?.find(v => v.value === (value ?? cached)), [options, value, cached])
-
-  const setValue = useCallback(
-    (value: { value: Value }) => {
-      setCached(value.value)
-      onChange?.(value.value)
-    },
-    [onChange],
-  )
+  const defaultValue = useMemo(() => options?.find(v => v.value === value), [options, value])
 
   return (
     <StyledSelect
@@ -187,10 +176,9 @@ export const Select = <Value extends string = any, Label = unknown>({
       options={options}
       defaultValue={defaultValue}
       maxMenuHeight={maxMenuHeight * 38}
-      onChange={setValue as any}
+      onChange={v => onChange?.((v as any).value)}
       value={defaultValue}
       isSearchable={!mini}
-      hideSelectedOptions={mini}
     />
   )
 }

@@ -18,7 +18,7 @@ export interface RDownloadEvent {
   error: (error: string) => void
 }
 
-export const Rdownload = async (url: string, local: string, checksum?: string) => {
+export const Rdownload = async (url: string, local: string, checksum?: string, size = 0) => {
   const progressId = nanoid()
   const emitter = new EventEmitter<RDownloadEvent>()
   const unlisten = await listen(progressId, ({ payload }) => emitter.emit('progress', payload as RDownloadProgress))

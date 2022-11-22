@@ -110,7 +110,7 @@ export const LogLine: FC<LogLineProps> = ({ line }) => {
                 {arg}{' '}
               </Text>
             )
-          } else if (arg.props) {
+          } else if (arg?.props) {
             return <Fragment key={i}>{arg}</Fragment>
           } else {
             return (

@@ -78,7 +78,7 @@ const StagedProgressBar = styled(ProgressBar)`
 `
 
 export const AppPreloader: FC = Observer(() => {
-  const { inProcess, pre, progressActive, progress, currentTaskName } = useModule(PreloaderService)
+  const { inProcess, currentTaskName } = useModule(PreloaderService)
   const transition = useTransition(inProcess, {
     from: { opacity: 1, scale: 3 },
     enter: { opacity: 1, scale: 1 },
@@ -86,11 +86,6 @@ export const AppPreloader: FC = Observer(() => {
     config: {
       duration: 100,
     },
-  })
-  const progressHide = useTransition(progressActive, {
-    from: { opacity: 1 },
-    enter: { opacity: 1 },
-    leave: { opacity: 1 },
   })
 
   return transition(
@@ -107,7 +102,6 @@ export const AppPreloader: FC = Observer(() => {
               <AbsolutePreloader />
               {currentTaskName}
             </Stage>
-            {progressHide((style, item) => item && <StagedProgressBar value={progress} pre={pre} total={100} />)}
           </StageWrapper>
         </AppPreloaderWrapper>
       ),

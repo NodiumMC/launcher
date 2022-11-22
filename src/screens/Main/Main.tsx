@@ -32,7 +32,7 @@ export const Main: FC = () => {
           <Components />
         </SubRoute>
         <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug>
-          <Defer depend={[DebugService, DelogService]}>
+          <Defer depend={[DebugService]}>
             <Logs />
           </Defer>
         </SubRoute>

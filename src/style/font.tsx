@@ -11,7 +11,7 @@ export const font = (name?: string) => css`
   font-family: ${({ theme }) => name ?? theme.fonts.default};
 `
 
-export const fontFace = (name: string, src: string, weight?: FontWeightLike = 'regular') => css`
+export const fontFace = (name: string, src: string, weight: FontWeightLike = 'regular') => css`
   @font-face {
     font-family: ${name};
     src: url(${src});

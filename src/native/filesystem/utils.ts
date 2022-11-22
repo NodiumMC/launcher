@@ -1,11 +1,18 @@
 import { dataDir } from '@tauri-apps/api/path'
-import { join, dirname } from 'native/path'
-import { readDir, createDir, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
+import { dirname, join } from 'native/path'
+import { createDir, exists as fsExists, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
 import JSON5 from 'json5'
 
 export const exists = async (path: string) => {
-  const dir = await readDir(dirname(path))
-  return dir.some(v => v.path.includes(path))
+  return fsExists(path)
+}
+
+export const prepare = async (path: string, isFile = false) => {
+  if (!(await exists(path))) {
+    await createDir(isFile ? dirname(path) : path, { recursive: true })
+    if (isFile) await writeTextFile(path, '')
+  }
+  return path
 }
 
 export const readJsonFile = async <T>(path: string): Promise<T> => {
@@ -30,14 +37,6 @@ export const writeJson5File = async <T>(path: string, data: T): Promise<void> =>
 
 const ddir = await dataDir()
 
-export const AppData = async () => {
-  const appdata = join(ddir, 'NodiumLauncher')
-  if (!(await exists(appdata))) await createDir(appdata, { recursive: true })
-  return appdata
-}
+export const AppData = async () => prepare(join(ddir, 'NodiumLauncher'))
 
-export const GameDir = async () => {
-  const gameDir = join(ddir, '.nodium')
-  if (!(await exists(gameDir))) await createDir(gameDir, { recursive: true })
-  return gameDir
-}
+export const GameDir = async () => prepare(join(ddir, '.nodium'))
