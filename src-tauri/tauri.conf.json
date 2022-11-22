@@ -101,7 +101,9 @@
       "active": true,
       "dialog": false,
       "endpoints": [
-        "https://0.0.0.0"
+        "https://ndml-update.limpix.workers.dev/{{target}}/{{current_version}}",
+        "https://update.nodium.ru/{{target}}/{{current_version}}",
+        "https://nodium.ru/update/{{target}}/{{current_version}}"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVGRUE5NUNFODkyQTlFQ0MKUldUTW5pcUp6cFhxWCtYMzR3ZEhYUFlGUFR0Nzhsd1lxT2ZqQTh2ZWlZdkdJYVg0eUtFZTVqQTkK",
       "windows": {
