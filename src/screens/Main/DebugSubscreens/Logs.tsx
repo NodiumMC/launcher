@@ -1,12 +1,9 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
-import { Observer, useDeferredModule, useModule } from 'mobmarch'
-import { DelogService, log } from 'debug'
-import { LogLine } from 'debug'
+import { Observer } from 'mobmarch'
+import { DelogService, LogLine } from 'debug'
 import { CommandPrompt, execute } from 'debug/commander'
-import { Text } from 'components/micro/Text'
-import { toJS } from 'mobx'
 import { container } from 'tsyringe'
 
 const Page = styled(Screen)`
@@ -29,23 +26,6 @@ const LogsContainer = styled.div`
 export const Logs: FC = Observer(() => {
   const delog = container.resolve(DelogService)
   const latest = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    log(
-      <>
-        <Text weight={'bold'}>Привет путник. </Text>
-        <Text>
-          Ты попал в{' '}
-          <Text weight={'light'} color={'red'} interaction>
-            консоль_
-          </Text>{' '}
-          разработчика. Это очень тёмное и опасное место для тебя, но очень полезное и интересное для разработчика.
-          Настоятельно <Text color={'orange'}>НЕ</Text> рекомендую вводить сюда команды без знания того как они работают
-          и что делают. Ну а тебе дорогой разработчик: <Text color={'magenta'}>{'<<'} &quot;Hello World&quot;</Text>
-        </Text>
-      </>,
-    )
-  }, [])
 
   useEffect(() => {
     if (latest.current) latest.current.scrollTop = latest.current.scrollHeight
