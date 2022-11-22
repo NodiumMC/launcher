@@ -33,7 +33,6 @@
       },
       "http": {
         "scope": [
-          "https://nadmelas.nodium.ru/*",
           "https://piston-meta.mojang.com/*",
           "https://launchermeta.mojang.com/*",
           "https://resources.download.minecraft.net/*",
@@ -97,9 +96,6 @@
         "digestAlgorithm": "sha256",
         "timestampUrl": ""
       }
-    },
-    "security": {
-      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
       "active": true,

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { transition } from 'style'
 import { rgba } from 'polished'
 
-const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square'>>`
+const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square' | 'width'>>`
   .Select__control {
     background: ${({ theme }) => theme.master.back};
     border: 0 solid ${({ theme }) => theme.master.shade()};
