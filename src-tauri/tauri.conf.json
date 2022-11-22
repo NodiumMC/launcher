@@ -101,6 +101,7 @@
       "active": true,
       "dialog": false,
       "endpoints": [
+        "http://localhost:8787/{{target}}/{{current_version}}",
         "https://ndml-update.limpix.workers.dev/{{target}}/{{current_version}}",
         "https://update.nodium.ru/{{target}}/{{current_version}}",
         "https://nodium.ru/update/{{target}}/{{current_version}}"
