@@ -103,7 +103,7 @@ export const AppPreloader: FC = Observer(() => {
               {currentTaskName}
             </Stage>
           </StageWrapper>
-        </AppP
+        </AppPreloaderWrapper>
       ),
   )
 })
