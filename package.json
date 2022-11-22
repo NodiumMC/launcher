@@ -37,7 +37,7 @@
     "lodash": "4.17.21",
     "mobmarch": "^1.0.4",
     "mobx": "6.7.0",
-    "mobx-react": "7.5.3",
+    "mobx-react": "7.6.0",
     "nanoid": "4.0.0",
     "path-browserify": "1.0.1",
     "polished": "4.2.2",
