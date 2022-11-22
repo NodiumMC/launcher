@@ -66,7 +66,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Game",
       "copyright": "(c) Nodium 2020 - 2022",
       "deb": {
         "depends": []
@@ -80,7 +80,7 @@
         "icons/icon.ico"
       ],
       "identifier": "com.nodium.launcher",
-      "longDescription": "",
+      "longDescription": "Nodium Minecraft Launcher",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
