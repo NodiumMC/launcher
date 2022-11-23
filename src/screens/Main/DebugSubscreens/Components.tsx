@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { Button } from 'components/micro/Button'
@@ -10,6 +10,10 @@ import { linearGradient } from 'polished'
 import { Select } from 'components/micro/Select'
 import { ObjectRenderer } from 'debug'
 import { CommandPrompt } from 'debug/commander/CommandPrompt'
+import { SquareGroupToggle } from 'components/micro/SquareGroupToggle'
+import { ProviderIcon } from 'core/providers'
+import { SquareGroupSwitcher } from 'components/micro/SquareGroupSwitcher'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Page = styled(Screen)`
   padding: 0 50px 50px 50px;
@@ -44,6 +48,10 @@ const Container = styled.div<{ v?: boolean; gap?: number }>`
 `
 
 export const Components: FC = () => {
+  const [squaretoggler, setSquareToggler] = useState(['vanilla'])
+  const [squareswitcher, setSquareSwicther] = useState('vanilla')
+  const [squareswitcher2, setSquareSwicther2] = useState('info')
+
   return (
     <Page>
       <Split>Кнопки</Split>
@@ -60,6 +68,44 @@ export const Components: FC = () => {
       <Container>
         <Checkbox />
         <Checkbox value />
+      </Container>
+      <Split>ПереключалОчки</Split>
+      <Container>
+        <SquareGroupToggle
+          options={[
+            { id: 'vanilla', label: ProviderIcon.vanilla },
+            { id: 'fabric', label: ProviderIcon.fabric },
+          ]}
+          value={squaretoggler}
+          onChange={setSquareToggler}
+        />
+        <SquareGroupToggle
+          disabled
+          options={[
+            { id: 'vanilla', label: ProviderIcon.vanilla },
+            { id: 'fabric', label: ProviderIcon.fabric },
+          ]}
+          value={squaretoggler}
+          onChange={setSquareToggler}
+        />
+        <SquareGroupSwitcher
+          options={[
+            { id: 'vanilla', label: ProviderIcon.vanilla },
+            { id: 'fabric', label: ProviderIcon.fabric },
+          ]}
+          value={squareswitcher}
+          onChange={setSquareSwicther}
+        />
+        <SquareGroupSwitcher
+          options={[
+            { id: 'err', label: <FontAwesomeIcon icon={'circle-xmark'} /> },
+            { id: 'warn', label: <FontAwesomeIcon icon={'triangle-exclamation'} /> },
+            { id: 'info', label: <FontAwesomeIcon icon={'circle-info'} /> },
+          ]}
+          disoptions={['warn']}
+          value={squareswitcher2}
+          onChange={setSquareSwicther2}
+        />
       </Container>
       <Split>Инпутсы</Split>
       <Container v>
