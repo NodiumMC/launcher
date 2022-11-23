@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { MainScreenPage, MainScreenSidebarSubrouter, MainScreenSubRouter, SubRoute } from './MainScreenSubRouter'
 import { Defer } from 'mobmarch'
-import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
 import { I18n } from 'i18n'
 import { Components, Logs } from './DebugSubscreens'
-import { DebugService, DelogService } from 'debug'
+import { DebugService } from 'debug'
+import { JournalSubscreen } from 'screens/Main/JournalSubscreen/JournalSubscreen'
 
 export const Main: FC = () => {
   return (
@@ -25,7 +25,7 @@ export const Main: FC = () => {
         {/*  </Defer>*/}
         {/*</SubRoute>*/}
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
-          <Text>456</Text>
+          <JournalSubscreen />
         </SubRoute>
         <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}></SubRoute>
         <SubRoute icon={'puzzle-piece'} to={MainScreenPage.COMPONENTS} debug>
