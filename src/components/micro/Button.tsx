@@ -13,6 +13,7 @@ interface ButtonWrapperProps extends ShadeProps {
   danger?: boolean
   square?: boolean
   outlined?: boolean
+  noShadow?: boolean
 }
 
 const ButtonWrapper = styled.div<ButtonWrapperProps>`
@@ -24,7 +25,7 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   gap: 10px;
   border-radius: ${({ theme }) => theme.radius()};
   height: 38px;
-  width: ${({ square }) => (square ? '36px' : 'auto')};
+  width: ${({ square }) => (square ? '38px' : 'auto')};
   padding: ${({ square }) => (square ? '0' : '0 20px')};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   color: ${({ primary, theme }) => (primary ? theme.master.back : theme.master.front)};
@@ -48,8 +49,8 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   &:hover {
     background-color: ${({ theme, danger, disabled, outlined, primary }) =>
       disabled || danger || !outlined || primary ? 'none' : rgba(theme.accent.primary, 0.2)};
-    box-shadow: ${({ theme, danger, disabled, outlined }) =>
-      disabled || !outlined
+    box-shadow: ${({ theme, danger, disabled, outlined, noShadow }) =>
+      disabled || !outlined || noShadow
         ? 'none'
         : danger
         ? `
@@ -73,7 +74,11 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   }
 `
 
-export interface ButtonProps extends ButtonWrapperProps, ExtraProps.Clickable, ExtraProps.HasChildren {
+export interface ButtonProps
+  extends ButtonWrapperProps,
+    ExtraProps.Clickable,
+    ExtraProps.HasChildren,
+    ExtraProps.Styled {
   icon?: IconName
   fetching?: boolean
 }
@@ -87,7 +92,7 @@ const Icon = styled(FontAwesomeIcon)<ShadeProps>`
   ${({ shade: level }) => shade(level)}
 `
 
-export const Button: FC<ButtonProps & ExtraProps.Styled> = ({
+export const Button: FC<ButtonProps> = ({
   icon,
   fetching,
   disabled,
@@ -99,12 +104,14 @@ export const Button: FC<ButtonProps & ExtraProps.Styled> = ({
   outlined = true,
   shade,
   className,
+  style,
 }) => {
   const wp = { danger, primary, square, outlined }
   const genericDisable = useMemo(() => disabled || fetching, [disabled, fetching])
   return (
     <ButtonWrapper
       className={className}
+      style={style}
       {...wp}
       onClick={() => !genericDisable && onClick?.()}
       disabled={genericDisable}

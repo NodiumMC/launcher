@@ -22,7 +22,7 @@ export const Input = styled.input<InputProps>`
   `}
 
   ${transition()}
-  &:focus {
+  &:focus:not([readonly]) {
     background-color: ${({ theme }) => theme.master.edge(0.1)};
     border-color: ${({ theme }) => theme.accent.primary};
   }
