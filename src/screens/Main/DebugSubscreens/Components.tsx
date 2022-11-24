@@ -14,6 +14,7 @@ import { SquareGroupToggle } from 'components/micro/SquareGroupToggle'
 import { ProviderIcon } from 'core/providers'
 import { SquareGroupSwitcher } from 'components/micro/SquareGroupSwitcher'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { DialogInput } from 'components/micro/DialogInput'
 
 const Page = styled(Screen)`
   padding: 0 50px 50px 50px;
@@ -51,6 +52,8 @@ export const Components: FC = () => {
   const [squaretoggler, setSquareToggler] = useState(['vanilla'])
   const [squareswitcher, setSquareSwicther] = useState('vanilla')
   const [squareswitcher2, setSquareSwicther2] = useState('info')
+  const [opend1, setOpend1] = useState('')
+  const [opend2, setOpend2] = useState('')
 
   return (
     <Page>
@@ -112,6 +115,14 @@ export const Components: FC = () => {
         <Input />
         <Input placeholder={'Ну а начать откисать вообще на изи'} />
         <Input disabled placeholder={'Говорят, что если написать сюда желание, то оно сбудется'} />
+        <DialogInput directory icon={<FontAwesomeIcon icon={'folder'} />} value={opend1} onChange={setOpend1} />
+        <DialogInput
+          filters={[{ name: 'Исполняемый файл', extensions: ['exe', 'sh'] }]}
+          icon={<FontAwesomeIcon icon={'file'} />}
+          value={opend2}
+          onChange={setOpend2}
+        />
+        <DialogInput disabled icon={<FontAwesomeIcon icon={'folder'} />} value={opend1} onChange={setOpend1} />
       </Container>
       <Split>Тэгусы</Split>
       <Container>
