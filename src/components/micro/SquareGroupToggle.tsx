@@ -28,6 +28,10 @@ const Option = styled.div<OptionProps>`
   transition: all 0.2s;
   z-index: 1;
   color: ${({ theme, active }) => (active ? theme.master.back : theme.master.front)};
+  img {
+    width: 100%;
+    height: 100%;
+  }
   &:before {
     height: ${({ active }) => (active ? '100%' : '0')};
     width: ${({ active }) => (active ? '100%' : '0')};
@@ -41,7 +45,6 @@ const Option = styled.div<OptionProps>`
     background-color: ${({ theme }) => theme.accent.primary};
     transition: all 0.2s;
     z-index: -1;
-    box-shadow: 0 0 30px 1px ${({ theme, active }) => (active ? rgba(theme.accent.primary, 0.5) : 'transparent')};
   }
 `
 

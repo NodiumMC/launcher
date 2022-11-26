@@ -7,7 +7,7 @@ interface SquareGroupProps {
 export const SquareGroup = styled.div<SquareGroupProps>`
   display: inline-flex;
   height: 38px;
-  background-color: ${({ theme }) => theme.master.edge(0.1)};
+  background-color: ${({ theme }) => theme.master.shade(0.1)};
   border-radius: ${({ theme }) => theme.radius()};
   overflow: hidden;
   filter: ${({ disabled }) => (disabled ? 'grayscale(1) brightness(0.5)' : 'none')};

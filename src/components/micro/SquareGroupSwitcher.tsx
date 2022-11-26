@@ -30,6 +30,10 @@ const Option = styled.div<OptionProps>`
   color: ${({ theme, active }) => (active ? theme.master.back : theme.master.front)};
   opacity: ${({ disabled }) => (disabled ? '0.3' : '1')};
   filter: ${({ disabled }) => (disabled ? 'grayscale(1)' : 'none')};
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 interface SelectorProps {

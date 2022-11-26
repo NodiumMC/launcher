@@ -78,6 +78,8 @@ export const Components: FC = () => {
           options={[
             { id: 'vanilla', label: ProviderIcon.vanilla },
             { id: 'fabric', label: ProviderIcon.fabric },
+            { id: 'forge', label: ProviderIcon.forge },
+            { id: 'quilt', label: ProviderIcon.quilt },
           ]}
           value={squaretoggler}
           onChange={setSquareToggler}
@@ -87,6 +89,8 @@ export const Components: FC = () => {
           options={[
             { id: 'vanilla', label: ProviderIcon.vanilla },
             { id: 'fabric', label: ProviderIcon.fabric },
+            { id: 'forge', label: ProviderIcon.forge },
+            { id: 'quilt', label: ProviderIcon.quilt },
           ]}
           value={squaretoggler}
           onChange={setSquareToggler}
@@ -95,7 +99,10 @@ export const Components: FC = () => {
           options={[
             { id: 'vanilla', label: ProviderIcon.vanilla },
             { id: 'fabric', label: ProviderIcon.fabric },
+            { id: 'forge', label: ProviderIcon.forge },
+            { id: 'quilt', label: ProviderIcon.quilt },
           ]}
+          disoptions={['forge', 'quilt']}
           value={squareswitcher}
           onChange={setSquareSwicther}
         />
