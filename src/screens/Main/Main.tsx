@@ -6,6 +6,9 @@ import { I18n } from 'i18n'
 import { Components, Logs } from './DebugSubscreens'
 import { DebugService } from 'debug'
 import { JournalSubscreen } from 'screens/Main/JournalSubscreen/JournalSubscreen'
+import { BlakeMapService } from 'minecraft/BlakeMap.service'
+import { CentralConfig } from 'storage'
+import { SettingsSubscreen } from 'screens/Main/SettingsSubscreen/SettingsSubscreen'
 
 export const Main: FC = () => {
   return (
@@ -27,12 +30,16 @@ export const Main: FC = () => {
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
           <JournalSubscreen />
         </SubRoute>
-        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}></SubRoute>
+        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}>
+          <Defer depend={CentralConfig}>
+            <SettingsSubscreen />
+          </Defer>
+        </SubRoute>
         <SubRoute icon={'puzzle-piece'} to={MainScreenPage.COMPONENTS} debug>
           <Components />
         </SubRoute>
         <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug>
-          <Defer depend={[DebugService]}>
+          <Defer depend={[DebugService, BlakeMapService]}>
             <Logs />
           </Defer>
         </SubRoute>

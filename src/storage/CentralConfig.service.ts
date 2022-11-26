@@ -9,6 +9,9 @@ export interface CentralConfigData {
     theme: SupportedTheme
     lang: SupportedLang
   }
+  main: {
+    gameDir: string
+  }
 }
 
 @Module([Preloader])
