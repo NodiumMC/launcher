@@ -13,9 +13,8 @@ import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
-import { CrashOverlay } from 'components/macro/CrashOverlay'
-import { ReportService } from 'debug/report.service'
 import { PersistentCacheService } from 'storage'
+import { ErrorBoundary } from 'debug/ErrorBoundary'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -48,24 +47,23 @@ export const App: FC = Observer(() => {
         <Fonts />
         <AceStyle />
         <AppRoot>
-          <Header />
-          <View>
-            <Defer depend={Preloader}>
-              <AppPreloader />
-            </Defer>
-            <Defer depend={[PersistentCacheService]}>
-              <Routes />
-            </Defer>
-            <Defer depend={PopupService}>
-              <PopupContainer />
-            </Defer>
-            <Defer depend={UpfallService}>
-              <UpfallConatiner />
-            </Defer>
-            <Defer depend={ReportService}>
-              <CrashOverlay />
-            </Defer>
-          </View>
+          <ErrorBoundary>
+            <Header />
+            <View>
+              <Defer depend={Preloader}>
+                <AppPreloader />
+              </Defer>
+              <Defer depend={[PersistentCacheService]}>
+                <Routes />
+              </Defer>
+              <Defer depend={PopupService}>
+                <PopupContainer />
+              </Defer>
+              <Defer depend={UpfallService}>
+                <UpfallConatiner />
+              </Defer>
+            </View>
+          </ErrorBoundary>
         </AppRoot>
       </ThemeProvider>
     </>
