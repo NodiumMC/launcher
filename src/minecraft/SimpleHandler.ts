@@ -13,8 +13,9 @@ import { fetchMinecraftVersions } from 'core/providers'
 import { compileLocal, launch, unzipNatives } from 'core'
 import { batchDownload } from 'network'
 import { CentralConfig } from 'storage'
+import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
 
-@Module([GameProfileService, BlakeMapService, UpfallService, CentralConfig])
+@Module([GameProfileService, BlakeMapService, UpfallService, CentralConfig, MinecraftJournal])
 export class SimpleHandler {
   provider: SupportedProviders = 'vanilla'
   version: VersionUnion | null = null
@@ -24,6 +25,7 @@ export class SimpleHandler {
     private readonly blake: BlakeMapService,
     private readonly upfall: UpfallService,
     private readonly cc: CentralConfig,
+    private readonly journal: MinecraftJournal,
   ) {
     makeAutoObservable(this)
   }
@@ -55,12 +57,14 @@ export class SimpleHandler {
           })
           let notify = false
           l.stdout.on('data', e => {
+            this.journal.write(e)
             if (!notify && e?.includes?.('Backend library: LWJGL version')) {
               notify = true
               this.upfall.drop('ok', 'Клиент запущен')
               subscriber.next({ done: true })
             }
           })
+          l.stderr.on('data', data => this.journal.write(data))
           await l.spawn()
         }
         if (!this.gp.has(versionId)) {

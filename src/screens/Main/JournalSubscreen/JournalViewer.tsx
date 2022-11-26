@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { normalizeColor } from 'utils'
@@ -17,10 +17,11 @@ export const Container = styled.div`
 `
 
 export interface JournalLine {
-  time: string
-  thread: string
-  level: string
+  time?: string
+  thread?: string
+  level?: string
   content: string
+  compact?: boolean
 }
 
 interface PrefixedProps {
@@ -52,40 +53,51 @@ const Colored = styled.span<{ color: string }>`
   color: ${({ color }) => normalizeColor(color)};
 `
 
-const Line: FC<{ line: JournalLine }> = ({ line: { time, thread, level, content } }) => {
+const Line: FC<{ line: JournalLine }> = ({ line: { time, thread, level, content, compact } }) => {
   const theme = useTheme()
   const color = level === 'ERROR' ? theme.palette.red : level === 'WARN' ? theme.palette.yellow : theme.master.front
 
   return (
     <TextLine>
-      <Prefixed opacity color={theme.master.front}>{time}</Prefixed>
-      <Prefixed color={theme.palette.orange}>
-        <FontAwesomeIcon icon={'bolt'} />
-        {thread}
-      </Prefixed>
-      <Prefixed color={color}>
-        <FontAwesomeIcon icon={level === 'ERROR' ? 'xmark' : level === 'WARN' ? 'triangle-exclamation' : 'info'} />
-        {level}
-      </Prefixed>
+      {!compact && (
+        <>
+          <Prefixed opacity color={theme.master.front}>
+            {time}
+          </Prefixed>
+          <Prefixed color={theme.palette.orange}>
+            <FontAwesomeIcon icon={'bolt'} />
+            {thread}
+          </Prefixed>
+          <Prefixed color={color}>
+            <FontAwesomeIcon icon={level === 'ERROR' ? 'xmark' : level === 'WARN' ? 'triangle-exclamation' : 'info'} />
+            {level}
+          </Prefixed>
+        </>
+      )}
       <Colored color={color}>{content}</Colored>
     </TextLine>
   )
 }
 
 export const JournalViewer: FC<JournalViewerProps> = ({ lines }) => {
-  const parsed: JournalLine[] = useMemo(
-    () =>
-      lines.map(line => {
-        const [, time, thread, level, content] =
+  const lastLevel = useRef<string | undefined>()
+  const [plines, setPlines] = useState<JournalLine[]>([])
+  useEffect(() => {
+    setPlines([
+      ...plines,
+      ...lines.slice(plines.length).map(line => {
+        const [mch, time, thread, level, content] =
           line.match(/^\[(.+?)]\s\[([A-z0-9-_\s]+)?\/?([A-z0-9-_\s]*)]:\s(.+)/s) ?? []
+        if (!mch) return { content: line, level: lastLevel.current, compact: true }
+        if (level) lastLevel.current = level
         return { time, thread, level, content }
       }),
-    [lines],
-  )
+    ])
+  }, [lines])
 
   return (
     <Container>
-      {parsed.map((v, i) => (
+      {plines.map((v, i) => (
         <Line key={i} line={v} />
       ))}
     </Container>

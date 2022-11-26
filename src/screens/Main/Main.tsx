@@ -9,6 +9,7 @@ import { JournalSubscreen } from 'screens/Main/JournalSubscreen/JournalSubscreen
 import { BlakeMapService } from 'minecraft/BlakeMap.service'
 import { CentralConfig } from 'storage'
 import { SettingsSubscreen } from 'screens/Main/SettingsSubscreen/SettingsSubscreen'
+import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
 
 export const Main: FC = () => {
   return (
@@ -17,18 +18,10 @@ export const Main: FC = () => {
         <SubRoute icon={'play'} to={MainScreenPage.PLAY}>
           <PlaySubscreen />
         </SubRoute>
-        {/*<SubRoute icon={'cubes'} to={MainScreenPage.INSTANCES}>*/}
-        {/*  <Defer depend={[InstanceStore, GameProfileService, PopupService]} fallback={<LoadingScreen />}>*/}
-        {/*    <InstancesSubscreen />*/}
-        {/*  </Defer>*/}
-        {/*</SubRoute>*/}
-        {/*<SubRoute icon={'download'} to={MainScreenPage.VERSIONS}>*/}
-        {/*  <Defer depend={GameProfileService}>*/}
-        {/*    <VersionsSubscreen />*/}
-        {/*  </Defer>*/}
-        {/*</SubRoute>*/}
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
-          <JournalSubscreen />
+          <Defer depend={MinecraftJournal}>
+            <JournalSubscreen />
+          </Defer>
         </SubRoute>
         <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}>
           <Defer depend={CentralConfig}>
