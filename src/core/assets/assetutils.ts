@@ -1,10 +1,10 @@
 import { AssetIndex, AssetObject } from 'core'
-import { DownloadableResource } from 'core'
 import { join } from 'native/path'
 import { VersionFile } from 'core'
 import { fetch } from '@tauri-apps/api/http'
+import { Resource } from 'network'
 
-export const compileAssets = (objs: AssetObject[]): DownloadableResource[] => {
+export const compileAssets = (objs: AssetObject[]): Resource[] => {
   const assetObjects = join('assets', 'objects')
   return objs.map(
     obj =>
@@ -12,7 +12,7 @@ export const compileAssets = (objs: AssetObject[]): DownloadableResource[] => {
         url: `https://resources.download.minecraft.net/${obj.hash.substring(0, 2)}/${obj.hash}`,
         local: join(assetObjects, obj.hash.substring(0, 2), obj.hash),
         size: obj.size,
-      } as DownloadableResource),
+      } as Resource),
   )
 }
 
@@ -24,8 +24,8 @@ export const fetchAssetIndex = async (version: VersionFile): Promise<AssetIndex>
   return res.data
 }
 
-export const compileAssetIndex = async (version: VersionFile, gameDataDir: string): Promise<DownloadableResource[]> => {
-  const batch: DownloadableResource[] = [
+export const compileAssetIndex = async (version: VersionFile, gameDataDir: string): Promise<Resource[]> => {
+  const batch: Resource[] = [
     {
       ...version.assetIndex,
       local: join(gameDataDir, 'assets', 'indexes', `${version.assets}.json`),

@@ -19,6 +19,7 @@ export class BlakeMapService {
     const path = await this.path()
     if (!(await exists(path))) await writeJsonFile(path, {})
     this.map = await readJsonFile(path)
+    // setInterval(() => this.save(), 10000)
   }
 
   async save() {

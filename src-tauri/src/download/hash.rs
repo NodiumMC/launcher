@@ -1,6 +1,6 @@
 use arrayvec::ArrayString;
 use blake3::{Hash, HexError};
-use std::path::Path;
+use std::path::PathBuf;
 use thiserror::Error;
 
 pub trait BlakeHash {
@@ -28,7 +28,7 @@ pub enum BlakeError {
   HashMismatch { expected: String, found: String },
 }
 
-pub fn create_hash_for_file(path: &Path) -> Result<Hash, BlakeError> {
+pub fn create_hash_for_file(path: &PathBuf) -> Result<Hash, BlakeError> {
   let mut file = std::fs::File::open(path)?;
   let mut hasher = blake3::Hasher::new();
   std::io::copy(&mut file, &mut hasher)?;
@@ -36,7 +36,7 @@ pub fn create_hash_for_file(path: &Path) -> Result<Hash, BlakeError> {
   Ok(found_hash)
 }
 
-pub fn check_file_integrity(path: &Path, expected: &str) -> Result<(), BlakeError> {
+pub fn check_file_integrity(path: &PathBuf, expected: &str) -> Result<(), BlakeError> {
   let found = create_hash_for_file(path)?.as_string();
   if expected == found {
     Ok(())

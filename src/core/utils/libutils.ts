@@ -2,9 +2,9 @@ import { Artifact, Library, PartialLib } from 'core'
 import { os } from 'core'
 import { isRuled, ParseRules } from 'core'
 import { fetch } from '@tauri-apps/api/http'
-import { DownloadableResource } from 'core'
 import { join } from 'native/path'
 import { NonNullFilter } from 'utils/filters'
+import { Resource } from 'network'
 
 export const isNativeLibrary = (lib: Library) => !!lib.natives
 
@@ -23,7 +23,7 @@ export const compileLibArtifacts = (libs: Library[]): [libs: Artifact[], natives
   ]
 }
 
-export const compileLibraries = (libs: Library[], gameDataDir: string, clientDir: string): DownloadableResource[] => {
+export const compileLibraries = (libs: Library[], gameDataDir: string, clientDir: string): Resource[] => {
   const librariesPath = join(gameDataDir, 'libraries')
   const [dlibs, natives] = compileLibArtifacts(libs)
   return [
