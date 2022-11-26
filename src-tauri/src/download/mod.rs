@@ -75,7 +75,6 @@ fn emit_progress<R: Runtime>(apph: &AppHandle<R>, pid: &String, total: u64, chun
 async fn download_file<F: Fn(u64, u64, u64) -> ()>(url: &Url, to: &PathBuf, on: Option<F>) -> Result<(), DownloadError> {
   let mut file = tfs::File::create(to).await?;
   let res = Client::builder()
-    .timeout(Duration::from_secs(5))
     .build()?
     .get(url.to_owned())
     .send()
