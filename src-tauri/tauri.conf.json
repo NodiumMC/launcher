@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Nodium Launcher",
-    "version": "0.0.1"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -104,7 +104,6 @@
       "active": true,
       "dialog": false,
       "endpoints": [
-        "http://localhost:8787/{{target}}/{{current_version}}",
         "https://ndml-update.limpix.workers.dev/{{target}}/{{current_version}}",
         "https://update.nodium.ru/{{target}}/{{current_version}}",
         "https://nodium.ru/update/{{target}}/{{current_version}}"
