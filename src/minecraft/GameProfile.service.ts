@@ -4,10 +4,11 @@ import { join } from 'native/path'
 import { exists, GameDir, prepare, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { BeforeResolve, Module } from 'mobmarch'
 import { watch } from 'tauri-plugin-fs-watch-api'
-import { Provider } from 'core/providers/Provider'
+import { Provider } from 'core/providers'
 import { VersionUnion } from 'core/providers/types'
+import { CentralConfig } from 'storage'
 
-@Module
+@Module([CentralConfig])
 export class GameProfileService {
   @observable public list: LauncherProfileJSON[] = []
 
@@ -16,11 +17,11 @@ export class GameProfileService {
     await this.reloadProfiles()
   }
 
-  constructor() {
+  constructor(private readonly cc: CentralConfig) {
     makeObservable(this)
   }
 
-  private pathToProfile = async () => join(await GameDir(), 'launcher_profiles.json')
+  private pathToProfile = async () => join(this.cc.get('main.gameDir', await GameDir()), 'launcher_profiles.json')
 
   @action
   async reloadProfiles() {
@@ -37,9 +38,9 @@ export class GameProfileService {
   }
 
   async create(provider: Provider, version: VersionUnion, vid: string, name: string, ...properties: string[]) {
-    const clientDir = await prepare(join(await GameDir(), 'versions', vid))
+    const clientDir = await prepare(join(this.cc.get('main.gameDir', await GameDir()), 'versions', vid))
     const jsonPath = join(clientDir, `${vid}.json`)
-    const json = await provider.json(version.id, ...properties)
+    const json = await provider(version.id, ...properties)
     await prepare(clientDir)
     await writeJsonFile(jsonPath, await populate(json))
     const profile: LauncherProfileJSON = {

@@ -14,16 +14,14 @@ export const Runzip = (from: string, to: string, deleteAfter?: boolean) =>
     ;(async () => {
       const progressId = nanoid()
       const unlisten = await listen(progressId, ({ payload }) => subscriber.next(payload as RUnzipProgress))
-      const complete = <T>(payload?: Nullable<T>) => {
-        if (payload instanceof Error) subscriber.error(payload)
-        else subscriber.complete()
-        unlisten()
-      }
       invoke('unzip', {
         from,
         to,
         delete: deleteAfter ?? true,
         progressId,
-      }).then(complete, complete)
+      }).then(
+        () => (subscriber.complete(), unlisten()),
+        error => subscriber.error(error),
+      )
     })()
   })

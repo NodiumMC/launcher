@@ -13,6 +13,8 @@ import { VersionUnion } from 'core/providers/types'
 import { Input } from 'components/micro/Input'
 import { useCachedState } from 'hooks/useCachedState'
 import { inputValue } from 'utils'
+import { SquareGroupSwitcher } from 'components/micro/SquareGroupSwitcher'
+import { ProviderIcon, ProviderList } from 'core/providers'
 
 const Page = styled(Screen)`
   display: flex;
@@ -42,16 +44,15 @@ const PlayZone: FC = Observer(() => {
   useEffect(() => {
     handler.versions().then(v => {
       setVersions(v.filter(v => v.isRelease && !v.isOld))
-      if (handler.version !== null && !v.find(l => l.id === handler?.version?.id)) handler.version = v[0]
     })
-  }, [handler.provider])
+  })
 
   return (
     <>
       <Pair>
-        <ProviderSelect value={handler.provider} onChange={v => (handler.provider = v)} />
-        <Input placeholder={'Никнейм'} onChange={inputValue(setNickname)} value={nickname} />
+        <Input placeholder={'Никнейм'} onChange={inputValue(setNickname)} value={nickname} disabled={loading} />
         <Select<string>
+          disabled={loading}
           width={'200px'}
           menuPlacement={'top'}
           options={versions.map(v => {
@@ -62,6 +63,18 @@ const PlayZone: FC = Observer(() => {
           })}
           onChange={v => (handler.version = versions.find(l => l.id === v) ?? null)}
           value={handler?.version?.id ?? undefined}
+        />
+        <SquareGroupSwitcher
+          disabled={loading}
+          options={[
+            { id: 'vanilla', label: ProviderIcon.vanilla },
+            { id: 'fabric', label: ProviderIcon.fabric },
+            { id: 'forge', label: ProviderIcon.forge },
+            { id: 'quilt', label: ProviderIcon.quilt },
+          ]}
+          value={handler.provider}
+          disoptions={ProviderList.filter(v => !handler.version?.providers.includes(v))}
+          onChange={value => (handler.provider = value)}
         />
         <PlayBtn
           primary

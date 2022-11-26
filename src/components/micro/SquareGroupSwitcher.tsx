@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { SquareGroup } from 'components/micro/SquareGroup'
 import styled from 'styled-components'
 
@@ -9,6 +9,7 @@ export interface SquareGroupSwitcherProps<T> extends ExtraProps.DataInput<T> {
     label: ReactNode
     id: T
   }>
+  defaultOption?: T
 }
 
 interface OptionProps {
@@ -59,7 +60,11 @@ export const SquareGroupSwitcher = <T extends string | number>({
   onChange,
   disoptions,
   options,
+  defaultOption,
 }: SquareGroupSwitcherProps<T>) => {
+  useEffect(() => {
+    if (value) if (disoptions?.includes(value)) onChange?.(defaultOption ?? options[0]?.id)
+  }, [disoptions])
   return (
     <SquareGroup disabled={disabled}>
       {options.map(opt => (

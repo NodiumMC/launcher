@@ -18,7 +18,7 @@ export const compileLibArtifacts = (libs: Library[]): [libs: Artifact[], natives
   const nlibs = ruledLibs.filter(lib => isNativeLibrary(lib))
   return [
     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-    ruledLibs.map(v => v.downloads?.artifact!),
+    ruledLibs.filter(v => v.downloads?.artifact).map(v => v.downloads?.artifact!),
     nlibs.map(nativeArtifact).filter(NonNullFilter),
   ]
 }

@@ -2,8 +2,9 @@ import { join } from 'native/path'
 import { exists, GameDir, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { BlakeMap } from 'core'
 import { BeforeResolve, Module } from 'mobmarch'
+import { CentralConfig } from 'storage'
 
-@Module
+@Module([CentralConfig])
 export class BlakeMapService {
   map: BlakeMap = {}
 
@@ -11,8 +12,10 @@ export class BlakeMapService {
     return this.load()
   }
 
+  constructor(private readonly cc: CentralConfig) {}
+
   async path() {
-    return join(await GameDir(), 'blakemap.json')
+    return join(this.cc.get('main.gameDir', await GameDir()), 'blakemap.json')
   }
 
   async load() {

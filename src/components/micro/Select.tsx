@@ -156,6 +156,7 @@ export interface SelectProps<Value = string, Label = unknown> extends ExtraProps
   mini?: boolean
   square?: boolean
   width?: string
+  disabled?: boolean
 }
 
 export const Select = <Value extends string = any, Label = unknown>({

@@ -26,12 +26,13 @@ export const batchDownload = (resources: Resource[], blake?: BlakeMap, batchSize
         const batch = queue.slice(0, batchSize)
         await batch.mapAsync((r, i) =>
           Rdownload(r.url, r.local, blake?.[r.local]).then(
-            () => {
+            hash => {
               queue.splice(i, 1)
               progress++
+              if (blake) blake[r.local] = hash
               subscriber.next({ total, progress })
             },
-            error => subscriber.error(error),
+            error => console.log(error),
           ),
         )
       }

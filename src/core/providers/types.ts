@@ -1,3 +1,5 @@
+import { SupportedProviders } from 'core/providers/providers'
+
 export interface VersionUnion {
   name: string
   id: string
@@ -5,6 +7,7 @@ export interface VersionUnion {
   isSnapshot: boolean
   isOld: boolean
   latest: boolean
+  providers: SupportedProviders[]
 }
 
 export interface MojangManifest {

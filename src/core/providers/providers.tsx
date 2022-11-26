@@ -7,6 +7,8 @@ export const VersionProvider = {
   quilt: 'Quilt',
 }
 
+export const ProviderList: SupportedProviders[] = ['vanilla', 'fabric', 'forge', 'quilt']
+
 export type SupportedProviders = keyof typeof VersionProvider
 
 export const ProviderIcon: Record<SupportedProviders, ReactNode> = {

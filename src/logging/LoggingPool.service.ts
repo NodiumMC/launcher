@@ -1,6 +1,5 @@
 import { makeObservable, observable } from 'mobx'
 import { Logger } from 'logging'
-import inject from 'flinject'
 import { Module } from 'mobmarch'
 
 /**
@@ -10,14 +9,10 @@ import { Module } from 'mobmarch'
  */
 @Module
 export class LoggingPool {
-  static readonly Main = Symbol()
-  @observable private _pool: Map<symbol, Logger> = new Map([[LoggingPool.Main, new Logger()]])
+  @observable private _pool: Map<symbol, Logger> = new Map()
 
   constructor() {
     makeObservable(this)
-    console.log = inject(console.log, (_, ...args) => {
-      this.main.log(`${args.join(' ')}`)
-    })
   }
 
   /**
@@ -27,13 +22,6 @@ export class LoggingPool {
   request(key: symbol) {
     if (!this._pool.has(key)) this._pool.set(key, new Logger())
     return this._pool.get(key)!
-  }
-
-  /**
-   * Get the main logger.
-   */
-  get main() {
-    return this._pool.get(LoggingPool.Main)!
   }
 
   /**
