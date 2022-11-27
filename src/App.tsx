@@ -7,15 +7,13 @@ import { PopupContainer, PopupService, UpfallConatiner, UpfallService } from 'no
 import { Fonts, Style } from 'style'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
-import { Preloader } from 'preload'
+import { Preloader, WaitService } from 'preload'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
-import { CrashOverlay } from 'components/macro/CrashOverlay'
-import { ReportService } from 'debug/report.service'
-import { PersistentCacheService } from 'storage'
+import { ErrorBoundary } from 'debug/ErrorBoundary'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -37,6 +35,7 @@ const View = styled.div`
 
 export const App: FC = Observer(() => {
   const [, theme] = useDeferredModule(ThemeService)
+  useDeferredModule(WaitService)
   useDeferredModule(Updater)
   useThemeToggleHotkey()
   useFontawesomeLoader()
@@ -49,23 +48,20 @@ export const App: FC = Observer(() => {
         <AceStyle />
         <AppRoot>
           <Header />
-          <View>
-            <Defer depend={Preloader}>
-              <AppPreloader />
-            </Defer>
-            <Defer depend={[PersistentCacheService]}>
+          <ErrorBoundary>
+            <View>
+              <Defer depend={Preloader}>
+                <AppPreloader />
+              </Defer>
               <Routes />
-            </Defer>
-            <Defer depend={PopupService}>
-              <PopupContainer />
-            </Defer>
-            <Defer depend={UpfallService}>
-              <UpfallConatiner />
-            </Defer>
-            <Defer depend={ReportService}>
-              <CrashOverlay />
-            </Defer>
-          </View>
+              <Defer depend={PopupService}>
+                <PopupContainer />
+              </Defer>
+              <Defer depend={UpfallService}>
+                <UpfallConatiner />
+              </Defer>
+            </View>
+          </ErrorBoundary>
         </AppRoot>
       </ThemeProvider>
     </>

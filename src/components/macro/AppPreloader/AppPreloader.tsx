@@ -2,13 +2,13 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { Empty } from '../../utils/Empty'
 import { Preloader } from '../../micro/Preloader'
-import { animated, useTransition } from 'react-spring'
 import { ProgressBar } from '../../micro/ProgressBar'
 import { font } from 'style'
 import { Observer, useModule } from 'mobmarch'
 import { Preloader as PreloaderService } from 'preload'
+import { AnimatePresence, motion } from 'framer-motion'
 
-const AppPreloaderWrapper = styled.div`
+const AppPreloaderWrapper = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;
@@ -20,7 +20,7 @@ const AppPreloaderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 100px;
-  transition: background-color, ${({ theme }) => theme.transition.time};
+  transition: all ${({ theme }) => theme.transition.time};
   z-index: 50;
 `
 
@@ -79,19 +79,16 @@ const StagedProgressBar = styled(ProgressBar)`
 
 export const AppPreloader: FC = Observer(() => {
   const { inProcess, currentTaskName } = useModule(PreloaderService)
-  const transition = useTransition(inProcess, {
-    from: { opacity: 1, scale: 3 },
-    enter: { opacity: 1, scale: 1 },
-    leave: { opacity: -1, scale: 3 },
-    config: {
-      duration: 100,
-    },
-  })
 
-  return transition(
-    (style, item) =>
-      item && (
-        <AppPreloaderWrapper as={animated.div} style={style}>
+  return (
+    <AnimatePresence>
+      {inProcess && (
+        <AppPreloaderWrapper
+          initial={{ opacity: 1, scale: 1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: -1, scale: 3 }}
+          transition={{ duration: 0.1 }}
+        >
           <Empty />
           <Titles>
             <Title>Minecraft</Title>
@@ -104,6 +101,7 @@ export const AppPreloader: FC = Observer(() => {
             </Stage>
           </StageWrapper>
         </AppPreloaderWrapper>
-      ),
+      )}
+    </AnimatePresence>
   )
 })

@@ -1,50 +1,50 @@
 import { Module } from 'mobmarch'
-import { Vanilla } from 'core/providers/implemented/vanilla'
-import { Fabric } from 'core/providers/implemented/fabric'
-import { BlakeMapService } from 'minecraft/BlakeMap.service'
 import type { SupportedProviders } from 'core/providers'
 import { join } from 'native/path'
-import { GameDir, prepare } from 'native/filesystem'
-import { install, launch } from 'core'
+import { prepare } from 'native/filesystem'
 import { makeAutoObservable } from 'mobx'
 import { UpfallService } from 'notifications'
 import { GameProfileService } from 'minecraft/GameProfile.service'
 import { Observable } from 'rxjs'
 import { VersionUnion } from 'core/providers/types'
+import * as providers from 'core/providers/implemented'
+import { fetchMinecraftVersions } from 'core/providers'
+import { BlakeMap, compileLocal, launch, unzipNatives } from 'core'
+import { batchDownload } from 'network'
+import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
+import { cache, main } from 'storage'
 
-@Module([GameProfileService, BlakeMapService, UpfallService])
+@Module([GameProfileService, UpfallService, MinecraftJournal])
 export class SimpleHandler {
-  readonly vanilla = new Vanilla()
-  readonly fabric = new Fabric()
-
   provider: SupportedProviders = 'vanilla'
   version: VersionUnion | null = null
 
   constructor(
     private readonly gp: GameProfileService,
-    private readonly blake: BlakeMapService,
     private readonly upfall: UpfallService,
+    private readonly journal: MinecraftJournal,
   ) {
     makeAutoObservable(this)
   }
 
   async versions() {
-    return this[this.provider].versions()
+    return fetchMinecraftVersions()
   }
 
   go(username: string) {
     return new Observable<{ progress?: number; done?: boolean }>(subscriber => {
       let launched = false
       void (async () => {
+        const gameDir = await main.gameDir
         const versionId = `${this.provider}-${this.version!.id}`
-        const clientDir = await prepare(join(await GameDir(), 'versions', versionId))
+        const clientDir = await prepare(join(gameDir, 'versions', versionId))
         const lnch = async () => {
           if (launched) return
           launched = true
           const l = await launch({
             vid: versionId,
-            gameDataDir: await GameDir(),
-            gameDir: await prepare(join(await GameDir(), 'main')),
+            gameDataDir: gameDir,
+            gameDir: await prepare(join(gameDir, 'main')),
             username,
             clientDir,
           })
@@ -54,36 +54,51 @@ export class SimpleHandler {
           })
           let notify = false
           l.stdout.on('data', e => {
+            this.journal.write(e)
             if (!notify && e?.includes?.('Backend library: LWJGL version')) {
               notify = true
               this.upfall.drop('ok', 'Клиент запущен')
               subscriber.next({ done: true })
             }
           })
+          l.stderr.on('data', data => this.journal.write(data))
           await l.spawn()
         }
         if (!this.gp.has(versionId)) {
-          await this.gp.create(this[this.provider], this.version!, versionId, `${this.provider} ${this.version!.id}`)
-          const installer = await install({
-            vid: versionId!,
-            blakemap: this.blake.map,
-            clientDir,
-            gameDataDir: await GameDir(),
+          await this.gp.create(
+            providers[this.provider as keyof typeof providers],
+            this.version!,
+            versionId,
+            `${this.provider} ${this.version!.id}`,
+          )
+          const installer = batchDownload(await compileLocal(versionId, clientDir, gameDir))
+          installer.subscribe({
+            next(data) {
+              subscriber.next({ progress: data.progress.map(0, data.total, 0, 100) })
+            },
+            complete: async () => {
+              unzipNatives(join(clientDir, 'natives')).subscribe({
+                complete() {
+                  lnch()
+                },
+                error: () => {
+                  this.upfall.drop('error', 'Не удалось распаковать некоторые файлы игры')
+                },
+              })
+            },
+            error: () => {
+              this.upfall.drop(
+                'error',
+                'Во время установки произошла ошибка. Проверьте подключение к интернету и свободное пространство на диске',
+              )
+              subscriber.next({ done: true })
+            },
           })
-          installer.on('download', e => subscriber.next({ progress: e.transferred.map(0, e.total, 0, 100) }))
-          installer.on('error', e => {
-            this.blake.save()
-            this.upfall.drop(
-              'error',
-              'Во время установки произошла ошибка. Проверьте подключение к интернету и свободное пространство на диске',
-            )
+        } else
+          lnch().catch(e => {
+            this.upfall.drop('error', `Запуск игры не удался: ${e}`)
             subscriber.next({ done: true })
           })
-          installer.on('done', () => {
-            this.blake.save()
-            lnch()
-          })
-        } else lnch()
       })()
     })
   }

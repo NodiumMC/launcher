@@ -6,9 +6,12 @@ import { compileClasspath } from 'core'
 import { version } from 'native/app'
 
 const rulifyArgumnets = (args: ArgumentsArray): ArgumentsArray =>
-  args.filter(arg => typeof arg === 'string' || ParseRules(arg, ['has_custom_resolution']).allow)
+  typeof args !== 'string'
+    ? args.filter(arg => typeof arg === 'string' || ParseRules(arg, ['has_custom_resolution']).allow)
+    : args
 
 const flatArguments = (args: ArgumentsArray): string[] => {
+  if (typeof args === 'string') return [args]
   const stringArgs = args.map(arg => (typeof arg === 'string' ? [arg] : ParseRules(arg).value ?? []))
   return stringArgs.flat()
 }
@@ -45,8 +48,8 @@ export interface VersionedLaunchOptions extends LaunchOptions {
 }
 
 export const compileArguments = (options: VersionedLaunchOptions): string[] => {
-  const game = options.version.arguments.game ?? options.minecraftArgs
-  const jvm = options.version.arguments.jvm ?? options.javaArgs
+  const game = options.version.arguments?.game ?? options.version.minecraftArguments
+  const jvm = options.version.arguments?.jvm ?? []
   const classPathString = compileClasspath(options.vid, options.version, options.gameDataDir, options.clientDir).join(
     delimiter,
   )

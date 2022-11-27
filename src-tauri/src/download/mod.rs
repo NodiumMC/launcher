@@ -1,21 +1,19 @@
-use futures_util::future::Aborted;
+pub mod hash;
+
 use futures_util::{
-  future::{AbortHandle, Abortable},
+  future::{AbortHandle, Abortable, Aborted},
   StreamExt, TryStreamExt,
 };
-use reqwest::Url;
-use serde::{Serialize, Serializer};
-use std::path::Path;
+use hash::{check_file_integrity, create_hash_for_file, BlakeHash};
+use reqwest::Client;
+use url::Url;
+use serde::{Deserialize, Serialize, Serializer};
+use std::{path::PathBuf};
 use std::time::Duration;
-use tauri::{AppHandle, Manager, Runtime};
+use tauri::{command, AppHandle, Manager, Runtime};
 use thiserror::Error;
-use tokio::io::AsyncWriteExt;
+use tokio::{fs as tfs, io::AsyncWriteExt};
 
-use self::hash::{BlakeHash};
-mod hash;
-
-/// Represents all possbible error that can happen when downloading
-/// This uses the `thiserror` crate, it's fairly standard in the rust ecosystem.
 #[derive(Debug, Error)]
 pub enum DownloadError {
   #[error(transparent)]
@@ -38,43 +36,50 @@ impl Serialize for DownloadError {
   }
 }
 
-/// Simplify the event payload bc completed and error cases are handled by the command function return value
-#[derive(Debug, Clone, Serialize)]
-struct DownloadProgress {
-  total: u64,
-  transferred: u64,
-  chunk: u64,
+#[derive(Debug, Deserialize)]
+pub struct DownloadItem {
+  url: Url,
+  local: PathBuf,
+  hash: Option<String>,
 }
 
-/// Downloads a given `url` to a given path (`to`) on disk with blake3 integrity checking.
-/// Checks the disk beforehand to avoid unnecessary network requests.
-/// The parameters of this command are explicitly typed and provide input validation
-/// (`Url` and `Path` can both parse string inputs from the frontend and assert the inputs are well-formed)
-#[tauri::command]
-pub async fn download_file<R: Runtime>(
-  app_handle: AppHandle<R>,
-  url: Url,
-  to: &Path,
-  expected_checksum: Option<String>,
-  progress_id: String,
-) -> Result<String, DownloadError> {
-  if !expected_checksum.is_none() && to.exists() && to.is_file() {
-    let hash = expected_checksum.unwrap_or_default();
-    match hash::check_file_integrity(to, &hash) {
-      Ok(_) => return Ok(hash),
-      Err(_) => {},
-    }
-  }
+#[derive(Debug, Serialize, Deserialize, Clone)]
+struct DownloadProgress {
+  total: u64,
+  chunk: u64,
+  transferred: u64,
+}
 
-  let mut file = tokio::fs::File::create(to).await?;
-  let res = reqwest::Client::builder()
-    .timeout(Duration::from_secs(5))
+fn check_match(expected: Option<String>, to: &PathBuf) -> Option<String> {
+  if !expected.is_none() && to.exists() && to.is_file() {
+    let hash = expected.unwrap_or_default();
+    return match check_file_integrity(to, &hash) {
+      Ok(_) => Some(hash),
+      Err(_) => None,
+    };
+  }
+  None
+}
+
+fn emit_progress<R: Runtime>(apph: &AppHandle<R>, pid: &String, total: u64, chunk: u64, transferred: u64) {
+  let _ = apph.emit_all(
+    pid,
+    DownloadProgress {
+      total,
+      transferred,
+      chunk,
+    },
+  );
+}
+
+async fn download_file<F: Fn(u64, u64, u64) -> ()>(url: &Url, to: &PathBuf, on: Option<F>) -> Result<(), DownloadError> {
+  let mut file = tfs::File::create(to).await?;
+  let res = Client::builder()
     .build()?
-    .get(url)
+    .get(url.to_owned())
     .send()
     .await?;
   let total_size = res.content_length().ok_or(DownloadError::NoContentLength)?;
-  let long_time = total_size > 1024 * 1024 * 2;
   let mut transferred: u64 = 0;
   let mut stream = res.bytes_stream().map_err(DownloadError::from);
 
@@ -82,59 +87,53 @@ pub async fn download_file<R: Runtime>(
     let bytes = bytes?;
     file.write(&bytes).await?;
     transferred += bytes.len() as u64;
-
-    if !long_time {
-      continue;
+    if let Some(f) = &on {
+      f(total_size, bytes.len() as u64, transferred);
     }
-
-    let _ = app_handle.emit_all(
-      &progress_id,
-      DownloadProgress {
-        total: total_size,
-        transferred,
-        chunk: bytes.len() as u64,
-      },
-    );
   }
 
-  let _ = app_handle.emit_all(
-    &progress_id,
-    DownloadProgress {
-      total: total_size,
-      transferred,
-      chunk: if !long_time { transferred } else { 0 },
-    },
-  );
-
-  Ok(hash::create_hash_for_file(&to)?.as_string())
+  Ok(())
 }
 
-#[tauri::command]
-pub async fn download<R: Runtime>(
+#[allow(unused)]
+#[command]
+pub async fn download<R: Runtime, 'a>(app_handle: AppHandle<R>, item: DownloadItem) -> Result<String, DownloadError> {
+  if let Some(hash) = check_match(item.hash, &item.local) {
+    return Ok(hash);
+  }
+  download_file(&item.url, &item.local, None::<fn(u64, u64, u64)>).await?;
+  Ok(create_hash_for_file(&item.local)?.as_string())
+}
+
+#[allow(unused)]
+#[command]
+pub async fn download_longtime<R: Runtime>(
   app_handle: AppHandle<R>,
-  url: Url,
-  to: &Path,
-  hash: Option<String>,
-  progress_id: String,
-  abort_id: Option<String>,
+  pid: String,
+  item: DownloadItem,
+  aid: Option<String>,
 ) -> Result<String, DownloadError> {
   let (abort_handle, abort_registration) = AbortHandle::new_pair();
 
-  let task = download_file(app_handle.clone(), url, to, hash, progress_id);
+  let task = async {
+    if let Some(hash) = check_match(item.hash, &item.local) {
+      return Ok(hash);
+    }
+    download_file(
+      &item.url,
+      &item.local,
+      Some(|a, b, c| emit_progress(&app_handle, &pid, a, b, c)),
+    )
+    .await?;
+    Ok(create_hash_for_file(&item.local)?.as_string())
+  };
 
-  match abort_id {
+  match aid {
     Some(id) => {
-      let future = Abortable::new(
-        task,
-        abort_registration,
-      );
-
-      app_handle.listen_global(id, move |_| {
-        abort_handle.abort();
-      });
-
+      let future = Abortable::new(task, abort_registration);
+      app_handle.listen_global(id, move |_| abort_handle.abort());
       future.await?
-    },
-    None => task.await
+    }
+    None => task.await,
   }
 }

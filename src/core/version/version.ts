@@ -20,7 +20,7 @@ export interface RuleContainer {
   value?: string | string[]
 }
 
-export type ArgumentsArray = (string | RuleContainer)[]
+export type ArgumentsArray = (string | RuleContainer)[] | string
 
 export interface AssetInfo {
   id: string

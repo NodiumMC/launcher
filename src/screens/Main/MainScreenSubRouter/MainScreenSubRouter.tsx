@@ -57,9 +57,9 @@ export const MainScreenSidebarSubrouter: FC<Required<ExtraProps.HasChildren<Arra
           selected={subrouter.location}
         />
         <Content>
-          {items.map(({ children, to }, i) => (
+          {items.map(({ children, to, debug }, i) => (
             <Page key={to} position={i - subrouter.location}>
-              {children}
+              {debug ? subrouter.location === to && children : children}
             </Page>
           ))}
         </Content>

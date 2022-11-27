@@ -1,11 +1,13 @@
 import { FC } from 'react'
 import { MainScreenPage, MainScreenSidebarSubrouter, MainScreenSubRouter, SubRoute } from './MainScreenSubRouter'
 import { Defer } from 'mobmarch'
-import { Text } from 'components/micro/Text'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
 import { I18n } from 'i18n'
 import { Components, Logs } from './DebugSubscreens'
-import { DebugService, DelogService } from 'debug'
+import { JournalSubscreen } from 'screens/Main/JournalSubscreen/JournalSubscreen'
+import { SettingsSubscreen } from 'screens/Main/SettingsSubscreen/SettingsSubscreen'
+import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
+import { DebugService } from 'debug'
 
 export const Main: FC = () => {
   return (
@@ -14,20 +16,14 @@ export const Main: FC = () => {
         <SubRoute icon={'play'} to={MainScreenPage.PLAY}>
           <PlaySubscreen />
         </SubRoute>
-        {/*<SubRoute icon={'cubes'} to={MainScreenPage.INSTANCES}>*/}
-        {/*  <Defer depend={[InstanceStore, GameProfileService, PopupService]} fallback={<LoadingScreen />}>*/}
-        {/*    <InstancesSubscreen />*/}
-        {/*  </Defer>*/}
-        {/*</SubRoute>*/}
-        {/*<SubRoute icon={'download'} to={MainScreenPage.VERSIONS}>*/}
-        {/*  <Defer depend={GameProfileService}>*/}
-        {/*    <VersionsSubscreen />*/}
-        {/*  </Defer>*/}
-        {/*</SubRoute>*/}
         <SubRoute icon={'terminal'} to={MainScreenPage.CONSOLE}>
-          <Text>456</Text>
+          <Defer depend={MinecraftJournal}>
+            <JournalSubscreen />
+          </Defer>
         </SubRoute>
-        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}></SubRoute>
+        <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}>
+          <SettingsSubscreen />
+        </SubRoute>
         <SubRoute icon={'puzzle-piece'} to={MainScreenPage.COMPONENTS} debug>
           <Components />
         </SubRoute>

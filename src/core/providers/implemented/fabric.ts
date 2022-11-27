@@ -1,34 +1,16 @@
+import { fabricVersion } from 'core/providers/endpoints'
 import { mergeVersions, VersionFile } from 'core/version'
-import { FabricLoadersManifest, FabricManifest, VersionUnion } from 'core/providers/types'
-import { Vanilla } from 'core/providers/implemented/vanilla'
-import { fabricLoaders, fabricManifest, fabricVersion } from 'core/providers/endpoints'
-import { isOld, isRelease, isSnapshot } from 'core/utils'
+import { fetchFabricLoaders, fetchFabricManifest, Provider } from '..'
+import { vanilla } from '.'
+import { fetch } from '@tauri-apps/api/http'
 
-export class Fabric extends Vanilla {
-  private async fetchFabricManifest(): Promise<FabricManifest> {
-    return fetch(fabricManifest).then(v => v.json())
-  }
-
-  async json(id: string, lv: string): Promise<VersionFile> {
-    const mojang = await super.json(id)
-    const fabricVersions = await this.versions()
-    if (!fabricVersions.some(v => v.id === id)) throw new Error(`Version ${id} doesn't exists`)
-    const fabricLoadersManifest: FabricLoadersManifest = await fetch(fabricLoaders.explain({ id })).then(v => v.json())
-    const loader = fabricLoadersManifest[0].loader.version
-    const fabric: VersionFile = await fetch(fabricVersion.explain({ id, loader })).then(v => v.json())
-    return mergeVersions(mojang, fabric)
-  }
-
-  async versions(): Promise<VersionUnion[]> {
-    const mojangManifest = await this.fetchManifest()
-    const fabricManifest = await this.fetchFabricManifest()
-    return fabricManifest.map(v => ({
-      id: v.version,
-      name: v.version,
-      isRelease: isRelease(v.version),
-      isOld: isOld(v.version),
-      isSnapshot: isSnapshot(v.version),
-      latest: mojangManifest.latest.release === v.version || mojangManifest.latest.snapshot === v.version,
-    }))
-  }
+export const fabric: Provider = async (id, loader?: string) => {
+  const mojang = await vanilla(id)
+  const fabricManifest = await fetchFabricManifest()
+  const fabricVersions = fabricManifest.map(v => v.version)
+  if (!fabricVersions.some(v => v === id)) throw new Error(`Version ${id} isn't supported by Fabric mod loader`)
+  const fabric = await fetch<VersionFile>(
+    fabricVersion.explain({ id, loader: loader ?? (await fetchFabricLoaders(id).then(v => v[0].loader.version)) }),
+  ).then(v => v.data)
+  return mergeVersions(mojang, fabric)
 }

@@ -1,15 +1,16 @@
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
 import { relaunch } from '@tauri-apps/api/process'
-import { TODO } from 'utils/todo'
+import { error, log } from 'debug'
 
 export const updateApp = async () => {
   try {
-    const { shouldUpdate } = await checkUpdate()
+    const { shouldUpdate, manifest } = await checkUpdate()
+    log('Update manifest:', manifest)
     if (shouldUpdate) {
       await installUpdate()
       await relaunch()
     }
   } catch (e) {
-    TODO()
+    error(`Failed to check update: ${e}`)
   }
 }

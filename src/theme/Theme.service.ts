@@ -1,22 +1,20 @@
-import { makeAutoObservable } from 'mobx'
+import { autorun, makeAutoObservable } from 'mobx'
 import type { SupportedTheme, Theme } from 'theme'
-import { deviceThemeIsDark, themes } from 'theme'
-import { CentralConfig } from 'storage'
+import { themes } from 'theme'
 import { Module } from 'mobmarch'
 import { Preloader } from 'preload'
 import { I18n } from 'i18n'
+import { main } from 'storage'
 
-@Module([CentralConfig, Preloader, I18n])
+@Module([Preloader, I18n])
 export class ThemeService {
-  private _theme: SupportedTheme = deviceThemeIsDark() ? 'dark' : 'light'
+  private _theme: SupportedTheme = 'dark'
 
-  constructor(private readonly config: CentralConfig) {
+  constructor() {
     makeAutoObservable(this)
-    this.update()
-  }
-
-  update() {
-    this._theme = this.config.get('appearance.theme', this._theme)
+    autorun(() => {
+      this._theme = main.theme
+    })
   }
 
   get current() {
@@ -29,6 +27,6 @@ export class ThemeService {
 
   async setTheme(theme: SupportedTheme) {
     this._theme = theme
-    this.config.set('appearance.theme', this._theme)
+    main.theme = theme
   }
 }

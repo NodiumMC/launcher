@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Nodium Launcher",
-    "version": "0.0.1"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -30,6 +30,9 @@
         "scope": [
           "**"
         ]
+      },
+      "dialog": {
+        "open": true
       },
       "http": {
         "scope": [

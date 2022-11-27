@@ -24,11 +24,7 @@ export const writeJsonFile = async <T>(path: string, data: T): Promise<void> => 
 }
 
 export const readJson5File = async <T>(path: string): Promise<T> => {
-  try {
-    return JSON5.parse(await readTextFile(path))
-  } catch (e) {
-    return readJson5File(path)
-  }
+  return JSON5.parse(await readTextFile(path))
 }
 
 export const writeJson5File = async <T>(path: string, data: T): Promise<void> => {

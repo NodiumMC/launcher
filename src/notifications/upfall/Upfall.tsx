@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Text } from 'components/micro/Text'
 import { Observer, useModule } from 'mobmarch'
 import { UpfallService } from 'notifications/upfall/Upfall.service'
-import { animated, useTransition } from 'react-spring'
 import { mix, rgba } from 'polished'
 import { useOnce } from 'hooks'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Icon = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const Icon = styled.div`
   border-right: 1px solid ${({ theme }) => theme.master.shade()};
 `
 
-const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(({ theme, type }) => ({
+const UpfallItemStyled = styled(motion.div).attrs<Pick<Upfall, 'type'>>(({ theme, type }) => ({
   typecolor: (() => {
     switch (type) {
       default:
@@ -34,10 +34,10 @@ const UpfallItemStyled = styled.div.attrs<Pick<Upfall, 'type'>>(({ theme, type }
 }))<Pick<Upfall, 'type'> & { typecolor?: string }>`
   display: flex;
   gap: 12px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   max-width: 400px;
   min-width: 60px;
-  min-height: 36px;
+  min-height: 38px;
   align-items: center;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
   border: 1px solid ${({ typecolor, type, theme }) => (type === 'default' ? theme.master.shade() : typecolor)};
@@ -65,7 +65,33 @@ export const UpfallItem: FC<{ upfall: Upfall; key: string } & ExtraProps.Styled>
   })
 
   return (
-    <UpfallItemStyled type={type} as={animated.div} style={style}>
+    <UpfallItemStyled
+      type={type}
+      initial={{
+        opacity: 0,
+        y: -100,
+        maxHeight: 0,
+        minHeight: 0,
+        padding: '0px 12px',
+        margin: '-4px 0',
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        maxHeight: 300,
+        minHeight: 38,
+        padding: '8px 12px',
+        margin: '0px 0',
+      }}
+      exit={{
+        opacity: 0,
+        y: -100,
+        maxHeight: 0,
+        minHeight: 0,
+        padding: '0px 12px',
+        margin: '-4px 0',
+      }}
+    >
       <Icon>
         <FontAwesomeIcon
           icon={icon ?? type === 'ok' ? 'check' : type === 'warn' ? 'warning' : type === 'error' ? 'xmark' : 'info'}
@@ -78,9 +104,9 @@ export const UpfallItem: FC<{ upfall: Upfall; key: string } & ExtraProps.Styled>
 
 const Container = styled.div`
   position: fixed;
-  inset: 0;
-  left: 50%;
-  translate: -50%;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,39 +119,13 @@ const Container = styled.div`
 export const UpfallConatiner: FC = Observer(() => {
   const upfall = useModule(UpfallService)
 
-  const transitions = useTransition(upfall.list, {
-    keys: item => item.id,
-    from: {
-      opacity: 0,
-      y: -100,
-      maxHeight: 0,
-      minHeight: 0,
-      padding: '0px 12px',
-      margin: '-4px 0',
-    },
-    enter: {
-      opacity: 1,
-      y: 0,
-      maxHeight: 300,
-      minHeight: 36,
-      padding: '6px 12px',
-      margin: '0px 0',
-    },
-    leave: {
-      opacity: 0,
-      y: -100,
-      maxHeight: 0,
-      minHeight: 0,
-      padding: '0px 12px',
-      margin: '-4px 0',
-    },
-  })
-
   return (
     <Container>
-      {transitions((style, item) => (
-        <UpfallItem upfall={item} key={item.id} style={style} />
-      ))}
+      <AnimatePresence>
+        {upfall.list.map(item => (
+          <UpfallItem upfall={item} key={item.id} />
+        ))}
+      </AnimatePresence>
     </Container>
   )
 })

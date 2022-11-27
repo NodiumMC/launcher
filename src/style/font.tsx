@@ -4,7 +4,6 @@ import tomorrow_medium from 'assets/fonts/Tomorrow/Tomorrow-MediumItalic.ttf'
 import tomorrow_light from 'assets/fonts/Tomorrow/Tomorrow-Light.ttf'
 import rubik from 'assets/fonts/Rubik.ttf'
 import fira_code from 'assets/fonts/FiraCode.ttf'
-import WebFont from 'webfontloader'
 import { normalizeFontWeight } from 'utils'
 
 export const font = (name?: string) => css`
@@ -29,11 +28,3 @@ export const Fonts = createGlobalStyle`
   ${fontFace('Rubik', rubik)}
   ${fontFace('Fira Code', fira_code)}
 `
-
-export const preload = () =>
-  WebFont.load({
-    custom: {
-      families: ['GTEestiProText', 'Tomorrow', 'Rubik', 'Fira Code'],
-      urls: [gteestiprotext_regular, tomorrow_medium, tomorrow_light, rubik, fira_code],
-    },
-  })
