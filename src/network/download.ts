@@ -25,7 +25,7 @@ export const batchDownload = (resources: Resource[], batchSize = 64) =>
       while (nc.available && queue.length > 0) {
         const batch = queue.splice(0, batchSize)
         await batch.mapAsync(async r =>
-          Rdownload(r.url, r.local, (await cache.getItem('r.local')) ?? undefined).then(
+          Rdownload(r.url, r.local, (await cache.getItem(r.local)) ?? undefined).then(
             async hash => {
               progress++
               await cache.setItem(r.local, hash)
