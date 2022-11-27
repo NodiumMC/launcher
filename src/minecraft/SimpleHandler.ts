@@ -1,8 +1,7 @@
 import { Module } from 'mobmarch'
-import { BlakeMapService } from 'minecraft/BlakeMap.service'
 import type { SupportedProviders } from 'core/providers'
 import { join } from 'native/path'
-import { GameDir, prepare } from 'native/filesystem'
+import { prepare } from 'native/filesystem'
 import { makeAutoObservable } from 'mobx'
 import { UpfallService } from 'notifications'
 import { GameProfileService } from 'minecraft/GameProfile.service'
@@ -10,21 +9,19 @@ import { Observable } from 'rxjs'
 import { VersionUnion } from 'core/providers/types'
 import * as providers from 'core/providers/implemented'
 import { fetchMinecraftVersions } from 'core/providers'
-import { compileLocal, launch, unzipNatives } from 'core'
+import { BlakeMap, compileLocal, launch, unzipNatives } from 'core'
 import { batchDownload } from 'network'
-import { CentralConfig } from 'storage'
 import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
+import { cache, main } from 'storage'
 
-@Module([GameProfileService, BlakeMapService, UpfallService, CentralConfig, MinecraftJournal])
+@Module([GameProfileService, UpfallService, MinecraftJournal])
 export class SimpleHandler {
   provider: SupportedProviders = 'vanilla'
   version: VersionUnion | null = null
 
   constructor(
     private readonly gp: GameProfileService,
-    private readonly blake: BlakeMapService,
     private readonly upfall: UpfallService,
-    private readonly cc: CentralConfig,
     private readonly journal: MinecraftJournal,
   ) {
     makeAutoObservable(this)
@@ -38,7 +35,7 @@ export class SimpleHandler {
     return new Observable<{ progress?: number; done?: boolean }>(subscriber => {
       let launched = false
       void (async () => {
-        const gameDir = this.cc.get('main.gameDir', await GameDir())
+        const gameDir = await main.gameDir
         const versionId = `${this.provider}-${this.version!.id}`
         const clientDir = await prepare(join(gameDir, 'versions', versionId))
         const lnch = async () => {
@@ -74,13 +71,12 @@ export class SimpleHandler {
             versionId,
             `${this.provider} ${this.version!.id}`,
           )
-          const installer = batchDownload(await compileLocal(versionId, clientDir, gameDir), this.blake.map)
+          const installer = batchDownload(await compileLocal(versionId, clientDir, gameDir))
           installer.subscribe({
             next(data) {
               subscriber.next({ progress: data.progress.map(0, data.total, 0, 100) })
             },
             complete: async () => {
-              await this.blake.save()
               unzipNatives(join(clientDir, 'natives')).subscribe({
                 complete() {
                   lnch()
@@ -91,7 +87,6 @@ export class SimpleHandler {
               })
             },
             error: () => {
-              this.blake.save()
               this.upfall.drop(
                 'error',
                 'Во время установки произошла ошибка. Проверьте подключение к интернету и свободное пространство на диске',

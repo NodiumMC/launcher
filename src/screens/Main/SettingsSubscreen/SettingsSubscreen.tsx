@@ -1,13 +1,14 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { Text } from 'components/micro/Text'
-import { Observer, useModule } from 'mobmarch'
+import { Observer } from 'mobmarch'
 import { VLabel } from 'components/micro/VLabel'
 import { DialogInput } from 'components/micro/DialogInput'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CentralConfig } from 'storage'
-import { useGameDir } from 'hooks/useAppData'
+import { useStorageState } from 'hooks/useStorageState'
+import { GameDir } from 'native/filesystem'
+import { main } from 'storage'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -21,6 +22,7 @@ const Split = styled(Text).attrs(() => ({
   padding: 20px 0;
   position: relative;
   font-size: ${({ theme }) => theme.size(20)} !important;
+
   &:after {
     content: '';
     position: absolute;
@@ -33,9 +35,6 @@ const Split = styled(Text).attrs(() => ({
 `
 
 export const SettingsSubscreen: FC = Observer(() => {
-  const config = useModule(CentralConfig)
-  const gameDir = useGameDir()
-
   return (
     <Page>
       <Split>Общие настройки</Split>
@@ -46,8 +45,8 @@ export const SettingsSubscreen: FC = Observer(() => {
         <DialogInput
           directory
           icon={<FontAwesomeIcon icon={'folder'} />}
-          value={config.get('main.gameDir', gameDir)}
-          onChange={dir => config.set('main.gameDir', dir)}
+          value={main.gameDir}
+          onChange={dir => (main.gameDir = dir)}
         />
       </VLabel>
     </Page>

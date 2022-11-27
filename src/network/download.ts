@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs'
-import { BlakeMap } from 'core'
 import { Rdownload } from 'native/rust'
 import { container } from 'tsyringe'
 import { NetworkChecker } from 'network'
+import { cache } from 'storage'
 
 export interface Resource {
   url: string
@@ -15,24 +15,23 @@ export interface BatchProgress {
   progress: number
 }
 
-export const batchDownload = (resources: Resource[], blake?: BlakeMap, batchSize = 64) =>
+export const batchDownload = (resources: Resource[], batchSize = 64) =>
   new Observable<BatchProgress>(subscriber => {
     const nc = container.resolve(NetworkChecker)
     const total = resources.length
-    const queue = [...resources].sort((a, b) => a.size ?? 0 - (b.size ?? 0))
+    const queue = [...resources]
     let progress = 0
     void (async function loop() {
       while (nc.available && queue.length > 0) {
-        const batch = queue.slice(0, batchSize)
-        await batch.mapAsync((r, i) =>
-          Rdownload(r.url, r.local, blake?.[r.local]).then(
-            hash => {
-              queue.splice(i, 1)
+        const batch = queue.splice(0, batchSize)
+        await batch.mapAsync(async r =>
+          Rdownload(r.url, r.local, (await cache.getItem('r.local')) ?? undefined).then(
+            async hash => {
               progress++
-              if (blake) blake[r.local] = hash
+              await cache.setItem(r.local, hash)
               subscriber.next({ total, progress })
             },
-            error => console.log(error),
+            () => queue.push(r),
           ),
         )
       }

@@ -7,13 +7,12 @@ import { PopupContainer, PopupService, UpfallConatiner, UpfallService } from 'no
 import { Fonts, Style } from 'style'
 import { Defer, Observer, useDeferredModule } from 'mobmarch'
 import { deviceTheme, ThemeService } from 'theme'
-import { Preloader } from 'preload'
+import { Preloader, WaitService } from 'preload'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
-import { PersistentCacheService } from 'storage'
 import { ErrorBoundary } from 'debug/ErrorBoundary'
 
 const AppRoot = styled.div`
@@ -36,6 +35,7 @@ const View = styled.div`
 
 export const App: FC = Observer(() => {
   const [, theme] = useDeferredModule(ThemeService)
+  useDeferredModule(WaitService)
   useDeferredModule(Updater)
   useThemeToggleHotkey()
   useFontawesomeLoader()
@@ -47,15 +47,13 @@ export const App: FC = Observer(() => {
         <Fonts />
         <AceStyle />
         <AppRoot>
+          <Header />
           <ErrorBoundary>
-            <Header />
             <View>
               <Defer depend={Preloader}>
                 <AppPreloader />
               </Defer>
-              <Defer depend={[PersistentCacheService]}>
-                <Routes />
-              </Defer>
+              <Routes />
               <Defer depend={PopupService}>
                 <PopupContainer />
               </Defer>

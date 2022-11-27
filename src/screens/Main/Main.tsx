@@ -4,12 +4,10 @@ import { Defer } from 'mobmarch'
 import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
 import { I18n } from 'i18n'
 import { Components, Logs } from './DebugSubscreens'
-import { DebugService } from 'debug'
 import { JournalSubscreen } from 'screens/Main/JournalSubscreen/JournalSubscreen'
-import { BlakeMapService } from 'minecraft/BlakeMap.service'
-import { CentralConfig } from 'storage'
 import { SettingsSubscreen } from 'screens/Main/SettingsSubscreen/SettingsSubscreen'
 import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
+import { DebugService } from 'debug'
 
 export const Main: FC = () => {
   return (
@@ -24,15 +22,13 @@ export const Main: FC = () => {
           </Defer>
         </SubRoute>
         <SubRoute icon={'gear'} to={MainScreenPage.SETTINGS}>
-          <Defer depend={CentralConfig}>
-            <SettingsSubscreen />
-          </Defer>
+          <SettingsSubscreen />
         </SubRoute>
         <SubRoute icon={'puzzle-piece'} to={MainScreenPage.COMPONENTS} debug>
           <Components />
         </SubRoute>
         <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug>
-          <Defer depend={[DebugService, BlakeMapService]}>
+          <Defer depend={[DebugService]}>
             <Logs />
           </Defer>
         </SubRoute>

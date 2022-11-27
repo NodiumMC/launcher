@@ -1,7 +1,6 @@
 import { Children, cloneElement, FC, isValidElement } from 'react'
 import styled from 'styled-components'
 
-import { animated } from 'react-spring'
 import { rgba } from 'polished'
 import { IPopup } from '.'
 
@@ -31,9 +30,5 @@ export const PopupWrapper: FC<{ close: IPopup['close'] } & ExtraProps.HasChildre
     return child
   })
 
-  return (
-    <Popup as={animated.div} style={style}>
-      {childrenWithProps}
-    </Popup>
-  )
+  return <Popup style={style}>{childrenWithProps}</Popup>
 }
