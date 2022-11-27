@@ -45,7 +45,7 @@ const PlayZone: FC = Observer(() => {
     handler.versions().then(v => {
       setVersions(v.filter(v => v.isRelease && !v.isOld))
     })
-  })
+  }, [])
 
   return (
     <>
