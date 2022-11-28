@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "schedule": ["every weekend"],
+  "schedule": ["every month"],
   "branchPrefix": "deps/",
   "labels": ["type: chore"],
   "automergeStrategy": "squash",
