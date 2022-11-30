@@ -2,7 +2,7 @@ import { createGlobalStyle, css } from 'styled-components'
 import gteestiprotext_regular from 'assets/fonts/GTEestiProText.ttf'
 import tomorrow_medium from 'assets/fonts/Tomorrow/Tomorrow-MediumItalic.ttf'
 import tomorrow_light from 'assets/fonts/Tomorrow/Tomorrow-Light.ttf'
-import rubik from 'assets/fonts/Rubik.ttf'
+import jbm from 'assets/fonts/JetBrainsMono.ttf'
 import fira_code from 'assets/fonts/FiraCode.ttf'
 import { normalizeFontWeight } from 'utils'
 
@@ -25,6 +25,6 @@ export const Fonts = createGlobalStyle`
   ${fontFace('GTEestiProText', gteestiprotext_regular)}
   ${fontFace('Tomorrow', tomorrow_medium, 'medium')}
   ${fontFace('Tomorrow', tomorrow_light, 'light')}
-  ${fontFace('Rubik', rubik)}
+  ${fontFace('JetBrains Mono', jbm)}
   ${fontFace('Fira Code', fira_code)}
 `

@@ -74,7 +74,7 @@ export const Style = createGlobalStyle`
     height: 100%;
     overflow: hidden;
     border-radius: ${({ theme }) => theme.radius()};
-    font-family: Rubik, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    font-family: "JetBrains Mono", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
     color: ${({ theme }) => theme.master.front};
     font-size: 14px;
     transition: background-color, color, font-size, ${({ theme }) => theme.transition.time};
