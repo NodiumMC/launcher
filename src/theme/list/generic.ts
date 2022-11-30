@@ -46,8 +46,8 @@ export const generic = {
     },
   },
   fonts: {
-    default: 'Rubik',
-    interact: 'GTEestiProText',
+    default: '"Jetbrains Mono"',
+    interact: '"Jetbrains Mono"',
     title: 'Tomorrow',
   },
   transition: {
