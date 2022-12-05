@@ -1,7 +1,6 @@
 import { log, endTime, time, warn, error } from 'debug'
 import JSON5 from 'json5'
 import { container } from 'tsyringe'
-import { resolve } from 'mobmarch'
 
 const applyAsync = (input: string): string => {
   return `
@@ -48,7 +47,7 @@ const context = {
   $: {},
   namespace: 'global',
   $$__container: container,
-  $$__resolve: resolve,
+  $$__resolve: container.resolve.bind(container),
 }
 
 export const execute = async (code: string) => {

@@ -1,7 +1,6 @@
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { DelogLine } from 'debug'
 import { container, singleton } from 'tsyringe'
-import inject from 'flinject'
 
 @singleton()
 export class DelogService {
@@ -12,6 +11,17 @@ export class DelogService {
 
   get logs() {
     return this._delogs
+  }
+
+  clear() {
+    this._delogs = []
+  }
+
+  reset() {
+    this.clear()
+    this._times = {}
+    this._times = {}
+    this._descriptions = {}
   }
 
   @action
@@ -37,9 +47,6 @@ export class DelogService {
 
   constructor() {
     makeObservable(this)
-    console.log = inject(console.log, (_, ...args) => log(...args))
-    console.warn = inject(console.warn, (_, ...args) => warn(...args))
-    console.error = inject(console.error, (_, ...args) => error(...args))
   }
 }
 
