@@ -41,6 +41,6 @@ pub fn check_file_integrity(path: &PathBuf, expected: &str) -> Result<(), BlakeE
   if expected == found {
     Ok(())
   } else {
-    Err(BlakeError::HashMismatch { expected: expected.to_string(), found: found.to_string() })
+    Err(BlakeError::HashMismatch { expected: expected.to_string(), found })
   }
 }
