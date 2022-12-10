@@ -10,6 +10,11 @@ use std::{path::PathBuf};
 use tauri::{command, AppHandle, Manager, Runtime};
 use thiserror::Error;
 use tokio::{fs as tfs, io::AsyncWriteExt};
+use lazy_static::lazy_static;
+
+lazy_static! {
+  static ref CLIENT: Client = Client::new();
+}
 
 #[derive(Debug, Error)]
 pub enum DownloadError {
@@ -71,8 +76,7 @@ fn emit_progress<R: Runtime>(apph: &AppHandle<R>, pid: &str, total: u64, chunk: 
 
 async fn download_file<F: Fn(u64, u64, u64)>(url: &Url, to: &PathBuf, on: Option<F>) -> Result<(), DownloadError> {
   let mut file = tfs::File::create(to).await?;
-  let res = Client::builder()
-    .build()?
+  let res = CLIENT
     .get(url.to_owned())
     .send()
     .await?;

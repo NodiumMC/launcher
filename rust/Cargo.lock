@@ -395,6 +395,7 @@ dependencies = [
  "arrayvec",
  "blake3",
  "futures-util",
+ "lazy_static",
  "reqwest",
  "serde",
  "serde_json",
