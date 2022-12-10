@@ -9,7 +9,6 @@ use reqwest::Client;
 use url::Url;
 use serde::{Deserialize, Serialize, Serializer};
 use std::{path::PathBuf};
-use std::time::Duration;
 use tauri::{command, AppHandle, Manager, Runtime};
 use thiserror::Error;
 use tokio::{fs as tfs, io::AsyncWriteExt};
