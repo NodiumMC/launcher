@@ -1,15 +1,12 @@
-pub mod hash;
-
 use futures_util::{
   future::{AbortHandle, Abortable, Aborted},
   StreamExt, TryStreamExt,
 };
-use hash::{check_file_integrity, create_hash_for_file, BlakeHash};
+use super::hash::{check_file_integrity, create_hash_for_file, BlakeHash, BlakeError};
 use reqwest::Client;
 use url::Url;
 use serde::{Deserialize, Serialize, Serializer};
 use std::{path::PathBuf};
-use std::time::Duration;
 use tauri::{command, AppHandle, Manager, Runtime};
 use thiserror::Error;
 use tokio::{fs as tfs, io::AsyncWriteExt};
@@ -27,7 +24,7 @@ pub enum DownloadError {
   #[error("Failed to get content length.")]
   NoContentLength,
   #[error(transparent)]
-  HashMismatch(#[from] hash::BlakeError),
+  HashMismatch(#[from] BlakeError),
 }
 
 impl Serialize for DownloadError {
@@ -51,7 +48,7 @@ struct DownloadProgress {
 }
 
 fn check_match(expected: Option<String>, to: &PathBuf) -> Option<String> {
-  if !expected.is_none() && to.exists() && to.is_file() {
+  if expected.is_some() && to.exists() && to.is_file() {
     let hash = expected.unwrap_or_default();
     return match check_file_integrity(to, &hash) {
       Ok(_) => Some(hash),
@@ -61,7 +58,7 @@ fn check_match(expected: Option<String>, to: &PathBuf) -> Option<String> {
   None
 }
 
-fn emit_progress<R: Runtime>(apph: &AppHandle<R>, pid: &String, total: u64, chunk: u64, transferred: u64) {
+fn emit_progress<R: Runtime>(apph: &AppHandle<R>, pid: &str, total: u64, chunk: u64, transferred: u64) {
   let _ = apph.emit_all(
     pid,
     DownloadProgress {
@@ -72,7 +69,7 @@ fn emit_progress<R: Runtime>(apph: &AppHandle<R>, pid: &String, total: u64, chun
   );
 }
 
-async fn download_file<F: Fn(u64, u64, u64) -> ()>(url: &Url, to: &PathBuf, on: Option<F>) -> Result<(), DownloadError> {
+async fn download_file<F: Fn(u64, u64, u64)>(url: &Url, to: &PathBuf, on: Option<F>) -> Result<(), DownloadError> {
   let mut file = tfs::File::create(to).await?;
   let res = Client::builder()
     .build()?
@@ -85,7 +82,7 @@ async fn download_file<F: Fn(u64, u64, u64) -> ()>(url: &Url, to: &PathBuf, on: 
 
   while let Some(bytes) = stream.next().await {
     let bytes = bytes?;
-    file.write(&bytes).await?;
+    file.write_all(&bytes).await?;
     transferred += bytes.len() as u64;
     if let Some(f) = &on {
       f(total_size, bytes.len() as u64, transferred);

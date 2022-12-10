@@ -29,9 +29,9 @@ impl Serialize for UnzipError {
 
 #[command]
 pub async fn unzip<R: Runtime>(app_handle: AppHandle<R>, from: &Path, to: &Path, delete: bool, progress_id: String) -> Result<(), UnzipError> {
-  let file = File::open(&from)?;
+  let file = File::open(from)?;
   let mut archive = zip::ZipArchive::new(&file)?;
-  let archive_len = archive.len().clone();
+  let archive_len = archive.len();
   for i in 0..archive.len() {
     let mut file = archive.by_index(i)?;
     let path = to.join(file.mangled_name());
