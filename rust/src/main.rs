@@ -5,9 +5,9 @@
 
 use tauri_plugin_fs_watch::Watcher;
 
-mod download;
-mod unzip;
-mod os;
+extern crate commands;
+
+use commands::compat::*;
 
 #[tokio::main]
 async fn main() {

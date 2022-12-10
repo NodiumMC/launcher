@@ -1,10 +1,8 @@
-pub mod hash;
-
 use futures_util::{
   future::{AbortHandle, Abortable, Aborted},
   StreamExt, TryStreamExt,
 };
-use hash::{check_file_integrity, create_hash_for_file, BlakeHash};
+use super::hash::{check_file_integrity, create_hash_for_file, BlakeHash, BlakeError};
 use reqwest::Client;
 use url::Url;
 use serde::{Deserialize, Serialize, Serializer};
@@ -26,7 +24,7 @@ pub enum DownloadError {
   #[error("Failed to get content length.")]
   NoContentLength,
   #[error(transparent)]
-  HashMismatch(#[from] hash::BlakeError),
+  HashMismatch(#[from] BlakeError),
 }
 
 impl Serialize for DownloadError {
