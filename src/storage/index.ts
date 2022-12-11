@@ -1,13 +1,13 @@
 import * as localforage from 'localforage'
 import { Defaults, MainStorage } from 'storage/types'
 import { GameDir } from 'native/filesystem'
-import { makeAutoObservable, observe } from 'mobx'
+import { makeAutoObservable, observe, toJS } from 'mobx'
 
 const wrap = <T extends object>(storage: LocalForage, defaults?: Defaults<T>): T => {
   const target = makeAutoObservable<Defaults<T>>((defaults ?? {}) as any)
   observe(target, change => {
     if (change.type === 'remove') storage.removeItem(change.name as string)
-    else storage.setItem(change.name as string, change.object[change.name])
+    else storage.setItem(change.name as string, toJS(change.object[change.name]))
   })
   return target as T
 }
@@ -30,6 +30,7 @@ export const main = wrap<MainStorage>(mainStorage, {
   lang: null,
   theme: null,
   local_nickname: 'Player',
+  instances: [],
 })
 
 export const cache = localforage.createInstance({
