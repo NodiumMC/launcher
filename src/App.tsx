@@ -8,7 +8,7 @@ import { Fonts, Style } from 'style'
 import { ThemeService } from 'theme'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
-import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
+import 'utils/loadIcons'
 import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
 import { ErrorBoundary } from 'debug/ErrorBoundary'
@@ -38,7 +38,6 @@ export const App: FC = observer(() => {
   const theme = useMod(ThemeService)
   useMod(Updater)
   useThemeToggleHotkey()
-  useFontawesomeLoader()
   useDebugHotkey()
   return (
     <>

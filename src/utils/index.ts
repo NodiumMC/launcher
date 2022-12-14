@@ -5,5 +5,6 @@ export * from './promise'
 export * from './react'
 export * from './todo'
 export * from './style'
+export * from './import'
 
 export const l = (fn: () => Awaitable) => fn()
