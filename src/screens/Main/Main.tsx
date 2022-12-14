@@ -1,11 +1,9 @@
 import { FC } from 'react'
-import { lazy } from 'utils/import'
 import { MainScreenPage, MainScreenSidebarSubrouter, SubRoute } from './MainScreenSubRouter'
-const { PlaySubscreen } = lazy(() => import('screens/Main/PlaySubscreen'), 'PlaySubscreen')
-const { JournalSubscreen } = lazy(() => import('screens/Main/JournalSubscreen/JournalSubscreen'), 'JournalSubscreen')
-const { SettingsSubscreen } = lazy(() => import('screens/Main/SettingsSubscreen/SettingsSubscreen'), 'SettingsSubscreen')
-const { Components } = lazy(() => import('./DebugSubscreens'), 'Components')
-const { Logs } = lazy(() => import('./DebugSubscreens'), 'Logs')
+import { PlaySubscreen } from 'screens/Main/PlaySubscreen'
+import { Components, Logs } from './DebugSubscreens'
+import { JournalSubscreen } from 'screens/Main/JournalSubscreen/JournalSubscreen'
+import { SettingsSubscreen } from 'screens/Main/SettingsSubscreen/SettingsSubscreen'
 
 export const Main: FC = () => {
   return (
