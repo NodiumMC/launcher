@@ -261,7 +261,6 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
         </>
       )
     } else {
-      console.log(target, target?.constructor?.name)
       return (
         <>
           {target?.constructor?.name} {cbo} {previewObject(target)} {cbc}
