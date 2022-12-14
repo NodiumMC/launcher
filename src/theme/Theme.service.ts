@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import type { SupportedTheme, Theme } from 'theme'
 import { themes } from 'theme'
 import { main } from 'storage'
@@ -10,8 +10,8 @@ export class ThemeService {
 
   constructor() {
     makeAutoObservable(this)
-    autorun(() => {
-      if (main.theme !== null) this._theme = main.theme
+    main.getItem<SupportedTheme>('theme').then(theme => {
+      if (theme) this._theme = theme
     })
   }
 
@@ -25,6 +25,6 @@ export class ThemeService {
 
   async setTheme(theme: SupportedTheme) {
     this._theme = theme
-    main.theme = theme
+    await main.setItem('theme', theme)
   }
 }

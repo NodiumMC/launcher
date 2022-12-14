@@ -7,6 +7,8 @@ import { DialogInput } from 'components/micro/DialogInput'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { main } from 'storage'
 import { observer } from 'mobx-react'
+import { useMod } from 'hooks/useMod'
+import { GeneralSettings } from 'settings/GeneralSettings.service'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -33,6 +35,8 @@ const Split = styled(Text).attrs(() => ({
 `
 
 export const SettingsSubscreen: FC = observer(() => {
+  const settings = useMod(GeneralSettings)
+  console.log(settings.gameDir)
   return (
     <Page>
       <Split>Общие настройки</Split>
@@ -43,8 +47,8 @@ export const SettingsSubscreen: FC = observer(() => {
         <DialogInput
           directory
           icon={<FontAwesomeIcon icon={'folder'} />}
-          value={main.gameDir}
-          onChange={dir => (main.gameDir = dir)}
+          value={settings.gameDir}
+          onChange={dir => (settings.gameDir = dir)}
         />
       </VLabel>
     </Page>

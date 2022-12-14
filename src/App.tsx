@@ -36,7 +36,6 @@ const View = styled.div`
 
 export const App: FC = observer(() => {
   const theme = useMod(ThemeService)
-  console.log(theme.current)
   useMod(Updater)
   useThemeToggleHotkey()
   useFontawesomeLoader()

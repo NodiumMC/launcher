@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import type { SupportedLang } from 'i18n/langs'
 import { Launguage } from 'i18n/langs'
 import { R18T } from 'i18n/index'
@@ -17,13 +17,13 @@ export class I18n {
 
   set lang(lang: SupportedLang) {
     this._lang = lang
-    main.lang = lang
+    main.setItem('lang', lang)
   }
 
   constructor() {
     makeAutoObservable(this)
-    autorun(() => {
-      if (main.lang !== null) this._lang = main.lang
+    main.getItem<SupportedLang>('lang').then(lang => {
+      if (lang) this._lang = lang
     })
   }
 
