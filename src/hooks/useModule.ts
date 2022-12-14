@@ -1,4 +1,4 @@
-import { useModule } from 'mobmarch'
 import { I18n } from 'i18n'
+import { useMod } from 'hooks/useMod'
 
-export const useI18N = () => useModule(I18n)
+export const useI18N = () => useMod(I18n)

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { Observer } from 'mobmarch'
 import { useI18N } from 'hooks'
 import { Text } from 'components/micro/Text'
+import { observer } from 'mobx-react'
 
 const Styled = styled.div`
   border-radius: ${({ theme }) => theme.radius()};
@@ -13,7 +13,7 @@ const Styled = styled.div`
   position: relative;
 `
 
-export const NotImplemented: FC<JSX.IntrinsicElements['div']> = Observer(({ children, ...props }) => {
+export const NotImplemented: FC<JSX.IntrinsicElements['div']> = observer(({ children, ...props }) => {
   const i18n = useI18N()
 
   return (

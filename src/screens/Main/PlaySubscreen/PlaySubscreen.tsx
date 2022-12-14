@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react'
 import { Screen } from 'components/utils/Screen'
-import { Defer, Observer, useModule } from 'mobmarch'
 import styled from 'styled-components'
 import { NotImplemented } from 'components/micro/NotImplemented'
 import { DownloadBar } from 'screens/Main/PlaySubscreen/DownloadBar'
@@ -13,8 +12,10 @@ import { Input } from 'components/micro/Input'
 import { inputValue } from 'utils'
 import { SquareGroupSwitcher } from 'components/micro/SquareGroupSwitcher'
 import { ProviderIcon, ProviderList } from 'core/providers'
-import { useStorageState } from 'hooks/useStorageState'
 import { main } from 'storage'
+import { InstanceStore } from 'minecraft/InstanceStore.service'
+import { useMod } from 'hooks/useMod'
+import { observer } from 'mobx-react'
 
 const Page = styled(Screen)`
   display: flex;
@@ -34,8 +35,8 @@ const PlayBtn = styled(Button)`
   }
 `
 
-const PlayZone: FC = Observer(() => {
-  const handler = useModule(SimpleHandler)
+const PlayZone: FC = observer(() => {
+  const handler = useMod(SimpleHandler)
   const [versions, setVersions] = useState<VersionUnion[]>([])
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -102,13 +103,15 @@ const PlayZone: FC = Observer(() => {
   )
 })
 
-export const PlaySubscreen: FC = Observer(() => {
+const Instances: FC = observer(() => {
+  const istore = useMod(InstanceStore)
+  return <div>{istore.instances.map(v => v.name)}</div>
+})
+
+export const PlaySubscreen: FC = observer(() => {
   return (
     <Page>
-      <Nimpl />
-      <Defer depend={SimpleHandler}>
-        <PlayZone />
-      </Defer>
+      <Instances />
     </Page>
   )
 })

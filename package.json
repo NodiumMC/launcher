@@ -34,7 +34,6 @@
     "framer-motion": "^7.6.12",
     "localforage": "^1.10.0",
     "lodash": "4.17.21",
-    "mobmarch": "^1.0.4",
     "mobx": "6.7.0",
     "mobx-react": "7.6.0",
     "nanoid": "4.0.0",

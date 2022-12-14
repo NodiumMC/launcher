@@ -1,19 +1,17 @@
 import { autorun, makeAutoObservable } from 'mobx'
 import type { SupportedTheme, Theme } from 'theme'
 import { themes } from 'theme'
-import { Module } from 'mobmarch'
-import { Preloader } from 'preload'
-import { I18n } from 'i18n'
 import { main } from 'storage'
+import { singleton } from 'tsyringe'
 
-@Module([Preloader, I18n])
+@singleton()
 export class ThemeService {
   private _theme: SupportedTheme = 'dark'
 
   constructor() {
     makeAutoObservable(this)
     autorun(() => {
-      this._theme = main.theme
+      if (main.theme !== null) this._theme = main.theme
     })
   }
 

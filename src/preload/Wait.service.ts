@@ -1,12 +1,10 @@
-import { BeforeResolve, Module } from 'mobmarch'
 import { loadStorages } from 'storage'
 import { Preloader } from 'preload/Preloader.service'
+import { singleton } from 'tsyringe'
 
-@Module([Preloader])
+@singleton()
 export class WaitService {
-  private async [BeforeResolve]() {
-    return this.preloader.add('Loading', () => Promise.all([loadStorages]))
+  constructor(private readonly preloader: Preloader) {
+    this.preloader.add('Loading', () => Promise.all([loadStorages]))
   }
-
-  constructor(private readonly preloader: Preloader) {}
 }

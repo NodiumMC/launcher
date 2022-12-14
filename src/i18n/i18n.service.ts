@@ -1,19 +1,15 @@
-import { makeAutoObservable } from 'mobx'
+import { autorun, makeAutoObservable } from 'mobx'
 import type { SupportedLang } from 'i18n/langs'
 import { Launguage } from 'i18n/langs'
-import { BeforeResolve, Module } from 'mobmarch'
 import { R18T } from 'i18n/index'
 import { main } from 'storage'
+import { singleton } from 'tsyringe'
 
 const fallback: SupportedLang = 'ru_RU'
 
-@Module
+@singleton()
 export class I18n {
   private _lang: SupportedLang = fallback
-
-  private [BeforeResolve]() {
-    this._lang = main.lang
-  }
 
   get lang() {
     return this._lang
@@ -26,6 +22,9 @@ export class I18n {
 
   constructor() {
     makeAutoObservable(this)
+    autorun(() => {
+      if (main.lang !== null) this._lang = main.lang
+    })
   }
 
   private check() {

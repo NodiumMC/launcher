@@ -3,10 +3,8 @@ import styled from 'styled-components'
 import { Empty } from '../../utils/Empty'
 import { WindowControl } from './WindowControl'
 import { font } from 'style'
-import { Observer, useDeferredModule } from 'mobmarch'
-import { DebugService } from 'debug/debug.service'
-import { Text } from 'components/micro/Text'
 import { useDebugMode } from 'hooks'
+import { observer } from 'mobx-react'
 
 const HeaderBlock = styled.div`
   height: 26px;
@@ -30,12 +28,11 @@ const HeaderBlock = styled.div`
   }
 
   &:after {
-    @property --hdcolor {
-      syntax: '<color>';
-      initial-value: ${({ theme }) => theme.master.shade()};
-      inherits: false;
-    }
-    background: linear-gradient(90deg, transparent, var(--hdcolor), transparent);
+  @property --hdcolor {
+    syntax: '<color>';
+    initial-value: ${({ theme }) => theme.master.shade()};
+    inherits: false;
+  } background: linear-gradient(90deg, transparent, var(--hdcolor), transparent);
     --hdcolor: ${({ theme }) => theme.master.shade()};
     transition: --hdcolor ${({ theme }) => theme.transition.time};
   }
@@ -57,7 +54,7 @@ const Debug = styled.span`
   pointer-events: none;
 `
 
-export const Header: FC = Observer(() => {
+export const Header: FC = observer(() => {
   const debug = useDebugMode()
 
   return (

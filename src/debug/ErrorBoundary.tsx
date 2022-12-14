@@ -2,7 +2,6 @@ import { error } from 'debug'
 import { ErrorInfo, PureComponent } from 'react'
 import { ReportService } from 'debug/report.service'
 import { CrashOverlay } from 'components/macro/CrashOverlay'
-import { Defer } from 'mobmarch'
 import { container } from 'tsyringe'
 
 export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {
@@ -22,11 +21,7 @@ export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {
 
   render() {
     if (this.state.hasError) {
-      return (
-        <Defer depend={ReportService}>
-          <CrashOverlay />
-        </Defer>
-      )
+      return <CrashOverlay />
     }
 
     return this.props.children

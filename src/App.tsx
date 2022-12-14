@@ -3,17 +3,18 @@ import styled, { ThemeProvider } from 'styled-components'
 import { AppPreloader } from 'components/macro/AppPreloader'
 import { Header } from 'components/macro/header'
 import { useThemeToggleHotkey } from 'hooks'
-import { PopupContainer, PopupService, UpfallConatiner, UpfallService } from 'notifications'
+import { PopupContainer, UpfallConatiner } from 'notifications'
 import { Fonts, Style } from 'style'
-import { Defer, Observer, useDeferredModule } from 'mobmarch'
-import { deviceTheme, ThemeService } from 'theme'
-import { Preloader, WaitService } from 'preload'
+import { ThemeService } from 'theme'
 import { Updater } from 'updater'
 import { Routes } from 'Routes'
 import { useFontawesomeLoader } from 'hooks/useFontawesomeLoader'
 import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
 import { ErrorBoundary } from 'debug/ErrorBoundary'
+import { useMod } from 'hooks/useMod'
+import { observer } from 'mobx-react'
+import { toJS } from 'mobx'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -33,16 +34,16 @@ const View = styled.div`
   position: relative;
 `
 
-export const App: FC = Observer(() => {
-  const [, theme] = useDeferredModule(ThemeService)
-  useDeferredModule(WaitService)
-  useDeferredModule(Updater)
+export const App: FC = observer(() => {
+  const theme = useMod(ThemeService)
+  console.log(theme.current)
+  useMod(Updater)
   useThemeToggleHotkey()
   useFontawesomeLoader()
   useDebugHotkey()
   return (
     <>
-      <ThemeProvider theme={theme?.theme ?? deviceTheme()}>
+      <ThemeProvider theme={toJS(theme.theme)}>
         <Style />
         <Fonts />
         <AceStyle />
@@ -50,16 +51,10 @@ export const App: FC = Observer(() => {
           <Header />
           <ErrorBoundary>
             <View>
-              <Defer depend={Preloader}>
-                <AppPreloader />
-              </Defer>
+              <AppPreloader />
               <Routes />
-              <Defer depend={PopupService}>
-                <PopupContainer />
-              </Defer>
-              <Defer depend={UpfallService}>
-                <UpfallConatiner />
-              </Defer>
+              <PopupContainer />
+              <UpfallConatiner />
             </View>
           </ErrorBoundary>
         </AppRoot>

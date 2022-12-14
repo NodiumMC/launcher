@@ -1,11 +1,12 @@
 import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
-import { Observer, useModule } from 'mobmarch'
 import { ReportService } from 'debug/report.service'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { parse } from 'stack-trace'
 import { transition } from 'style'
+import { useMod } from 'hooks/useMod'
+import { observer } from 'mobx-react'
 
 const StyledOverlay = styled.div`
   position: absolute;
@@ -51,8 +52,8 @@ const ProgressInner = styled.div.attrs<ExtraProps.Value<number>>(({ value }) => 
   ${transition('width')}
 `
 
-export const CrashOverlay: FC = Observer(() => {
-  const report = useModule(ReportService)
+export const CrashOverlay: FC = observer(() => {
+  const report = useMod(ReportService)
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {

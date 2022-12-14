@@ -1,14 +1,12 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { Text } from 'components/micro/Text'
-import { Observer } from 'mobmarch'
 import { VLabel } from 'components/micro/VLabel'
 import { DialogInput } from 'components/micro/DialogInput'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useStorageState } from 'hooks/useStorageState'
-import { GameDir } from 'native/filesystem'
 import { main } from 'storage'
+import { observer } from 'mobx-react'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -34,7 +32,7 @@ const Split = styled(Text).attrs(() => ({
   }
 `
 
-export const SettingsSubscreen: FC = Observer(() => {
+export const SettingsSubscreen: FC = observer(() => {
   return (
     <Page>
       <Split>Общие настройки</Split>
