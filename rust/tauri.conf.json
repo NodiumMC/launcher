@@ -36,11 +36,7 @@
       },
       "http": {
         "scope": [
-          "https://piston-meta.mojang.com/*",
-          "https://launchermeta.mojang.com/*",
-          "https://resources.download.minecraft.net/*",
-          "https://meta.fabricmc.net/v2/*",
-          "https://maven.fabricmc.net/*"
+          "https://*"
         ],
         "all": true
       },

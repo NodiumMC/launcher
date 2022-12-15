@@ -36,7 +36,7 @@ export class NetworkChecker {
       const start = performance.now()
       fetch('https://resources.download.minecraft.net/00/', { method: 'GET', timeout: 5000 }).then(
         response => {
-          if (response.status === 200) {
+          if (response.status === 200 || response.status === 404) {
             this.update(true)
             this.pings.push(performance.now() - start)
             if (this.pings.length > 20) this.pings.shift()
