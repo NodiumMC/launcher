@@ -5,7 +5,6 @@ import { Text } from 'components/micro/Text'
 import { VLabel } from 'components/micro/VLabel'
 import { DialogInput } from 'components/micro/DialogInput'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { main } from 'storage'
 import { observer } from 'mobx-react'
 import { useMod } from 'hooks/useMod'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
@@ -36,7 +35,6 @@ const Split = styled(Text).attrs(() => ({
 
 export const SettingsSubscreen: FC = observer(() => {
   const settings = useMod(GeneralSettings)
-  console.log(settings.gameDir)
   return (
     <Page>
       <Split>Общие настройки</Split>
@@ -47,7 +45,7 @@ export const SettingsSubscreen: FC = observer(() => {
         <DialogInput
           directory
           icon={<FontAwesomeIcon icon={'folder'} />}
-          value={settings.gameDir}
+          value={settings.gameDir ?? '...'}
           onChange={dir => (settings.gameDir = dir)}
         />
       </VLabel>
