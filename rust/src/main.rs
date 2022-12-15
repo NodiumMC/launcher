@@ -5,8 +5,6 @@
 
 use tauri_plugin_fs_watch::Watcher;
 
-extern crate commands;
-
 use commands::compat::*;
 
 #[tokio::main]

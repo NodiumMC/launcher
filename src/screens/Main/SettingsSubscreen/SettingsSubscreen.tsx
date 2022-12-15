@@ -1,14 +1,13 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { Text } from 'components/micro/Text'
-import { Observer } from 'mobmarch'
 import { VLabel } from 'components/micro/VLabel'
 import { DialogInput } from 'components/micro/DialogInput'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useStorageState } from 'hooks/useStorageState'
-import { GameDir } from 'native/filesystem'
-import { main } from 'storage'
+import { observer } from 'mobx-react'
+import { useMod } from 'hooks/useMod'
+import { GeneralSettings } from 'settings/GeneralSettings.service'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -34,7 +33,8 @@ const Split = styled(Text).attrs(() => ({
   }
 `
 
-export const SettingsSubscreen: FC = Observer(() => {
+export const SettingsSubscreen: FC = observer(() => {
+  const settings = useMod(GeneralSettings)
   return (
     <Page>
       <Split>Общие настройки</Split>
@@ -45,8 +45,8 @@ export const SettingsSubscreen: FC = Observer(() => {
         <DialogInput
           directory
           icon={<FontAwesomeIcon icon={'folder'} />}
-          value={main.gameDir}
-          onChange={dir => (main.gameDir = dir)}
+          value={settings.gameDir ?? '...'}
+          onChange={dir => (settings.gameDir = dir)}
         />
       </VLabel>
     </Page>

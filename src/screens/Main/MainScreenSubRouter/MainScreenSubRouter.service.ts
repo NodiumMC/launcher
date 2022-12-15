@@ -1,16 +1,15 @@
-import { Module } from 'mobmarch'
-import { action, makeObservable, observable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { MainScreenPage } from './types'
+import { singleton } from 'tsyringe'
 
-@Module
+@singleton()
 export class MainScreenSubRouter {
-  @observable
   location: MainScreenPage = MainScreenPage.PLAY
+
   constructor() {
-    makeObservable(this)
+    makeAutoObservable(this)
   }
 
-  @action.bound
   locate(to: MainScreenPage) {
     this.location = to
   }

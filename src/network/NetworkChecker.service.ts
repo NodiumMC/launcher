@@ -1,13 +1,13 @@
-import { Module } from 'mobmarch'
 import { makeAutoObservable } from 'mobx'
 import { fetch } from '@tauri-apps/api/http'
 import EventEmitter from 'eventemitter3'
+import { singleton } from 'tsyringe'
 
 export interface NetworkCheckerEvents {
   available: () => void
 }
 
-@Module
+@singleton()
 export class NetworkChecker {
   private _available = true
   private pings: number[] = [0]
@@ -36,7 +36,7 @@ export class NetworkChecker {
       const start = performance.now()
       fetch('https://resources.download.minecraft.net/00/', { method: 'GET', timeout: 5000 }).then(
         response => {
-          if (response.status === 200) {
+          if (response.status === 200 || response.status === 404) {
             this.update(true)
             this.pings.push(performance.now() - start)
             if (this.pings.length > 20) this.pings.shift()

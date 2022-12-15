@@ -4,11 +4,11 @@ import { Sidebar } from 'screens/Main/Sidebar'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { MainScreenPage } from './types'
-import { useModule } from 'mobmarch'
 import { MainScreenSubRouter } from 'screens/Main/MainScreenSubRouter/MainScreenSubRouter.service'
-import { Observer } from 'mobmarch'
 import { transition } from 'style'
 import { useDebugMode } from 'hooks'
+import { useMod } from 'hooks/useMod'
+import { observer } from 'mobx-react'
 
 interface SubrouteProps extends ExtraProps.HasChildren<ReactNode> {
   icon: IconName
@@ -42,10 +42,10 @@ const Page = styled.div<{ position: number }>`
 
 export const SubRoute: FC<SubrouteProps> = () => <></>
 export const MainScreenSidebarSubrouter: FC<Required<ExtraProps.HasChildren<Array<ReactElement<SubrouteProps>>>>> =
-  Observer(({ children }) => {
+  observer(({ children }) => {
     const debug = useDebugMode()
     const items = useMemo(() => children.filter(v => !v.props.debug || debug).map(v => v.props), [debug])
-    const subrouter = useModule(MainScreenSubRouter)
+    const subrouter = useMod(MainScreenSubRouter)
     return (
       <Wrapper>
         <FixedSidebar

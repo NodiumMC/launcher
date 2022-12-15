@@ -1,9 +1,8 @@
-import { Module } from 'mobmarch'
 import { makeAutoObservable } from 'mobx'
-import { container } from 'tsyringe'
+import { container, singleton } from 'tsyringe'
 import { DebugService } from 'debug/debug.service'
 
-@Module
+@singleton()
 export class ReportService {
   cause?: Error
   reported = false

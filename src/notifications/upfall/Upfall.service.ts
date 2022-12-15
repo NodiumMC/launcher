@@ -1,19 +1,17 @@
-import { Module } from 'mobmarch'
-import { action, computed, makeObservable, observable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { Upfall } from '.'
 import { nanoid } from 'nanoid'
 import { I18n, R18T } from 'i18n'
+import { singleton } from 'tsyringe'
 
-@Module([I18n])
+@singleton()
 export class UpfallService {
-  @observable private _upfalls: Upfall[] = []
+  private _upfalls: Upfall[] = []
 
-  @computed
   get list() {
     return this._upfalls
   }
 
-  @action
   drop(type: Upfall['type'], content: string | R18T, icon?: Upfall['icon']) {
     const id = nanoid()
     this._upfalls.push({
@@ -26,6 +24,6 @@ export class UpfallService {
   }
 
   constructor(private readonly i18n: I18n) {
-    makeObservable(this)
+    makeAutoObservable(this)
   }
 }

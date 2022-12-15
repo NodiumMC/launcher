@@ -1,12 +1,11 @@
-import { Module } from 'mobmarch'
-import { action, makeAutoObservable } from 'mobx'
-import { DelogService, warn } from 'debug/delog.service'
+import { makeAutoObservable } from 'mobx'
+import { singleton } from 'tsyringe'
 
-@Module
+@singleton()
 export class DebugService {
   private enabled = false
 
-  constructor(private readonly delog: DelogService) {
+  constructor() {
     makeAutoObservable(this)
   }
 
@@ -14,7 +13,6 @@ export class DebugService {
     return this.enabled
   }
 
-  @action
   toggle() {
     this.enabled = !this.enabled
   }

@@ -2,10 +2,11 @@ import { FC, useState } from 'react'
 import styled from 'styled-components'
 import { WindowButton } from './WindowButton'
 import { appWindow } from '@tauri-apps/api/window'
-import { Observer, useDeferredModule } from 'mobmarch'
 import { NetworkChecker } from 'network'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { normalizeColor } from 'utils'
+import { useMod } from 'hooks/useMod'
+import { observer } from 'mobx-react'
 
 const ControlPlate = styled.div`
   display: flex;
@@ -21,8 +22,8 @@ const Yellow = styled.div`
   color: ${({ theme }) => normalizeColor(theme.palette.yellow)};
 `
 
-const NetworkStatus: FC = Observer(() => {
-  const [, module] = useDeferredModule(NetworkChecker)
+const NetworkStatus: FC = observer(() => {
+  const module = useMod(NetworkChecker)
 
   return (
     <>

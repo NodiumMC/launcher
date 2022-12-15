@@ -4,9 +4,10 @@ import { Empty } from '../../utils/Empty'
 import { Preloader } from '../../micro/Preloader'
 import { ProgressBar } from '../../micro/ProgressBar'
 import { font } from 'style'
-import { Observer, useModule } from 'mobmarch'
 import { Preloader as PreloaderService } from 'preload'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useMod } from 'hooks/useMod'
+import { observer } from 'mobx-react'
 
 const AppPreloaderWrapper = styled(motion.div)`
   position: absolute;
@@ -77,8 +78,8 @@ const StagedProgressBar = styled(ProgressBar)`
   transform: translate(-50%, 40px);
 `
 
-export const AppPreloader: FC = Observer(() => {
-  const { inProcess, currentTaskName } = useModule(PreloaderService)
+export const AppPreloader: FC = observer(() => {
+  const { inProcess, currentTaskName } = useMod(PreloaderService)
 
   return (
     <AnimatePresence>

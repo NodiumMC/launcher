@@ -1,7 +1,7 @@
-import { Module } from 'mobmarch'
 import { makeAutoObservable } from 'mobx'
+import { singleton } from 'tsyringe'
 
-@Module
+@singleton()
 export class MinecraftJournal {
   readonly lines: string[] = []
 

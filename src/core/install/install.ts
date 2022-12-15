@@ -6,6 +6,6 @@ export const compileLocal = async (vid: string, clientDir: string, gameDataDir: 
   const version = await readVersionFile(join(clientDir, `${vid}.json`))
   const libs = compileLibraries(version.libraries, gameDataDir, clientDir)
   const assets = await compileAssetIndex(version, gameDataDir)
-  const logging = await log4jConfig(version, clientDir)
+  const logging = log4jConfig(version, clientDir)
   return [...libs, ...assets, logging, { ...version.downloads.client, local: join(clientDir, `${vid}.jar`) }]
 }

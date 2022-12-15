@@ -1,10 +1,10 @@
 import { makeAutoObservable } from 'mobx'
-import { Module } from 'mobmarch'
+import { singleton } from 'tsyringe'
 
 export type PreloaderQueueTask = () => Awaitable
 export type PreloaderQueueUnit = [name: string, task: () => Awaitable]
 
-@Module
+@singleton()
 export class Preloader {
   private queue: PreloaderQueueUnit[] = []
   private processing = false

@@ -4,7 +4,7 @@ import { join } from 'native/path'
 
 export const log4jConfig = (version: VersionFile, clientDir: string): Resource => ({
   url: version.logging.client.file.url,
-  local: join(clientDir, version.logging.client.file.id)
+  local: join(clientDir, version.logging.client.file.id),
 })
 
 export const log4jArgument = (version: VersionFile, clientDir: string): string =>

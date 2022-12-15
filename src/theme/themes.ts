@@ -1,7 +1,6 @@
 import { dark, light } from 'theme/list'
-import { Theme } from 'theme/type'
 
-export const themes: Record<string, Theme> = {
+export const themes = {
   dark,
   light,
-}
+} as const

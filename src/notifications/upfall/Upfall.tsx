@@ -3,11 +3,12 @@ import type { Upfall } from '.'
 import { FC } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Text } from 'components/micro/Text'
-import { Observer, useModule } from 'mobmarch'
 import { UpfallService } from 'notifications/upfall/Upfall.service'
 import { mix, rgba } from 'polished'
 import { useOnce } from 'hooks'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useMod } from 'hooks/useMod'
+import { observer } from 'mobx-react'
 
 const Icon = styled.div`
   display: flex;
@@ -116,8 +117,8 @@ const Container = styled.div`
   padding-top: 36px;
 `
 
-export const UpfallConatiner: FC = Observer(() => {
-  const upfall = useModule(UpfallService)
+export const UpfallConatiner: FC = observer(() => {
+  const upfall = useMod(UpfallService)
 
   return (
     <Container>

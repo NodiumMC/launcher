@@ -1,10 +1,10 @@
 import { FC, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
-import { Observer } from 'mobmarch'
 import { DelogService, LogLine } from 'debug'
 import { CommandPrompt, execute } from 'debug/commander'
 import { container } from 'tsyringe'
+import { observer } from 'mobx-react'
 
 const Page = styled(Screen)`
   display: flex;
@@ -23,7 +23,7 @@ const LogsContainer = styled.div`
   scroll-behavior: smooth;
 `
 
-export const Logs: FC = Observer(() => {
+export const Logs: FC = observer(() => {
   const delog = container.resolve(DelogService)
   const latest = useRef<HTMLDivElement>(null)
 

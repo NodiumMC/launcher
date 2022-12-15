@@ -29,6 +29,11 @@ const isPrimitive = (target: any) => {
   return !target || (typeof target !== 'object' && typeof target !== 'function')
 }
 
+const isEmptyObject = (target: any) => {
+  for (const _ in target) return false
+  return true
+}
+
 const previewArray = (array: any[], ellipsis = false) => {
   const comma = (i: number) => i < array.length - 1
   return array.map((v, i) => (
@@ -36,9 +41,15 @@ const previewArray = (array: any[], ellipsis = false) => {
       {isPrimitive(v) ? (
         <ObjectRenderer target={v} />
       ) : Array.isArray(v) ? (
-        <TypeTint>{'[...]'}</TypeTint>
-      ) : (
+        v.length < 0 ? (
+          <TypeTint>{'[...]'}</TypeTint>
+        ) : (
+          <TypeTint>{'[]'}</TypeTint>
+        )
+      ) : isEmptyObject(v) ? (
         <TypeTint>{'{...}'}</TypeTint>
+      ) : (
+        <TypeTint>{'{}'}</TypeTint>
       )}
       {comma(i) && <TypeShadow pre>, </TypeShadow>}
       {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
@@ -59,9 +70,15 @@ const previewObject = (object: any) => {
         {isPrimitive(value) ? (
           <ObjectRenderer target={value} />
         ) : Array.isArray(value) ? (
-          <TypeTint>{'[...]'}</TypeTint>
-        ) : (
+          value.length < 0 ? (
+            <TypeTint>{'[...]'}</TypeTint>
+          ) : (
+            <TypeTint>{'[]'}</TypeTint>
+          )
+        ) : isEmptyObject(value) ? (
           <TypeTint>{'{...}'}</TypeTint>
+        ) : (
+          <TypeTint>{'{}'}</TypeTint>
         )}
         {comma(i) && <TypeShadow pre>, </TypeShadow>}
         {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
@@ -154,7 +171,7 @@ const Children = styled.div`
   }
 `
 
-const Entry = styled(Container)`
+const Entry = styled.span`
   display: inline-flex;
 `
 
@@ -216,26 +233,19 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
           </Text>
           : {target.message}
         </Text>
-        <ErrorStack>
-          {parse(target)
-            .slice(3)
-            .map((line, i) => (
-              <Text block selectable key={i}>
-                <Text selectable weight={'bold'}>
-                  at {line.getFileName()}
-                </Text>
-                <Text selectable>
-                  :{line.getLineNumber()}:{line.getColumnNumber()} {'->'} {line.getFunctionName()}
-                </Text>
-              </Text>
-            ))}
-        </ErrorStack>
       </ErrorContainer>
     )
   }
   const properties = useMemo(() => revealProperties(target), [target])
   const preview = useMemo(() => {
     if (Array.isArray(target)) {
+      if (target.length === 0)
+        return (
+          <>
+            {sbo}
+            {sbc}
+          </>
+        )
       const slice = target.slice(0, 10)
       const isLonger = target.length > 10
       return (
@@ -282,7 +292,7 @@ export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
                     ) : (
                       <TypeCyan>{v.type === 'symbol' ? `@${v.key}` : v.key}</TypeCyan>
                     )}
-                    <TypeTint pre>:{'  '}</TypeTint>
+                    <TypeTint pre>: </TypeTint>
                   </>
                 }
               />
