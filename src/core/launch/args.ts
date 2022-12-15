@@ -55,5 +55,5 @@ export const compileArguments = (options: VersionedLaunchOptions): string[] => {
   )
   const gargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(game)))
   const jargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(jvm)))
-  return [...jargs, options.version.mainClass, ...gargs]
+  return [...jargs, ...(options.javaArgs ?? []), options.version.mainClass, ...gargs, ...(options.minecraftArgs ?? [])]
 }

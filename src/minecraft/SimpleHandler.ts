@@ -1,5 +1,5 @@
-import { Module } from 'mobmarch'
 import type { SupportedProviders } from 'core/providers'
+import { fetchMinecraftVersions } from 'core/providers'
 import { join } from 'native/path'
 import { prepare } from 'native/filesystem'
 import { makeAutoObservable } from 'mobx'
@@ -8,13 +8,14 @@ import { GameProfileService } from 'minecraft/GameProfile.service'
 import { Observable } from 'rxjs'
 import { VersionUnion } from 'core/providers/types'
 import * as providers from 'core/providers/implemented'
-import { fetchMinecraftVersions } from 'core/providers'
-import { BlakeMap, compileLocal, launch, unzipNatives } from 'core'
+import { compileLocal, launch, unzipNatives } from 'core'
 import { batchDownload } from 'network'
 import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
-import { cache, main } from 'storage'
+import { main } from 'storage'
+import { singleton } from 'tsyringe'
+import { GeneralSettings } from 'settings/GeneralSettings.service'
 
-@Module([GameProfileService, UpfallService, MinecraftJournal])
+@singleton()
 export class SimpleHandler {
   provider: SupportedProviders = 'vanilla'
   version: VersionUnion | null = null
@@ -23,6 +24,7 @@ export class SimpleHandler {
     private readonly gp: GameProfileService,
     private readonly upfall: UpfallService,
     private readonly journal: MinecraftJournal,
+    private readonly settings: GeneralSettings,
   ) {
     makeAutoObservable(this)
   }
@@ -35,7 +37,7 @@ export class SimpleHandler {
     return new Observable<{ progress?: number; done?: boolean }>(subscriber => {
       let launched = false
       void (async () => {
-        const gameDir = await main.gameDir
+        const gameDir = await this.settings.getGameDir()
         const versionId = `${this.provider}-${this.version!.id}`
         const clientDir = await prepare(join(gameDir, 'versions', versionId))
         const lnch = async () => {

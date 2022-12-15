@@ -1,13 +1,15 @@
 import { ReactNode } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const VersionProvider = {
   vanilla: 'Vanilla',
   fabric: 'Fabric',
   forge: 'Forge',
   quilt: 'Quilt',
+  custom: 'Custom',
 }
 
-export const ProviderList: SupportedProviders[] = ['vanilla', 'fabric', 'forge', 'quilt']
+export const ProviderList: SupportedProviders[] = ['vanilla', 'fabric', 'forge', 'quilt', 'custom']
 
 export type SupportedProviders = keyof typeof VersionProvider
 
@@ -99,4 +101,5 @@ export const ProviderIcon: Record<SupportedProviders, ReactNode> = {
       />
     </svg>
   ),
+  custom: <FontAwesomeIcon icon={'ellipsis'} />,
 }

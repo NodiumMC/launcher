@@ -34,13 +34,15 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   background: ${({ theme, danger, disabled, primary }) =>
     disabled ? theme.master.shade(0.2) : danger ? theme.palette.red : primary ? theme.accent.primary : 'transparent'};
   border: 2px solid
-    ${({ theme, danger, disabled, outlined }) =>
+    ${({ theme, danger, disabled, outlined, primary }) =>
       disabled
         ? theme.master.shade(0.2)
         : danger
         ? theme.palette.red
         : disabled
         ? theme.master.shade(0.2)
+        : primary
+        ? theme.accent.primary
         : outlined
         ? theme.accent.primary
         : 'transparent'};
