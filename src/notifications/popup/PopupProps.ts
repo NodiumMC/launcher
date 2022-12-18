@@ -2,13 +2,12 @@ import { ReactNode } from 'react'
 
 export interface PopupAction {
   label: string
-  action: (close: () => void) => Awaitable<void>
+  action: () => Awaitable<void>
   isPrimary?: boolean
   isDanger?: boolean
 }
 
 export interface IPopup {
-  close: () => void
   level: 'ok' | 'warn' | 'error' | 'question' | 'info'
   title: string
   description: ReactNode

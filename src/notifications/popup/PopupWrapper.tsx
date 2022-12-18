@@ -1,10 +1,9 @@
-import { Children, cloneElement, FC, isValidElement } from 'react'
 import styled from 'styled-components'
 
 import { rgba } from 'polished'
-import { IPopup } from '.'
+import { motion } from 'framer-motion'
 
-const Popup = styled.div`
+export const PopupWrapper = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;
@@ -19,16 +18,3 @@ const Popup = styled.div`
   background-color: ${({ theme }) => rgba(theme.master.back, 0.6)};
   transition: background-color ${({ theme }) => theme.transition.time};
 `
-
-export const PopupWrapper: FC<{ close: IPopup['close'] } & ExtraProps.HasChildren & ExtraProps.Styled> = ({
-  close,
-  children,
-  style,
-}) => {
-  const childrenWithProps = Children.map(children, child => {
-    if (isValidElement(child)) return cloneElement(child, { ...(child as any).props, close })
-    return child
-  })
-
-  return <Popup style={style}>{childrenWithProps}</Popup>
-}

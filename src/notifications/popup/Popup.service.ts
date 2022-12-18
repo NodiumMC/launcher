@@ -1,11 +1,11 @@
 import { makeAutoObservable } from 'mobx'
 import { nanoid } from 'nanoid'
-import type { IPopup } from '.'
 import { singleton } from 'tsyringe'
+import { ReactElement } from 'react'
 
 @singleton()
 export class PopupService {
-  private _popups: Record<string, IPopup> = {}
+  private _popups: Record<string, ReactElement> = {}
 
   constructor() {
     makeAutoObservable(this)
@@ -15,9 +15,9 @@ export class PopupService {
     return this._popups
   }
 
-  spawn(popup: Omit<IPopup, 'close'>) {
+  create(popup: (close: () => void) => ReactElement) {
     const id = nanoid()
-    this._popups[id] = { ...popup, close: () => this.close(id) }
+    this._popups[id] = popup(() => this.close(id))
   }
 
   close(id: string) {

@@ -57,7 +57,7 @@ const Actions = styled.div`
   align-items: flex-end;
 `
 
-export const Popup: FC<IPopup> = ({ level, close, actions, title, description }) => {
+export const Popup: FC<IPopup> = ({ level, actions, title, description }) => {
   const icon = useMemo(
     () =>
       level === 'ok' ? (
@@ -92,15 +92,15 @@ export const Popup: FC<IPopup> = ({ level, close, actions, title, description })
           <Button
             key={index}
             onClick={() => {
-              const result = action(close)
+              const result = action()
               if (isPromise(result)) {
                 setWaiting(true)
-                result.finally(() => (setWaiting(false), close()))
-              } else close()
+                result.finally(() => setWaiting(false))
+              }
             }}
             primary={isPrimary}
             danger={isDanger}
-            disabled={waiting}
+            fetching={waiting}
           >
             {label}
           </Button>
