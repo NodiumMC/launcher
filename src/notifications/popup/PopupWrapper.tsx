@@ -13,7 +13,7 @@ export const PopupWrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(20px);
-  z-index: 1000;
+  z-index: 90;
   border-radius: ${({ theme }) => theme.radius(2)};
   background-color: ${({ theme }) => rgba(theme.master.back, 0.6)};
   transition: background-color ${({ theme }) => theme.transition.time};
