@@ -9,14 +9,14 @@ export const PopupContainer: FC = observer(() => {
   const popup = useMod(PopupService)
   return (
     <AnimatePresence>
-      {Object.entries(popup.entries).map(([id, pup]) => (
+      {Object.entries(popup.entries).map(([id, [Pup, props]]) => (
         <PopupWrapper
           key={id}
           initial={{ y: -1000, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 1000, opacity: 0 }}
         >
-          {pup}
+          <Pup {...props} />
         </PopupWrapper>
       ))}
     </AnimatePresence>
