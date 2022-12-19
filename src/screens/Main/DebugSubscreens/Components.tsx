@@ -59,13 +59,13 @@ export const Components: FC = () => {
     <Page>
       <Split>Кнопки</Split>
       <Container>
-        <Button>Это трудно</Button>
-        <Button primary>Но интересно</Button>
-        <Button danger>Непонятно</Button>
-        <Button outlined={false}>Иногда кайфово</Button>
-        <Button fetching>Иногда тупишь часами</Button>
-        <Button disabled>Или в отключке</Button>
-        <Button icon={'thumbs-up'}>А потом понеслась</Button>
+        <Button>Это кнопка</Button>
+        <Button primary>Крутая кнопка</Button>
+        <Button danger>Страшная кнопка</Button>
+        <Button outlined={false}>Не нажимай</Button>
+        <Button fetching>Загрузка</Button>
+        <Button disabled>В отключке</Button>
+        <Button icon={'thumbs-up'}>Кнопка с emoji</Button>
       </Container>
       <Split>Chechотка</Split>
       <Container>
@@ -120,7 +120,7 @@ export const Components: FC = () => {
       <Split>Инпутсы</Split>
       <Container v>
         <Input />
-        <Input placeholder={'Ну а начать откисать вообще на изи'} />
+        <Input placeholder={'Напиши чёнить'} />
         <Input disabled placeholder={'Говорят, что если написать сюда желание, то оно сбудется'} />
         <DialogInput directory icon={<FontAwesomeIcon icon={'folder'} />} value={opend1} onChange={setOpend1} />
         <DialogInput
@@ -147,24 +147,24 @@ export const Components: FC = () => {
       </Container>
       <Split>Текстульки</Split>
       <Container v gap={0}>
-        <Text>Ты тоже думаешь об этом?</Text>
-        <Text shade={'low'}>Но эта мысль в тени</Text>
-        <Text shade={'medium'}>Всё дальше</Text>
-        <Text shade={'high'}>... и дальше</Text>
-        <Text weight={'bold'}>Эти мысли то нарастают</Text>
+        <Text>Я думаю это просто текст</Text>
+        <Text shade={'low'}>Сделаем его чуть темнее/Text>
+        <Text shade={'medium'}>ещё</Text>
+        <Text shade={'high'}>... и ещё</Text>
+        <Text weight={'bold'}>Жииииииииир</Text>
         <Text weight={'black'} size={20}>
-          Всё сильнее
+          БОЛЬШЕ ЖИРА
         </Text>
-        <Text weight={'light'}>то утихают</Text>
+        <Text weight={'light'}>Тоненький текст</Text>
         <Text
           gradient={linearGradient({
             colorStops: ['#2e58ff', '#d122ff'],
             toDirection: '90deg',
           })}
         >
-          Или загораются так сильно, что сгорают быстрее, чем успеешь их поймать
+          Хз, гдеэто пригодится
         </Text>
-        <Text interaction>Даже хочется их потрогать</Text>
+        <Text interaction>Этот текст хочеться трогать</Text>
       </Container>
       <Split>Выбрать путь</Split>
       <Container>
@@ -172,11 +172,11 @@ export const Components: FC = () => {
           options={[
             {
               value: 'next',
-              label: 'Идти дальше',
+              label: 'Направо',
             },
             {
               value: 'deny',
-              label: 'Сдаться',
+              label: 'Или налево',
             },
           ]}
         />
