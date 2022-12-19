@@ -71,7 +71,7 @@
     "@types/webfontloader": "1.6.35",
     "@typescript-eslint/eslint-plugin": "5.44.0",
     "@typescript-eslint/parser": "5.44.0",
-    "@vitejs/plugin-react": "2.2.0",
+    "@vitejs/plugin-react": "3.0.0",
     "babel-loader": "9.1.0",
     "deepl-translator": "1.2.1",
     "eslint": "8.28.0",
