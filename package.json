@@ -50,7 +50,7 @@
     "rxjs": "7.5.7",
     "stack-trace": "https://github.com/LIMPIX31/node-stack-trace",
     "styled-components": "5.3.6",
-    "swr": "1.3.0",
+    "swr": "2.0.0",
     "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch",
     "tsyringe": "4.7.0"
   },
