@@ -29,7 +29,7 @@
     "class-transformer": "0.5.1",
     "country-flag-icons": "1.5.5",
     "dotenv-cli": "6.0.0",
-    "eventemitter3": "4.0.7",
+    "eventemitter3": "5.0.0",
     "flinject": "1.2.0",
     "framer-motion": "^7.6.12",
     "localforage": "^1.10.0",
