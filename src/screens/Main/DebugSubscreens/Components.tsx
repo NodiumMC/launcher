@@ -148,7 +148,7 @@ export const Components: FC = () => {
       <Split>Текстульки</Split>
       <Container v gap={0}>
         <Text>Я думаю это просто текст</Text>
-        <Text shade={'low'}>Сделаем его чуть темнее/Text>
+        <Text shade={'low'}>Сделаем его чуть темнее</Text>
         <Text shade={'medium'}>ещё</Text>
         <Text shade={'high'}>... и ещё</Text>
         <Text weight={'bold'}>Жииииииииир</Text>
