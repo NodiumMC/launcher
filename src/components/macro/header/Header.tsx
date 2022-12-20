@@ -28,11 +28,12 @@ const HeaderBlock = styled.div`
   }
 
   &:after {
-  @property --hdcolor {
-    syntax: '<color>';
-    initial-value: ${({ theme }) => theme.master.shade()};
-    inherits: false;
-  } background: linear-gradient(90deg, transparent, var(--hdcolor), transparent);
+    @property --hdcolor {
+      syntax: '<color>';
+      initial-value: ${({ theme }) => theme.master.shade()};
+      inherits: false;
+    }
+    background: linear-gradient(90deg, transparent, var(--hdcolor), transparent);
     --hdcolor: ${({ theme }) => theme.master.shade()};
     transition: --hdcolor ${({ theme }) => theme.transition.time};
   }
