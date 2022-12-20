@@ -2,7 +2,6 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { Empty } from '../../utils/Empty'
 import { Preloader } from '../../micro/Preloader'
-import { ProgressBar } from '../../micro/ProgressBar'
 import { font } from 'style'
 import { Preloader as PreloaderService } from 'preload'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -71,12 +70,12 @@ const StageWrapper = styled.div`
   position: relative;
 `
 
-const StagedProgressBar = styled(ProgressBar)`
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 40px);
-`
+// const StagedProgressBar = styled(ProgressBar)`
+//   position: absolute;
+//   top: 0;
+//   left: 50%;
+//   transform: translate(-50%, 40px);
+// `
 
 export const AppPreloader: FC = observer(() => {
   const { inProcess, currentTaskName } = useMod(PreloaderService)

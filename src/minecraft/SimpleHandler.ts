@@ -11,7 +11,6 @@ import * as providers from 'core/providers/implemented'
 import { compileLocal, launch, unzipNatives } from 'core'
 import { batchDownload } from 'network'
 import { MinecraftJournal } from 'minecraft/MinecraftJournal.service'
-import { main } from 'storage'
 import { singleton } from 'tsyringe'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
 

@@ -59,7 +59,6 @@ const UpfallItemStyled = styled(motion.div).attrs<Pick<Upfall, 'type'>>(({ theme
 
 export const UpfallItem: FC<{ upfall: Upfall; key: string } & ExtraProps.Styled> = ({
   upfall: { content, type, icon, remove },
-  style,
 }) => {
   useOnce(() => {
     setTimeout(remove, content.length * 200)

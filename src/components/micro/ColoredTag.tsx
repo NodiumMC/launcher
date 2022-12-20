@@ -2,10 +2,9 @@ import styled from 'styled-components'
 import { FC } from 'react'
 import { Text } from 'components/micro/Text'
 import { Styles } from 'polished/lib/types/style'
-import { mix, readableColor } from 'polished'
+import { mix } from 'polished'
 import { IconName } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { normalizeColor } from 'utils'
 
 export interface ColoredTagProps {
   color?: string | (string & Styles)

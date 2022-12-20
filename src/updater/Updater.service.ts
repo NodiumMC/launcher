@@ -7,6 +7,6 @@ import { singleton } from 'tsyringe'
 @singleton()
 export class Updater {
   constructor(private readonly preloader: Preloader, private readonly i18n: I18n) {
-    this.preloader.add(this.i18n.translate.loading.updating, updateApp).then(v => endTime('startup'))
+    this.preloader.add(this.i18n.translate.loading.updating, updateApp).then(() => endTime('startup'))
   }
 }

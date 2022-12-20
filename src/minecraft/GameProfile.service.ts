@@ -5,7 +5,6 @@ import { exists, prepare, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { watch } from 'tauri-plugin-fs-watch-api'
 import { Provider } from 'core/providers'
 import { VersionUnion } from 'core/providers/types'
-import { main } from 'storage'
 import { singleton } from 'tsyringe'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
 
