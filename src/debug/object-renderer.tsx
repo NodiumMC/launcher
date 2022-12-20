@@ -41,15 +41,15 @@ const previewArray = (array: any[], ellipsis = false) => {
       {isPrimitive(v) ? (
         <ObjectRenderer target={v} />
       ) : Array.isArray(v) ? (
-        v.length < 0 ? (
+        v.length > 0 ? (
           <TypeTint>{'[...]'}</TypeTint>
         ) : (
           <TypeTint>{'[]'}</TypeTint>
         )
       ) : isEmptyObject(v) ? (
-        <TypeTint>{'{...}'}</TypeTint>
-      ) : (
         <TypeTint>{'{}'}</TypeTint>
+      ) : (
+        <TypeTint>{'{...}'}</TypeTint>
       )}
       {comma(i) && <TypeShadow pre>, </TypeShadow>}
       {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
@@ -70,15 +70,15 @@ const previewObject = (object: any) => {
         {isPrimitive(value) ? (
           <ObjectRenderer target={value} />
         ) : Array.isArray(value) ? (
-          value.length < 0 ? (
+          value.length > 0 ? (
             <TypeTint>{'[...]'}</TypeTint>
           ) : (
             <TypeTint>{'[]'}</TypeTint>
           )
         ) : isEmptyObject(value) ? (
-          <TypeTint>{'{...}'}</TypeTint>
-        ) : (
           <TypeTint>{'{}'}</TypeTint>
+        ) : (
+          <TypeTint>{'{...}'}</TypeTint>
         )}
         {comma(i) && <TypeShadow pre>, </TypeShadow>}
         {!comma(i) && ellipsis && <TypeTint pre>, ...</TypeTint>}
