@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import { rgba } from 'polished'
 import { SquareGroup } from 'components/micro/SquareGroup'
 
 export interface SquareGroupToggleProps<T> extends ExtraProps.DataInput<T[]> {

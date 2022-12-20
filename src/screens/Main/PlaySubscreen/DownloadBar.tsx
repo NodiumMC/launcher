@@ -12,7 +12,7 @@ const StyledBar = styled.div<DownloadBarProps>`
   background-color: ${({ theme }) => theme.master.shade()};
   overflow: hidden;
   position: relative;
-  transform-origin: ${({ prepare = 0, value = 0 }) => (value > 50 ? 'right' : 'left')};
+  transform-origin: ${({ value = 0 }) => (value > 50 ? 'right' : 'left')};
   transform: scaleX(${({ prepare = 0, value = 0 }) => ((value > 0 || prepare > 0) && value < 100 ? 1 : 0)});
   height: 2px;
   ${transition('transform')};

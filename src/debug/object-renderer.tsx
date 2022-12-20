@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Text } from 'components/micro/Text'
 import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { parse } from 'stack-trace'
 
 export interface Property {
   type: 'default' | 'symbol' | 'hidden'
@@ -104,10 +103,6 @@ const TypeBlue = styled(Text)`
   color: ${({ theme }) => mix(0.2, theme.master.front, theme.palette.blue)};
 `
 
-const TypeYellow = styled(Text)`
-  color: ${({ theme }) => mix(0.2, theme.master.front, theme.palette.yellow)};
-`
-
 const TypeOrange = styled(Text)`
   color: ${({ theme }) => mix(0.1, theme.master.front, theme.palette.orange)};
 `
@@ -186,11 +181,11 @@ const ErrorContainer = styled.div`
   flex-direction: column;
 `
 
-const ErrorStack = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-left: ${({ theme }) => theme.space(2)};
-`
+// const ErrorStack = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   padding-left: ${({ theme }) => theme.space(2)};
+// `
 
 export const ObjectRenderer: FC<ObjectRendererProps> = ({ target, name }) => {
   const [opened, setOpened] = useState(false)

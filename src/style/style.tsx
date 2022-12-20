@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
 import { rgba } from 'polished'
-import { transition } from 'style/snippets'
 
 export const Style = createGlobalStyle`
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {

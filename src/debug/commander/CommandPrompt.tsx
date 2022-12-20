@@ -9,7 +9,6 @@ import styled from 'styled-components'
 import { normalizeColor } from 'utils'
 import ReactAce from 'react-ace'
 import { filter, fromEvent } from 'rxjs'
-import { usePrevious } from 'hooks'
 
 const Container = styled.div`
   padding: ${({ theme }) => theme.space(2)};

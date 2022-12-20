@@ -11,10 +11,10 @@ export interface JavaVersion {
   major: number
 }
 
-export const javaVersion = async (javaHome = 'java'): Promise<JavaVersion> => {
-  const motd = await javaMotd()
-  const version = motd.match(/version "(.*)"/)?.[1] ?? 'null'
-  const bit = motd.match(/64-Bit/) ? 'x64' : 'x32'
-  const major = +version.split('.')[0]
-  return { version, bit, major }
-}
+// export const javaVersion = async (javaHome = 'java'): Promise<JavaVersion> => {
+//   const motd = await javaMotd()
+//   const version = motd.match(/version "(.*)"/)?.[1] ?? 'null'
+//   const bit = motd.match(/64-Bit/) ? 'x64' : 'x32'
+//   const major = +version.split('.')[0]
+//   return { version, bit, major }
+// }
