@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react'
 import styled from 'styled-components'
 import { font } from 'style'
-import { Preloader } from 'components/micro/Preloader'
+import { Preloader } from 'components/atoms/Preloader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { shade, ShadeProps, transition } from 'style'
 import { rgba } from 'polished'

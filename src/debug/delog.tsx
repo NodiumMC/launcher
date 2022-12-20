@@ -1,6 +1,6 @@
 import { FC, Fragment, useMemo } from 'react'
 import styled from 'styled-components'
-import { Text } from 'components/micro/Text'
+import { Text } from 'components/atoms/Text'
 import { ObjectRenderer } from 'debug'
 import { toJS } from 'mobx'
 import { mix } from 'polished'

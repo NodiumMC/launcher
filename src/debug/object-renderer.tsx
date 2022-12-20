@@ -1,6 +1,6 @@
 import { FC, Fragment, ReactNode, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { Text } from 'components/micro/Text'
+import { Text } from 'components/atoms/Text'
 import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

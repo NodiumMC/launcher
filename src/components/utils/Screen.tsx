@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { FC } from 'react'
-import { Preloader } from 'components/micro/Preloader'
+import { Preloader } from 'components/atoms/Preloader'
 
 export const Screen = styled.div`
   width: 100%;

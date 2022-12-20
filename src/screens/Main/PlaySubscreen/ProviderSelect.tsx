@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { ProviderIcon, SupportedProviders, VersionProvider } from 'core/providers'
-import { Select } from 'components/micro/Select'
+import { Select } from 'components/molecules/Select'
 
 export const ProviderSelect: FC<ExtraProps.DataInput<SupportedProviders>> = props => (
   <Select

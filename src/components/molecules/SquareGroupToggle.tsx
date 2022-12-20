@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import { SquareGroup } from 'components/micro/SquareGroup'
+import { SquareGroup } from 'components/molecules/SquareGroup'
 
 export interface SquareGroupToggleProps<T> extends ExtraProps.DataInput<T[]> {
   disabled?: boolean
