@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Text } from 'components/micro/Text'
+import { Text } from 'components/atoms/Text'
 import { ReportService } from 'debug/report.service'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { parse } from 'stack-trace'

@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { open, OpenDialogOptions } from '@tauri-apps/api/dialog'
-import { Input } from 'components/micro/Input'
-import { Button } from 'components/micro/Button'
+import { Input } from 'components/atoms/Input'
+import { Button } from 'components/atoms/Button'
 
 export interface DialogInputProps extends Omit<OpenDialogOptions, 'multiple'>, ExtraProps.DataInput<string> {
   disabled?: boolean

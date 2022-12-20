@@ -1,7 +1,7 @@
 import { error } from 'debug'
 import { PureComponent } from 'react'
 import { ReportService } from 'debug/report.service'
-import { CrashOverlay } from 'components/macro/CrashOverlay'
+import { CrashOverlay } from 'components/organisms/CrashOverlay'
 import { container } from 'tsyringe'
 
 export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {

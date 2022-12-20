@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import { useI18N } from 'hooks'
-import { Text } from 'components/micro/Text'
+import { Text } from 'components/atoms/Text'
 import { observer } from 'mobx-react'
 
 const Styled = styled.div`

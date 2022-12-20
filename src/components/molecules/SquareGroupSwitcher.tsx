@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react'
-import { SquareGroup } from 'components/micro/SquareGroup'
+import { SquareGroup } from 'components/molecules/SquareGroup'
 import styled from 'styled-components'
 
 export interface SquareGroupSwitcherProps<T> extends ExtraProps.DataInput<T> {

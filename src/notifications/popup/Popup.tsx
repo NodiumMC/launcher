@@ -9,8 +9,8 @@ import {
   faCircleXmark,
   faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons'
-import { Text } from 'components/micro/Text'
-import { Button } from 'components/micro/Button'
+import { Text } from 'components/atoms/Text'
+import { Button } from 'components/atoms/Button'
 import { isPromise } from 'utils/promise'
 import { observer } from 'mobx-react'
 import { useMod } from 'hooks/useMod'
