@@ -1,0 +1,51 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Button } from '../components/atoms/Button'
+
+<Meta title="Atoms/Button" component={Button} />
+
+export const StoryButton = ({ text, ...args }) => <Button {...args}>{text}</Button>
+
+# Кнопка
+
+<Canvas>
+  <Story name="default" args={{ text: 'Кнопка' }}>
+    {StoryButton.bind({})}
+  </Story>
+</Canvas>
+
+# Primary кнопка
+<Canvas>
+  <Story name="primary" args={{ text: 'Отправить', primary: true }}>
+    {StoryButton.bind({})}
+  </Story>
+</Canvas>
+
+# Красная кнопка
+Когда нужно выполнить какое-либо опасное действие
+<Canvas>
+  <Story name="danger" args={{ text: 'Удалить', danger: true }}>
+    {StoryButton.bind({})}
+  </Story>
+</Canvas>
+
+# Кнопка с иконкой
+<Canvas>
+  <Story name="icon" args={{ text: 'Лайк', icon: 'thumbs-up' }}>
+    {StoryButton.bind({})}
+  </Story>
+</Canvas>
+
+# Ожидание
+Кнопка в режиме ожидания отключена
+<Canvas>
+  <Story name="fetching" args={{ text: 'Загрузка', fetching: true }}>
+    {StoryButton.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled
+<Canvas>
+  <Story name="disabled" args={{ disabled: true, text: 'Никак' }}>
+    {StoryButton.bind({})}
+  </Story>
+</Canvas>

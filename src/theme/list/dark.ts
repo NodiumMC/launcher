@@ -1,4 +1,4 @@
-import { generic } from 'theme/list'
+import { generic } from './generic'
 import { invert, mix, readableColor, shade, tint } from 'polished'
 
 export const dark = {
