@@ -1,0 +1,55 @@
+name: "🔷 Development"
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint-ts:
+    name: "📄 Lint"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ Checkout"
+        uses: actions/checkout@v3
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+      - name: "📦 Install deps"
+        run: yarn
+      - name: "💠 Lint"
+        run: yarn lint
+  prebuild-frontend:
+    name: "🛠 Frontend prebuild"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ Checkout"
+        uses: actions/checkout@v3
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+      - name: "📦 Install deps"
+        run: yarn
+      - name: "💠 Prebuild"
+        run: yarn prebuild
+  test-frontend:
+    name: "🚩 Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ Checkout"
+        uses: actions/checkout@v3
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+      - name: "📦 Install deps"
+        run: yarn
+      - name: "💠 Prebuild"
+        run: yarn test
+

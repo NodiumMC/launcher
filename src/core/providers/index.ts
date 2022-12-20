@@ -20,7 +20,7 @@ export interface VersionNode {
 }
 
 export const fetchManifest = () => fetch<MojangManifest>(mojangManifest).then(res => res.data)
-export const fetchFabricManifest = ()=> fetch<FabricManifest>(fabricManifest).then(v => v.data)
+export const fetchFabricManifest = () => fetch<FabricManifest>(fabricManifest).then(v => v.data)
 export const fetchFabricLoaders = (id: string) =>
   fetch<FabricLoadersManifest>(fabricLoaders.explain({ id })).then(v => v.data)
 
