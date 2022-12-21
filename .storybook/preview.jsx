@@ -1,6 +1,7 @@
 import theme from './theme'
 import { ThemeProvider } from 'styled-components'
 import { dark } from '../src/theme/list/dark'
+import 'reflect-metadata'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
