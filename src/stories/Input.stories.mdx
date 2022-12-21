@@ -1,0 +1,48 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs'
+import { Input } from '../components/atoms/Input'
+
+<Meta title="Atoms/Input" component={Input} />
+
+export const StoryInput = ({ ...args }) => <Input {...args}/>
+
+# Input
+<Canvas>
+  <Story name="default" args={{  }}>
+    {StoryInput.bind({})}
+  </Story>
+</Canvas>
+
+# Input with placeholder
+<Canvas>
+  <Story name="placeholder" args={{ placeholder: 'Login' }}>
+    {StoryInput.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled
+<Canvas>
+  <Story name="disabled" args={{ disabled: true, placeholder: 'Why?' }}>
+    {StoryInput.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled with content
+<Canvas>
+  <Story name="disabled with content" args={{ disabled: true, placeholder: 'Password', value: 'Okay' }}>
+    {StoryInput.bind({})}
+  </Story>
+</Canvas>
+
+# Invalid input
+<Canvas>
+  <Story name="invalid" args={{ invalid: true, placeholder: 'Invalid', value: 'invalid' }}>
+    {StoryInput.bind({})}
+  </Story>
+</Canvas>
+
+# Valid input
+<Canvas>
+  <Story name="valid" args={{ valid: true, placeholder: 'Valid', value: 'valid' }}>
+    {StoryInput.bind({})}
+  </Story>
+</Canvas>
