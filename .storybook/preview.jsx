@@ -20,7 +20,7 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={dark}>
-      <Style />
+      <Style storybook />
       <Story />
     </ThemeProvider>
   ),

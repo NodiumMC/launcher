@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import { rgba } from 'polished'
 
-export const Style = createGlobalStyle`
+export const Style = createGlobalStyle<{ storybook?: boolean }>`
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
     all: unset;
     display: revert;
@@ -71,7 +71,7 @@ export const Style = createGlobalStyle`
   html, body {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: ${({ storybook }) => (storybook ? 'initial' : 'hidden')};
     border-radius: ${({ theme }) => theme.radius()};
     font-family: "JetBrains Mono", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
     color: ${({ theme }) => theme.master.front};
