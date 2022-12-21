@@ -15,11 +15,11 @@ const ControlPlate = styled.div`
 `
 
 const Red = styled.div`
-  color: ${({ theme }) => normalizeColor(theme.palette.red)};
+  color: ${({ theme }) => theme.palette.red};
 `
 
 const Yellow = styled.div`
-  color: ${({ theme }) => normalizeColor(theme.palette.yellow)};
+  color: ${({ theme }) => theme.palette.yellow};
 `
 
 const NetworkStatus: FC = observer(() => {
