@@ -71,6 +71,7 @@ export const Components: FC = () => {
       <Container>
         <Checkbox />
         <Checkbox value />
+        <Checkbox value disabled />
       </Container>
       <Split>ПереключалОчки</Split>
       <Container>

@@ -1,0 +1,31 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Checkbox } from '../components/atoms/Checkbox'
+import { useState } from 'react'
+
+<Meta title="Atoms/Checkbox" component={Checkbox} />
+
+export const StoryCheckBox = ({ ...args }) => {
+  const [checked, setChecked] = useState(false)
+  return <Checkbox value={checked} onChange={setChecked} {...args} />
+}
+
+# Checkbox
+<Canvas>
+  <Story name="default" args={{ disabled: false }}>
+    {StoryCheckBox.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled
+<Canvas>
+  <Story name="disabled" args={{ disabled: true }}>
+    {StoryCheckBox.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled checked
+<Canvas>
+  <Story name="disabled checked" args={{ disabled: true, value: true }}>
+    {StoryCheckBox.bind({})}
+  </Story>
+</Canvas>
