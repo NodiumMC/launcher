@@ -1,5 +1,5 @@
-import { IPopup, PopupService } from '.'
-import { FC, useCallback, useMemo, useState } from 'react'
+import { IPopup } from '.'
+import { FC, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -13,7 +13,6 @@ import { Text } from 'components/atoms/Text'
 import { Button } from 'components/atoms/Button'
 import { isPromise } from 'utils/promise'
 import { observer } from 'mobx-react'
-import { useMod } from 'hooks/useMod'
 
 const Popuup = styled.div`
   width: 580px;
@@ -59,9 +58,7 @@ const Actions = styled.div`
   align-items: flex-end;
 `
 
-export const Popup: FC<IPopup> = observer(({ level, actions, title, description, idx }) => {
-  const popup = useMod(PopupService)
-
+export const Popup: FC<IPopup> = observer(({ level, actions, title, description, close }) => {
   const icon = useMemo(
     () =>
       level === 'ok' ? (
@@ -78,9 +75,6 @@ export const Popup: FC<IPopup> = observer(({ level, actions, title, description,
     [level],
   )
   const [waiting, setWaiting] = useState(false)
-  const closee = useCallback(() => {
-    if (idx) popup.close(idx)
-  }, [idx])
   return (
     <Popuup>
       <Icon level={level}>{icon}</Icon>
@@ -95,12 +89,11 @@ export const Popup: FC<IPopup> = observer(({ level, actions, title, description,
         description
       )}
       <Actions>
-        {actions.map(({ label, action, isPrimary, isDanger, close }, index) => (
+        {actions.map(({ label, action, isPrimary, isDanger }, index) => (
           <Button
             key={index}
             onClick={() => {
-              if (close) return closee()
-              const result = action?.(closee)
+              const result = action?.(close!)
               if (isPromise(result)) {
                 setWaiting(true)
                 result.finally(() => setWaiting(false))
