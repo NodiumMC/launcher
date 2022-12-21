@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { transition } from 'style'
-import { FC } from 'react'
+import { FC, forwardRef } from 'react'
 
 export interface InputProps {
   center?: boolean
@@ -79,9 +79,9 @@ export interface InputProps {
   valid?: boolean
 }
 
-export const Input: FC<JSX.IntrinsicElements['input'] & InputProps> = args => (
+export const Input = forwardRef<HTMLInputElement, JSX.IntrinsicElements['input'] & InputProps>((args, ref) => (
   <Container>
-    <StyledInput {...(args as object)} />
+    <StyledInput {...(args as object)} ref={ref} />
     <Placeholder>{args.placeholder}</Placeholder>
   </Container>
-)
+))
