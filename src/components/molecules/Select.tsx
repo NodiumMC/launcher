@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { transition } from 'style'
 import { rgba } from 'polished'
 
-const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square' | 'width'>>`
+const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square' | 'width' | 'disabled'>>`
   .Select__control {
     background: ${({ theme }) => theme.master.back};
     border: 0 solid ${({ theme }) => theme.master.shade()};
@@ -51,6 +51,7 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square' | '
   }
 
   .Select__menu {
+    width: ${({ square, width }) => (square ? '38px' : width ?? 'initial')};
     background: ${({ theme, mini }) => (mini ? theme.master.shade() : theme.master.back)};
     border: ${({ mini, theme }) => (mini ? 'none' : `2px solid ${theme.master.shade()}`)};
     border-radius: ${({ theme }) => theme.radius()};
@@ -77,7 +78,7 @@ const StyledSelect = styled(ReactSelect)<Pick<SelectProps, 'mini' | 'square' | '
     font-weight: bold;
 
     .Select__single-value {
-      color: ${({ theme }) => theme.accent.primary};
+      color: ${({ theme, disabled }) => (disabled ? theme.master.shade(0.3) : theme.accent.primary)};
       display: flex;
       justify-content: center;
       align-items: center;
@@ -180,6 +181,7 @@ export const Select = <Value extends string = any, Label = unknown>({
       onChange={v => onChange?.((v as any).value)}
       value={defaultValue}
       isSearchable={!mini}
+      isDisabled={props.disabled}
     />
   )
 }
