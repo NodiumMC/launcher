@@ -13,9 +13,10 @@ const Substrate = styled.div<SubstrateProps>`
   align-items: center;
   width: 18px;
   height: 18px;
-  background-color: ${({ theme, disabled }) => (disabled ? theme.master.shade(0.2) : theme.accent.primary)};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.master.shade(0.3) : theme.accent.primary)};
+  border-radius: ${({ theme }) => theme.radius(0.5)};
   position: relative;
-  ${transition('all', '100ms')}
+  ${transition('all', '0.1s')}
 
   &:hover {
     ${({ disabled, theme }) =>
@@ -24,29 +25,6 @@ const Substrate = styled.div<SubstrateProps>`
     box-shadow: 0 0 10px 1px ${theme.accent.primary}3F
     `
         : ''}
-  }
-
-  &:before,
-  &:after {
-    background-color: inherit;
-    position: absolute;
-    content: '';
-  }
-
-  &:after {
-    border-radius: 10% / 50%;
-    height: 100%;
-    left: -10%;
-    right: -10%;
-    top: 0;
-  }
-
-  &:before {
-    border-radius: 50% / 10%;
-    bottom: -10%;
-    left: 0;
-    top: -10%;
-    width: 100%;
   }
 `
 
@@ -103,9 +81,9 @@ const Checked = styled.div<ExtraProps.Value<boolean> & SubstrateProps>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 50%;
-  ${transition('all', '50ms')}
-  background-color: ${({ theme, disabled }) => (disabled ? theme.master.reshade(0.6) : theme.accent.primary)};
+  border-radius: 0;
+  ${transition('all', '0.1s')}
+  background-color: ${({ theme, disabled }) => (disabled ? theme.master.shade(0.3) : theme.accent.primary)};
   z-index: 2;
 `
 

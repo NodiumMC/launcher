@@ -1,0 +1,69 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Select } from '../components/molecules/Select'
+import { Pair } from '../components/utils/Pair'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+<Meta title="Molecules/Select" component={Select} />
+
+export const options = [
+  {
+    label: 'First Option',
+    value: 'first'
+  },
+  {
+    label: 'Second Option',
+    value: 'second'
+  },
+  {
+    label: 'Third Option',
+    value: 'third'
+  },
+]
+
+export const StorySelect = ({ options, ...args }) => <Select options={options} {...args} width={'200px'} />
+
+# Select
+<Canvas>
+  <Story name="default" args={{ options }}>
+    {StorySelect.bind({})}
+  </Story>
+</Canvas>
+
+# Default
+<Canvas>
+  <Story name="selected" args={{ options, value: 'second' }}>
+    {StorySelect.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled
+<Canvas>
+  <Story name="disabled" args={{ options, value: 'second', disabled: true }}>
+    {StorySelect.bind({})}
+  </Story>
+</Canvas>
+
+# Custom placeholder
+<Canvas>
+  <Story name="placeholder" args={{ options, placeholder: 'Выберите' }}>
+    {StorySelect.bind({})}
+  </Story>
+</Canvas>
+
+# Complex
+<Canvas>
+  <Story name="complex" args={{
+    options: [
+      {
+        label: <Pair><FontAwesomeIcon icon={'thumbs-up'} />Like</Pair>,
+        value: 'like'
+      },
+      {
+        label: <Pair><FontAwesomeIcon icon={'video'} />Video</Pair>,
+        value: 'video'
+      }
+    ]
+  }}>
+    {StorySelect.bind({})}
+  </Story>
+</Canvas>

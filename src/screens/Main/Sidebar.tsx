@@ -61,7 +61,7 @@ const SidebarItem = styled.div<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme, active }) => (active ? theme.master.reshade(0.15) : normalizeColor(theme.accent.primary))};
+  color: ${({ theme, active }) => (active ? theme.master.reshade(0.15) : theme.accent.primary)};
   font-size: 18px;
   cursor: pointer;
 `

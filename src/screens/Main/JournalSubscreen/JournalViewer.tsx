@@ -37,7 +37,7 @@ const Prefixed = styled.span<PrefixedProps>`
   padding: 0 6px;
   opacity: ${({ opacity }) => (opacity ? '0.65' : '1')};
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
-  color: ${({ color }) => (color ? normalizeColor(color) : color)};
+  color: ${({ color }) => (color ? color : color)};
   svg {
     font-size: 0.7rem;
   }
@@ -50,7 +50,7 @@ const TextLine = styled.div`
 `
 
 const Colored = styled.span<{ color: string }>`
-  color: ${({ color }) => normalizeColor(color)};
+  color: ${({ color }) => color};
 `
 
 const Line: FC<{ line: JournalLine }> = ({ line: { time, thread, level, content, compact } }) => {

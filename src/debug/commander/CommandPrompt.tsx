@@ -69,7 +69,7 @@ const Editor = styled(AceEditor)`
   .ace_keyword,
   .ace_meta.ace_tag,
   .ace_storage {
-    color: ${({ theme }) => normalizeColor(theme.palette.red)};
+    color: ${({ theme }) => theme.palette.red};
   }
 
   .ace_punctuation,
@@ -81,50 +81,50 @@ const Editor = styled(AceEditor)`
   .ace_constant.ace_language,
   .ace_constant.ace_numeric,
   .ace_constant.ace_other {
-    color: ${({ theme }) => normalizeColor(theme.palette.magenta)};
+    color: ${({ theme }) => theme.palette.magenta};
   }
 
   .ace_invalid {
     color: ${({ theme }) => theme.master.front};
-    background-color: ${({ theme }) => normalizeColor(theme.palette.red)};
+    background-color: ${({ theme }) => theme.palette.red};
   }
 
   .ace_invalid.ace_deprecated {
     color: ${({ theme }) => theme.master.front};
-    background-color: ${({ theme }) => normalizeColor(theme.palette.magenta)};
+    background-color: ${({ theme }) => theme.palette.magenta};
   }
 
   .ace_support.ace_constant,
   .ace_support.ace_function {
-    color: ${({ theme }) => normalizeColor(theme.palette.cyan)};
+    color: ${({ theme }) => theme.palette.cyan};
   }
 
   .ace_fold {
-    background-color: ${({ theme }) => normalizeColor(theme.palette.green)};
-    border-color: ${({ theme }) => normalizeColor(theme.master.front)};
+    background-color: ${({ theme }) => theme.palette.green};
+    border-color: ${({ theme }) => theme.master.front};
   }
 
   .ace_storage.ace_type,
   .ace_support.ace_class,
   .ace_support.ace_type {
     font-style: italic;
-    color: ${({ theme }) => normalizeColor(theme.palette.cyan)};
+    color: ${({ theme }) => theme.palette.cyan};
   }
 
   .ace_entity.ace_name.ace_function,
   .ace_entity.ace_other,
   .ace_entity.ace_other.ace_attribute-name,
   .ace_variable {
-    color: ${({ theme }) => normalizeColor(theme.palette.green)};
+    color: ${({ theme }) => theme.palette.green};
   }
 
   .ace_variable.ace_parameter {
     font-style: italic;
-    color: ${({ theme }) => normalizeColor(theme.palette.orange)};
+    color: ${({ theme }) => theme.palette.orange};
   }
 
   .ace_string {
-    color: ${({ theme }) => normalizeColor(theme.palette.yellow)};
+    color: ${({ theme }) => theme.palette.yellow};
   }
 
   .ace_comment {

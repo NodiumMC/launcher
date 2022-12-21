@@ -37,7 +37,7 @@ const Container = styled.div.attrs<{ type: DelogType }>(({ theme, type }) => {
     }
   }
   const color = clr()
-  const textColor = color !== theme.master.shade() ? normalizeColor(color!) : theme.master.front
+  const textColor = color !== theme.master.shade() ? color! : theme.master.front
   return {
     color: textColor,
     backgroundColor: color !== theme.master.shade() ? mix(0.2, color!, theme.master.back) : theme.master.shade(),
@@ -77,12 +77,12 @@ const Content = styled(Text).attrs(() => ({
 `
 
 const Time = styled(Text)`
-  color: ${({ theme }) => normalizeColor(theme.accent.primary)};
+  color: ${({ theme }) => theme.accent.primary};
   font-weight: bold;
 `
 
 const Delta = styled(Text)<{ sign?: boolean }>`
-  color: ${({ sign, theme }) => (sign ? normalizeColor(theme.palette.green) : normalizeColor(theme.palette.red))};
+  color: ${({ sign, theme }) => (sign ? theme.palette.green : theme.palette.red)};
 `
 
 export const LogLine: FC<LogLineProps> = ({ line }) => {

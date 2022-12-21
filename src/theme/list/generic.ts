@@ -1,7 +1,11 @@
 import { hsl, linearGradient, parseToHsl, shade, tint } from 'polished'
+import { normalizeColor } from 'utils'
+
+const primary = '#5297ff'
+const secondary = '#7b2eff'
 
 const deshade = (color: string, value: number) => {
-  const parsed = parseToHsl(shade(value, generic.accent.primary))
+  const parsed = parseToHsl(shade(value, primary))
   return hsl({
     ...parsed,
     saturation: 0.05,
@@ -9,7 +13,7 @@ const deshade = (color: string, value: number) => {
 }
 
 const detint = (color: string, value: number) => {
-  const parsed = parseToHsl(tint(value, generic.accent.primary))
+  const parsed = parseToHsl(tint(value, primary))
   return hsl({
     ...parsed,
     saturation: 0.5,
@@ -18,8 +22,8 @@ const detint = (color: string, value: number) => {
 
 export const generic = {
   accent: {
-    primary: '#5297ff',
-    secondary: '#7b2eff',
+    primary,
+    secondary,
     // primary: '#7980ff',
     // secondary: '#aa79ff',
     gradient(direction?: string) {
@@ -38,12 +42,8 @@ export const generic = {
     cyan: '#5effdf',
     magenta: '#d059ff',
     pink: '#ff58b7',
-    get black() {
-      return deshade(generic.accent.primary, 0.8)
-    },
-    get white() {
-      return detint(generic.accent.primary, 0.8)
-    },
+    black: deshade(primary, 0.8),
+    white: detint(primary, 0.8),
   },
   fonts: {
     default: '"Jetbrains Mono"',

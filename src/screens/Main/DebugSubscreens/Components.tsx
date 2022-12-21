@@ -71,6 +71,7 @@ export const Components: FC = () => {
       <Container>
         <Checkbox />
         <Checkbox value />
+        <Checkbox value disabled />
       </Container>
       <Split>ПереключалОчки</Split>
       <Container>
@@ -122,6 +123,8 @@ export const Components: FC = () => {
         <Input />
         <Input placeholder={'Напиши чёнить'} />
         <Input disabled placeholder={'Говорят, что если написать сюда желание, то оно сбудется'} />
+        <Input invalid placeholder={'invalid'} />
+        <Input valid placeholder={'valid'} />
         <DialogInput directory icon={<FontAwesomeIcon icon={'folder'} />} value={opend1} onChange={setOpend1} />
         <DialogInput
           filters={[{ name: 'Исполняемый файл', extensions: ['exe', 'sh'] }]}
