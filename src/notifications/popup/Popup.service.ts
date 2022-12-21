@@ -17,7 +17,7 @@ export class PopupService {
 
   create<T extends object>(template: FC<T>, props: T): void {
     const idx = nanoid()
-    this._popups[idx] = [template, { ...props, idx }]
+    this._popups[idx] = [template, { ...props, close: () => this.close(idx) }]
   }
 
   close(id: string) {
