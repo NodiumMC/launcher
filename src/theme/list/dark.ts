@@ -22,6 +22,17 @@ export const dark = {
       return mix(factor >= 0 ? factor : 1 - factor * -1, invert(readableColor(this.back)), this.back)
     },
   },
+  palette: {
+    ...generic.palette,
+    red: mix(0.2, generic.palette.white, generic.palette.red),
+    green: mix(0.2, generic.palette.white, generic.palette.green),
+    blue: mix(0.2, generic.palette.white, generic.palette.blue),
+    yellow: mix(0.2, generic.palette.white, generic.palette.yellow),
+    orange: mix(0.2, generic.palette.white, generic.palette.orange),
+    cyan: mix(0.2, generic.palette.white, generic.palette.cyan),
+    magenta: mix(0.2, generic.palette.white, generic.palette.magenta),
+    pink: mix(0.2, generic.palette.white, generic.palette.pink),
+  },
   console: [
     '#000',
     '#ff5050',
