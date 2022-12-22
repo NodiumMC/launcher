@@ -2,11 +2,13 @@ import styled from 'styled-components'
 
 interface SquareGroupProps {
   disabled?: boolean
+  vertical?: boolean
 }
 
 export const SquareGroup = styled.div<SquareGroupProps>`
   display: inline-flex;
-  height: 38px;
+  flex-direction: ${({ vertical }) => (vertical ? 'column' : 'row')};
+  ${({ vertical }) => (vertical ? 'width: 38px' : 'height: 38px')};
   background-color: ${({ theme }) => theme.master.shade(0.1)};
   border-radius: ${({ theme }) => theme.radius()};
   overflow: hidden;
