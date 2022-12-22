@@ -1,0 +1,44 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { SquareGroupSwitcher } from '../components/molecules/SquareGroupSwitcher'
+import { useState } from 'react'
+import { ProviderIcon } from '../core/providers/providers'
+
+<Meta title="Molecules/SquareGroupSwitcher" component={SquareGroupSwitcher} />
+
+export const StorySwitcher = ({ ...args }) => {
+  const [value, setValue] = useState('vanilla')
+  return (
+    <SquareGroupSwitcher
+      {...args}
+      options={[
+        { id: 'vanilla', label: ProviderIcon.vanilla },
+        { id: 'fabric', label: ProviderIcon.fabric },
+        { id: 'forge', label: ProviderIcon.forge },
+        { id: 'quilt', label: ProviderIcon.quilt },
+      ]}
+      value={value}
+      onChange={setValue}
+    />
+  )
+}
+
+# SquareGroupSwitcher
+<Canvas>
+  <Story name="default">
+    {StorySwitcher.bind({})}
+  </Story>
+</Canvas>
+
+# With disoptions
+<Canvas>
+  <Story name="disoptions" args={{ disoptions: ['fabric', 'forge'] }}>
+    {StorySwitcher.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled
+<Canvas>
+  <Story name="disabled" args={{ disabled: true }}>
+    {StorySwitcher.bind({})}
+  </Story>
+</Canvas>
