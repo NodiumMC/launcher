@@ -79,9 +79,11 @@ export interface InputProps {
   valid?: boolean
 }
 
-export const Input = forwardRef<HTMLInputElement, JSX.IntrinsicElements['input'] & InputProps>((args, ref) => (
-  <Container>
-    <StyledInput {...(args as object)} ref={ref} />
-    <Placeholder>{args.placeholder}</Placeholder>
-  </Container>
-))
+export const Input = forwardRef<HTMLInputElement, JSX.IntrinsicElements['input'] & InputProps>(
+  ({ style, className, ...props }, ref) => (
+    <Container className={className} style={style}>
+      <StyledInput {...(props as object)} ref={ref} />
+      <Placeholder>{props.placeholder}</Placeholder>
+    </Container>
+  ),
+)
