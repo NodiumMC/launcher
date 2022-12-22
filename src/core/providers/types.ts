@@ -3,10 +3,10 @@ import { SupportedProviders } from 'core/providers/providers'
 export interface VersionUnion {
   name: string
   id: string
-  isRelease: boolean
-  isSnapshot: boolean
-  isOld: boolean
-  latest: boolean
+  isRelease?: boolean
+  isSnapshot?: boolean
+  isOld?: boolean
+  latest?: boolean
   providers: SupportedProviders[]
 }
 

@@ -10,6 +10,7 @@ export interface SquareGroupSwitcherProps<T> extends ExtraProps.DataInput<T> {
     id: T
   }>
   defaultOption?: T
+  vertical?: boolean
 }
 
 interface OptionProps {
@@ -39,11 +40,13 @@ const Option = styled.div<OptionProps>`
 
 interface SelectorProps {
   offset: number
+  vertical?: boolean
 }
 
-const Selector = styled.div.attrs<SelectorProps>(({ offset }) => ({
+const Selector = styled.div.attrs<SelectorProps>(({ offset, vertical }) => ({
   style: {
-    left: `${offset * 38}px`,
+    left: vertical ? 0 : `${offset * 38}px`,
+    top: vertical ? `${offset * 38}px` : 0,
   },
 }))<SelectorProps>`
   position: absolute;
@@ -61,12 +64,13 @@ export const SquareGroupSwitcher = <T extends string | number>({
   disoptions,
   options,
   defaultOption,
+  vertical,
 }: SquareGroupSwitcherProps<T>) => {
   useEffect(() => {
     if (value) if (disoptions?.includes(value)) onChange?.(defaultOption ?? options[0]?.id)
   }, [disoptions])
   return (
-    <SquareGroup disabled={disabled}>
+    <SquareGroup disabled={disabled} vertical={vertical}>
       {options.map(opt => (
         <Option
           key={opt.id}
@@ -77,7 +81,7 @@ export const SquareGroupSwitcher = <T extends string | number>({
           {opt.label}
         </Option>
       ))}
-      {value && <Selector offset={options.findIndex(v => v.id === value)} />}
+      {value && <Selector offset={options.findIndex(v => v.id === value)} vertical={vertical} />}
     </SquareGroup>
   )
 }
