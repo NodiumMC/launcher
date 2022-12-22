@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components'
 import { ReactNode, useMemo, useState } from 'react'
-import { VersionUnion } from 'core/providers/types'
+import { PublicVersion } from 'core/providers/types'
 import { SquareGroupSwitcher } from 'components/molecules/SquareGroupSwitcher'
 import { SupportedProviders } from 'core/providers'
 import { Text } from 'components/atoms/Text'
@@ -9,13 +9,14 @@ import { inputValue } from 'utils'
 import { mix } from 'polished'
 import { ColoredTag } from 'components/atoms/ColoredTag'
 import { Pair } from 'components/utils/Pair'
+import { useDebounce } from 'use-debounce'
 
 export interface LargePickerProps<T> extends ExtraProps.Styled {
   providers: Array<{
     label: T
     id: SupportedProviders
   }>
-  versions: VersionUnion[]
+  versions: PublicVersion[]
   provider: SupportedProviders
   onProviderChange: (provider: SupportedProviders) => void
   version: string
@@ -118,9 +119,10 @@ export const VersionPicker = <T extends ReactNode>({
 }: LargePickerProps<T>) => {
   const theme = useTheme()
   const [search, setSearch] = useState('')
+  const [searchedb] = useDebounce(search, 1000)
 
   const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
-  const searched = filtered.filter(v => (search.length > 0 ? v.name.includes(search) : true))
+  const searched = useMemo(() => filtered.filter(v => (search ? v.name.includes(search) : true)), [searchedb, filtered])
 
   return (
     <Container {...props}>
