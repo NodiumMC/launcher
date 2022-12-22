@@ -1,6 +1,6 @@
 import { SupportedProviders } from 'core/providers/providers'
 
-export interface VersionUnion {
+export interface PublicVersion {
   name: string
   id: string
   isRelease?: boolean

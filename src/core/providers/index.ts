@@ -1,7 +1,7 @@
 export * from './providers'
 
 import { VersionFile } from 'core/version'
-import { FabricLoadersManifest, FabricManifest, MojangManifest, VersionUnion } from 'core/providers/types'
+import { FabricLoadersManifest, FabricManifest, MojangManifest, PublicVersion } from 'core/providers/types'
 import { fabricLoaders, fabricManifest, mojangManifest } from 'core/providers/endpoints'
 import { isOld, isRelease, isSnapshot } from 'core/utils'
 import { SupportedProviders } from 'core/providers/providers'
@@ -24,7 +24,7 @@ export const fetchFabricManifest = () => fetch<FabricManifest>(fabricManifest).t
 export const fetchFabricLoaders = (id: string) =>
   fetch<FabricLoadersManifest>(fabricLoaders.explain({ id })).then(v => v.data)
 
-export const fetchMinecraftVersions = async (): Promise<VersionUnion[]> => {
+export const fetchMinecraftVersions = async (): Promise<PublicVersion[]> => {
   const manifest = await fetchManifest()
   const latestRelease = manifest.latest.release
   const latestSnapshot = manifest.latest.snapshot
