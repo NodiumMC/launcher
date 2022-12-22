@@ -36,7 +36,7 @@ export const fetchMinecraftVersions = async (): Promise<PublicVersion[]> => {
       id: v.id,
       name: v.id,
       latest: v.id === latestRelease || v.id === latestSnapshot,
-      isSnapshot: isSnapshot(v.id),
+      isSnapshot: !isRelease(v.id) && !isOld(v.id),
       isRelease: isRelease(v.id),
       isOld: isOld(v.id),
       providers,
