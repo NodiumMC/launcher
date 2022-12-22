@@ -1,0 +1,37 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { useState } from 'react'
+import { ProviderIcon } from '../core/providers/providers'
+import { SquareGroupToggle } from '../components/molecules/SquareGroupToggle'
+
+<Meta title="Molecules/SquareGroupToggle" component={SquareGroupToggle} />
+
+export const StoryToggle = ({ ...args }) => {
+  const [value, setValue] = useState(['vanilla'])
+  return (
+    <SquareGroupToggle
+      {...args}
+      options={[
+        { id: 'vanilla', label: ProviderIcon.vanilla },
+        { id: 'fabric', label: ProviderIcon.fabric },
+        { id: 'forge', label: ProviderIcon.forge },
+        { id: 'quilt', label: ProviderIcon.quilt },
+      ]}
+      value={value}
+      onChange={setValue}
+    />
+  )
+}
+
+# SquareGroupToggle
+<Canvas>
+  <Story name="default">
+    {StoryToggle.bind({})}
+  </Story>
+</Canvas>
+
+# Disabled
+<Canvas>
+  <Story name="disabled" args={{ disabled: true }}>
+    {StoryToggle.bind({})}
+  </Story>
+</Canvas>
