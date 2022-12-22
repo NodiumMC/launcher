@@ -3,7 +3,7 @@ import { LauncherProfileJSON, LauncherProfiles, populate } from 'core'
 import { join } from 'native/path'
 import { exists, prepare, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { watch } from 'tauri-plugin-fs-watch-api'
-import { Provider } from 'core/providers'
+import { fetchMinecraftVersions, Provider } from 'core/providers'
 import { PublicVersion } from 'core/providers/types'
 import { singleton } from 'tsyringe'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
@@ -11,6 +11,7 @@ import { GeneralSettings } from 'settings/GeneralSettings.service'
 @singleton()
 export class GameProfileService {
   list: LauncherProfileJSON[] = []
+  private _cachedPublic?: PublicVersion[]
 
   constructor(private readonly settings: GeneralSettings) {
     makeAutoObservable(this)
@@ -65,4 +66,14 @@ export class GameProfileService {
     writeJsonFile(await this.pathToProfile(), {
       profiles: {},
     })
+
+  async fetchAllVersions(): Promise<PublicVersion[]> {
+    const publicVersions = (this._cachedPublic ||= await fetchMinecraftVersions())
+    const publicLocals: PublicVersion[] = this.list.map(v => ({
+      name: v.name,
+      id: v.lastVersionId,
+      providers: ['custom'],
+    }))
+    return [...publicVersions, ...publicLocals]
+  }
 }
