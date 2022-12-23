@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { Text } from 'components/atoms/Text'
@@ -10,7 +10,10 @@ import { useMod } from 'hooks/useMod'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
 import { Container } from 'debug'
 import { SquareGroupSwitcher } from 'components/molecules/SquareGroupSwitcher'
-import { LangMeta } from 'i18n/langs'
+import { LangMeta, SupportedLang } from 'i18n/langs'
+import { ThemeService } from 'theme'
+import { SupportedTheme } from 'theme/type'
+import { I18n } from 'i18n'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -39,19 +42,22 @@ const ContainerRow = styled(Container)`
   margin: 0;
   display: flex;
   flex-direction: row;
-`
-
-const RowVLabel = styled(VLabel)`
-  margin-right: 200px;
+  gap: 100px;
 `
 
 export const SettingsSubscreen: FC = observer(() => {
   const settings = useMod(GeneralSettings)
-  const [squareSwitcherLang, setSquareSwictherLang] = useState<'ru' | 'en'>('ru')
-  const [squareSwitcherTheme, setSquareSwictherTheme] = useState<'light' | 'dark'>('dark')
+  const theme = useMod(ThemeService)
+  const i18n = useMod(I18n)
+  const changeTheme = (choosenTheme: SupportedTheme) => {
+    theme.setTheme(choosenTheme)
+  }
+  const changeLang = (choosenLang: SupportedLang) => {
+    i18n.setLang(choosenLang)
+  }
   return (
     <Page>
-      <Split>Общие настройки</Split>
+      <Split>{}</Split>
       <VLabel>
         <Text shade={'high'} size={5}>
           Путь к игровым данным
@@ -65,20 +71,20 @@ export const SettingsSubscreen: FC = observer(() => {
       </VLabel>
       <Split>Внешний вид</Split>
       <ContainerRow>
-        <RowVLabel>
+        <VLabel>
           <Text shade={'high'} size={5}>
             Язык
           </Text>
           <SquareGroupSwitcher
             options={[
-              { id: 'en', label: LangMeta.en_US.icon },
-              { id: 'ru', label: LangMeta.ru_RU.icon },
+              { id: 'en_US', label: LangMeta.en_US.icon },
+              { id: 'ru_RU', label: LangMeta.ru_RU.icon },
             ]}
-            value={squareSwitcherLang}
-            onChange={setSquareSwictherLang}
+            value={i18n.lang}
+            onChange={(e: SupportedLang) => changeLang(e)}
           />
-        </RowVLabel>
-        <RowVLabel>
+        </VLabel>
+        <VLabel>
           <Text shade={'high'} size={5}>
             Тема
           </Text>
@@ -87,10 +93,10 @@ export const SettingsSubscreen: FC = observer(() => {
               { id: 'light', label: <FontAwesomeIcon icon={'sun'} /> },
               { id: 'dark', label: <FontAwesomeIcon icon={'moon'} /> },
             ]}
-            value={squareSwitcherTheme}
-            onChange={setSquareSwictherTheme}
+            value={theme.current}
+            onChange={(e: SupportedTheme) => changeTheme(e)}
           />
-        </RowVLabel>
+        </VLabel>
       </ContainerRow>
     </Page>
   )

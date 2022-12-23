@@ -115,7 +115,10 @@ export const Components: FC = () => {
           ]}
           disoptions={['warn']}
           value={squareswitcher2}
-          onChange={setSquareSwicther2}
+          onChange={() => {
+            setSquareSwicther2
+            console.log(squareswitcher2)
+          }}
         />
       </Container>
       <Split>Инпутсы</Split>
