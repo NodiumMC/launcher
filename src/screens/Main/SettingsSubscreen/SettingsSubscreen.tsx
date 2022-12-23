@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { observer } from 'mobx-react'
 import { useMod } from 'hooks/useMod'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
-import { Container } from 'debug'
 import { SquareGroupSwitcher } from 'components/molecules/SquareGroupSwitcher'
 import { LangMeta, SupportedLang } from 'i18n/langs'
 import { ThemeService } from 'theme'
@@ -38,8 +37,8 @@ const Split = styled(Text).attrs(() => ({
     background-color: ${({ theme }) => theme.master.shade()};
   }
 `
-const ContainerRow = styled(Container)`
-  margin: 0;
+const ContainerRow = styled.div`
+  padding: 0;
   display: flex;
   flex-direction: row;
   gap: 100px;
