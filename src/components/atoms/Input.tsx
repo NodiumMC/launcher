@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { transition } from 'style'
-import { FC, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 export interface InputProps {
   center?: boolean

@@ -3,7 +3,7 @@ export * from './providers'
 import { VersionFile } from 'core/version'
 import { FabricLoadersManifest, FabricManifest, MojangManifest, PublicVersion } from 'core/providers/types'
 import { fabricLoaders, fabricManifest, mojangManifest } from 'core/providers/endpoints'
-import { isOld, isRelease, isSnapshot } from 'core/utils'
+import { isOld, isRelease } from 'core/utils'
 import { SupportedProviders } from 'core/providers/providers'
 import { fetch } from '@tauri-apps/api/http'
 

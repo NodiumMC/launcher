@@ -7,7 +7,6 @@ import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { transition } from 'style'
 import ms from 'pretty-ms'
-import { normalizeColor } from 'utils'
 
 export type DelogType = 'default' | 'warn' | 'error' | 'time'
 

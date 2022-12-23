@@ -6,7 +6,6 @@ import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/snippets/javascript'
 import 'ace-builds/src-noconflict/ext-language_tools'
 import styled from 'styled-components'
-import { normalizeColor } from 'utils'
 import ReactAce from 'react-ace'
 import { filter, fromEvent } from 'rxjs'
 

@@ -1,5 +1,4 @@
 import { hsl, linearGradient, parseToHsl, shade, tint } from 'polished'
-import { normalizeColor } from 'utils'
 
 const primary = '#5297ff'
 const secondary = '#7b2eff'

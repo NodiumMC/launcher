@@ -1,8 +1,7 @@
-import { FC, forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { FieldError } from 'react-hook-form'
 import { Input } from 'components/atoms/Input'
 import styled from 'styled-components'
-import { AnimatePresence } from 'framer-motion'
 
 export interface FieldProps {
   error?: FieldError
