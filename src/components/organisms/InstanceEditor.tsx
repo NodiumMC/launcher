@@ -133,7 +133,9 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
     setValue,
     getValues,
     trigger,
-    formState: { errors, isSubmitting },
+    setError,
+    clearErrors,
+    formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     defaultValues: {
       name: instance?.name ?? '{provider} {version}',
@@ -151,6 +153,10 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
     const vid = versions.find(v => v.id === data.vid)!
     const javaArgs = data.jvmArgs?.split('')
     const mcArgs = data.minecraftArgs?.split('')
+    if (!vid || !vid.providers.includes(data.provider)) {
+      setError('vid', { type: 'pattern' })
+      return
+    }
     if (instance) {
       if (instance.provider !== data.provider || instance?.vid?.id !== data.vid) instance.isInstalled = false
       instance.name = data.name
@@ -210,9 +216,10 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
             ]}
             versions={versions}
             provider={getValues('provider')}
-            onProviderChange={value => (setValue('provider', value), trigger('provider'))}
+            onProviderChange={value => (setValue('provider', value), clearErrors('vid'), trigger('provider'))}
             version={getValues('vid')}
-            onVersionChange={value => (setValue('vid', value), trigger('vid'))}
+            onVersionChange={value => (setValue('vid', value), clearErrors('vid'), trigger('vid'))}
+            invalid={!!errors.vid}
           />
           <VerticalGroup>
             <Pair gap={'small'}>
@@ -284,7 +291,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
         </Pair>
         <Pair>
           <Button onClick={close}>Отмена</Button>
-          <Button onClick={handleSubmit(submit)} primary disabled={versions.length === 0 || isSubmitting}>
+          <Button onClick={handleSubmit(submit)} primary disabled={versions.length === 0 || isSubmitting || !isValid}>
             {instance ? 'Сохранить' : 'Создать'}
           </Button>
         </Pair>
