@@ -117,7 +117,6 @@ export const Components: FC = () => {
           value={squareswitcher2}
           onChange={() => {
             setSquareSwicther2
-            console.log(squareswitcher2)
           }}
         />
       </Container>
