@@ -16,7 +16,8 @@ import { VersionPicker } from 'components/molecules/VersionPicker'
 import { PublicVersion } from 'core/providers/types'
 import { useOnce } from 'hooks'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
-import { UpfallService } from 'notifications'
+import { Popup, PopupService, UpfallService } from 'notifications'
+import { wait } from 'utils'
 
 export interface InstanceEditorProps {
   close?: () => void
@@ -89,12 +90,37 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
   const gp = useMod(GameProfileService)
   const istore = useMod(InstanceStore)
   const upfall = useMod(UpfallService)
+  const popup = useMod(PopupService)
   const [versions, setVersions] = useState<PublicVersion[]>([])
 
   const repair = useCallback(() => {
     upfall.drop('default', 'Экземпляр будет переустановлен при следующем запуске', 'screwdriver-wrench')
     if (instance) instance.isInstalled = false
     close?.()
+  }, [])
+
+  const remove = useCallback(() => {
+    popup.create(Popup, {
+      level: 'question',
+      title: 'Вы уверены?',
+      description: 'Вы действительно хотите удалить экземпляр игры? Это действие удалит только профиль экземпляра. Для полного удаления игровых данных выберите соответсвующее действие.',
+      actions: [
+        {
+          label: 'Отмена',
+          action: c => c(),
+          isPrimary: true,
+        },
+        {
+          label: 'Удалить',
+          isDanger: true,
+          action: c => {
+            istore.remove(instance!)
+            close?.()
+            c()
+          },
+        },
+      ],
+    })
   }, [])
 
   useOnce(() => {
@@ -121,43 +147,42 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
     },
   })
 
-  const submit = useCallback(
-    (data: FormData) => {
-      const vid = versions.find(v => v.id === data.vid)!
-      const javaArgs = data.jvmArgs?.split('')
-      const mcArgs = data.minecraftArgs?.split('')
-      if (instance) {
-        if (instance.provider !== data.provider || instance?.vid?.id !== data.vid) instance.isInstalled = false
-        instance.name = data.name
-        instance.vid = vid
-        instance.provider = data.provider
-        instance.settings.alloc = data.alloc
-        instance.settings ||= {}
-        instance.settings.javaArgs = javaArgs
-        instance.settings.minecraftArgs = mcArgs
-        instance.settings.windowHeight = data.wh
-        instance.settings.windowWidth = data.ww
-        close?.()
-      } else {
-        istore.instances.push(
-          Instance.fromLocal({
-            name: data.name,
-            vid,
-            provider: data.provider,
-            settings: {
-              alloc: data.alloc,
-              windowWidth: data.ww,
-              windowHeight: data.wh,
-              minecraftArgs: mcArgs,
-              javaArgs: javaArgs,
-            },
-          }),
-        )
-        close?.()
-      }
-    },
-    [versions],
-  )
+  const submit = async (data: FormData) => {
+    const vid = versions.find(v => v.id === data.vid)!
+    const javaArgs = data.jvmArgs?.split('')
+    const mcArgs = data.minecraftArgs?.split('')
+    if (instance) {
+      if (instance.provider !== data.provider || instance?.vid?.id !== data.vid) instance.isInstalled = false
+      instance.name = data.name
+      instance.vid = vid
+      instance.provider = data.provider
+      instance.settings.alloc = data.alloc
+      instance.settings ||= {}
+      instance.settings.javaArgs = javaArgs
+      instance.settings.minecraftArgs = mcArgs
+      instance.settings.windowHeight = data.wh
+      instance.settings.windowWidth = data.ww
+      close?.()
+      return wait(1000)
+    } else {
+      istore.instances.push(
+        Instance.fromLocal({
+          name: data.name,
+          vid,
+          provider: data.provider,
+          settings: {
+            alloc: data.alloc,
+            windowWidth: data.ww,
+            windowHeight: data.wh,
+            minecraftArgs: mcArgs,
+            javaArgs: javaArgs,
+          },
+        }),
+      )
+      close?.()
+      return wait(2000)
+    }
+  }
 
   return (
     <Conatiner>
@@ -252,7 +277,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
         <Pair>
           {instance && (
             <>
-              {/*<Button square danger icon={'trash'} />*/}
+              <Button square danger icon={'trash'} onClick={remove} />
               <Button square icon={'screwdriver-wrench'} onClick={repair} />
             </>
           )}

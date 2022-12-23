@@ -24,4 +24,8 @@ export class InstanceStore {
       )
     })
   }
+
+  remove(instance: Instance) {
+    this.instances = this.instances.filter(v => v !== instance)
+  }
 }
