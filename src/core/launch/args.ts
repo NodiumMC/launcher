@@ -25,7 +25,7 @@ const placeholderifyArguments =
         .replaceAll('${auth_access_token}', options.accessToken ?? 'null')
         .replaceAll('${auth_uuid}', options.uuid ?? '00000000-0000-0000-0000-000000000000')
         .replaceAll('${game_directory}', options.gameDir)
-        .replaceAll('${version_name}', options.version.id)
+        .replaceAll('${version_name}', options.vid)
         .replaceAll('${resolution_width}', options.windowWidth?.toString() ?? '1280')
         .replaceAll('${resolution_height}', options.windowHeight?.toString() ?? '720')
         .replaceAll('${assets_root}', join(options.gameDataDir, 'assets'))
@@ -43,6 +43,27 @@ const placeholderifyArguments =
     )
   }
 
+const chain = (args: string[]) => {
+  const result: string[] = []
+  let idx = 0
+  let last: string | undefined = undefined
+  for (let i = 0; i < args.length; i++) {
+    const current = args[i]
+    const next = args[i + 1]
+    if (!current.startsWith('-') && last?.startsWith('--')) {
+      result[idx] = `${last}=${current}`
+    } else if (next && !next.startsWith('-') && current.startsWith('--')) {
+      last = current
+      result[idx] = `${current}=${next}`
+      i++
+    } else {
+      result[idx] = current
+    }
+    idx++
+  }
+  return result
+}
+
 export interface VersionedLaunchOptions extends LaunchOptions {
   version: VersionFile
 }
@@ -54,6 +75,6 @@ export const compileArguments = (options: VersionedLaunchOptions): string[] => {
     delimiter,
   )
   const gargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(game)))
-  const jargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(jvm)))
+  const jargs = chain(placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(jvm))))
   return [...jargs, ...(options.javaArgs ?? []), options.version.mainClass, ...gargs, ...(options.minecraftArgs ?? [])]
 }

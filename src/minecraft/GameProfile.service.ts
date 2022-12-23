@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { LauncherProfileJSON, LauncherProfiles, populate } from 'core'
+import { LauncherProfileJSON, LauncherProfiles } from 'core'
 import { join } from 'native/path'
 import { exists, prepare, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { watch } from 'tauri-plugin-fs-watch-api'
@@ -41,7 +41,7 @@ export class GameProfileService {
     const jsonPath = join(clientDir, `${vid}.json`)
     const json = await provider(version.id, ...properties)
     await prepare(clientDir)
-    await writeJsonFile(jsonPath, await populate(json))
+    await writeJsonFile(jsonPath, json)
     const profile: LauncherProfileJSON = {
       created: new Date().toISOString(),
       lastVersionId: vid,

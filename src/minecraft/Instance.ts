@@ -1,8 +1,8 @@
 import { Child } from '@tauri-apps/api/shell'
 import type { SupportedProviders } from 'core/providers'
 import { makeAutoObservable } from 'mobx'
-import { compileLocal, launch, unzipNatives } from 'core'
-import { exists, prepare } from 'native/filesystem'
+import { compileLocal, launch, populate, unzipNatives, VersionFile } from 'core'
+import { exists, prepare, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { join } from 'native/path'
 import { w } from 'debug'
 import { Observable } from 'rxjs'
@@ -166,6 +166,8 @@ export class Instance {
         }
         const manifestPath = join(clientDir, `${this.versionId}.json`)
         if (!(await exists(manifestPath))) w(`Missing version manifest json file at path ${manifestPath}`)
+        const file = await readJsonFile<VersionFile>(manifestPath)
+        await writeJsonFile(manifestPath, await populate(file))
         const installer = batchDownload(await compileLocal(this.versionId, clientDir, await this.gs!.getGameDir()))
         installer.subscribe({
           next({ total, progress }) {
