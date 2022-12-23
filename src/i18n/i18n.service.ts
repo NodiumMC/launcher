@@ -38,9 +38,4 @@ export class I18n {
   resolve(fn: R18T | string): string {
     return typeof fn === 'string' ? fn : fn(this.translate)
   }
-
-  async setLang(lang: SupportedLang) {
-    this._lang = lang
-    await main.setItem('lang', lang)
-  }
 }

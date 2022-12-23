@@ -53,7 +53,7 @@ export const SettingsSubscreen: FC = observer(() => {
     theme.setTheme(choosenTheme)
   }
   const changeLang = (choosenLang: SupportedLang) => {
-    i18n.setLang(choosenLang)
+    // after translate
   }
   return (
     <Page>
