@@ -126,7 +126,7 @@ export const VersionPicker = <T extends ReactNode>({
 
   return (
     <Container {...props}>
-      <SquareGroupSwitcher options={providers} value={provider} onChange={onProviderChange} vertical />
+      <SquareGroupSwitcher options={providers} value={provider} onChange={onProviderChange} vertical disoptions={['forge', 'quilt']} />
       <VersionsContainer>
         <InputWrapper>
           <SearchInput value={search} onChange={inputValue(setSearch)} />

@@ -6,8 +6,9 @@ import { Img } from 'components/utils/Img'
 import { Button } from 'components/atoms/Button'
 import { transition } from 'style'
 import { useMod } from 'hooks/useMod'
-import { UpfallService } from 'notifications'
+import { PopupService, UpfallService } from 'notifications'
 import { observer } from 'mobx-react'
+import { InstanceEditor } from 'components/organisms/InstanceEditor'
 export interface InstanceItemProps {
   instance: Instance
 }
@@ -66,6 +67,7 @@ const Progress = styled.svg`
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const progress = useRef<SVGPathElement | null>(null)
   const upfall = useMod(UpfallService)
+  const popup = useMod(PopupService)
 
   const setProgress = useCallback(
     (value: number) => {
@@ -105,16 +107,21 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
     } else launch()
   }, [setProgress])
 
+  const settings = useCallback(() => {
+    popup.create(InstanceEditor, { instance })
+  }, [popup])
+
   return (
     <Container>
       <NameContainer>
         <Image />
         <Text weight={900} size={14}>
-          {instance.name}
+          {instance.displayName}
         </Text>
       </NameContainer>
       <Actions>
-        <Button icon={'gear'} square outlined={false} />
+        {/* TODO: <Button icon={'folder'} square outlined={false} onClick={...} />*/}
+        <Button icon={'gear'} square outlined={false} onClick={settings} />
         <Button
           icon={instance.busy ? undefined : !instance.child ? (instance.isInstalled ? 'play' : 'download') : 'stop'}
           primary

@@ -1,7 +1,7 @@
 import { Child } from '@tauri-apps/api/shell'
 import type { SupportedProviders } from 'core/providers'
 import { makeAutoObservable } from 'mobx'
-import { compileLocal, launch } from 'core'
+import { compileLocal, launch, unzipNatives } from 'core'
 import { exists, prepare } from 'native/filesystem'
 import { join } from 'native/path'
 import { w } from 'debug'
@@ -9,6 +9,10 @@ import { Observable } from 'rxjs'
 import { batchDownload } from 'network'
 import { autoInjectable, container } from 'tsyringe'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
+import { GameProfileService } from 'minecraft/GameProfile.service'
+import * as providers from 'core/providers/implemented'
+import { PublicVersion } from 'core/providers/types'
+import { nanoid } from 'nanoid'
 
 export interface InstanceSettings {
   javaArgs?: string[]
@@ -20,7 +24,8 @@ export interface InstanceSettings {
 
 export interface InstanceLocal {
   name: string
-  vid: string | null
+  dirname?: string
+  vid: PublicVersion | null
   provider?: SupportedProviders
   installed?: boolean
   settings?: InstanceSettings
@@ -29,23 +34,27 @@ export interface InstanceLocal {
 @autoInjectable()
 export class Instance {
   name: string
-  vid: string | null = null
+  vid: PublicVersion | null = null
   provider: SupportedProviders
   private installed = false
   settings: InstanceSettings
   private _busy = false
   private _child: Child | null = null
   private prelaunched = false
+  private readonly dirname: string
 
   constructor(
     private readonly gs: GeneralSettings | undefined,
+    private readonly gp: GameProfileService | undefined,
     name: string,
-    vid?: string | null,
+    dirname?: string,
+    vid?: PublicVersion | null,
     provider: SupportedProviders = 'vanilla',
     installed = false,
     settings?: InstanceSettings,
   ) {
     this.name = name
+    this.dirname = dirname ?? nanoid(10)
     this.vid = vid ?? null
     this.provider = provider
     this.installed = installed
@@ -56,7 +65,9 @@ export class Instance {
   static fromLocal(local: InstanceLocal) {
     return new Instance(
       container.resolve(GeneralSettings),
+      container.resolve(GameProfileService),
       local.name,
+      local.dirname,
       local.vid,
       local.provider,
       local.installed,
@@ -67,6 +78,7 @@ export class Instance {
   toLocal() {
     return {
       vid: this.vid,
+      dirname: this.dirname,
       provider: this.provider,
       name: this.name,
       settings: this.settings,
@@ -78,17 +90,29 @@ export class Instance {
     return this.installed
   }
 
+  set isInstalled(value: boolean) {
+    this.installed = value
+  }
+
   get busy() {
     return this._busy
   }
 
+  get displayName() {
+    return this.name.explain({ provider: this.provider, version: this.vid?.id ?? 'unknown' })
+  }
+
   private get versionId() {
     if (this.vid === null) w('No game profile selected')
-    return this.provider === 'custom' ? this.vid : `${this.provider}-${this.vid}`
+    return this.provider === 'custom' ? this.vid.id : `${this.provider}-${this.vid.id}`
   }
 
   private async clientDir() {
     return join(await this.gs!.getGameDir(), 'versions', this.versionId)
+  }
+
+  private async getInstanceDir() {
+    return prepare(join(await this.gs!.getGameDir(), 'instances', this.dirname))
   }
 
   launch() {
@@ -104,7 +128,7 @@ export class Instance {
         const l = await launch({
           vid: versionId,
           gameDataDir: gameDir,
-          gameDir: await prepare(join(gameDir, 'main')),
+          gameDir: await this.getInstanceDir(),
           clientDir,
           ...this.settings,
           username: 'Player',
@@ -134,6 +158,12 @@ export class Instance {
     return new Observable<number>(subscriber => {
       void (async () => {
         const clientDir = await this.clientDir()
+        if (!this.gp?.has(this.versionId)) {
+          const providerFn = providers[this.provider as keyof typeof providers]
+          if (!providerFn) w('Unknown provider')
+          if (!this.vid) w('Missing version data')
+          await this.gp?.create(providerFn, this.vid, this.versionId, this.versionId)
+        }
         const manifestPath = join(clientDir, `${this.versionId}.json`)
         if (!(await exists(manifestPath))) w(`Missing version manifest json file at path ${manifestPath}`)
         const installer = batchDownload(await compileLocal(this.versionId, clientDir, await this.gs!.getGameDir()))
@@ -148,7 +178,14 @@ export class Instance {
           complete: () => {
             this.installed = true
             this._busy = false
-            subscriber.complete()
+            unzipNatives(join(clientDir, 'natives')).subscribe({
+              complete() {
+                subscriber.complete()
+              },
+              error: () => {
+                subscriber.error('Failed to unpack natives')
+              },
+            })
           },
         })
       })()
