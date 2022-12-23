@@ -6,7 +6,7 @@ import { makeAutoObservable } from 'mobx'
 import { UpfallService } from 'notifications'
 import { GameProfileService } from 'minecraft/GameProfile.service'
 import { Observable } from 'rxjs'
-import { VersionUnion } from 'core/providers/types'
+import { PublicVersion } from 'core/providers/types'
 import * as providers from 'core/providers/implemented'
 import { compileLocal, launch, unzipNatives } from 'core'
 import { batchDownload } from 'network'
@@ -17,7 +17,7 @@ import { GeneralSettings } from 'settings/GeneralSettings.service'
 @singleton()
 export class SimpleHandler {
   provider: SupportedProviders = 'vanilla'
-  version: VersionUnion | null = null
+  version: PublicVersion | null = null
 
   constructor(
     private readonly gp: GameProfileService,

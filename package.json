@@ -1,7 +1,7 @@
 {
   "name": "nodium-launcher",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0-rc1",
   "moduleDirectories": [
     "node_modules",
     "src"
@@ -47,6 +47,7 @@
     "react-beautiful-dnd": "13.1.1",
     "react-country-flag": "3.0.2",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.41.0",
     "react-router-dom": "6.5.0",
     "react-select": "5.7.0",
     "reflect-metadata": "0.1.13",
@@ -55,7 +56,8 @@
     "styled-components": "5.3.6",
     "swr": "2.0.0",
     "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch",
-    "tsyringe": "4.7.0"
+    "tsyringe": "4.7.0",
+    "use-debounce": "^9.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

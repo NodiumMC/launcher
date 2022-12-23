@@ -39,7 +39,7 @@ export class NetworkChecker {
           if (response.status === 200 || response.status === 404) {
             this.update(true)
             this.pings.push(performance.now() - start)
-            if (this.pings.length > 20) this.pings.shift()
+            if (this.pings.length > 10) this.pings.shift()
           } else this.update(false)
         },
         () => this.update(false),

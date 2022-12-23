@@ -4,7 +4,6 @@ import { WindowButton } from './WindowButton'
 import { appWindow } from '@tauri-apps/api/window'
 import { NetworkChecker } from 'network'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { normalizeColor } from 'utils'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
 
@@ -31,7 +30,7 @@ const NetworkStatus: FC = observer(() => {
         <Red>
           <FontAwesomeIcon icon={'triangle-exclamation'} />
         </Red>
-      ) : module.avgPing > 300 ? (
+      ) : module.avgPing > 500 ? (
         <Yellow>
           <FontAwesomeIcon icon={'triangle-exclamation'} />
         </Yellow>

@@ -18,10 +18,14 @@ export class InstanceStore {
         toJS(
           this.instances.map(v => {
             const local = v.toLocal()
-            return { ...local, settings: toJS(local.settings) }
+            return { ...local, settings: toJS(local.settings), vid: toJS(local.vid) }
           }),
         ),
       )
     })
+  }
+
+  remove(instance: Instance) {
+    this.instances = this.instances.filter(v => v !== instance)
   }
 }

@@ -1,19 +1,20 @@
-import { action, makeObservable, observable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { LauncherProfileJSON, LauncherProfiles, populate } from 'core'
 import { join } from 'native/path'
 import { exists, prepare, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { watch } from 'tauri-plugin-fs-watch-api'
-import { Provider } from 'core/providers'
-import { VersionUnion } from 'core/providers/types'
+import { fetchMinecraftVersions, Provider } from 'core/providers'
+import { PublicVersion } from 'core/providers/types'
 import { singleton } from 'tsyringe'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
 
 @singleton()
 export class GameProfileService {
-  @observable public list: LauncherProfileJSON[] = []
+  list: LauncherProfileJSON[] = []
+  private _cachedPublic?: PublicVersion[]
 
   constructor(private readonly settings: GeneralSettings) {
-    makeObservable(this)
+    makeAutoObservable(this)
     void (async () => {
       watch(await this.pathToProfile(), {}, this.reloadProfiles.bind(this))
       await this.reloadProfiles()
@@ -22,7 +23,6 @@ export class GameProfileService {
 
   private pathToProfile = async () => join(await this.settings.getGameDir(), 'launcher_profiles.json')
 
-  @action
   async reloadProfiles() {
     const pathToProfiles = await this.pathToProfile()
     if (!(await exists(pathToProfiles))) {
@@ -36,7 +36,7 @@ export class GameProfileService {
     return !!this.list.find(v => v.lastVersionId === vid)
   }
 
-  async create(provider: Provider, version: VersionUnion, vid: string, name: string, ...properties: string[]) {
+  async create(provider: Provider, version: PublicVersion, vid: string, name: string, ...properties: string[]) {
     const clientDir = await prepare(join(await this.settings.getGameDir(), 'versions', vid))
     const jsonPath = join(clientDir, `${vid}.json`)
     const json = await provider(version.id, ...properties)
@@ -66,4 +66,14 @@ export class GameProfileService {
     writeJsonFile(await this.pathToProfile(), {
       profiles: {},
     })
+
+  async fetchAllVersions(): Promise<PublicVersion[]> {
+    const publicVersions = (this._cachedPublic ||= await fetchMinecraftVersions())
+    const publicLocals: PublicVersion[] = this.list.map(v => ({
+      name: v.name,
+      id: v.lastVersionId,
+      providers: ['custom'],
+    }))
+    return [...publicVersions, ...publicLocals]
+  }
 }

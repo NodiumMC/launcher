@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconName } from '@fortawesome/fontawesome-svg-core'
 import { transition } from 'style'
 import { rgba } from 'polished'
-import { normalizeColor } from 'utils'
 
 interface SidebarItem<T extends string | number = number> extends ExtraProps.Changeable<T> {
   id: T
