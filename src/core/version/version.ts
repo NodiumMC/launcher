@@ -108,6 +108,7 @@ export interface VersionFile {
   time: string
   type: 'release' | 'snapshot' | 'modified'
   minecraftArguments?: string
+  inheritsFrom?: string
 }
 
 export const mergeVersions = (...versions: VersionFile[]) => {
