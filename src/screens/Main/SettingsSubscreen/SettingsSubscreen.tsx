@@ -57,7 +57,7 @@ export const SettingsSubscreen: FC = observer(() => {
   }
   return (
     <Page>
-      <Split>{}</Split>
+      <Split>Общие настройки</Split>
       <VLabel>
         <Text shade={'high'} size={5}>
           Путь к игровым данным
