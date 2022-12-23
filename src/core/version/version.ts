@@ -64,7 +64,7 @@ export interface PartialLib {
 }
 
 export interface Logging {
-  client: ClientLogging
+  client?: ClientLogging
 }
 
 export interface MojangFile {
