@@ -31,6 +31,7 @@ export interface InstanceLocal {
   installed?: boolean
   settings?: InstanceSettings
   logs: LogEvent[]
+  lastUsed: number
 }
 
 @autoInjectable()
@@ -45,6 +46,7 @@ export class Instance {
   private prelaunched = false
   readonly dirname: string
   readonly logs: LogEvent[] = []
+  lastUsed: number = Date.now()
 
   constructor(
     private readonly gs: GeneralSettings | undefined,
@@ -56,6 +58,7 @@ export class Instance {
     installed = false,
     settings?: InstanceSettings,
     logs: LogEvent[] = [],
+    lastUsed: number = Date.now(),
   ) {
     this.name = name
     this.dirname = dirname ?? nanoid(10)
@@ -64,6 +67,7 @@ export class Instance {
     this.installed = installed
     this.settings = settings ?? {}
     this.logs = logs
+    this.lastUsed = lastUsed
     makeAutoObservable(this)
   }
 
@@ -78,6 +82,7 @@ export class Instance {
       local.installed,
       local.settings,
       local.logs,
+      local.lastUsed,
     )
   }
 
@@ -90,6 +95,7 @@ export class Instance {
       settings: this.settings,
       installed: this.installed,
       logs: this.logs,
+      lastUsed: this.lastUsed,
     }
   }
 
@@ -158,6 +164,7 @@ export class Instance {
         l.on('close', subscriber.complete.bind(subscriber))
         l.on('close', () => ((this.prelaunched = false), (this._child = null)))
         this._child = await l.spawn()
+        this.lastUsed = Date.now()
         this._busy = false
       })().catch(e => {
         this._busy = false

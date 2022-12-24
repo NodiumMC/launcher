@@ -28,4 +28,8 @@ export class InstanceStore {
   remove(instance: Instance) {
     this.instances = this.instances.filter(v => v !== instance)
   }
+
+  get lastUsed() {
+    return this.instances.slice().sort((a, b) => b.lastUsed - a.lastUsed)[0]
+  }
 }

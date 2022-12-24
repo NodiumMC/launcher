@@ -54,18 +54,25 @@ const LinesContainer = styled.div`
   scroll-behavior: smooth;
 `
 
+const Placeholder = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export const JournalSubscreen: FC = observer(() => {
   const istore = useMod(InstanceStore)
   const [instance, setInstance] = useState<InstanceType | undefined>(undefined)
   const container = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setInstance(istore.instances[0])
+    setInstance(istore.lastUsed)
   }, [istore.instances])
 
   useEffect(() => {
     if (container.current) container.current.scrollTop = container.current.scrollHeight
-  })
+  }, [instance, instance?.logs])
 
   return (
     <Page>
@@ -79,9 +86,13 @@ export const JournalSubscreen: FC = observer(() => {
         ))}
       </InstanceSelectorContainer>
       <LinesContainer ref={container}>
-        {instance?.logs?.map?.(ll => (
-          <Event key={ll.timestamp} event={ll} />
-        ))}
+        {(instance?.logs?.length ?? 0) > 0 ? (
+          instance?.logs?.map?.(ll => <Event key={ll.timestamp} event={ll} />)
+        ) : (
+          <Placeholder>
+            <Text shade={'high'}>Логи отсутствуют</Text>
+          </Placeholder>
+        )}
       </LinesContainer>
     </Page>
   )
