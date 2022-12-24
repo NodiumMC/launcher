@@ -30,8 +30,8 @@ export interface InstanceLocal {
   provider?: SupportedProviders
   installed?: boolean
   settings?: InstanceSettings
-  logs: LogEvent[]
-  lastUsed: number
+  logs?: LogEvent[]
+  lastUsed?: number
 }
 
 @autoInjectable()
