@@ -141,7 +141,10 @@ export class Instance {
         l.on('close', () => ((this.prelaunched = false), (this._child = null)))
         this._child = await l.spawn()
         this._busy = false
-      })()
+      })().catch(e => {
+        this._busy = false
+        subscriber.error(e)
+      })
     })
   }
 
@@ -190,7 +193,10 @@ export class Instance {
             })
           },
         })
-      })()
+      })().catch(e => {
+        this._busy = false
+        subscriber.error(e)
+      })
     })
   }
 

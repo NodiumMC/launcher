@@ -97,7 +97,8 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
           setProgress(value)
         },
         error(err) {
-          upfall.drop('error', `Failed to install: ${err?.message ?? err}`)
+          if (err?.startsWith('Network Error')) upfall.drop('error', 'Ошибка сети. Проверьте подключение к интернету')
+          else upfall.drop('error', `Failed to install: ${err?.message ?? err}`)
         },
         complete() {
           setProgress(0)
