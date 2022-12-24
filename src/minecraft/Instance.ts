@@ -13,6 +13,7 @@ import { GameProfileService } from 'minecraft/GameProfile.service'
 import * as providers from 'core/providers/implemented'
 import { PublicVersion } from 'core/providers/types'
 import { nanoid } from 'nanoid'
+import { LogEvent, parse } from 'core/logging'
 
 export interface InstanceSettings {
   javaArgs?: string[]
@@ -29,6 +30,7 @@ export interface InstanceLocal {
   provider?: SupportedProviders
   installed?: boolean
   settings?: InstanceSettings
+  logs: LogEvent[]
 }
 
 @autoInjectable()
@@ -42,6 +44,7 @@ export class Instance {
   private _child: Child | null = null
   private prelaunched = false
   private readonly dirname: string
+  private readonly logs: LogEvent[] = []
 
   constructor(
     private readonly gs: GeneralSettings | undefined,
@@ -52,6 +55,7 @@ export class Instance {
     provider: SupportedProviders = 'vanilla',
     installed = false,
     settings?: InstanceSettings,
+    logs: LogEvent[] = [],
   ) {
     this.name = name
     this.dirname = dirname ?? nanoid(10)
@@ -59,6 +63,7 @@ export class Instance {
     this.provider = provider
     this.installed = installed
     this.settings = settings ?? {}
+    this.logs = logs
     makeAutoObservable(this)
   }
 
@@ -72,6 +77,7 @@ export class Instance {
       local.provider,
       local.installed,
       local.settings,
+      local.logs,
     )
   }
 
@@ -83,6 +89,7 @@ export class Instance {
       name: this.name,
       settings: this.settings,
       installed: this.installed,
+      logs: this.logs,
     }
   }
 
@@ -118,7 +125,7 @@ export class Instance {
   launch() {
     this._busy = true
     if (!this.installed) w('Launch requires actual installation')
-    return new Observable<string>(subscriber => {
+    return new Observable<LogEvent>(subscriber => {
       void (async () => {
         if (this._child || this.prelaunched) w('Cannot run the same instance more than once')
         this.prelaunched = true
@@ -133,8 +140,19 @@ export class Instance {
           ...this.settings,
           username: 'Player',
         })
-        l.stdout.on('data', subscriber.next.bind(subscriber))
-        l.stderr.on('data', subscriber.next.bind(subscriber))
+        let event = ''
+        const collect = (data: string) => {
+          if (!data.includes('</log4j:Event>')) event += data
+          else {
+            const parsed = parse(event)
+            subscriber.next(parsed)
+            this.logs.push(parsed)
+            if (this.logs.length > 1000) this.logs.shift()
+            event = ''
+          }
+        }
+        l.stdout.on('data', collect)
+        l.stderr.on('data', collect)
         l.on('error', subscriber.error.bind(subscriber))
         l.on('error', () => ((this.prelaunched = false), (this._child = null)))
         l.on('close', subscriber.complete.bind(subscriber))

@@ -18,7 +18,7 @@ export class InstanceStore {
         toJS(
           this.instances.map(v => {
             const local = v.toLocal()
-            return { ...local, settings: toJS(local.settings), vid: toJS(local.vid) }
+            return { ...local, settings: toJS(local.settings), vid: toJS(local.vid), logs: toJS(local.logs) }
           }),
         ),
       )
