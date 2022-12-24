@@ -43,8 +43,8 @@ export class Instance {
   private _busy = false
   private _child: Child | null = null
   private prelaunched = false
-  private readonly dirname: string
-  private readonly logs: LogEvent[] = []
+  readonly dirname: string
+  readonly logs: LogEvent[] = []
 
   constructor(
     private readonly gs: GeneralSettings | undefined,
