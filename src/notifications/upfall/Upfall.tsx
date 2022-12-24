@@ -61,7 +61,7 @@ export const UpfallItem: FC<{ upfall: Upfall; key: string } & ExtraProps.Styled>
   upfall: { content, type, icon, remove },
 }) => {
   useOnce(() => {
-    setTimeout(remove, content.length * 200)
+    setTimeout(remove, 1000 + content.length * 100)
   })
 
   return (
