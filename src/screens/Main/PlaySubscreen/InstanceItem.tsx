@@ -43,6 +43,7 @@ const Image = styled(Img)`
 `
 
 const NameContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.space(3)};
@@ -62,6 +63,21 @@ const Progress = styled.svg`
     stroke-dashoffset: 133;
     ${transition('stroke-dashoffset')}
   }
+`
+
+interface StatusDotProps {
+  active: boolean
+}
+
+const StatusDot = styled.div<StatusDotProps>`
+  position: absolute;
+  translate: -50% -50%;
+  inset: 0;
+  width: ${({ active }) => (active ? '8px' : 0)};
+  height: ${({ active }) => (active ? '8px' : 0)};
+  background-color: ${({ theme }) => theme.palette.green};
+  border-radius: 50%;
+  ${transition('all')}
 `
 
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
@@ -115,6 +131,7 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   return (
     <Container>
       <NameContainer>
+        <StatusDot active={!!instance.child || instance.busy} />
         <Image />
         <Text weight={900} size={14}>
           {instance.displayName}
