@@ -28,15 +28,26 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   width: ${({ square }) => (square ? '38px' : 'auto')};
   padding: ${({ square }) => (square ? '0' : '0 20px')};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  color: ${({ primary, theme }) => (primary ? theme.master.back : theme.master.front)};
+  color: ${({ primary, theme, disabled, outlined }) =>
+    primary ? theme.master.back : disabled && !outlined ? theme.master.shade(0.2) : theme.master.front};
   ${({ theme }) => font(theme.fonts.interact)}
   user-select: none;
-  background: ${({ theme, danger, disabled, primary }) =>
-    disabled ? theme.master.shade(0.2) : danger ? theme.palette.red : primary ? theme.accent.primary : 'transparent'};
+  background: ${({ theme, danger, disabled, primary, outlined }) =>
+    disabled
+      ? outlined
+        ? theme.master.shade(0.2)
+        : 'transparent'
+      : danger
+      ? theme.palette.red
+      : primary
+      ? theme.accent.primary
+      : 'transparent'};
   border: 2px solid
     ${({ theme, danger, disabled, outlined, primary }) =>
       disabled
-        ? theme.master.shade(0.2)
+        ? outlined
+          ? theme.master.shade(0.2)
+          : 'transparent'
         : danger
         ? theme.palette.red
         : disabled
