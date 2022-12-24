@@ -122,11 +122,11 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
       </NameContainer>
       <Actions>
         {/* TODO: <Button icon={'folder'} square outlined={false} onClick={...} />*/}
-        <Button icon={'gear'} square outlined={false} onClick={settings} />
+        <Button icon={'gear'} square outlined={false} onClick={settings} disabled={instance.busy} />
         <Button
           icon={instance.busy ? undefined : !instance.child ? (instance.isInstalled ? 'play' : 'download') : 'stop'}
+          disabled={!!instance.child}
           primary
-          danger={!!instance.child}
           square
           fetching={instance.busy}
           onClick={handle}
