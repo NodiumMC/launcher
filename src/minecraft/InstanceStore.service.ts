@@ -18,7 +18,7 @@ export class InstanceStore {
         toJS(
           this.instances.map(v => {
             const local = v.toLocal()
-            return { ...local, settings: toJS(local.settings), vid: toJS(local.vid) }
+            return { ...local, settings: toJS(local.settings), vid: toJS(local.vid), logs: toJS(local.logs) }
           }),
         ),
       )
@@ -27,5 +27,9 @@ export class InstanceStore {
 
   remove(instance: Instance) {
     this.instances = this.instances.filter(v => v !== instance)
+  }
+
+  get lastUsed() {
+    return this.instances.slice().sort((a, b) => b.lastUsed - a.lastUsed)[0]
   }
 }

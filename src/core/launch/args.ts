@@ -4,6 +4,7 @@ import { LaunchOptions } from 'core'
 import { delimiter, join } from 'native/path'
 import { compileClasspath } from 'core'
 import { version } from 'native/app'
+import { log4jArgument } from 'core/log4j'
 
 const rulifyArgumnets = (args: ArgumentsArray): ArgumentsArray =>
   typeof args !== 'string'
@@ -76,5 +77,6 @@ export const compileArguments = (options: VersionedLaunchOptions): string[] => {
   )
   const gargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(game)))
   const jargs = chain(placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(jvm))))
+  jargs.push(log4jArgument(options.version, options.clientDir))
   return [...jargs, ...(options.javaArgs ?? []), options.version.mainClass, ...gargs, ...(options.minecraftArgs ?? [])]
 }
