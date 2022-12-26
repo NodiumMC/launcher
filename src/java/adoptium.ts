@@ -45,8 +45,8 @@ export interface AdoptiumJDK {
   version: AdoptiumVersion
 }
 
-export async function fetchJDKMetadata(major: string) {
-  return fetch<AdoptiumJDK[]>(`https://api.adoptium.net/v3/assets/latest/${major}/hotspot?image_type=jdk`)
+export async function fetchJDKMetadata(major: number) {
+  return fetch<AdoptiumJDK[]>(`https://api.adoptium.net/v3/assets/latest/${major}/hotspot?image_type=${major > 8 ? 'jdk' : 'jre'}`)
 }
 
 function mapNativeInfo(): { os: JDKOs; arch: JDKArch } {
@@ -87,7 +87,7 @@ function mapNativeInfo(): { os: JDKOs; arch: JDKArch } {
   return { os, arch }
 }
 
-export async function fetchNativeJDK(major: string) {
+export async function fetchNativeJDK(major: number) {
   const jdks = await fetchJDKMetadata(major)
   const { os, arch } = mapNativeInfo()
   const found = jdks.data.find(jdk => jdk.binary.os === os && jdk.binary.architecture === arch)
@@ -95,7 +95,7 @@ export async function fetchNativeJDK(major: string) {
   return found
 }
 
-export async function fetchNJDKAsset(major: string) {
+export async function fetchNJDKAsset(major: number) {
   const nativeJdk = await fetchNativeJDK(major)
   return {
     size: nativeJdk.binary.package.size,
