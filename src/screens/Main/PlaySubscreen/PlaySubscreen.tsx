@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import { Screen } from 'components/utils/Screen'
 import styled from 'styled-components'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
@@ -10,7 +10,6 @@ import { PopupService } from 'notifications'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { Input } from 'components/atoms/Input'
 import { PlayerLiteService } from 'user/PlayerLite.service'
-import useEvent from 'react-use-event-hook'
 import { inputValue } from 'utils'
 
 const Page = styled(Screen)`
@@ -74,9 +73,12 @@ const NicknameInput = styled(Input)`
 const NicknamePanel: FC = observer(() => {
   const player = useMod(PlayerLiteService)
 
-  const input = useEvent((value: string) => {
-    player.nickname = value
-  })
+  const input = useCallback(
+    (value: string) => {
+      player.nickname = value
+    },
+    [player],
+  )
 
   return (
     <Other>
