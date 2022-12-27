@@ -26,6 +26,7 @@ export const fetchFabricLoaders = (id: string) =>
 
 export const fetchMinecraftVersions = async (): Promise<PublicVersion[]> => {
   const manifest = await fetchManifest()
+  manifest.versions = manifest.versions.filter(v => !isOld(v.id))
   const latestRelease = manifest.latest.release
   const latestSnapshot = manifest.latest.snapshot
   const fabricManifest = await fetchFabricManifest()
