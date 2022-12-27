@@ -7,6 +7,7 @@ import { RdownloadLT, Runzip } from 'native/rust'
 import { prepare } from 'native/filesystem'
 import { Observable } from 'rxjs'
 import { main } from 'storage'
+import { w } from 'debug'
 
 export interface JvmRuntime {
   name: string
@@ -64,7 +65,7 @@ export class JavaRuntimeService {
 
   async for(major: number) {
     const jdk = this._runtimes.find(v => v.major === major)
-    if (!jdk) return
+    if (!jdk) w('No compatible Java Runtimes installed')
     return join(await this.runtimesDir(), jdk.name, 'bin', 'javaw')
   }
 
