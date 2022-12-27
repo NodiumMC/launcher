@@ -1,6 +1,6 @@
 import { readVersionFile } from 'core'
 import { compileArguments, VersionedLaunchOptions } from 'core'
-import { java } from 'native/shell'
+import { spawn } from 'native/shell'
 import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 
@@ -26,5 +26,5 @@ export const launch = async (options: LaunchOptions) => {
   const version = await readVersionFile(versionFilePath)
   const vlaunch: VersionedLaunchOptions = { ...options, version }
   const args = compileArguments(vlaunch)
-  return java(args, options.gameDir)
+  return spawn(options.javaExecutable ?? 'java', args, options.gameDir)
 }
