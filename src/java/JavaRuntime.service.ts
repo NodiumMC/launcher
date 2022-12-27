@@ -52,7 +52,7 @@ export class JavaRuntimeService {
                 error: subscriber.error.bind(subscriber),
                 next: value => subscriber.next({ stage: 1, ...value }),
                 complete: () => {
-                  this._runtimes.push({ major, name })
+                  if (!this.runtimes.some(v => v.major === major)) this._runtimes.push({ major, name })
                   subscriber.complete()
                 },
               })
