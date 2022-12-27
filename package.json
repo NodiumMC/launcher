@@ -51,6 +51,7 @@
     "react-hook-form": "^7.41.0",
     "react-router-dom": "6.5.0",
     "react-select": "5.7.0",
+    "react-use-event-hook": "^0.9.3",
     "reflect-metadata": "0.1.13",
     "rxjs": "7.8.0",
     "stack-trace": "https://github.com/LIMPIX31/node-stack-trace",

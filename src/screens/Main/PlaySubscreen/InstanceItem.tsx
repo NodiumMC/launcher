@@ -146,7 +146,7 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
         <Button icon={'gear'} square outlined={false} onClick={settings} disabled={instance.busy} />
         <Button
           icon={instance.busy ? undefined : !instance.child ? (instance.isInstalled ? 'play' : 'download') : 'stop'}
-          disabled={!!instance.child}
+          disabled={!!instance.child || !instance.isValid}
           primary
           square
           fetching={instance.busy}
