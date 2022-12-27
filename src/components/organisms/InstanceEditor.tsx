@@ -18,6 +18,7 @@ import { useOnce } from 'hooks'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { Popup, PopupService, UpfallService } from 'notifications'
 import { wait } from 'utils'
+import { removeDir } from '@tauri-apps/api/fs'
 
 export interface InstanceEditorProps {
   close?: () => void
@@ -106,6 +107,15 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
       description:
         'Вы действительно хотите удалить экземпляр игры? Это действие удалит только профиль экземпляра. Для полного удаления игровых данных выберите соответсвующее действие.',
       actions: [
+        {
+          label: 'Удалить полностью',
+          action: async c =>
+            instance &&
+            (await removeDir(await instance.getInstanceDir(), { recursive: true }),
+            istore.remove(instance!),
+            close?.(),
+            c()),
+        },
         {
           label: 'Отмена',
           action: c => c(),
