@@ -99,7 +99,7 @@ pub async fn unzip<R: Runtime>(app_handle: AppHandle<R>, from: &Path, to: &Path,
     ArchiveType::Unknown => return Err(UnzipError::UnknownFormat)
   };
   if delete {
-    fs::remove_file(from)?;
+    let _ = fs::remove_file(from);
   }
   Ok(())
 }
