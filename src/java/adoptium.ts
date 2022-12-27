@@ -46,7 +46,9 @@ export interface AdoptiumJDK {
 }
 
 export async function fetchJDKMetadata(major: number) {
-  return fetch<AdoptiumJDK[]>(`https://api.adoptium.net/v3/assets/latest/${major}/hotspot?image_type=${major > 8 ? 'jdk' : 'jre'}`)
+  return fetch<AdoptiumJDK[]>(
+    `https://api.adoptium.net/v3/assets/latest/${major}/hotspot?image_type=${major > 8 ? 'jdk' : 'jre'}`,
+  )
 }
 
 function mapNativeInfo(): { os: JDKOs; arch: JDKArch } {

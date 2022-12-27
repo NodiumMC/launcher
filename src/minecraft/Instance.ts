@@ -185,7 +185,7 @@ export class Instance {
 
   install() {
     this._busy = true
-    return new Observable<{ progress: number, stage: number }>(subscriber => {
+    return new Observable<{ progress: number; stage: number }>(subscriber => {
       void (async () => {
         const clientDir = await this.clientDir()
         if (!this.gp?.has(this.versionId)) {

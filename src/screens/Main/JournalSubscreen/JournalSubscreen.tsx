@@ -8,7 +8,6 @@ import { Text } from 'components/atoms/Text'
 import { mix } from 'polished'
 import { Event } from './Event'
 import type { Instance as InstanceType } from 'minecraft/Instance'
-import { useOnce } from 'hooks'
 
 const Page = styled(Screen)`
   display: flex;

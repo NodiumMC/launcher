@@ -19,7 +19,7 @@ export class Child extends EventEmitter<Events> {
 export const spawn = async (binary: string, args: string[], cwd?: string) => {
   const std = nanoid()
   const errevent = nanoid()
-  const kill = nanoid()
+  // const kill = nanoid()
   const close = nanoid()
   await invoke('spawn', { binary, args, cwd, std, errevent, close })
   const emitter = new Child()

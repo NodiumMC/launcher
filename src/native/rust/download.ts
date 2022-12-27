@@ -28,7 +28,8 @@ export const RdownloadLT = (url: string, local: string, hash?: string) =>
     const aid = nanoid(8)
     void (async () => {
       const unlisten = await listen<RdownloadLTProgress>(pid, event => subscriber.next(event.payload))
-      await invoke('download_longtime', { pid, aid, item: { url, local, hash } }).catch(subscriber.error.bind(subscriber))
+      await invoke('download_longtime', { pid, aid, item: { url, local, hash } })
+        .catch(subscriber.error.bind(subscriber))
         .finally(() => unlisten())
         .then(() => subscriber.complete())
     })().catch(subscriber.error.bind(subscriber))

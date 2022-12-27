@@ -14,7 +14,6 @@ import { ThemeService } from 'theme'
 import { SupportedTheme } from 'theme/type'
 import { I18n } from 'i18n'
 import { JavaRuntimeService } from 'java'
-import { linearGradient } from 'polished'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
