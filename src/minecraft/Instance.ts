@@ -127,7 +127,7 @@ export class Instance {
     return join(await this.gs!.getGameDir(), 'versions', this.versionId)
   }
 
-  private async getInstanceDir() {
+  async getInstanceDir() {
     return prepare(join(await this.gs!.getGameDir(), 'instances', this.dirname))
   }
 
