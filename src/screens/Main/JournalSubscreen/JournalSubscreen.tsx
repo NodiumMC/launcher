@@ -8,6 +8,7 @@ import { Text } from 'components/atoms/Text'
 import { mix } from 'polished'
 import { Event } from './Event'
 import type { Instance as InstanceType } from 'minecraft/Instance'
+import { Button } from 'components/atoms/Button'
 
 const Page = styled(Screen)`
   display: flex;
@@ -43,6 +44,7 @@ const Instance = styled.div<InstanceProps>`
 `
 
 const LinesContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   border-radius: ${({ theme }) => theme.radius()};
@@ -58,6 +60,16 @@ const Placeholder = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+const ClearButtonWrapper = styled.div`
+  position: absolute;
+  top: ${({ theme }) => theme.space()};
+  right: 64px;
+`
+
+const ClearButton = styled(Button)`
+  position: fixed;
 `
 
 export const JournalSubscreen: FC = observer(() => {
@@ -86,7 +98,14 @@ export const JournalSubscreen: FC = observer(() => {
       </InstanceSelectorContainer>
       <LinesContainer ref={container}>
         {(instance?.logs?.length ?? 0) > 0 ? (
-          instance?.logs?.map?.((ll, idx) => <Event key={idx} event={ll} />)
+          <>
+            {instance?.logs?.map?.((ll, idx) => (
+              <Event key={idx} event={ll} />
+            ))}
+            <ClearButtonWrapper>
+              <ClearButton icon={'trash'} outlined={false} onClick={() => instance?.clearLogs()} />
+            </ClearButtonWrapper>
+          </>
         ) : (
           <Placeholder>
             <Text shade={'high'}>Логи отсутствуют</Text>
