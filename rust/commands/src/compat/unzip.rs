@@ -60,24 +60,6 @@ pub async fn unzip<R: Runtime>(app_handle: AppHandle<R>, from: &Path, to: &Path,
   let archive_type: ArchiveType = from.into();
   let file = File::open(from)?;
   match archive_type {
-    ArchiveType::Zip => {
-      let mut archive = zip::ZipArchive::new(&file)?;
-      let archive_len = archive.len();
-      for i in 0..archive.len() {
-        let mut file = archive.by_index(i)?;
-        let path = to.join(file.mangled_name());
-        if file.is_dir() {
-          fs::create_dir_all(&path)?;
-        } else {
-          let mut dest = File::create(&path)?;
-          io::copy(&mut file, &mut dest)?;
-          let _ = app_handle.emit_all(&progress_id, UnzipProgress {
-            total: Some(archive_len),
-            progress: Some(i + 1),
-          });
-        }
-      }
-    },
     ArchiveType::Tarball => {
       let decoder = GzDecoder::new(&file);
       let mut archive = Archive::new(decoder);
@@ -96,7 +78,24 @@ pub async fn unzip<R: Runtime>(app_handle: AppHandle<R>, from: &Path, to: &Path,
         });
       }
     },
-    ArchiveType::Unknown => return Err(UnzipError::UnknownFormat)
+    _ => {
+      let mut archive = zip::ZipArchive::new(&file)?;
+      let archive_len = archive.len();
+      for i in 0..archive.len() {
+        let mut file = archive.by_index(i)?;
+        let path = to.join(file.mangled_name());
+        if file.is_dir() {
+          fs::create_dir_all(&path)?;
+        } else {
+          let mut dest = File::create(&path)?;
+          io::copy(&mut file, &mut dest)?;
+          let _ = app_handle.emit_all(&progress_id, UnzipProgress {
+            total: Some(archive_len),
+            progress: Some(i + 1),
+          });
+        }
+      }
+    },
   };
   if delete {
     let _ = fs::remove_file(from);
