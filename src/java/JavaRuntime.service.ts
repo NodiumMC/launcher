@@ -62,6 +62,12 @@ export class JavaRuntimeService {
     )
   }
 
+  async for(major: number) {
+    const jdk = this._runtimes.find(v => v.major === major)
+    if (!jdk) return
+    return join(await this.runtimesDir(), jdk.name, 'bin', 'javaw')
+  }
+
   async installIfNot(major: number) {
     if (this.runtimes.some(v => v.major === major)) return
     return this.install(major)

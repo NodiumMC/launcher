@@ -25,7 +25,6 @@ export const spawn = async (binary: string, args: string[], cwd?: string) => {
   const emitter = new Child()
   const uStd = await listen<string>(std, data => {
     emitter.emit('std', data.payload)
-    console.log(data.payload)
   })
   const uError = await listen<string>(errevent, err => emitter.emit('error', err.payload))
   const uClose = await listen<number>(close, err => {

@@ -142,6 +142,7 @@ export class Instance {
         const versionId = this.versionId
         const clientDir = await prepare(await this.clientDir())
         this._child = await launch({
+          javaExecutable: major => this.jrs!.for(major),
           vid: versionId,
           gameDataDir: gameDir,
           gameDir: await this.getInstanceDir(),

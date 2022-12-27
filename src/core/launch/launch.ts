@@ -6,7 +6,7 @@ import { exists } from 'native/filesystem'
 
 export interface LaunchOptions {
   vid: string
-  javaExecutable?: string
+  javaExecutable?: string | ((major: number) => Awaitable<string | undefined>)
   javaArgs?: string[]
   minecraftArgs?: string[]
   gameDir: string
@@ -26,5 +26,9 @@ export const launch = async (options: LaunchOptions) => {
   const version = await readVersionFile(versionFilePath)
   const vlaunch: VersionedLaunchOptions = { ...options, version }
   const args = compileArguments(vlaunch)
-  return spawn(options.javaExecutable ?? 'java', args, options.gameDir)
+  const jvme =
+    typeof options.javaExecutable === 'function'
+      ? await options.javaExecutable(version.javaVersion.majorVersion)
+      : options.javaExecutable
+  return spawn(jvme ?? 'java', args, options.gameDir)
 }
