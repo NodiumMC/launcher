@@ -65,7 +65,7 @@
           }
         ],
         "execute": true,
-        "open": true
+        "open": "^.+"
       }
     },
     "bundle": {

@@ -9,6 +9,7 @@ import { useMod } from 'hooks/useMod'
 import { PopupService, UpfallService } from 'notifications'
 import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
+import { open } from '@tauri-apps/api/shell'
 export interface InstanceItemProps {
   instance: Instance
 }
@@ -141,7 +142,7 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
         </Text>
       </NameContainer>
       <Actions>
-        {/* TODO: <Button icon={'folder'} square outlined={false} onClick={...} />*/}
+        <Button icon={'folder'} square outlined={false} onClick={async () => open(await instance.getInstanceDir())} />
         <Button icon={'gear'} square outlined={false} onClick={settings} disabled={instance.busy} />
         <Button
           icon={instance.busy ? undefined : !instance.child ? (instance.isInstalled ? 'play' : 'download') : 'stop'}
