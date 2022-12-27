@@ -87,7 +87,7 @@ export const JournalSubscreen: FC = observer(() => {
       </InstanceSelectorContainer>
       <LinesContainer ref={container}>
         {(instance?.logs?.length ?? 0) > 0 ? (
-          instance?.logs?.map?.(ll => <Event key={ll.timestamp} event={ll} />)
+          instance?.logs?.map?.((ll, idx) => <Event key={idx} event={ll} />)
         ) : (
           <Placeholder>
             <Text shade={'high'}>Логи отсутствуют</Text>
