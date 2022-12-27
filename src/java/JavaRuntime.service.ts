@@ -61,4 +61,9 @@ export class JavaRuntimeService {
         }),
     )
   }
+
+  async installIfNot(major: number) {
+    if (this.runtimes.some(v => v.major === major)) return
+    return this.install(major)
+  }
 }

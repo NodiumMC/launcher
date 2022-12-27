@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef } from 'react'
+import { FC, useCallback, useRef, useState } from 'react'
 import { Instance } from 'minecraft/Instance'
 import styled from 'styled-components'
 import { Text } from 'components/atoms/Text'
@@ -49,7 +49,7 @@ const NameContainer = styled.div`
   gap: ${({ theme }) => theme.space(3)};
 `
 
-const Progress = styled.svg`
+const Progress = styled.svg<{ stage: number }>`
   position: absolute;
   right: ${({ theme }) => theme.space(2)};
   height: 36px;
@@ -58,7 +58,8 @@ const Progress = styled.svg`
   margin-top: -1px;
   margin-right: 1px;
   path {
-    stroke: ${({ theme }) => theme.accent.primary};
+    stroke: ${({ theme, stage }) =>
+      stage === 0 ? theme.palette.orange : stage === 1 ? theme.palette.yellow : theme.accent.primary};
     stroke-dasharray: 133;
     stroke-dashoffset: 133;
     ${transition('stroke-dashoffset')}
@@ -82,6 +83,7 @@ const StatusDot = styled.div<StatusDotProps>`
 
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const progress = useRef<SVGPathElement | null>(null)
+  const [stage, setStage] = useState(0)
   const upfall = useMod(UpfallService)
   const popup = useMod(PopupService)
 
@@ -110,7 +112,8 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
     else if (!instance.isInstalled) {
       instance.install().subscribe({
         next(value) {
-          setProgress(value)
+          setProgress(value.progress)
+          if (stage !== value.stage) setStage(value.stage)
         },
         error(err) {
           if (err?.startsWith('Network Error')) upfall.drop('error', 'Ошибка сети. Проверьте подключение к интернету')
@@ -149,7 +152,14 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
           onClick={handle}
         />
       </Actions>
-      <Progress width="38" height="38" version="1.1" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+      <Progress
+        width="38"
+        height="38"
+        version="1.1"
+        viewBox="0 0 38 38"
+        xmlns="http://www.w3.org/2000/svg"
+        stage={stage}
+      >
         <path
           ref={progress}
           x={1}

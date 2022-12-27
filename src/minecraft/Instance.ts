@@ -1,11 +1,11 @@
-import { Child } from '@tauri-apps/api/shell'
+import { Child } from 'native/shell'
 import type { SupportedProviders } from 'core/providers'
 import { makeAutoObservable } from 'mobx'
 import { compileLocal, launch, populate, unzipNatives, VersionFile } from 'core'
 import { exists, prepare, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { join } from 'native/path'
 import { w } from 'debug'
-import { Observable } from 'rxjs'
+import { lastValueFrom, Observable } from 'rxjs'
 import { batchDownload } from 'network'
 import { autoInjectable, container } from 'tsyringe'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
@@ -14,6 +14,7 @@ import * as providers from 'core/providers/implemented'
 import { PublicVersion } from 'core/providers/types'
 import { nanoid } from 'nanoid'
 import { LogEvent, parse } from 'core/logging'
+import { JavaRuntimeService } from 'java'
 
 export interface InstanceSettings {
   javaArgs?: string[]
@@ -51,6 +52,7 @@ export class Instance {
   constructor(
     private readonly gs: GeneralSettings | undefined,
     private readonly gp: GameProfileService | undefined,
+    private readonly jrs: JavaRuntimeService | undefined,
     name: string,
     dirname?: string,
     vid?: PublicVersion | null,
@@ -75,6 +77,7 @@ export class Instance {
     return new Instance(
       container.resolve(GeneralSettings),
       container.resolve(GameProfileService),
+      container.resolve(JavaRuntimeService),
       local.name,
       local.dirname,
       local.vid,
@@ -138,7 +141,7 @@ export class Instance {
         const gameDir = await this.gs!.getGameDir()
         const versionId = this.versionId
         const clientDir = await prepare(await this.clientDir())
-        const l = await launch({
+        this._child = await launch({
           vid: versionId,
           gameDataDir: gameDir,
           gameDir: await this.getInstanceDir(),
@@ -157,13 +160,12 @@ export class Instance {
             event = ''
           }
         }
-        l.stdout.on('data', collect)
-        l.stderr.on('data', collect)
-        l.on('error', subscriber.error.bind(subscriber))
-        l.on('error', () => ((this.prelaunched = false), (this._child = null)))
-        l.on('close', subscriber.complete.bind(subscriber))
-        l.on('close', () => ((this.prelaunched = false), (this._child = null)))
-        this._child = await l.spawn()
+        this.child?.on('std', collect)
+        this.child?.on('std', collect)
+        this.child?.on('error', subscriber.error.bind(subscriber))
+        this.child?.on('error', () => ((this.prelaunched = false), (this._child = null)))
+        this.child?.on('close', subscriber.complete.bind(subscriber))
+        this.child?.on('close', () => ((this.prelaunched = false), (this._child = null)))
         this.lastUsed = Date.now()
         this._busy = false
       })().catch(e => {
@@ -183,7 +185,7 @@ export class Instance {
 
   install() {
     this._busy = true
-    return new Observable<number>(subscriber => {
+    return new Observable<{ progress: number, stage: number }>(subscriber => {
       void (async () => {
         const clientDir = await this.clientDir()
         if (!this.gp?.has(this.versionId)) {
@@ -195,15 +197,27 @@ export class Instance {
         const manifestPath = join(clientDir, `${this.versionId}.json`)
         if (!(await exists(manifestPath))) w(`Missing version manifest json file at path ${manifestPath}`)
         const file = await readJsonFile<VersionFile>(manifestPath)
+        const jdkInstaller = await this.jrs!.installIfNot(file.javaVersion.majorVersion)
+        if (jdkInstaller) {
+          jdkInstaller.subscribe({
+            next({ total, progress, stage }) {
+              subscriber.next({ progress: progress.map(0, total, 0, 100), stage })
+            },
+            error(err) {
+              subscriber.error(`Java Runtime install failed: ${err}`)
+            },
+          })
+          await lastValueFrom(jdkInstaller)
+        }
         await writeJsonFile(manifestPath, await populate(file))
         const installer = batchDownload(await compileLocal(this.versionId, clientDir, await this.gs!.getGameDir()))
         installer.subscribe({
           next({ total, progress }) {
-            subscriber.next(progress.map(0, total, 0, 100))
+            subscriber.next({ progress: progress.map(0, total, 0, 100), stage: 2 })
           },
           error: err => {
             this._busy = false
-            subscriber.error(err)
+            subscriber.error(`Minecraft assets download failed: ${err}`)
           },
           complete: () => {
             this.installed = true
@@ -231,9 +245,9 @@ export class Instance {
 
   async stop() {
     if (!this.child) w('Nothing to stop')
-    await this.child.kill().then(() => {
-      this._child = null
-      this._busy = false
-    })
+    // await this.child.kill().then(() => {
+    //   this._child = null
+    //   this._busy = false
+    // })
   }
 }
