@@ -70,8 +70,8 @@ export interface VersionedLaunchOptions extends LaunchOptions {
 }
 
 export const compileArguments = (options: VersionedLaunchOptions): string[] => {
-  const game = options.version.arguments?.game ?? options.version.minecraftArguments
-  const jvm = options.version.arguments?.jvm ?? []
+  const game = options.version.arguments?.game ?? options.version.minecraftArguments?.split(' ')
+  const jvm = options.version.arguments?.jvm ?? ['-cp', '${classpath}', '-Djava.library.path=${natives_directory}']
   const classPathString = compileClasspath(options.vid, options.version, options.gameDataDir, options.clientDir).join(
     delimiter,
   )

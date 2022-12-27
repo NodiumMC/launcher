@@ -233,8 +233,8 @@ export class Instance {
               complete() {
                 subscriber.complete()
               },
-              error: () => {
-                subscriber.error('Failed to unpack natives')
+              error: err => {
+                subscriber.error(`Failed to unpack natives: ${err}`)
               },
             })
           },

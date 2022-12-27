@@ -39,6 +39,7 @@ export class JavaRuntimeService {
   }
 
   async install(major: number) {
+    major = Math.max(17, major)
     const { url, name } = await fetchNJDKAsset(major)
     const filename = join(await prepare(await this.runtimesDir()), `${name}.zip`)
     return RdownloadLT(url, filename).pipe(
@@ -64,6 +65,7 @@ export class JavaRuntimeService {
   }
 
   async for(major: number) {
+    major = Math.max(17, major)
     const jdk = this._runtimes.find(v => v.major === major)
     if (!jdk) w('No compatible Java Runtimes installed')
     return join(await this.runtimesDir(), jdk.name, 'bin', 'javaw')

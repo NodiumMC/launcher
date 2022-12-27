@@ -31,6 +31,6 @@ export const launch = async (options: LaunchOptions) => {
     typeof options.javaExecutable === 'function'
       ? await options.javaExecutable(version.javaVersion.majorVersion)
       : options.javaExecutable
-  if (jvme && !(await exists(extendExecutable(jvme)))) w('JVM Executable missing')
+  if (jvme && !(await exists(extendExecutable(jvme)))) w(`JVM Executable missing: ${extendExecutable(jvme)}`)
   return spawn(jvme ?? 'java', args, options.gameDir)
 }
