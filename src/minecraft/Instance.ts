@@ -15,6 +15,7 @@ import { PublicVersion } from 'core/providers/types'
 import { nanoid } from 'nanoid'
 import { LogEvent, parse } from 'core/logging'
 import { JavaRuntimeService } from 'java'
+import { PlayerLiteService } from 'user/PlayerLite.service'
 
 export interface InstanceSettings {
   javaArgs?: string[]
@@ -53,6 +54,7 @@ export class Instance {
     private readonly gs: GeneralSettings | undefined,
     private readonly gp: GameProfileService | undefined,
     private readonly jrs: JavaRuntimeService | undefined,
+    private readonly user: PlayerLiteService | undefined,
     name: string,
     dirname?: string,
     vid?: PublicVersion | null,
@@ -78,6 +80,7 @@ export class Instance {
       container.resolve(GeneralSettings),
       container.resolve(GameProfileService),
       container.resolve(JavaRuntimeService),
+      container.resolve(PlayerLiteService),
       local.name,
       local.dirname,
       local.vid,
@@ -118,6 +121,10 @@ export class Instance {
     return this.name.explain({ provider: this.provider, version: this.vid?.id ?? 'unknown' })
   }
 
+  get isValid() {
+    return !!(this.jrs && this.gp && this.gs && this.user && this.dirname && this.user.isValid)
+  }
+
   private get versionId() {
     if (this.vid === null) w('No game profile selected')
     return this.provider === 'custom' ? this.vid.id : `${this.provider}-${this.vid.id}`
@@ -148,7 +155,7 @@ export class Instance {
           gameDir: await this.getInstanceDir(),
           clientDir,
           ...this.settings,
-          username: 'Player',
+          username: this.user!.nickname,
         })
         let event = ''
         const collect = (data: string) => {
