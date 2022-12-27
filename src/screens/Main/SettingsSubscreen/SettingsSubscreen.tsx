@@ -13,6 +13,7 @@ import { LangMeta, SupportedLang } from 'i18n/langs'
 import { ThemeService } from 'theme'
 import { SupportedTheme } from 'theme/type'
 import { I18n } from 'i18n'
+import { JavaRuntimeService } from 'java'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -44,10 +45,32 @@ const ContainerRow = styled.div`
   gap: 100px;
 `
 
+const Javas = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: ${({ theme }) => theme.radius()};
+  overflow: hidden;
+  gap: 1px;
+`
+
+const JavaContainer = styled.div`
+  padding: ${({ theme }) => theme.space(2)};
+  background-color: ${({ theme }) => theme.master.shade()};
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.space(5)};
+`
+
+const AccentText = styled(Text)`
+  color: ${({ theme }) => theme.accent.primary};
+  text-shadow: 0 0 20px ${({ theme }) => theme.accent.primary};
+`
+
 export const SettingsSubscreen: FC = observer(() => {
   const settings = useMod(GeneralSettings)
   const theme = useMod(ThemeService)
   const i18n = useMod(I18n)
+  const jrs = useMod(JavaRuntimeService)
   const changeTheme = (choosenTheme: SupportedTheme) => {
     theme.setTheme(choosenTheme)
   }
@@ -97,6 +120,18 @@ export const SettingsSubscreen: FC = observer(() => {
           />
         </VLabel>
       </ContainerRow>
+      <Split>Java Runtimes</Split>
+      <Javas>
+        {jrs.runtimes.length === 0 && <Text shade={'high'}>No Runtimes installed</Text>}
+        {jrs.runtimes.map((r, idx) => (
+          <JavaContainer key={idx}>
+            <AccentText font={'Tomorrow'} size={20} weight={'bold'}>
+              {r.major}
+            </AccentText>
+            <Text weight={'thin'}>{r.name}</Text>
+          </JavaContainer>
+        ))}
+      </Javas>
     </Page>
   )
 })

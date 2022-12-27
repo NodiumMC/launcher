@@ -40,7 +40,8 @@
           "https://launchermeta.mojang.com/*",
           "https://resources.download.minecraft.net/*",
           "https://meta.fabricmc.net/v2/*",
-          "https://maven.fabricmc.net/*"
+          "https://maven.fabricmc.net/*",
+          "https://api.adoptium.net/v3/*"
         ],
         "all": true
       },

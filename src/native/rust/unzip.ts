@@ -9,7 +9,7 @@ export interface RUnzipProgress {
   progress: number
 }
 
-export const Runzip = (from: string, to: string, deleteAfter?: boolean) =>
+export const Runzip = (from: string, to: string, deleteAfter = true) =>
   new Observable<RUnzipProgress>(subscriber => {
     ;(async () => {
       const progressId = nanoid()
@@ -17,7 +17,7 @@ export const Runzip = (from: string, to: string, deleteAfter?: boolean) =>
       invoke('unzip', {
         from,
         to,
-        delete: deleteAfter ?? true,
+        delete: deleteAfter,
         progressId,
       }).then(
         () => (subscriber.complete(), unlisten()),

@@ -1,12 +1,13 @@
 import { readVersionFile } from 'core'
 import { compileArguments, VersionedLaunchOptions } from 'core'
-import { java } from 'native/shell'
-import { join } from 'native/path'
+import { spawn } from 'native/shell'
+import { extendExecutable, join } from 'native/path'
 import { exists } from 'native/filesystem'
+import { w } from 'debug'
 
 export interface LaunchOptions {
   vid: string
-  javaExecutable?: string
+  javaExecutable?: string | ((major: number) => Awaitable<string | undefined>)
   javaArgs?: string[]
   minecraftArgs?: string[]
   gameDir: string
@@ -26,5 +27,10 @@ export const launch = async (options: LaunchOptions) => {
   const version = await readVersionFile(versionFilePath)
   const vlaunch: VersionedLaunchOptions = { ...options, version }
   const args = compileArguments(vlaunch)
-  return java(args, options.gameDir)
+  const jvme =
+    typeof options.javaExecutable === 'function'
+      ? await options.javaExecutable(version.javaVersion.majorVersion)
+      : options.javaExecutable
+  if (jvme && !(await exists(extendExecutable(jvme)))) w('JVM Executable missing')
+  return spawn(jvme ?? 'java', args, options.gameDir)
 }

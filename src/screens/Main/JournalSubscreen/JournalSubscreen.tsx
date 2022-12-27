@@ -8,7 +8,6 @@ import { Text } from 'components/atoms/Text'
 import { mix } from 'polished'
 import { Event } from './Event'
 import type { Instance as InstanceType } from 'minecraft/Instance'
-import { useOnce } from 'hooks'
 
 const Page = styled(Screen)`
   display: flex;
@@ -87,7 +86,7 @@ export const JournalSubscreen: FC = observer(() => {
       </InstanceSelectorContainer>
       <LinesContainer ref={container}>
         {(instance?.logs?.length ?? 0) > 0 ? (
-          instance?.logs?.map?.(ll => <Event key={ll.timestamp} event={ll} />)
+          instance?.logs?.map?.((ll, idx) => <Event key={idx} event={ll} />)
         ) : (
           <Placeholder>
             <Text shade={'high'}>Логи отсутствуют</Text>
