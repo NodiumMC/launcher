@@ -47,7 +47,7 @@ export class Instance {
   private _child: Child | null = null
   private prelaunched = false
   readonly dirname: string
-  readonly logs: LogEvent[] = []
+  logs: LogEvent[] = []
   lastUsed: number = Date.now()
 
   constructor(
@@ -256,5 +256,9 @@ export class Instance {
     //   this._child = null
     //   this._busy = false
     // })
+  }
+
+  clearLogs() {
+    this.logs = []
   }
 }
