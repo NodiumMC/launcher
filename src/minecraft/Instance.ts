@@ -136,7 +136,7 @@ export class Instance {
     if (!this.installed) w('Launch requires actual installation')
     return new Observable<LogEvent>(subscriber => {
       void (async () => {
-        if (this._child || this.prelaunched) w('Cannot run the same instance more than once')
+        if (this._child) w('Cannot run the same instance more than once')
         this.prelaunched = true
         const gameDir = await this.gs!.getGameDir()
         const versionId = this.versionId

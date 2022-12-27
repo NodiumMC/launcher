@@ -1,8 +1,9 @@
 import { readVersionFile } from 'core'
 import { compileArguments, VersionedLaunchOptions } from 'core'
 import { spawn } from 'native/shell'
-import { join } from 'native/path'
+import { extendExecutable, join } from 'native/path'
 import { exists } from 'native/filesystem'
+import { w } from 'debug'
 
 export interface LaunchOptions {
   vid: string
@@ -30,5 +31,6 @@ export const launch = async (options: LaunchOptions) => {
     typeof options.javaExecutable === 'function'
       ? await options.javaExecutable(version.javaVersion.majorVersion)
       : options.javaExecutable
+  if (jvme && !(await exists(extendExecutable(jvme)))) w('JVM Executable missing')
   return spawn(jvme ?? 'java', args, options.gameDir)
 }
