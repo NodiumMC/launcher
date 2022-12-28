@@ -16,7 +16,7 @@ import { observer } from 'mobx-react'
 
 const Popuup = styled.div`
   width: 580px;
-  height: 320px;
+  min-height: 320px;
   background-color: ${({ theme }) => theme.master.back};
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -58,6 +58,11 @@ const Actions = styled.div`
   align-items: flex-end;
 `
 
+const DescriptionContainer = styled.div`
+  overflow-y: scroll;
+  flex-grow: 1;
+`
+
 export const Popup: FC<IPopup> = observer(({ level, actions, title, description, close }) => {
   const icon = useMemo(
     () =>
@@ -81,13 +86,15 @@ export const Popup: FC<IPopup> = observer(({ level, actions, title, description,
       <Text size={15} center weight={'bold'}>
         {title}
       </Text>
-      {typeof description !== 'object' ? (
-        <Text pre shade={'medium'} center>
-          {description}
-        </Text>
-      ) : (
-        description
-      )}
+      <DescriptionContainer>
+        {typeof description !== 'object' ? (
+          <Text pre shade={'medium'}>
+            {description}
+          </Text>
+        ) : (
+          description
+        )}
+      </DescriptionContainer>
       <Actions>
         {actions.map(({ label, action, isPrimary, isDanger }, index) => (
           <Button

@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { Instance } from 'minecraft/Instance'
 import styled from 'styled-components'
 import { Text } from 'components/atoms/Text'
@@ -6,11 +6,15 @@ import { Img } from 'components/utils/Img'
 import { Button } from 'components/atoms/Button'
 import { transition } from 'style'
 import { useMod } from 'hooks/useMod'
-import { PopupService, UpfallService } from 'notifications'
+import { Popup, PopupService, UpfallService } from 'notifications'
 import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { open } from '@tauri-apps/api/shell'
 import { useI18N } from 'hooks'
+import { join } from 'native/path'
+import { exists } from 'native/filesystem'
+import { convertFileSrc } from '@tauri-apps/api/tauri'
+
 export interface InstanceItemProps {
   instance: Instance
 }
@@ -83,11 +87,16 @@ const StatusDot = styled.div<StatusDotProps>`
   ${transition('all')}
 `
 
+const HideableButton = styled(Button)<{ hide: boolean }>`
+  opacity: ${({ hide }) => +!hide};
+`
+
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const progress = useRef<SVGPathElement | null>(null)
   const [stage, setStage] = useState(0)
   const upfall = useMod(UpfallService)
   const popup = useMod(PopupService)
+  const i18n = useI18N(t => t.minecraft.instance)
 
   const setProgress = useCallback(
     (value: number) => {
@@ -99,8 +108,16 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
 
   const launch = useCallback(() => {
     instance.launch().subscribe({
-      error() {
-        upfall.drop('error', t => t.minecraft.instance.launch_failed)
+      error(code) {
+        const lastEvent = instance.logs.last
+        if ((typeof code === 'number' && code !== 0) || lastEvent.throwable)
+          popup.create(Popup, {
+            title: i18n.minecraft_crashed,
+            description: lastEvent.message + '\n\n' + lastEvent.throwable,
+            level: 'error',
+            actions: [{ label: 'Ок', isPrimary: true, action: close => close() }],
+          })
+        else if (typeof code === 'string') upfall.drop('error', t => t.minecraft.instance.launch_failed)
       },
     })
   }, [])
@@ -133,11 +150,21 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
     popup.create(InstanceEditor, { instance })
   }, [popup])
 
+  const [icon, setIcon] = useState<string | undefined>()
+
+  useEffect(() => {
+    void (async () => {
+      const assetpath = join(instance.instanceDir, 'icon.png')
+      if (!(await exists(assetpath))) return
+      setIcon(convertFileSrc(assetpath))
+    })()
+  }, [instance])
+
   return (
     <Container>
       <NameContainer>
         <StatusDot active={!!instance.child || instance.busy} />
-        <Image />
+        <Image src={icon ?? instance.profile?.icon} />
         <Text weight={900} size={14}>
           {instance.displayName}
         </Text>
@@ -145,13 +172,14 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
       <Actions>
         <Button icon={'folder'} square outlined={false} onClick={async () => open(await instance.getInstanceDir())} />
         <Button icon={'gear'} square outlined={false} onClick={settings} disabled={instance.busy} />
-        <Button
+        <HideableButton
           icon={instance.busy ? undefined : !instance.child ? (instance.isInstalled ? 'play' : 'download') : 'stop'}
           disabled={!!instance.child || !instance.isValid}
           primary
           square
           fetching={instance.busy}
           onClick={handle}
+          hide={instance.busy}
         />
       </Actions>
       <Progress
