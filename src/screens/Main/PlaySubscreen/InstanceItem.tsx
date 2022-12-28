@@ -83,6 +83,10 @@ const StatusDot = styled.div<StatusDotProps>`
   ${transition('all')}
 `
 
+const HideableButton = styled(Button)<{ hide: boolean }>`
+  opacity: ${({ hide }) => +!hide};
+`
+
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const progress = useRef<SVGPathElement | null>(null)
   const [stage, setStage] = useState(0)
@@ -145,13 +149,14 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
       <Actions>
         <Button icon={'folder'} square outlined={false} onClick={async () => open(await instance.getInstanceDir())} />
         <Button icon={'gear'} square outlined={false} onClick={settings} disabled={instance.busy} />
-        <Button
+        <HideableButton
           icon={instance.busy ? undefined : !instance.child ? (instance.isInstalled ? 'play' : 'download') : 'stop'}
           disabled={!!instance.child || !instance.isValid}
           primary
           square
           fetching={instance.busy}
           onClick={handle}
+          hide={instance.busy}
         />
       </Actions>
       <Progress
