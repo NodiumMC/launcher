@@ -10,6 +10,7 @@ import { PopupService, UpfallService } from 'notifications'
 import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { open } from '@tauri-apps/api/shell'
+import { useI18N } from 'hooks'
 export interface InstanceItemProps {
   instance: Instance
 }
@@ -98,8 +99,8 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
 
   const launch = useCallback(() => {
     instance.launch().subscribe({
-      error(err) {
-        upfall.drop('error', `Failed to launch: ${err}`)
+      error() {
+        upfall.drop('error', t => t.minecraft.instance.launch_failed)
       },
     })
   }, [])
@@ -117,8 +118,8 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
           if (stage !== value.stage) setStage(value.stage)
         },
         error(err) {
-          if (err?.startsWith('Network Error')) upfall.drop('error', 'Ошибка сети. Проверьте подключение к интернету')
-          else upfall.drop('error', `Failed to install: ${err?.message ?? err}`)
+          if (err?.startsWith('Network Error')) upfall.drop('error', t => t.minecraft.instance.network_error)
+          else upfall.drop('error', t => t.minecraft.instance.install_failed)
         },
         complete() {
           setProgress(0)

@@ -62,7 +62,7 @@ function mapNativeInfo(): { os: JDKOs; arch: JDKArch } {
       os = 'linux'
       break
     default:
-      w('Unsupported platform')
+      w(t => t.unsupported_platform, `Unsupported platform: ${platform}`)
   }
   let arch: JDKArch
   switch (narch) {
@@ -82,7 +82,7 @@ function mapNativeInfo(): { os: JDKOs; arch: JDKArch } {
       arch = 's390x'
       break
     default:
-      w('Unsupported arch')
+      w(t => t.unsupported_arch.explain({ arch: narch }), `Unsupported arch: ${narch}`)
   }
   return { os, arch }
 }
@@ -91,7 +91,7 @@ export async function fetchNativeJDK(major: number) {
   const jdks = await fetchJDKMetadata(major)
   const { os, arch } = mapNativeInfo()
   const found = jdks.data.find(jdk => jdk.binary.os === os && jdk.binary.architecture === arch)
-  if (!found) w('Invalid JDK version')
+  if (!found) w(t => t.invalid_jdk_version, 'Invalid JDK version:')
   return found
 }
 

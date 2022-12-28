@@ -79,10 +79,10 @@ export const SettingsSubscreen: FC = observer(() => {
   }
   return (
     <Page>
-      <Split>Общие настройки</Split>
+      <Split>{i18n.translate.settings.general}</Split>
       <VLabel>
         <Text shade={'high'} size={5}>
-          Путь к игровым данным
+          {i18n.translate.settings.path_to_gamedir}
         </Text>
         <DialogInput
           directory
@@ -91,11 +91,11 @@ export const SettingsSubscreen: FC = observer(() => {
           onChange={dir => (settings.gameDir = dir)}
         />
       </VLabel>
-      <Split>Внешний вид</Split>
+      <Split>{i18n.translate.settings.appearance}</Split>
       <ContainerRow>
         <VLabel>
           <Text shade={'high'} size={5}>
-            Язык
+            {i18n.translate.settings.lang}
           </Text>
           <SquareGroupSwitcher
             options={[
@@ -108,7 +108,7 @@ export const SettingsSubscreen: FC = observer(() => {
         </VLabel>
         <VLabel>
           <Text shade={'high'} size={5}>
-            Тема
+            {i18n.translate.settings.theme}
           </Text>
           <SquareGroupSwitcher
             options={[
@@ -120,9 +120,9 @@ export const SettingsSubscreen: FC = observer(() => {
           />
         </VLabel>
       </ContainerRow>
-      <Split>Java Runtimes</Split>
+      <Split>{i18n.translate.settings.jdks}</Split>
       <Javas>
-        {jrs.runtimes.length === 0 && <Text shade={'high'}>No Runtimes installed</Text>}
+        {jrs.runtimes.length === 0 && <Text shade={'high'}>{i18n.translate.settings.no_jdks}</Text>}
         {jrs.runtimes.map((r, idx) => (
           <JavaContainer key={idx}>
             <AccentText font={'Tomorrow'} size={20} weight={'bold'}>

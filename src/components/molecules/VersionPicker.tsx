@@ -10,6 +10,8 @@ import { mix } from 'polished'
 import { ColoredTag } from 'components/atoms/ColoredTag'
 import { Pair } from 'components/utils/Pair'
 import { useDebounce } from 'use-debounce'
+import { observer } from 'mobx-react'
+import { useI18N } from 'hooks'
 
 export interface LargePickerProps<T> extends ExtraProps.Styled {
   providers: Array<{
@@ -108,73 +110,78 @@ const Fetching = styled.div`
   justify-content: center;
 `
 
-export const VersionPicker = <T extends ReactNode>({
-  versions,
-  providers,
-  provider,
-  onProviderChange,
-  version,
-  onVersionChange,
-  ...props
-}: LargePickerProps<T>) => {
-  const theme = useTheme()
-  const [search, setSearch] = useState('')
-  const [searchedb] = useDebounce(search, 1000)
+export const VersionPicker = observer(
+  <T extends ReactNode>({
+    versions,
+    providers,
+    provider,
+    onProviderChange,
+    version,
+    onVersionChange,
+    ...props
+  }: LargePickerProps<T>) => {
+    const theme = useTheme()
+    const i18n = useI18N(t => t.minecraft.versions)
+    const [search, setSearch] = useState('')
+    const [searchedb] = useDebounce(search, 1000)
 
-  const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
-  const searched = useMemo(() => filtered.filter(v => (search ? v.name.includes(search) : true)), [searchedb, filtered])
+    const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
+    const searched = useMemo(
+      () => filtered.filter(v => (search ? v.name.includes(search) : true)),
+      [searchedb, filtered],
+    )
 
-  return (
-    <Container {...props}>
-      <SquareGroupSwitcher
-        options={providers}
-        value={provider}
-        onChange={onProviderChange}
-        vertical
-        disoptions={['forge', 'quilt']}
-      />
-      <VersionsContainer>
-        <InputWrapper>
-          <SearchInput value={search} onChange={inputValue(setSearch)} />
-          <Placeholder>
-            <FontAwesomeIcon icon={'magnifying-glass'} />
-          </Placeholder>
-        </InputWrapper>
-        {filtered.length > 0 ? (
-          <VersionList>
-            {searched.length > 0 ? (
-              searched.map(v => (
-                <Version
-                  key={`${provider}-${v.id}`}
-                  selected={v.id === version}
-                  onClick={() => onVersionChange?.(v.id)}
-                >
-                  <VersionName>
-                    <Text weight={'bold'}>{v.name}</Text>
-                    <Text size={8} shade={'high'}>
-                      {v.id}
-                    </Text>
-                  </VersionName>
-                  <Pair>
-                    {v.isRelease && <ColoredTag color={theme.palette.green}>Release</ColoredTag>}
-                    {v.isSnapshot && <ColoredTag color={theme.palette.magenta}>Snapshot</ColoredTag>}
-                    {v.isOld && <ColoredTag color={theme.palette.red}>Old</ColoredTag>}
-                    {v.latest && <ColoredTag color={theme.palette.cyan}>Latest</ColoredTag>}
-                  </Pair>
-                </Version>
-              ))
-            ) : (
-              <Fetching>
-                <Text shade={'high'}>Ничего не найдено</Text>
-              </Fetching>
-            )}
-          </VersionList>
-        ) : (
-          <Fetching>
-            <Text shade={'high'}>Подождите немного, возможно скоро всё будет</Text>
-          </Fetching>
-        )}
-      </VersionsContainer>
-    </Container>
-  )
-}
+    return (
+      <Container {...props}>
+        <SquareGroupSwitcher
+          options={providers}
+          value={provider}
+          onChange={onProviderChange}
+          vertical
+          disoptions={['forge', 'quilt']}
+        />
+        <VersionsContainer>
+          <InputWrapper>
+            <SearchInput value={search} onChange={inputValue(setSearch)} />
+            <Placeholder>
+              <FontAwesomeIcon icon={'magnifying-glass'} />
+            </Placeholder>
+          </InputWrapper>
+          {filtered.length > 0 ? (
+            <VersionList>
+              {searched.length > 0 ? (
+                searched.map(v => (
+                  <Version
+                    key={`${provider}-${v.id}`}
+                    selected={v.id === version}
+                    onClick={() => onVersionChange?.(v.id)}
+                  >
+                    <VersionName>
+                      <Text weight={'bold'}>{v.name}</Text>
+                      <Text size={8} shade={'high'}>
+                        {v.id}
+                      </Text>
+                    </VersionName>
+                    <Pair>
+                      {v.isRelease && <ColoredTag color={theme.palette.green}>{i18n.release_type}</ColoredTag>}
+                      {v.isSnapshot && <ColoredTag color={theme.palette.magenta}>{i18n.snapshot_type}</ColoredTag>}
+                      {v.latest && <ColoredTag color={theme.palette.cyan}>{i18n.latest_type}</ColoredTag>}
+                    </Pair>
+                  </Version>
+                ))
+              ) : (
+                <Fetching>
+                  <Text shade={'high'}>{i18n.not_found}</Text>
+                </Fetching>
+              )}
+            </VersionList>
+          ) : (
+            <Fetching>
+              <Text shade={'high'}>{i18n.fetching_versions}</Text>
+            </Fetching>
+          )}
+        </VersionsContainer>
+      </Container>
+    )
+  },
+)

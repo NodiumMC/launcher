@@ -9,6 +9,7 @@ import { mix } from 'polished'
 import { Event } from './Event'
 import type { Instance as InstanceType } from 'minecraft/Instance'
 import { Button } from 'components/atoms/Button'
+import { useI18N } from 'hooks'
 
 const Page = styled(Screen)`
   display: flex;
@@ -74,6 +75,7 @@ const ClearButton = styled(Button)`
 
 export const JournalSubscreen: FC = observer(() => {
   const istore = useMod(InstanceStore)
+  const i18n = useI18N(t => t.journal)
   const [instance, setInstance] = useState<InstanceType | undefined>(undefined)
   const container = useRef<HTMLDivElement>(null)
 
@@ -108,7 +110,7 @@ export const JournalSubscreen: FC = observer(() => {
           </>
         ) : (
           <Placeholder>
-            <Text shade={'high'}>Логи отсутствуют</Text>
+            <Text shade={'high'}>{i18n.no_logs}</Text>
           </Placeholder>
         )}
       </LinesContainer>
