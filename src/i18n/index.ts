@@ -1,5 +1,6 @@
-import { Structure } from 'i18n/Structure'
+import type { Lang } from 'i18n/langs'
 
 export * from './i18n.service'
+export * from './langs'
 
-export type R18T = (structure: Structure) => string
+export type R18T = (structure: Lang) => string
