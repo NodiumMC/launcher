@@ -113,7 +113,7 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
             level: 'error',
             actions: [{ label: 'Ок', isPrimary: true, action: close => close() }],
           })
-        else upfall.drop('error', t => t.minecraft.instance.launch_failed)
+        else if (typeof code === 'string') upfall.drop('error', t => t.minecraft.instance.launch_failed)
       },
     })
   }, [])
