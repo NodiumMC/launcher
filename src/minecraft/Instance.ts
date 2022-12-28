@@ -138,6 +138,14 @@ export class Instance {
     return prepare(join(await this.gs!.getGameDir(), 'instances', this.dirname))
   }
 
+  get instanceDir() {
+    return join(this.gs!.gameDir!, 'instances', this.dirname)
+  }
+
+  get profile() {
+    return this.gp!.list.find(v => v.lastVersionId === this.versionId)!
+  }
+
   launch() {
     this._busy = true
     if (!this.installed) w(t => t.launch_requires_installation, 'Launch requires actual installation')

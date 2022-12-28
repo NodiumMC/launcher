@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { Instance } from 'minecraft/Instance'
 import styled from 'styled-components'
 import { Text } from 'components/atoms/Text'
@@ -11,6 +11,10 @@ import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { open } from '@tauri-apps/api/shell'
 import { useI18N } from 'hooks'
+import { join } from 'native/path'
+import { exists } from 'native/filesystem'
+import { convertFileSrc } from '@tauri-apps/api/tauri'
+
 export interface InstanceItemProps {
   instance: Instance
 }
@@ -146,11 +150,21 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
     popup.create(InstanceEditor, { instance })
   }, [popup])
 
+  const [icon, setIcon] = useState<string | undefined>()
+
+  useEffect(() => {
+    void (async () => {
+      const assetpath = join(instance.instanceDir, 'icon.png')
+      if (!(await exists(assetpath))) return
+      setIcon(convertFileSrc(assetpath))
+    })()
+  }, [instance])
+
   return (
     <Container>
       <NameContainer>
         <StatusDot active={!!instance.child || instance.busy} />
-        <Image />
+        <Image src={icon ?? instance.profile?.icon} />
         <Text weight={900} size={14}>
           {instance.displayName}
         </Text>
