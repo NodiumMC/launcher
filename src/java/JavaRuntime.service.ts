@@ -8,6 +8,7 @@ import { prepare } from 'native/filesystem'
 import { Observable } from 'rxjs'
 import { main } from 'storage'
 import { w } from 'debug'
+import { isUnix } from 'native/os'
 
 export interface JvmRuntime {
   name: string
@@ -41,7 +42,7 @@ export class JavaRuntimeService {
   async install(major: number) {
     major = Math.max(17, major)
     const { url, name } = await fetchNJDKAsset(major)
-    const filename = join(await prepare(await this.runtimesDir()), `${name}.zip`)
+    const filename = join(await prepare(await this.runtimesDir()), `${name}.${isUnix ? 'tar.gz' : 'zip'}`)
     return RdownloadLT(url, filename).pipe(
       o =>
         new Observable<InstallProgress>(subscriber => {
