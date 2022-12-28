@@ -126,7 +126,7 @@ export class Instance {
   }
 
   private get versionId() {
-    if (this.vid === null) w('No game profile selected')
+    if (this.vid === null) w(t => t.no_game_profiles_selected, 'No game profile selected')
     return this.provider === 'custom' ? this.vid.id : `${this.provider}-${this.vid.id}`
   }
 
@@ -140,10 +140,10 @@ export class Instance {
 
   launch() {
     this._busy = true
-    if (!this.installed) w('Launch requires actual installation')
+    if (!this.installed) w(t => t.launch_requires_installation, 'Launch requires actual installation')
     return new Observable<LogEvent>(subscriber => {
       void (async () => {
-        if (this._child) w('Cannot run the same instance more than once')
+        if (this._child) w(t => t.unable_to_launch_more_once, 'Cannot run the same instance more than once')
         this.prelaunched = true
         const gameDir = await this.gs!.getGameDir()
         const versionId = this.versionId
@@ -197,12 +197,13 @@ export class Instance {
         const clientDir = await this.clientDir()
         if (!this.gp?.has(this.versionId)) {
           const providerFn = providers[this.provider as keyof typeof providers]
-          if (!providerFn) w('Unknown provider')
-          if (!this.vid) w('Missing version data')
+          if (!providerFn) w(t => t.unknown_provider, `Unknown provider: ${this.provider}`)
+          if (!this.vid) w(t => t.no_version_selected, 'Missing version data')
           await this.gp?.create(providerFn, this.vid, this.versionId, this.versionId)
         }
         const manifestPath = join(clientDir, `${this.versionId}.json`)
-        if (!(await exists(manifestPath))) w(`Missing version manifest json file at path ${manifestPath}`)
+        if (!(await exists(manifestPath)))
+          w(t => t.missing_version_manifest, `Missing version manifest json file at path ${manifestPath}`)
         const file = await readJsonFile<VersionFile>(manifestPath)
         const jdkInstaller = await this.jrs!.installIfNot(file.javaVersion.majorVersion)
         if (jdkInstaller) {
@@ -211,7 +212,7 @@ export class Instance {
               subscriber.next({ progress: progress.map(0, total, 0, 100), stage })
             },
             error(err) {
-              subscriber.error(`Java Runtime install failed: ${err}`)
+              w(t => t.jvm_install_failed, `Java Runtime install failed: ${err}`)
             },
           })
           await lastValueFrom(jdkInstaller)
@@ -224,7 +225,7 @@ export class Instance {
           },
           error: err => {
             this._busy = false
-            subscriber.error(`Minecraft assets download failed: ${err}`)
+            w(t => t.minecraft_assets_download_failed, `Minecraft assets download failed: ${err}`)
           },
           complete: () => {
             this.installed = true
@@ -234,7 +235,7 @@ export class Instance {
                 subscriber.complete()
               },
               error: err => {
-                subscriber.error(`Failed to unpack natives: ${err}`)
+                w(t => t.unpack_natives_failed, `Failed to unpack natives: ${err}`)
               },
             })
           },
@@ -251,7 +252,7 @@ export class Instance {
   }
 
   async stop() {
-    if (!this.child) w('Nothing to stop')
+    if (!this.child) w(t => t.nothing_to_stop, 'Nothing to stop')
     // await this.child.kill().then(() => {
     //   this._child = null
     //   this._busy = false

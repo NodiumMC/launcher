@@ -7,6 +7,7 @@ import { parse } from 'stack-trace'
 import { transition } from 'style'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
+import { useI18N } from 'hooks'
 
 const StyledOverlay = styled.div`
   position: absolute;
@@ -54,6 +55,7 @@ const ProgressInner = styled.div.attrs<ExtraProps.Value<number>>(({ value }) => 
 
 export const CrashOverlay: FC = observer(() => {
   const report = useMod(ReportService)
+  const i18n = useI18N()
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -88,10 +90,7 @@ export const CrashOverlay: FC = observer(() => {
           ))}
       </Text>
       <Actions>
-        <Text interaction>
-          Лаунчер упал с критической ошибкой. Подождите пока составляется отчёт об ошибке, после чего лаунчер
-          перезагрузится. Попытайтесь понять, что вызвало ошибку и сообщите об этом разработчику или администрации
-        </Text>
+        <Text interaction>{i18n.translate.other.launcher_crashed}</Text>
       </Actions>
       <Progress>
         <ProgressInner value={progress} />

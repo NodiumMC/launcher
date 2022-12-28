@@ -11,6 +11,7 @@ import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { Input } from 'components/atoms/Input'
 import { PlayerLiteService } from 'user/PlayerLite.service'
 import { inputValue } from 'utils'
+import { useI18N } from 'hooks'
 
 const Page = styled(Screen)`
   display: flex;
@@ -72,6 +73,7 @@ const NicknameInput = styled(Input)`
 
 const NicknamePanel: FC = observer(() => {
   const player = useMod(PlayerLiteService)
+  const i18n = useI18N(t => t.play)
 
   const input = useCallback(
     (value: string) => {
@@ -83,7 +85,7 @@ const NicknamePanel: FC = observer(() => {
   return (
     <Other>
       <NicknameInput
-        placeholder={'Nickname'}
+        placeholder={i18n.nickname}
         onChange={inputValue(input)}
         value={player.nickname}
         invalid={!player.isValid}

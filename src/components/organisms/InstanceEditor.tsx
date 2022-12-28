@@ -14,7 +14,7 @@ import { useMod } from 'hooks/useMod'
 import { GameProfileService } from 'minecraft/GameProfile.service'
 import { VersionPicker } from 'components/molecules/VersionPicker'
 import { PublicVersion } from 'core/providers/types'
-import { useOnce } from 'hooks'
+import { useI18N, useOnce } from 'hooks'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { Popup, PopupService, UpfallService } from 'notifications'
 import { wait } from 'utils'
@@ -92,10 +92,11 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
   const istore = useMod(InstanceStore)
   const upfall = useMod(UpfallService)
   const popup = useMod(PopupService)
+  const i18n = useI18N(t => t.minecraft.instance)
   const [versions, setVersions] = useState<PublicVersion[]>([])
 
   const repair = useCallback(() => {
-    upfall.drop('default', 'Экземпляр будет переустановлен при следующем запуске', 'screwdriver-wrench')
+    upfall.drop('default', i18n.instance_fixed, 'screwdriver-wrench')
     if (instance) instance.isInstalled = false
     close?.()
   }, [])
@@ -103,12 +104,11 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
   const remove = useCallback(() => {
     popup.create(Popup, {
       level: 'question',
-      title: 'Вы уверены?',
-      description:
-        'Вы действительно хотите удалить экземпляр игры? Это действие удалит только профиль экземпляра. Для полного удаления игровых данных выберите соответсвующее действие.',
+      title: i18n.are_you_sure,
+      description: i18n.are_you_want_to_delete,
       actions: [
         {
-          label: 'Удалить полностью',
+          label: i18n.full_delete,
           action: async c =>
             instance &&
             (await removeDir(await instance.getInstanceDir(), { recursive: true }),
@@ -117,12 +117,12 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
             c()),
         },
         {
-          label: 'Отмена',
+          label: i18n.cancel,
           action: c => c(),
           isPrimary: true,
         },
         {
-          label: 'Удалить',
+          label: i18n.remove,
           isDanger: true,
           action: c => {
             istore.remove(instance!)
@@ -206,14 +206,14 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
       <Content>
         <Field
           {...register('name', {
-            required: { value: true, message: 'Название обязательно' },
-            maxLength: { value: 32, message: 'Слишком длинное название' },
+            required: { value: true, message: i18n.name_required },
+            maxLength: { value: 32, message: i18n.name_too_long },
             pattern: {
               value: /^[\w\s\u0400-\u04FF-_.()[\]#№/{}]+?$/,
-              message: 'Название содержит недопустимые символы',
+              message: i18n.name_invalid_pattern,
             },
           })}
-          placeholder={'Название'}
+          placeholder={i18n.name}
           error={errors.name}
         />
         <Group>
@@ -245,7 +245,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
               <Text shade={'medium'}>MB</Text>
             </Pair>
             <Pair>
-              <Text shade={'medium'}>Размер окна: </Text>
+              <Text shade={'medium'}>{i18n.window_size}: </Text>
               <Pair>
                 <Input
                   center
@@ -268,24 +268,24 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
         </Group>
         <List>
           <Field
-            placeholder={'JVM аргументы'}
+            placeholder={i18n.jvm_args}
             error={errors.jvmArgs}
             {...register('jvmArgs', {
               required: false,
               pattern: {
                 value: /^(((--\w{2,}([\w-]*)(=?".*")?)|(-\w))($|\s))+?$/,
-                message: 'Некорректная строка аргументов',
+                message: i18n.invalid_args_string,
               },
             })}
           />
           <Field
-            placeholder={'Minecraft аргументы'}
+            placeholder={i18n.minecraft_args}
             error={errors.minecraftArgs}
             {...register('minecraftArgs', {
               required: false,
               pattern: {
                 value: /^(((--\w{2,}([\w-]*)(=?".*")?)|(-\w))($|\s))+?$/,
-                message: 'Некорректная строка аргументов',
+                message: i18n.invalid_args_string,
               },
             })}
           />
@@ -301,9 +301,9 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
           )}
         </Pair>
         <Pair>
-          <Button onClick={close}>Отмена</Button>
+          <Button onClick={close}>{i18n.cancel}</Button>
           <Button onClick={handleSubmit(submit)} primary disabled={versions.length === 0 || isSubmitting || !isValid}>
-            {instance ? 'Сохранить' : 'Создать'}
+            {instance ? i18n.save : i18n.create}
           </Button>
         </Pair>
       </Actions>
