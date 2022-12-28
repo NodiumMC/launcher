@@ -171,7 +171,7 @@ export class Instance {
         this.child?.on('std', collect)
         this.child?.on('error', subscriber.error.bind(subscriber))
         this.child?.on('error', () => ((this.prelaunched = false), (this._child = null)))
-        this.child?.on('close', subscriber.complete.bind(subscriber))
+        this.child?.on('close', code => (subscriber.error(code), subscriber.complete()))
         this.child?.on('close', () => ((this.prelaunched = false), (this._child = null)))
         this.lastUsed = Date.now()
         this._busy = false

@@ -52,6 +52,7 @@ export default {
       network_error: 'Ошибка сети. Проверьте подключение к интернету',
       install_failed: 'Установка не удалась',
       launch_failed: 'Запуск не удался',
+      minecraft_crashed: 'Minecraft закрылся с ошибкой',
     },
   },
   journal: {

@@ -54,6 +54,7 @@ export default {
       network_error: 'Network error. Check your Internet connection',
       install_failed: 'Installation failed',
       launch_failed: 'Launch failed',
+      minecraft_crashed: 'Minecraft crashed',
     },
   },
   journal: {

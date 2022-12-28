@@ -6,7 +6,7 @@ import { Img } from 'components/utils/Img'
 import { Button } from 'components/atoms/Button'
 import { transition } from 'style'
 import { useMod } from 'hooks/useMod'
-import { PopupService, UpfallService } from 'notifications'
+import { Popup, PopupService, UpfallService } from 'notifications'
 import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { open } from '@tauri-apps/api/shell'
@@ -92,6 +92,7 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const [stage, setStage] = useState(0)
   const upfall = useMod(UpfallService)
   const popup = useMod(PopupService)
+  const i18n = useI18N(t => t.minecraft.instance)
 
   const setProgress = useCallback(
     (value: number) => {
@@ -103,8 +104,16 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
 
   const launch = useCallback(() => {
     instance.launch().subscribe({
-      error() {
-        upfall.drop('error', t => t.minecraft.instance.launch_failed)
+      error(code) {
+        const lastEvent = instance.logs.last
+        if ((typeof code === 'number' && code !== 0) || lastEvent.throwable)
+          popup.create(Popup, {
+            title: i18n.minecraft_crashed,
+            description: lastEvent.message + '\n\n' + lastEvent.throwable,
+            level: 'error',
+            actions: [{ label: 'Ок', isPrimary: true, action: close => close() }],
+          })
+        else upfall.drop('error', t => t.minecraft.instance.launch_failed)
       },
     })
   }, [])
