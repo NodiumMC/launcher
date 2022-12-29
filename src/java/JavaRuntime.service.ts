@@ -69,7 +69,7 @@ export class JavaRuntimeService {
     major = Math.max(17, major)
     const jdk = this._runtimes.find(v => v.major === major)
     if (!jdk) w(t => t.no_compatible_jdks, `No compatible JDKS installed. Expected: ${jdk}`)
-    return join(await this.runtimesDir(), jdk.name, 'bin', 'javaw')
+    return join(await this.runtimesDir(), jdk.name, 'bin', 'java')
   }
 
   async installIfNot(major: number) {
