@@ -73,6 +73,7 @@ export class JavaRuntimeService {
   }
 
   async installIfNot(major: number) {
+    major = Math.max(17, major)
     if (this.runtimes.some(v => v.major === major)) return
     return this.install(major)
   }

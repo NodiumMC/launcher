@@ -212,7 +212,9 @@ export class Instance {
         const manifestPath = join(clientDir, `${this.versionId}.json`)
         if (!(await exists(manifestPath)))
           w(t => t.missing_version_manifest, `Missing version manifest json file at path ${manifestPath}`)
-        const file = await readJsonFile<VersionFile>(manifestPath)
+        let file = await readJsonFile<VersionFile>(manifestPath)
+        await writeJsonFile(manifestPath, await populate(file))
+        file = await readJsonFile<VersionFile>(manifestPath)
         const jdkInstaller = await this.jrs!.installIfNot(file.javaVersion.majorVersion)
         if (jdkInstaller) {
           jdkInstaller.subscribe({
@@ -225,7 +227,6 @@ export class Instance {
           })
           await lastValueFrom(jdkInstaller)
         }
-        await writeJsonFile(manifestPath, await populate(file))
         const installer = batchDownload(await compileLocal(this.versionId, clientDir, await this.gs!.getGameDir()))
         installer.subscribe({
           next({ total, progress }) {
@@ -236,10 +237,10 @@ export class Instance {
             w(t => t.minecraft_assets_download_failed, `Minecraft assets download failed: ${err}`)
           },
           complete: () => {
-            this.installed = true
             this._busy = false
             unzipNatives(join(clientDir, 'natives')).subscribe({
-              complete() {
+              complete: () => {
+                this.installed = true
                 subscriber.complete()
               },
               error: err => {
