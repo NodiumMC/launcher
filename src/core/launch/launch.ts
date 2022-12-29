@@ -23,7 +23,7 @@ export interface LaunchOptions {
 
 export const launch = async (options: LaunchOptions) => {
   const versionFilePath = join(options.clientDir, `${options.vid}.json`)
-  if (!(await exists(versionFilePath))) throw new Error(`There is no version ${options.vid}`)
+  if (!(await exists(versionFilePath))) w(t => t.missing_version_manifest, `There is no version ${options.vid}`)
   const version = await readVersionFile(versionFilePath)
   const vlaunch: VersionedLaunchOptions = { ...options, version }
   const args = compileArguments(vlaunch)

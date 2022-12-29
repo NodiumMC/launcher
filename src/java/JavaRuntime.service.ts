@@ -8,6 +8,7 @@ import { prepare } from 'native/filesystem'
 import { Observable } from 'rxjs'
 import { main } from 'storage'
 import { w } from 'debug'
+import { isUnix } from 'native/os'
 
 export interface JvmRuntime {
   name: string
@@ -41,7 +42,7 @@ export class JavaRuntimeService {
   async install(major: number) {
     major = Math.max(17, major)
     const { url, name } = await fetchNJDKAsset(major)
-    const filename = join(await prepare(await this.runtimesDir()), `${name}.zip`)
+    const filename = join(await prepare(await this.runtimesDir()), `${name}.${isUnix ? 'tar.gz' : 'zip'}`)
     return RdownloadLT(url, filename).pipe(
       o =>
         new Observable<InstallProgress>(subscriber => {
@@ -68,10 +69,11 @@ export class JavaRuntimeService {
     major = Math.max(17, major)
     const jdk = this._runtimes.find(v => v.major === major)
     if (!jdk) w(t => t.no_compatible_jdks, `No compatible JDKS installed. Expected: ${jdk}`)
-    return join(await this.runtimesDir(), jdk.name, 'bin', 'javaw')
+    return join(await this.runtimesDir(), jdk.name, 'bin', 'java')
   }
 
   async installIfNot(major: number) {
+    major = Math.max(17, major)
     if (this.runtimes.some(v => v.major === major)) return
     return this.install(major)
   }

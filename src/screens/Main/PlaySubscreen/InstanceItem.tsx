@@ -14,6 +14,7 @@ import { useI18N } from 'hooks'
 import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
+import { erm } from 'debug'
 
 export interface InstanceItemProps {
   instance: Instance
@@ -110,14 +111,15 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
     instance.launch().subscribe({
       error(code) {
         const lastEvent = instance.logs.last
-        if ((typeof code === 'number' && code !== 0) || lastEvent.throwable)
+        if ((typeof code === 'number' && code !== 0) || lastEvent?.throwable)
           popup.create(Popup, {
             title: i18n.minecraft_crashed,
-            description: lastEvent.message + '\n\n' + lastEvent.throwable,
+            description: (lastEvent?.message ?? '') + '\n\n' + (lastEvent?.throwable ?? ''),
             level: 'error',
             actions: [{ label: 'Ок', isPrimary: true, action: close => close() }],
           })
-        else if (typeof code === 'string') upfall.drop('error', t => t.minecraft.instance.launch_failed)
+        else if (typeof code === 'string' || typeof code === 'object')
+          upfall.drop('error', t => `${t.minecraft.instance.launch_failed}: ${erm(code)}`)
       },
     })
   }, [])
@@ -131,11 +133,14 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
     else if (!instance.isInstalled) {
       instance.install().subscribe({
         next(value) {
-          setProgress(value.progress)
-          if (stage !== value.stage) setStage(value.stage)
+          if (value.stage > stage) {
+            setStage(value.stage)
+            setProgress(value.progress)
+          }
+          if (value.stage === stage) setProgress(value.progress)
         },
         error(err) {
-          if (err?.startsWith('Network Error')) upfall.drop('error', t => t.minecraft.instance.network_error)
+          if (err?.startsWith?.('Network Error')) upfall.drop('error', t => t.minecraft.instance.network_error)
           else upfall.drop('error', t => t.minecraft.instance.install_failed)
         },
         complete() {
