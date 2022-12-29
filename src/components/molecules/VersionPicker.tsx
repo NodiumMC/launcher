@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components'
-import { ReactNode, useMemo, useState } from 'react'
+import { ChangeEvent, ReactNode, useMemo, useState } from 'react'
 import { PublicVersion } from 'core/providers/types'
 import { SquareGroupSwitcher } from 'components/molecules/SquareGroupSwitcher'
 import { SupportedProviders } from 'core/providers'
@@ -12,6 +12,7 @@ import { Pair } from 'components/utils/Pair'
 import { useDebounce } from 'use-debounce'
 import { observer } from 'mobx-react'
 import { useI18N } from 'hooks'
+import { Checkbox } from 'components/atoms/Checkbox'
 
 export interface LargePickerProps<T> extends ExtraProps.Styled {
   providers: Array<{
@@ -110,6 +111,35 @@ const Fetching = styled.div`
   justify-content: center;
 `
 
+const FilterIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+`
+
+const FilterControls = styled.div`
+  display: none;
+  gap: ${({ theme }) => theme.space(5)};
+`
+
+const FilterContainer = styled.div`
+  position: absolute;
+  padding: ${({ theme }) => theme.space(2)};
+  gap: ${({ theme }) => theme.space(10)};
+  height: 100%;
+  right: 0;
+  top: 50%;
+  display: flex;
+  flex-direction: row;
+  translate: 0 -50%;
+  font-size: 20px;
+  &:focus-within ${FilterControls} {
+    display: flex;
+  }
+`
+
+const CheckboxLabel = styled.div`
+  display: flex;
+`
+
 export const VersionPicker = observer(
   <T extends ReactNode>({
     versions,
@@ -131,6 +161,15 @@ export const VersionPicker = observer(
       [searchedb, filtered],
     )
 
+    const [filterValue, setFilterValue] = useState({ old: false, snapshot: false })
+    const handleChange = (v: string) => {
+      if (v == 'snap') {
+        setFilterValue({ old: false, snapshot: !filterValue.snapshot })
+      } else {
+        setFilterValue({ old: !filterValue.old, snapshot: false })
+      }
+    }
+
     return (
       <Container {...props}>
         <SquareGroupSwitcher
@@ -142,6 +181,19 @@ export const VersionPicker = observer(
         />
         <VersionsContainer>
           <InputWrapper>
+            <FilterContainer tabIndex={0}>
+              <FilterControls tabIndex={0}>
+                <CheckboxLabel>
+                  <Checkbox onChange={() => handleChange('snap')} value={filterValue.snapshot} />
+                  <Text>{i18n.snapshot_type}</Text>
+                </CheckboxLabel>
+                <CheckboxLabel>
+                  <Checkbox onChange={() => handleChange('old')} value={filterValue.old} />
+                  <Text>Old</Text>
+                </CheckboxLabel>
+              </FilterControls>
+              <FilterIcon tabIndex={0} icon={'filter'} color={theme.master.shade(0.3)} />
+            </FilterContainer>
             <SearchInput value={search} onChange={inputValue(setSearch)} />
             <Placeholder>
               <FontAwesomeIcon icon={'magnifying-glass'} />
