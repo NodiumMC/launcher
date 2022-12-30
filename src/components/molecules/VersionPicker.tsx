@@ -158,18 +158,13 @@ export const VersionPicker = observer(
     const [search, setSearch] = useState('')
     const [searchedb] = useDebounce(search, 1000)
 
-    const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
-    const searched = useMemo(
-      () => filtered.filter(v => (search ? v.name.includes(search) : true)),
-      [searchedb, filtered],
-    )
-
     const [snapshotCheckbox, setSnapshotCheckbox] = useState(false)
 
-    const searchedAndFiltered = useMemo(
-      () => searched.filter(v => (snapshotCheckbox ? v.isSnapshot : true)),
-      [snapshotCheckbox, filtered],
-    )
+    const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
+    const searchedAndFiltered = useMemo(() => {
+      const searchedandFiltered = filtered.filter(v => (snapshotCheckbox ? true : !v.isSnapshot))
+      return searchedandFiltered.filter(v => (search ? v.name.includes(search) : true))
+    }, [searchedb, filtered, snapshotCheckbox])
 
     return (
       <Container {...props}>
@@ -198,7 +193,7 @@ export const VersionPicker = observer(
           </InputWrapper>
           {filtered.length > 0 ? (
             <VersionList>
-              {searched.length > 0 ? (
+              {searchedAndFiltered.length > 0 ? (
                 searchedAndFiltered.map(v => (
                   <Version
                     key={`${provider}-${v.id}`}
