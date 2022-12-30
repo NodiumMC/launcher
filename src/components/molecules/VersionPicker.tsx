@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components'
-import { ChangeEvent, ReactNode, useMemo, useState } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 import { PublicVersion } from 'core/providers/types'
 import { SquareGroupSwitcher } from 'components/molecules/SquareGroupSwitcher'
 import { SupportedProviders } from 'core/providers'
@@ -138,6 +138,7 @@ const FilterContainer = styled.div`
 
 const CheckboxLabel = styled.div`
   display: flex;
+  gap: ${({ theme }) => theme.space(2)};
 `
 
 export const VersionPicker = observer(
@@ -161,14 +162,12 @@ export const VersionPicker = observer(
       [searchedb, filtered],
     )
 
-    const [filterValue, setFilterValue] = useState({ old: false, snapshot: false })
-    const handleChange = (v: string) => {
-      if (v == 'snap') {
-        setFilterValue({ old: false, snapshot: !filterValue.snapshot })
-      } else {
-        setFilterValue({ old: !filterValue.old, snapshot: false })
-      }
-    }
+    const [snapshotCheckbox, setSnapshotCheckbox] = useState(false)
+
+    const searchedAndFiltered = useMemo(
+      () => searched.filter(v => (snapshotCheckbox ? v.isSnapshot : true)),
+      [snapshotCheckbox, filtered],
+    )
 
     return (
       <Container {...props}>
@@ -184,12 +183,8 @@ export const VersionPicker = observer(
             <FilterContainer tabIndex={0}>
               <FilterControls tabIndex={0}>
                 <CheckboxLabel>
-                  <Checkbox onChange={() => handleChange('snap')} value={filterValue.snapshot} />
+                  <Checkbox onChange={setSnapshotCheckbox} value={snapshotCheckbox} />
                   <Text>{i18n.snapshot_type}</Text>
-                </CheckboxLabel>
-                <CheckboxLabel>
-                  <Checkbox onChange={() => handleChange('old')} value={filterValue.old} />
-                  <Text>Old</Text>
                 </CheckboxLabel>
               </FilterControls>
               <FilterIcon tabIndex={0} icon={'filter'} color={theme.master.shade(0.3)} />
@@ -202,7 +197,7 @@ export const VersionPicker = observer(
           {filtered.length > 0 ? (
             <VersionList>
               {searched.length > 0 ? (
-                searched.map(v => (
+                searchedAndFiltered.map(v => (
                   <Version
                     key={`${provider}-${v.id}`}
                     selected={v.id === version}
