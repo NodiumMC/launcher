@@ -181,7 +181,7 @@ export const VersionPicker = observer(
               <FilterControls tabIndex={0}>
                 <CheckboxLabel>
                   <Checkbox onChange={setSnapshotCheckbox} value={snapshotCheckbox} />
-                  <Text>{i18n.snapshot_type}</Text>
+                  <Text>{i18n.snapshots}</Text>
                 </CheckboxLabel>
               </FilterControls>
               <FilterIcon tabIndex={0} icon={'filter'} color={theme.master.shade(0.3)} />

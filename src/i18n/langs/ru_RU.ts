@@ -30,6 +30,7 @@ export default {
       release_type: 'Релиз',
       snapshot_type: 'Снапшот',
       latest_type: 'Последняя',
+      snapshots: 'Снапшоты',
     },
     instance: {
       name: 'Название',
