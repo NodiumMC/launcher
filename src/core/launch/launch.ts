@@ -33,5 +33,5 @@ export const launch = async (options: LaunchOptions) => {
       : options.javaExecutable
   if (jvme && !(await exists(extendExecutable(jvme))))
     w(t => t.missing_jvm_executable, `JVM Executable missing: ${extendExecutable(jvme)}`)
-  return spawn(jvme ?? 'java', args, options.gameDir)
+  return spawn(jvme ?? 'javaw', args, options.gameDir)
 }
