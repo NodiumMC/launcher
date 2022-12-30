@@ -142,6 +142,7 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
         error(err) {
           if (err?.startsWith?.('Network Error')) upfall.drop('error', t => t.minecraft.instance.network_error)
           else upfall.drop('error', t => t.minecraft.instance.install_failed)
+          setProgress(0)
         },
         complete() {
           setProgress(0)
