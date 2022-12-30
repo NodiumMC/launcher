@@ -12,6 +12,7 @@ import { Pair } from 'components/utils/Pair'
 import { useDebounce } from 'use-debounce'
 import { observer } from 'mobx-react'
 import { useI18N } from 'hooks'
+import { Checkbox } from 'components/atoms/Checkbox'
 
 export interface LargePickerProps<T> extends ExtraProps.Styled {
   providers: Array<{
@@ -110,6 +111,38 @@ const Fetching = styled.div`
   justify-content: center;
 `
 
+const FilterIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  outline: none;
+`
+
+const FilterControls = styled.div`
+  display: none;
+  gap: ${({ theme }) => theme.space(5)};
+`
+
+const FilterContainer = styled.div`
+  position: absolute;
+  padding: ${({ theme }) => theme.space(2)};
+  gap: ${({ theme }) => theme.space(2)};
+  height: 100%;
+  right: 0;
+  align-items: center;
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  &:focus-within ${FilterControls} {
+    display: flex;
+  }
+`
+
+const CheckboxLabel = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.space(2)};
+`
+
 export const VersionPicker = observer(
   <T extends ReactNode>({
     versions,
@@ -125,11 +158,13 @@ export const VersionPicker = observer(
     const [search, setSearch] = useState('')
     const [searchedb] = useDebounce(search, 1000)
 
+    const [snapshotCheckbox, setSnapshotCheckbox] = useState(false)
+
     const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
-    const searched = useMemo(
-      () => filtered.filter(v => (search ? v.name.includes(search) : true)),
-      [searchedb, filtered],
-    )
+    const searchedAndFiltered = useMemo(() => {
+      const searchedandFiltered = filtered.filter(v => (snapshotCheckbox ? true : !v.isSnapshot))
+      return searchedandFiltered.filter(v => (search ? v.name.includes(search) : true))
+    }, [searchedb, filtered, snapshotCheckbox])
 
     return (
       <Container {...props}>
@@ -142,6 +177,15 @@ export const VersionPicker = observer(
         />
         <VersionsContainer>
           <InputWrapper>
+            <FilterContainer tabIndex={0}>
+              <FilterControls tabIndex={0}>
+                <CheckboxLabel>
+                  <Checkbox onChange={setSnapshotCheckbox} value={snapshotCheckbox} />
+                  <Text>{i18n.snapshots}</Text>
+                </CheckboxLabel>
+              </FilterControls>
+              <FilterIcon tabIndex={0} icon={'filter'} color={theme.master.shade(0.3)} />
+            </FilterContainer>
             <SearchInput value={search} onChange={inputValue(setSearch)} />
             <Placeholder>
               <FontAwesomeIcon icon={'magnifying-glass'} />
@@ -149,8 +193,8 @@ export const VersionPicker = observer(
           </InputWrapper>
           {filtered.length > 0 ? (
             <VersionList>
-              {searched.length > 0 ? (
-                searched.map(v => (
+              {searchedAndFiltered.length > 0 ? (
+                searchedAndFiltered.map(v => (
                   <Version
                     key={`${provider}-${v.id}`}
                     selected={v.id === version}

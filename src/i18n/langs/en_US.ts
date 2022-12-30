@@ -32,6 +32,7 @@ export default {
       release_type: 'Release',
       snapshot_type: 'Snapshot',
       latest_type: 'Latest',
+      snapshots: 'Snapshots',
     },
     instance: {
       name: 'Name',
