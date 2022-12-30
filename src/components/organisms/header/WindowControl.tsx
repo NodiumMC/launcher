@@ -6,6 +6,7 @@ import { NetworkChecker } from 'network'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
+import { NavLink } from 'react-router-dom'
 
 const ControlPlate = styled.div`
   display: flex;
@@ -39,11 +40,18 @@ const NetworkStatus: FC = observer(() => {
   )
 })
 
+const InfoIcon = styled(FontAwesomeIcon)`
+  color: ${({ theme }) => theme.master.shade(0.5)};
+`
+
 export const WindowControl: FC = () => {
   const [maximized, setMaximized] = useState(false)
   return (
     <ControlPlate>
       <NetworkStatus />
+      <NavLink to={'/about'}>
+        <InfoIcon icon={'info-circle'} />
+      </NavLink>
       <WindowButton type={'minimize'} action={() => appWindow.minimize()} />
       <WindowButton
         type={'toggle'}
