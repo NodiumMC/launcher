@@ -113,6 +113,7 @@ const Fetching = styled.div`
 
 const FilterIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
+  outline: none;
 `
 
 const FilterControls = styled.div`
@@ -123,13 +124,14 @@ const FilterControls = styled.div`
 const FilterContainer = styled.div`
   position: absolute;
   padding: ${({ theme }) => theme.space(2)};
-  gap: ${({ theme }) => theme.space(10)};
+  gap: ${({ theme }) => theme.space(2)};
   height: 100%;
   right: 0;
+  align-items: center;
   top: 50%;
+  translate: 0 -50%;
   display: flex;
   flex-direction: row;
-  translate: 0 -50%;
   font-size: 20px;
   &:focus-within ${FilterControls} {
     display: flex;
