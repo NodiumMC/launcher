@@ -19,7 +19,6 @@ import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { Popup, PopupService, UpfallService } from 'notifications'
 import { wait } from 'utils'
 import { removeDir } from '@tauri-apps/api/fs'
-import { Grow } from 'components/utils/Grow'
 
 export interface InstanceEditorProps {
   close?: () => void
