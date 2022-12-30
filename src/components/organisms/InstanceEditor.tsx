@@ -83,6 +83,27 @@ const VerticalGroup = styled.div`
   flex-direction: column;
 `
 
+const WindowSizeBox = styled.div`
+  border: 2px solid ${({ theme }) => theme.master.shade()};
+  border-radius: ${({ theme }) => theme.radius()};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding: ${({ theme }) => theme.space(3)};
+  aspect-ratio: 16 / 9;
+  gap: ${({ theme }) => theme.space()};
+  svg {
+    color: ${({ theme }) => theme.master.shade(0.3)};
+  }
+`
+
+const BorderLessInput = styled(Input)`
+  input {
+    border: 0 !important;
+  }
+`
+
 // !!!
 // WARNING: HMR не работает для этой компоненты,
 // вам нужно вручную перезагрузить страницу (F5)
@@ -162,8 +183,8 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
 
   const submit = async (data: FormData) => {
     const vid = versions.find(v => v.id === data.vid)!
-    const javaArgs = data.jvmArgs?.split('')
-    const mcArgs = data.minecraftArgs?.split('')
+    const javaArgs = data.jvmArgs?.split(' ').filter(v => v)
+    const mcArgs = data.minecraftArgs?.split(' ').filter(v => v)
     if (!vid || !vid.providers.includes(data.provider)) {
       setError('vid', { type: 'pattern' })
       return
@@ -244,26 +265,23 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
               />
               <Text shade={'medium'}>MB</Text>
             </Pair>
-            <Pair>
-              <Text shade={'medium'}>{i18n.window_size}: </Text>
-              <Pair>
-                <Input
-                  center
-                  type={'number'}
-                  style={{ width: '64px' }}
-                  {...register('ww', { required: true, min: 100 })}
-                  invalid={!!errors.ww}
-                />
-                <FontAwesomeIcon icon={'xmark'} />
-                <Input
-                  center
-                  type={'number'}
-                  style={{ width: '64px' }}
-                  {...register('wh', { required: true, min: 100 })}
-                  invalid={!!errors.wh}
-                />
-              </Pair>
-            </Pair>
+            <WindowSizeBox>
+              <BorderLessInput
+                center
+                type={'number'}
+                style={{ width: '64px' }}
+                {...register('ww', { required: true, min: 100 })}
+                invalid={!!errors.ww}
+              />
+              <FontAwesomeIcon icon={'xmark'} />
+              <BorderLessInput
+                center
+                type={'number'}
+                style={{ width: '64px' }}
+                {...register('wh', { required: true, min: 100 })}
+                invalid={!!errors.wh}
+              />
+            </WindowSizeBox>
           </VerticalGroup>
         </Group>
         <List>

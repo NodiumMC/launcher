@@ -7,11 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
 import { NavLink } from 'react-router-dom'
+import { Pair } from 'components/utils/Pair'
 
 const ControlPlate = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: ${({ theme }) => theme.space(2)};
 `
 
 const Red = styled.div`
@@ -49,23 +50,25 @@ export const WindowControl: FC = () => {
   return (
     <ControlPlate>
       <NetworkStatus />
-      <NavLink to={'/about'}>
-        <InfoIcon icon={'info-circle'} />
-      </NavLink>
-      <WindowButton type={'minimize'} action={() => appWindow.minimize()} />
-      <WindowButton
-        type={'toggle'}
-        action={() => {
-          if (maximized) {
-            appWindow.unmaximize()
-            setMaximized(false)
-          } else {
-            appWindow.maximize()
-            setMaximized(true)
-          }
-        }}
-      />
-      <WindowButton type={'close'} danger action={() => appWindow.close()} />
+      <Pair gap={'small'}>
+        <NavLink to={'/about'}>
+          <InfoIcon icon={'info-circle'} />
+        </NavLink>
+        <WindowButton type={'minimize'} action={() => appWindow.minimize()} />
+        <WindowButton
+          type={'toggle'}
+          action={() => {
+            if (maximized) {
+              appWindow.unmaximize()
+              setMaximized(false)
+            } else {
+              appWindow.maximize()
+              setMaximized(true)
+            }
+          }}
+        />
+        <WindowButton type={'close'} danger action={() => appWindow.close()} />
+      </Pair>
     </ControlPlate>
   )
 }
