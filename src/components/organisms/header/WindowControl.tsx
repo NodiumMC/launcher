@@ -46,7 +46,6 @@ const InfoIcon = styled(FontAwesomeIcon)`
 `
 
 export const WindowControl: FC = () => {
-  const [maximized, setMaximized] = useState(false)
   return (
     <ControlPlate>
       <NetworkStatus />
@@ -55,18 +54,7 @@ export const WindowControl: FC = () => {
           <InfoIcon icon={'info-circle'} />
         </NavLink>
         <WindowButton type={'minimize'} action={() => appWindow.minimize()} />
-        <WindowButton
-          type={'toggle'}
-          action={() => {
-            if (maximized) {
-              appWindow.unmaximize()
-              setMaximized(false)
-            } else {
-              appWindow.maximize()
-              setMaximized(true)
-            }
-          }}
-        />
+        <WindowButton type={'toggle'} action={() => appWindow.toggleMaximize()} />
         <WindowButton type={'close'} danger action={() => appWindow.close()} />
       </Pair>
     </ControlPlate>
