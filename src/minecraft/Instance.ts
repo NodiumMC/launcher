@@ -130,16 +130,16 @@ export class Instance {
     return this.provider === 'custom' ? this.vid.id : `${this.provider}-${this.vid.id}`
   }
 
-  private async clientDir() {
-    return join(await this.gs!.getGameDir(), 'versions', this.versionId)
+  private get clientDir() {
+    return join(this.gs!.gameDir, 'versions', this.versionId)
   }
 
   async getInstanceDir() {
-    return prepare(join(await this.gs!.getGameDir(), 'instances', this.dirname))
+    return prepare(join(this.gs!.gameDir, 'instances', this.dirname))
   }
 
   get instanceDir() {
-    return join(this.gs!.gameDir!, 'instances', this.dirname)
+    return join(this.gs!.gameDir, 'instances', this.dirname)
   }
 
   get profile() {
@@ -153,9 +153,9 @@ export class Instance {
       void (async () => {
         if (this._child) w(t => t.unable_to_launch_more_once, 'Cannot run the same instance more than once')
         this.prelaunched = true
-        const gameDir = await this.gs!.getGameDir()
+        const gameDir = this.gs!.gameDir
         const versionId = this.versionId
-        const clientDir = await prepare(await this.clientDir())
+        const clientDir = await prepare(this.clientDir)
         this._child = await launch({
           javaExecutable: major => this.jrs!.for(major),
           vid: versionId,
@@ -191,7 +191,7 @@ export class Instance {
   }
 
   private async compile() {
-    return compileLocal(this.versionId, await this.clientDir(), await this.gs!.getGameDir())
+    return compileLocal(this.versionId, this.clientDir, this.gs!.gameDir)
   }
 
   async totalSize() {
@@ -202,7 +202,7 @@ export class Instance {
     this._busy = true
     return new Observable<{ progress: number; stage: number }>(subscriber => {
       void (async () => {
-        const clientDir = await this.clientDir()
+        const clientDir = this.clientDir
         if (!this.gp?.has(this.versionId)) {
           const providerFn = providers[this.provider as keyof typeof providers]
           if (!providerFn) w(t => t.unknown_provider, `Unknown provider: ${this.provider}`)
@@ -227,7 +227,7 @@ export class Instance {
           })
           await lastValueFrom(jdkInstaller)
         }
-        const installer = batchDownload(await compileLocal(this.versionId, clientDir, await this.gs!.getGameDir()))
+        const installer = batchDownload(await compileLocal(this.versionId, clientDir, this.gs!.gameDir))
         installer.subscribe({
           next({ total, progress }) {
             subscriber.next({ progress: progress.map(0, total, 0, 100), stage: 2 })

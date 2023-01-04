@@ -16,15 +16,17 @@ export class GameProfileService {
   constructor(private readonly settings: GeneralSettings) {
     makeAutoObservable(this)
     void (async () => {
-      watch(await this.pathToProfile(), {}, this.reloadProfiles.bind(this))
+      watch(this.pathToProfile, {}, this.reloadProfiles.bind(this))
       await this.reloadProfiles()
     })()
   }
 
-  private pathToProfile = async () => join(await this.settings.getGameDir(), 'launcher_profiles.json')
+  private get pathToProfile() {
+    return join(this.settings.gameDir, 'launcher_profiles.json')
+  }
 
   async reloadProfiles() {
-    const pathToProfiles = await this.pathToProfile()
+    const pathToProfiles = this.pathToProfile
     if (!(await exists(pathToProfiles))) {
       await this.createEmptyProfile()
       return
@@ -37,7 +39,7 @@ export class GameProfileService {
   }
 
   async create(provider: Provider, version: PublicVersion, vid: string, name: string, ...properties: string[]) {
-    const clientDir = await prepare(join(await this.settings.getGameDir(), 'versions', vid))
+    const clientDir = await prepare(join(this.settings.gameDir, 'versions', vid))
     const jsonPath = join(clientDir, `${vid}.json`)
     const json = await provider(version.id, ...properties)
     await prepare(clientDir)
@@ -58,12 +60,12 @@ export class GameProfileService {
     }
     this.list.push(profile)
     const profiles = Object.fromEntries(this.list.map(v => [v.lastVersionId, v]))
-    await writeJsonFile<LauncherProfiles>(await this.pathToProfile(), { profiles })
+    await writeJsonFile<LauncherProfiles>(this.pathToProfile, { profiles })
     return profile
   }
 
   private createEmptyProfile = async () =>
-    writeJsonFile(await this.pathToProfile(), {
+    writeJsonFile(this.pathToProfile, {
       profiles: {},
     })
 

@@ -35,14 +35,14 @@ export class JavaRuntimeService {
     return this._runtimes
   }
 
-  async runtimesDir() {
-    return join(await this.gs.getGameDir(), 'runtimes')
+  runtimesDir() {
+    return join(this.gs.gameDir, 'runtimes')
   }
 
   async install(major: number) {
     major = Math.max(17, major)
     const { url, name } = await fetchNJDKAsset(major)
-    const filename = join(await prepare(await this.runtimesDir()), `${name}.${isUnix ? 'tar.gz' : 'zip'}`)
+    const filename = join(await prepare(this.runtimesDir()), `${name}.${isUnix ? 'tar.gz' : 'zip'}`)
     return RdownloadLT(url, filename).pipe(
       o =>
         new Observable<InstallProgress>(subscriber => {

@@ -1,6 +1,6 @@
 import { singleton } from 'tsyringe'
 import { makeAutoObservable } from 'mobx'
-import { GameDir } from 'native/filesystem'
+import { GAME_DIR } from 'native/filesystem'
 import { main } from 'storage'
 
 @singleton()
@@ -10,21 +10,16 @@ export class GeneralSettings {
   constructor() {
     makeAutoObservable(this)
     main.getItem<string>('gameDir').then(dir => {
-      if (dir) this.gameDir = dir
-      else GameDir().then(dir => (this.gameDir = dir))
+      this.gameDir = dir ?? GAME_DIR
     })
   }
 
-  get gameDir() {
-    return this._gameDir
+  get gameDir(): string {
+    return this._gameDir ?? GAME_DIR
   }
 
   set gameDir(value: string | null) {
     this._gameDir = value
     main.setItem('gameDir', value)
-  }
-
-  async getGameDir() {
-    return this._gameDir ?? (await GameDir())
   }
 }

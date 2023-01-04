@@ -33,6 +33,6 @@ export const writeJson5File = async <T>(path: string, data: T): Promise<void> =>
 
 const ddir = await dataDir()
 
-export const AppData = async () => prepare(join(ddir, 'NodiumLauncher'))
+export const APP_DATA = await prepare(join(ddir, 'NodiumLauncher'))
 
-export const GameDir = async () => prepare(join(ddir, '.nodium'))
+export const GAME_DIR = await prepare(join(ddir, '.nodium'))
