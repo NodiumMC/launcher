@@ -68,6 +68,7 @@ const Progress = styled.svg<{ stage: number }>`
     stroke: ${({ theme, stage }) =>
       stage === 0 ? theme.palette.orange : stage === 1 ? theme.palette.yellow : theme.accent.primary};
     stroke-dasharray: 133;
+    stroke-dashoffset: 133;
     ${transition('stroke-dashoffset')}
   }
 `
@@ -92,23 +93,34 @@ const HideableButton = styled(Button)<{ hide: boolean }>`
 `
 
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
+  const progress = useRef<SVGPathElement | null>(null)
+  const [stage, setStage] = useState(0)
   const upfall = useMod(UpfallService)
   const popup = useMod(PopupService)
   const i18n = useI18N(t => t.minecraft.instance)
 
+  const setProgress = useCallback(
+    (value: number) => {
+      if (!progress.current) return
+      progress.current.style.strokeDashoffset = value.map(0, 100, 133, 0).toString()
+    },
+    [progress],
+  )
+
   const launch = useCallback(() => {
-    instance.launch().catch(code => {
-      console.log(code)
-      const lastEvent = instance.logs.last
-      if ((typeof code === 'number' && code !== 0) || (typeof code === 'number' && lastEvent?.throwable))
-        popup.create(Popup, {
-          title: i18n.minecraft_crashed,
-          description: (lastEvent?.message ?? '') + '\n\n' + (lastEvent?.throwable ?? ''),
-          level: 'error',
-          actions: [{ label: 'Ок', isPrimary: true, action: close => close() }],
-        })
-      else if (typeof code === 'string' || typeof code === 'object')
-        upfall.drop('error', t => `${t.minecraft.instance.launch_failed}: ${erm(code)}`)
+    instance.launch().subscribe({
+      error(code) {
+        const lastEvent = instance.logs.last
+        if ((typeof code === 'number' && code !== 0) || lastEvent?.throwable)
+          popup.create(Popup, {
+            title: i18n.minecraft_crashed,
+            description: (lastEvent?.message ?? '') + '\n\n' + (lastEvent?.throwable ?? ''),
+            level: 'error',
+            actions: [{ label: 'Ок', isPrimary: true, action: close => close() }],
+          })
+        else if (typeof code === 'string' || typeof code === 'object')
+          upfall.drop('error', t => `${t.minecraft.instance.launch_failed}: ${erm(code)}`)
+      },
     })
   }, [])
 
@@ -119,15 +131,26 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const handle = useCallback(() => {
     if (instance.child) kill()
     else if (!instance.isInstalled) {
-      instance
-        .install()
-        .catch(err => {
+      instance.install().subscribe({
+        next(value) {
+          if (value.stage > stage) {
+            setStage(value.stage)
+            setProgress(value.progress)
+          }
+          if (value.stage === stage) setProgress(value.progress)
+        },
+        error(err) {
           if (err?.startsWith?.('Network Error')) upfall.drop('error', t => t.minecraft.instance.network_error)
           else upfall.drop('error', t => t.minecraft.instance.install_failed)
-        })
-        .then(launch)
+          setProgress(0)
+        },
+        complete() {
+          setProgress(0)
+          launch()
+        },
+      })
     } else launch()
-  }, [])
+  }, [setProgress])
 
   const settings = useCallback(() => {
     popup.create(InstanceEditor, { instance })
@@ -171,9 +194,10 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
         version="1.1"
         viewBox="0 0 38 38"
         xmlns="http://www.w3.org/2000/svg"
-        stage={instance.progress.stage ?? 0}
+        stage={stage}
       >
         <path
+          ref={progress}
           x={1}
           y={1}
           width={36}
@@ -181,7 +205,6 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
           d={'m7 1h24a6 6 45 0 1 6 6v24a6 6 135 0 1-6 6h-24a6 6 45 0 1-6-6v-24a6 6 135 0 1 6-6z'}
           fill={'none'}
           strokeWidth={'2'}
-          strokeDashoffset={instance.progress.progress.map(0, 100, 133 ,0)}
         />
       </Progress>
     </Container>
