@@ -3,6 +3,7 @@
   windows_subsystem = "windows"
 )]
 
+use tauri::Manager;
 use tauri_plugin_fs_watch::Watcher;
 
 use commands::compat::*;
@@ -10,9 +11,18 @@ use commands::process;
 
 #[tokio::main]
 async fn main() {
+  tauri_plugin_deep_link::prepare("com.nodium.launcher");
+
   std::env::set_var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--ignore-gpu-blocklist");
   let context = tauri::generate_context!();
   tauri::Builder::default()
+    .setup(|app| {
+      let handle = app.handle();
+      tauri_plugin_deep_link::register("ndml", move |request| {
+        handle.emit_all("deeplink", request).unwrap();
+      }).unwrap();
+      Ok(())
+    })
     .plugin(Watcher::default())
     .invoke_handler(tauri::generate_handler![download::download, download::download_longtime, unzip::unzip, os::info, process::spawn])
     .run(context)
