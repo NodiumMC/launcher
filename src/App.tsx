@@ -45,7 +45,7 @@ export const App: FC = observer(() => {
         <Style />
         <Fonts />
         <AceStyle />
-        <AppRoot>
+        <AppRoot onContextMenu={e => e.preventDefault()}>
           <Header />
           <ErrorBoundary>
             <View>
