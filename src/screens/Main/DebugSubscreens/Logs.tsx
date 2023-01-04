@@ -1,10 +1,11 @@
 import { FC, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
-import { DelogService, LogLine } from 'debug'
+import { DelogService } from 'debug'
 import { CommandPrompt, execute } from 'debug/commander'
 import { container } from 'tsyringe'
 import { observer } from 'mobx-react'
+import { LogLine } from './LogLine'
 
 const Page = styled(Screen)`
   display: flex;

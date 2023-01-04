@@ -1,12 +1,12 @@
 import { FC, Fragment, useMemo } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/atoms/Text'
-import { ObjectRenderer } from 'debug'
 import { toJS } from 'mobx'
 import { mix } from 'polished'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { transition } from 'style'
 import ms from 'pretty-ms'
+import { ObjectRenderer } from 'components/organisms/ObjectRenderer'
 
 export type DelogType = 'default' | 'warn' | 'error' | 'time'
 
