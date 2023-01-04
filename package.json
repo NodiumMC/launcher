@@ -1,7 +1,7 @@
 {
   "name": "nodium-launcher",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "moduleDirectories": [
     "node_modules",
     "src"
