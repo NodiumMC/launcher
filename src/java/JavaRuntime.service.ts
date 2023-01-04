@@ -1,12 +1,12 @@
 import { singleton } from 'tsyringe'
 import { dirname, join } from 'native/path'
 import { GeneralSettings } from 'settings/GeneralSettings.service'
-import { autorun, makeAutoObservable, toJS } from 'mobx'
+import { makeAutoObservable, toJS } from 'mobx'
 import { fetchNJDKAsset } from 'java/adoptium'
 import { RdownloadLT, Runzip } from 'native/rust'
 import { prepare } from 'native/filesystem'
 import { Observable } from 'rxjs'
-import { main } from 'storage'
+import { sync } from 'storage'
 import { w } from 'debug'
 import { isUnix } from 'native/os'
 
@@ -23,26 +23,27 @@ export interface InstallProgress {
 
 @singleton()
 export class JavaRuntimeService {
-  private _runtimes: JvmRuntime[] = []
+  runtimes: JvmRuntime[] = []
 
   constructor(private readonly gs: GeneralSettings) {
     makeAutoObservable(this)
-    autorun(() => main.setItem('runtimes', toJS(this._runtimes)))
-    main.getItem<JvmRuntime[]>('runtimes').then(rs => (this._runtimes = rs ?? []))
+    sync(
+      this,
+      'runtimes',
+      'runtimes',
+      (runtimes: JvmRuntime[]) => runtimes,
+      runtimes => toJS(runtimes),
+    )
   }
 
-  get runtimes() {
-    return this._runtimes
-  }
-
-  runtimesDir() {
+  get runtimesDir() {
     return join(this.gs.gameDir, 'runtimes')
   }
 
   async install(major: number) {
     major = Math.max(17, major)
     const { url, name } = await fetchNJDKAsset(major)
-    const filename = join(await prepare(this.runtimesDir()), `${name}.${isUnix ? 'tar.gz' : 'zip'}`)
+    const filename = join(await prepare(this.runtimesDir), `${name}.${isUnix ? 'tar.gz' : 'zip'}`)
     return RdownloadLT(url, filename).pipe(
       o =>
         new Observable<InstallProgress>(subscriber => {
@@ -54,7 +55,7 @@ export class JavaRuntimeService {
                 error: subscriber.error.bind(subscriber),
                 next: value => subscriber.next({ stage: 1, ...value }),
                 complete: () => {
-                  if (!this.runtimes.some(v => v.major === major)) this._runtimes.push({ major, name })
+                  if (!this.runtimes.some(v => v.major === major)) this.runtimes.push({ major, name })
                   subscriber.complete()
                 },
               })
@@ -67,9 +68,9 @@ export class JavaRuntimeService {
 
   async for(major: number) {
     major = Math.max(17, major)
-    const jdk = this._runtimes.find(v => v.major === major)
+    const jdk = this.runtimes.find(v => v.major === major)
     if (!jdk) w(t => t.no_compatible_jdks, `No compatible JDKS installed. Expected: ${jdk}`)
-    return join(await this.runtimesDir(), jdk.name, 'bin', 'javaw')
+    return join(this.runtimesDir, jdk.name, 'bin', 'javaw')
   }
 
   async installIfNot(major: number) {

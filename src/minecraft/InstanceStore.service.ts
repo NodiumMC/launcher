@@ -1,6 +1,6 @@
 import { Instance, InstanceLocal } from './Instance'
-import { main } from 'storage'
-import { autorun, makeAutoObservable, toJS } from 'mobx'
+import { sync } from 'storage'
+import { makeAutoObservable, toJS } from 'mobx'
 import { singleton } from 'tsyringe'
 
 @singleton()
@@ -9,20 +9,19 @@ export class InstanceStore {
 
   constructor() {
     makeAutoObservable(this)
-    main.getItem<InstanceLocal[]>('instances').then(instances => {
-      if (instances) this.instances = instances.map(Instance.fromLocal)
-    })
-    autorun(() => {
-      main.setItem(
-        'instances',
+    sync(
+      this,
+      'instances',
+      'instances',
+      (instances: InstanceLocal[]) => instances.map(Instance.fromLocal),
+      instances =>
         toJS(
-          this.instances.map(v => {
+          instances.map(v => {
             const local = v.toLocal()
             return { ...local, settings: toJS(local.settings), vid: toJS(local.vid), logs: toJS(local.logs) }
           }),
         ),
-      )
-    })
+    )
   }
 
   remove(instance: Instance) {
