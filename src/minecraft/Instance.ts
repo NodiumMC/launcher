@@ -146,6 +146,10 @@ export class Instance {
     return this.gp!.list.find(v => v.lastVersionId === this.versionId)!
   }
 
+  async exists() {
+    return exists(this.instanceDir)
+  }
+
   launch() {
     this._busy = true
     if (!this.installed) w(t => t.launch_requires_installation, 'Launch requires actual installation')
