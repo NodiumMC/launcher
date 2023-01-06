@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
-import { DelogService } from 'debug'
+import { DelogModule } from 'debug'
 import { CommandPrompt, execute } from 'debug/commander'
 import { container } from 'tsyringe'
 import { observer } from 'mobx-react'
@@ -25,7 +25,7 @@ const LogsContainer = styled.div`
 `
 
 export const Logs: FC = observer(() => {
-  const delog = container.resolve(DelogService)
+  const delog = container.resolve(DelogModule)
   const latest = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

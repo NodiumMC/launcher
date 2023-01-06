@@ -1,3 +1,3 @@
-export * from './debug.service'
-export * from './delog.service'
+export * from './debug.module'
+export * from './delog'
 export * from './error'

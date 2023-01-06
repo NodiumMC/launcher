@@ -12,7 +12,6 @@ export class InstanceStore {
     sync(
       this,
       'instances',
-      'instances',
       (instances: InstanceLocal[]) => instances.map(Instance.fromLocal),
       instances =>
         toJS(

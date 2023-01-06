@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { WindowButton } from './WindowButton'
 import { appWindow } from '@tauri-apps/api/window'
-import { NetworkChecker } from 'network'
+import { NetworkCheckerModule } from 'network'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
@@ -24,7 +24,7 @@ const Yellow = styled.div`
 `
 
 const NetworkStatus: FC = observer(() => {
-  const module = useMod(NetworkChecker)
+  const module = useMod(NetworkCheckerModule)
 
   return (
     <>

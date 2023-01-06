@@ -8,14 +8,14 @@ import { w } from 'debug'
 import { lastValueFrom, Observable } from 'rxjs'
 import { batchDownload } from 'network'
 import { autoInjectable, container } from 'tsyringe'
-import { GeneralSettings } from 'settings/GeneralSettings.service'
-import { GameProfileService } from 'minecraft/GameProfile.service'
 import * as providers from 'core/providers/implemented'
 import { PublicVersion } from 'core/providers/types'
 import { nanoid } from 'nanoid'
 import { LogEvent, parse } from 'core/logging'
-import { JavaRuntimeService } from 'java'
-import { PlayerLiteService } from 'user/PlayerLite.service'
+import { GeneralSettingsModule } from 'settings'
+import { GameProfileModule } from 'minecraft/game-profile'
+import { JavaRuntimeModule } from 'java'
+import { PlayerLiteModule } from 'user'
 
 export interface InstanceSettings {
   javaArgs?: string[]
@@ -51,10 +51,10 @@ export class Instance {
   lastUsed: number = Date.now()
 
   constructor(
-    private readonly gs: GeneralSettings | undefined,
-    private readonly gp: GameProfileService | undefined,
-    private readonly jrs: JavaRuntimeService | undefined,
-    private readonly user: PlayerLiteService | undefined,
+    private readonly gs: GeneralSettingsModule | undefined,
+    private readonly gp: GameProfileModule | undefined,
+    private readonly jrs: JavaRuntimeModule | undefined,
+    private readonly user: PlayerLiteModule | undefined,
     name: string,
     dirname?: string,
     vid?: PublicVersion | null,
@@ -77,10 +77,10 @@ export class Instance {
 
   static fromLocal(local: InstanceLocal) {
     return new Instance(
-      container.resolve(GeneralSettings),
-      container.resolve(GameProfileService),
-      container.resolve(JavaRuntimeService),
-      container.resolve(PlayerLiteService),
+      container.resolve(GeneralSettingsModule),
+      container.resolve(GameProfileModule),
+      container.resolve(JavaRuntimeModule),
+      container.resolve(PlayerLiteModule),
       local.name,
       local.dirname,
       local.vid,
@@ -143,7 +143,7 @@ export class Instance {
   }
 
   get profile() {
-    return this.gp!.list.find(v => v.lastVersionId === this.versionId)!
+    return this.gp!.find(this.versionId)
   }
 
   async exists() {
@@ -219,7 +219,7 @@ export class Instance {
         let file = await readJsonFile<VersionFile>(manifestPath)
         await writeJsonFile(manifestPath, await populate(file))
         file = await readJsonFile<VersionFile>(manifestPath)
-        const jdkInstaller = await this.jrs!.installIfNot(file.javaVersion.majorVersion)
+        const jdkInstaller = await this.jrs!.install(file.javaVersion.majorVersion)
         if (jdkInstaller) {
           jdkInstaller.subscribe({
             next({ total, progress, stage }) {

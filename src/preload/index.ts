@@ -1,1 +1,1 @@
-export * from './Preloader.service'
+export * from './preloader.module'

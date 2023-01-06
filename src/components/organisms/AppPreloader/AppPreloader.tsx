@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Empty } from 'components/utils/Empty'
 import { Preloader } from 'components/atoms/Preloader'
 import { font } from 'style'
-import { Preloader as PreloaderService } from 'preload'
+import { PreloaderModule } from 'preload'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
@@ -78,11 +78,11 @@ const StageWrapper = styled.div`
 // `
 
 export const AppPreloader: FC = observer(() => {
-  const { inProcess, currentTaskName } = useMod(PreloaderService)
+  const { progress, taskName } = useMod(PreloaderModule)
 
   return (
     <AnimatePresence>
-      {inProcess && (
+      {progress && (
         <AppPreloaderWrapper
           initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -97,7 +97,7 @@ export const AppPreloader: FC = observer(() => {
           <StageWrapper>
             <Stage>
               <AbsolutePreloader />
-              {currentTaskName}
+              {taskName}
             </Stage>
           </StageWrapper>
         </AppPreloaderWrapper>

@@ -1,8 +1,8 @@
 import { makeAutoObservable } from 'mobx'
-import { singleton } from 'tsyringe'
+import { Module } from 'positron'
 
-@singleton()
-export class DebugService {
+@Module
+export class DebugModule {
   private enabled = false
 
   constructor() {

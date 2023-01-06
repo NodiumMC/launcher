@@ -11,14 +11,14 @@ import { Input } from 'components/atoms/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ProviderIcon, SupportedProviders } from 'core/providers'
 import { useMod } from 'hooks/useMod'
-import { GameProfileService } from 'minecraft/GameProfile.service'
 import { VersionPicker } from 'components/molecules/VersionPicker'
 import { PublicVersion } from 'core/providers/types'
 import { useI18N, useOnce } from 'hooks'
 import { InstanceStore } from 'minecraft/InstanceStore.service'
-import { Popup, PopupService, UpfallService } from 'notifications'
+import { Popup, PopupModule, UpfallModule } from 'notifications'
 import { wait } from 'utils'
 import { removeDir } from '@tauri-apps/api/fs'
+import { GameProfileModule } from 'minecraft/game-profile'
 
 export interface InstanceEditorProps {
   close?: () => void
@@ -109,10 +109,10 @@ const BorderLessInput = styled(Input)`
 // вам нужно вручную перезагрузить страницу (F5)
 // !!!
 export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, close }) => {
-  const gp = useMod(GameProfileService)
+  const gp = useMod(GameProfileModule)
   const istore = useMod(InstanceStore)
-  const upfall = useMod(UpfallService)
-  const popup = useMod(PopupService)
+  const upfall = useMod(UpfallModule)
+  const popup = useMod(PopupModule)
   const i18n = useI18N(t => t.minecraft.instance)
   const [versions, setVersions] = useState<PublicVersion[]>([])
 

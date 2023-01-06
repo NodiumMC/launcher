@@ -1,5 +1,5 @@
-import { DebugService, error } from 'debug'
-import { I18n, Lang } from 'i18n'
+import { DebugModule, error } from 'debug'
+import { I18nModule, Lang } from 'i18n'
 import { container } from 'tsyringe'
 
 export function w(
@@ -17,11 +17,11 @@ export function w(
   debug?: string,
   cause?: any,
 ): never | Error {
-  let i18n: I18n | undefined = undefined
+  let i18n: I18nModule | undefined = undefined
   let dm = false
   try {
-    i18n = container.resolve(I18n)
-    dm = container.resolve(DebugService).isEnabled
+    i18n = container.resolve(I18nModule)
+    dm = container.resolve(DebugModule).isEnabled
   } catch (e) {
     /* empty */
   }

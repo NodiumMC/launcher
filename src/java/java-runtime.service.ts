@@ -1,40 +1,18 @@
-import { singleton } from 'tsyringe'
 import { dirname, join } from 'native/path'
-import { GeneralSettings } from 'settings/GeneralSettings.service'
-import { makeAutoObservable, toJS } from 'mobx'
-import { fetchNJDKAsset } from 'java/adoptium'
+import { fetchNJDKAsset } from './adoptium'
 import { RdownloadLT, Runzip } from 'native/rust'
 import { prepare } from 'native/filesystem'
 import { Observable } from 'rxjs'
-import { sync } from 'storage'
 import { w } from 'debug'
 import { isUnix } from 'native/os'
+import { Service } from 'positron'
+import { JavaRuntimeStore } from './java-runtime.store'
+import { GeneralSettingsModule } from 'settings'
+import { InstallProgress } from './java-runtime.types'
 
-export interface JvmRuntime {
-  name: string
-  major: number
-}
-
-export interface InstallProgress {
-  stage: number
-  total: number
-  progress: number
-}
-
-@singleton()
+@Service
 export class JavaRuntimeService {
-  runtimes: JvmRuntime[] = []
-
-  constructor(private readonly gs: GeneralSettings) {
-    makeAutoObservable(this)
-    sync(
-      this,
-      'runtimes',
-      'runtimes',
-      (runtimes: JvmRuntime[]) => runtimes,
-      runtimes => toJS(runtimes),
-    )
-  }
+  constructor(private readonly gs: GeneralSettingsModule, private readonly store: JavaRuntimeStore) {}
 
   get runtimesDir() {
     return join(this.gs.gameDir, 'runtimes')
@@ -55,7 +33,7 @@ export class JavaRuntimeService {
                 error: subscriber.error.bind(subscriber),
                 next: value => subscriber.next({ stage: 1, ...value }),
                 complete: () => {
-                  if (!this.runtimes.some(v => v.major === major)) this.runtimes.push({ major, name })
+                  if (!this.store.has(major)) this.store.add(name, major)
                   subscriber.complete()
                 },
               })
@@ -68,14 +46,14 @@ export class JavaRuntimeService {
 
   async for(major: number) {
     major = Math.max(17, major)
-    const jdk = this.runtimes.find(v => v.major === major)
+    const jdk = this.store.find(major)
     if (!jdk) w(t => t.no_compatible_jdks, `No compatible JDKS installed. Expected: ${jdk}`)
     return join(this.runtimesDir, jdk.name, 'bin', 'javaw')
   }
 
   async installIfNot(major: number) {
     major = Math.max(17, major)
-    if (this.runtimes.some(v => v.major === major)) return
+    if (this.store.has(major)) return
     return this.install(major)
   }
 }

@@ -1,8 +1,8 @@
 import { error } from 'debug'
 import { PureComponent } from 'react'
-import { ReportService } from 'debug/report.service'
 import { CrashOverlay } from 'components/organisms/CrashOverlay'
 import { container } from 'tsyringe'
+import { ReportModule } from 'debug/report.module'
 
 export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {
   constructor(props: any) {
@@ -16,7 +16,7 @@ export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {
 
   componentDidCatch(err: Error) {
     error(err)
-    container.resolve(ReportService).report(err)
+    container.resolve(ReportModule).report(err)
   }
 
   render() {

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { Rdownload } from 'native/rust'
 import { container } from 'tsyringe'
-import { NetworkChecker } from 'network'
+import { NetworkCheckerModule } from 'network'
 import { cache } from 'storage'
 
 export interface Resource {
@@ -17,7 +17,7 @@ export interface BatchProgress {
 
 export const batchDownload = (resources: Resource[], batchSize = 64) =>
   new Observable<BatchProgress>(subscriber => {
-    const nc = container.resolve(NetworkChecker)
+    const nc = container.resolve(NetworkCheckerModule)
     const total = resources.length
     const queue = [...resources]
     let progress = 0

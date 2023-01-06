@@ -6,7 +6,7 @@ import { Img } from 'components/utils/Img'
 import { Button } from 'components/atoms/Button'
 import { transition } from 'style'
 import { useMod } from 'hooks/useMod'
-import { Popup, PopupService, UpfallService } from 'notifications'
+import { Popup, PopupModule, UpfallModule } from 'notifications'
 import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { open } from '@tauri-apps/api/shell'
@@ -95,8 +95,8 @@ const HideableButton = styled(Button)<{ hide: boolean }>`
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const progress = useRef<SVGPathElement | null>(null)
   const [stage, setStage] = useState(0)
-  const upfall = useMod(UpfallService)
-  const popup = useMod(PopupService)
+  const upfall = useMod(UpfallModule)
+  const popup = useMod(PopupModule)
   const i18n = useI18N(t => t.minecraft.instance)
 
   const setProgress = useCallback(

@@ -16,10 +16,10 @@ export const cache = localforage.createInstance({
 export function sync<V, T, K extends keyof T>(
   that: T,
   key: K,
-  name: string,
   get?: (value: V) => T[K],
   set?: (value: T[K]) => V,
 ) {
+  const name = key.toString()
   main.getItem<V>(name).then(value => {
     if (value !== null) that[key] = get?.(value) ?? (value as T[K])
   })

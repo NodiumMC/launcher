@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Text } from 'components/atoms/Text'
-import { ReportService } from 'debug/report.service'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { parse } from 'stack-trace'
 import { transition } from 'style'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
 import { useI18N } from 'hooks'
+import { ReportModule } from 'debug/report.module'
 
 const StyledOverlay = styled.div`
   position: absolute;
@@ -54,7 +54,7 @@ const ProgressInner = styled.div.attrs<ExtraProps.Value<number>>(({ value }) => 
 `
 
 export const CrashOverlay: FC = observer(() => {
-  const report = useMod(ReportService)
+  const report = useMod(ReportModule)
   const i18n = useI18N()
   const [progress, setProgress] = useState(0)
 

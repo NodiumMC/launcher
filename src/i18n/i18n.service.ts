@@ -1,33 +1,21 @@
-import { makeAutoObservable } from 'mobx'
 import type { SupportedLang } from 'i18n/langs'
 import { Launguage } from 'i18n/langs'
 import { R18T } from 'i18n/index'
-import { main, sync } from 'storage'
-import { singleton } from 'tsyringe'
+import { I18nStore } from 'i18n/i18n.store'
+import { Service } from 'positron'
 
 const fallback: SupportedLang = 'ru_RU'
 
-@singleton()
-export class I18n {
-  lang: SupportedLang = fallback
-
-  constructor() {
-    makeAutoObservable(this)
-    sync(
-      this,
-      'lang',
-      'lang',
-      (lang: SupportedLang) => lang,
-      lang => lang,
-    )
-  }
+@Service
+export class I18nService {
+  constructor(private readonly store: I18nStore) {}
 
   private check() {
-    return !!Launguage[this.lang]
+    return !!Launguage[this.store.lang]
   }
 
   get translate() {
-    return Launguage[this.check() ? this.lang : fallback]
+    return Launguage[this.check() ? this.store.lang : fallback]
   }
 
   resolve(fn: R18T | string): string {
