@@ -2322,6 +2322,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@nodium/tsyringe@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nodium/tsyringe/-/tsyringe-1.0.0.tgz#55053f0f54cb0197a31f412f1cb219da022c964f"
+  integrity sha512-K1oLfXexSuyV9SI1CRLC2adgjFb1IefT9DOULz8Sqn+h9Rd4btONycyN8zG9WzMwPjvP3GduUtsWVE2TnYWKyQ==
+  dependencies:
+    tslib "^1.9.3"
+
 "@npmcli/fs@^1.0.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@npmcli/fs/-/fs-1.1.1.tgz#72f719fe935e687c56a4faecf3c03d06ba593257"
@@ -12914,13 +12921,6 @@ tsutils@^3.21.0:
   integrity sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==
   dependencies:
     tslib "^1.8.1"
-
-tsyringe@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/tsyringe/-/tsyringe-4.7.0.tgz#aea0a9d565385deebb6def60cda342b15016f283"
-  integrity sha512-ncFDM1jTLsok4ejMvSW5jN1VGPQD48y2tfAR0pdptWRKYX4bkbqPt92k7KJ5RFJ1KV36JEs/+TMh7I6OUgj74g==
-  dependencies:
-    tslib "^1.9.3"
 
 tty-browserify@0.0.0:
   version "0.0.0"
