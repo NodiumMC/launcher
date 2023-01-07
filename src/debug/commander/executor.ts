@@ -1,6 +1,6 @@
 import { log, endTime, time, warn, error } from 'debug'
 import JSON5 from 'json5'
-import { container } from 'tsyringe'
+import { container } from '@nodium/tsyringe'
 
 const applyAsync = (input: string): string => {
   return `
@@ -12,7 +12,7 @@ const applyAsync = (input: string): string => {
 }
 
 const applyContextSyntax = (input: string): string => {
-  return input.replace(/(<-|->)\s(\w+)\s?(as)?\s?(\w+)?/gm, (_, direction, value, $as, name) => {
+  return input.replace(/(<-|->)\s(\w+)(\sas\s(\w+))?/gm, (_, direction, value, __, $as, name) => {
     const naming = $as ? name : value
     if (direction === '<-')
       return `;($[namespace] = $[namespace] ?? {}, $[namespace].${naming} = ${$as ? JSON5.parse(value) : value})`

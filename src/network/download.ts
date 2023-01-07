@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs'
 import { Rdownload } from 'native/rust'
-import { container } from 'tsyringe'
+import { container } from '@nodium/tsyringe'
 import { NetworkCheckerModule } from 'network'
 import { cache } from 'storage'
 

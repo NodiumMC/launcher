@@ -3,13 +3,13 @@ import { Screen } from 'components/utils/Screen'
 import styled from 'styled-components'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
-import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { Text } from 'components/atoms/Text'
 import { mix } from 'polished'
 import { Event } from './Event'
-import type { Instance as InstanceType } from 'minecraft/Instance'
 import { Button } from 'components/atoms/Button'
 import { useI18N } from 'hooks'
+import { InstancesModule } from 'minecraft/instances'
+import { InstanceModule } from 'minecraft/instance'
 
 const Page = styled(Screen)`
   display: flex;
@@ -74,13 +74,13 @@ const ClearButton = styled(Button)`
 `
 
 export const JournalSubscreen: FC = observer(() => {
-  const istore = useMod(InstanceStore)
+  const istore = useMod(InstancesModule)
   const i18n = useI18N(t => t.journal)
-  const [instance, setInstance] = useState<InstanceType | undefined>(undefined)
+  const [instance, setInstance] = useState<InstanceModule | undefined>(undefined)
   const container = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setInstance(istore.lastUsed)
+    setInstance(istore.moreLastUsed)
   }, [istore.instances])
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export const JournalSubscreen: FC = observer(() => {
     <Page>
       <InstanceSelectorContainer>
         {istore.instances.map(i => (
-          <Instance key={i.dirname} onClick={() => setInstance(i)} active={i === instance}>
+          <Instance key={i.uniqueId} onClick={() => setInstance(i)} active={i === instance}>
             <Text max={180} weight={'thin'}>
               {i.displayName}
             </Text>

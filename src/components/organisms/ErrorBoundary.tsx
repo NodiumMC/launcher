@@ -1,7 +1,7 @@
 import { error } from 'debug'
 import { PureComponent } from 'react'
 import { CrashOverlay } from 'components/organisms/CrashOverlay'
-import { container } from 'tsyringe'
+import { container } from '@nodium/tsyringe'
 import { ReportModule } from 'debug/report.module'
 
 export class ErrorBoundary extends PureComponent<any, { hasError: boolean }> {

@@ -1,4 +1,4 @@
-import { container } from 'tsyringe'
+import { container } from '@nodium/tsyringe'
 import { DelogModule } from './delog.module'
 
 export * from './delog.module'

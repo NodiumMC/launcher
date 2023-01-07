@@ -1,7 +1,6 @@
 import { FC, useCallback } from 'react'
 import { Screen } from 'components/utils/Screen'
 import styled from 'styled-components'
-import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
 import { InstanceItem } from 'screens/Main/PlaySubscreen/InstanceItem'
@@ -12,6 +11,7 @@ import { Input } from 'components/atoms/Input'
 import { inputValue } from 'utils'
 import { useI18N } from 'hooks'
 import { PlayerLiteModule } from 'user'
+import { InstancesModule } from 'minecraft/instances'
 
 const Page = styled(Screen)`
   display: flex;
@@ -42,7 +42,7 @@ const InstancesList = styled.div`
 `
 
 const Instances: FC = observer(() => {
-  const istore = useMod(InstanceStore)
+  const istore = useMod(InstancesModule)
   const popup = useMod(PopupModule)
   return (
     <InstancesList>

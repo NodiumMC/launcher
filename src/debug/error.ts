@@ -1,6 +1,6 @@
 import { DebugModule, error } from 'debug'
 import { I18nModule, Lang } from 'i18n'
-import { container } from 'tsyringe'
+import { container } from '@nodium/tsyringe'
 
 export function w(
   data: string | number | object | ((throws: Lang['throws']) => string),

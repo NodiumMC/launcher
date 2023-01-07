@@ -1,6 +1,5 @@
 import { FC, useCallback, useState } from 'react'
 import styled from 'styled-components'
-import { Instance } from 'minecraft/Instance'
 import { useForm } from 'react-hook-form'
 import { Button } from 'components/atoms/Button'
 import { Field } from 'components/molecules/Field'
@@ -14,15 +13,17 @@ import { useMod } from 'hooks/useMod'
 import { VersionPicker } from 'components/molecules/VersionPicker'
 import { PublicVersion } from 'core/providers/types'
 import { useI18N, useOnce } from 'hooks'
-import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { Popup, PopupModule, UpfallModule } from 'notifications'
 import { wait } from 'utils'
 import { removeDir } from '@tauri-apps/api/fs'
 import { GameProfileModule } from 'minecraft/game-profile'
+import { InstanceModule } from 'minecraft/instance'
+import { InstancesModule } from 'minecraft/instances'
+import { nanoid } from 'nanoid'
 
 export interface InstanceEditorProps {
   close?: () => void
-  instance?: Instance
+  instance?: InstanceModule
 }
 
 const Conatiner = styled.div`
@@ -110,7 +111,7 @@ const BorderLessInput = styled(Input)`
 // !!!
 export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, close }) => {
   const gp = useMod(GameProfileModule)
-  const istore = useMod(InstanceStore)
+  const istore = useMod(InstancesModule)
   const upfall = useMod(UpfallModule)
   const popup = useMod(PopupModule)
   const i18n = useI18N(t => t.minecraft.instance)
@@ -118,7 +119,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
 
   const repair = useCallback(() => {
     upfall.drop('default', i18n.instance_fixed, 'screwdriver-wrench')
-    if (instance) instance.isInstalled = false
+    if (instance) instance.repair()
     close?.()
   }, [])
 
@@ -132,10 +133,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
           label: i18n.full_delete,
           action: async c =>
             instance &&
-            (await removeDir(await instance.getInstanceDir(), { recursive: true }),
-            istore.remove(instance!),
-            close?.(),
-            c()),
+            (await removeDir(await instance.location, { recursive: true }), istore.remove(instance!), close?.(), c()),
         },
         {
           label: i18n.cancel,
@@ -170,14 +168,14 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     defaultValues: {
-      name: instance?.name ?? '{provider} {version}',
-      alloc: instance?.settings?.alloc ?? 2048,
-      ww: instance?.settings?.windowWidth ?? 1280,
-      wh: instance?.settings?.windowHeight ?? 720,
-      jvmArgs: instance?.settings?.javaArgs?.join?.(' ') ?? '',
-      minecraftArgs: instance?.settings?.minecraftArgs?.join?.(' ') ?? '',
-      provider: instance?.provider ?? 'vanilla',
-      vid: instance?.vid?.id ?? undefined,
+      name: instance?.local?.name ?? '{provider} {version}',
+      alloc: instance?.local?.settings?.alloc ?? 2048,
+      ww: instance?.local?.settings?.windowWidth ?? 1280,
+      wh: instance?.local?.settings?.windowHeight ?? 720,
+      jvmArgs: instance?.local?.settings?.javaArgs?.join?.(' ') ?? '',
+      minecraftArgs: instance?.local?.settings?.minecraftArgs?.join?.(' ') ?? '',
+      provider: instance?.local?.provider ?? 'vanilla',
+      vid: instance?.local?.version?.id ?? undefined,
     },
   })
 
@@ -190,23 +188,27 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
       return
     }
     if (instance) {
-      if (instance.provider !== data.provider || instance?.vid?.id !== data.vid) instance.isInstalled = false
-      instance.name = data.name
-      instance.vid = vid
-      instance.provider = data.provider
-      instance.settings.alloc = data.alloc
-      instance.settings ||= {}
-      instance.settings.javaArgs = javaArgs
-      instance.settings.minecraftArgs = mcArgs
-      instance.settings.windowHeight = data.wh
-      instance.settings.windowWidth = data.ww
+      if (instance.local.provider !== data.provider || instance?.local.version?.id !== data.vid) instance.repair()
+      instance.local.name = data.name
+      instance.local.version = vid
+      instance.local.provider = data.provider
+      instance.local.settings.alloc = data.alloc
+      instance.local.settings ||= {}
+      instance.local.settings.javaArgs = javaArgs
+      instance.local.settings.minecraftArgs = mcArgs
+      instance.local.settings.windowHeight = data.wh
+      instance.local.settings.windowWidth = data.ww
       close?.()
       return wait(1000)
     } else {
-      istore.instances.push(
-        Instance.fromLocal({
+      istore.add(
+        InstanceModule.fromJson({
           name: data.name,
-          vid,
+          nid: nanoid(6),
+          installed: false,
+          logs: [],
+          lastUsed: Date.now(),
+          version: vid,
           provider: data.provider,
           settings: {
             alloc: data.alloc,

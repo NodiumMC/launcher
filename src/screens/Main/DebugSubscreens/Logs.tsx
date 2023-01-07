@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Screen } from 'components/utils/Screen'
 import { DelogModule } from 'debug'
 import { CommandPrompt, execute } from 'debug/commander'
-import { container } from 'tsyringe'
+import { container } from '@nodium/tsyringe'
 import { observer } from 'mobx-react'
 import { LogLine } from './LogLine'
 

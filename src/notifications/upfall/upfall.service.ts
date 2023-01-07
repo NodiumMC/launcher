@@ -1,7 +1,7 @@
 import { Upfall } from '.'
 import { nanoid } from 'nanoid'
 import { I18nModule, R18T } from 'i18n'
-import { singleton } from 'tsyringe'
+import { singleton } from '@nodium/tsyringe'
 import { UpfallStore } from 'notifications/upfall/upfall.store'
 
 @singleton()
