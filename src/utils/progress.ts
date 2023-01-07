@@ -31,6 +31,14 @@ export class Progress<T> {
   }
 
   /**
+   * Нормализованное значение прогресса. От **0** до **size(1)**
+   * @param size - Значение нормализации. По умолчанию `size`
+   */
+  normalized(size = 1) {
+    return this._progress.map(0, this._total, 0, size)
+  }
+
+  /**
    * Дополнительное состояние прогресса
    */
   get stage() {
