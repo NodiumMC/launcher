@@ -7,21 +7,9 @@ export default {
     theme_changed: 'Тема изменена',
   },
   throws: {
-    missing_jvm_executable: 'Отсутствует исполняемый файл Java',
     unsupported_platform: 'Текущая система не поддерживается',
     unsupported_arch: 'Архитектура {arch} не поддерживается',
     invalid_jdk_version: 'Некорректная версия JDK',
-    no_compatible_jdks: 'Отсутствуют совместимые JDK. Попробуйте исправить экземпляр и повторить установку',
-    no_game_profiles_selected: 'Ни один профиль не выбран',
-    launch_requires_installation: 'Запуск требует фактической установки. Попробуйте исправить экземпляр и повторить',
-    unable_to_launch_more_once: 'Невозможно запустить более одного процесса на экземпляр',
-    unknown_provider: 'Неизвестный провайдер',
-    no_version_selected: 'Не выбрана версия',
-    missing_version_manifest: 'Отсутствует файл версии',
-    nothing_to_stop: 'Нечего останавливать',
-    jvm_install_failed: 'Не удалось установить Java',
-    minecraft_assets_download_failed: 'Не удалось установить Minecraft',
-    unpack_natives_failed: 'Не удалось распаковать некоторые файлы',
   },
   minecraft: {
     versions: {
@@ -31,6 +19,14 @@ export default {
       snapshot_type: 'Снапшот',
       latest_type: 'Последняя',
       snapshots: 'Снапшоты',
+    },
+    install: {
+      install_failed: 'Установка не удалась',
+      jvm_install_failed: 'Не удалось установить Java',
+      minecraft_assets_download_failed: 'Не удалось установить Minecraft',
+      unpack_natives_failed: 'Не удалось распаковать некоторые библиотеки',
+      populate_manifest_failed: 'Не удалось обновить информацию о ресурсах версии',
+      network_error: 'Ошибка сети. Проверьте подключение к интернету',
     },
     instance: {
       name: 'Название',
@@ -50,10 +46,14 @@ export default {
       full_delete: 'Удалить полностью',
       cancel: 'Отмена',
       remove: 'Удалить',
-      network_error: 'Ошибка сети. Проверьте подключение к интернету',
-      install_failed: 'Установка не удалась',
+    },
+    launch: {
       launch_failed: 'Запуск не удался',
       minecraft_crashed: 'Minecraft закрылся с ошибкой',
+      no_compatible_jdks: 'Отсутствуют совместимые JDK. Попробуйте исправить экземпляр и повторить установку',
+      launch_requires_installation: 'Запуск требует фактической установки. Попробуйте исправить экземпляр и повторить',
+      missing_jvm_executable: 'Отсутствует исполняемый файл Java',
+      unable_to_launch_more_once: 'Невозможно запустить более одного процесса на экземпляр',
     },
   },
   journal: {

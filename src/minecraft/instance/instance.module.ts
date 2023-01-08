@@ -7,21 +7,29 @@ import { InstanceInstaller } from './instance.installer'
 import { InstanceLogging } from './instance.logging'
 import { InstanceLauncher } from './instance.launcher'
 import { InstanceLocalType } from './instance.types'
-import { computed, makeObservable, observable } from 'mobx'
+import { makeObservable, observable } from 'mobx'
+import { Popup, PopupModule, UpfallModule } from 'notifications'
+import { mapErr, represent } from 'error'
+import { I18nModule } from 'i18n'
+import { LaunchException } from 'minecraft/instance/instance.exceptions'
 
 @DynamicModule
 export class InstanceModule {
   static dyn() {
-    return new this()
+    return new (this as any)()
   }
 
   static fromJson(local: InstanceLocalType) {
-    const instance = InstanceModule.dyn()
+    const instance = this.dyn()
     instance.local.copy(local)
     return instance
   }
 
-  constructor() {
+  constructor(
+    private readonly upfall: UpfallModule,
+    private readonly popup: PopupModule,
+    private readonly i18n: I18nModule,
+  ) {
     makeObservable(this, { local: observable })
   }
 
@@ -33,16 +41,32 @@ export class InstanceModule {
   private installer = InstanceInstaller.dyn(this.local, this.common, this.gameProfile, this.tracker)
   private launcher = InstanceLauncher.dyn(this.local, this.common, this.tracker, this.logging)
 
-  install() {
-    return this.installer.install()
+  async install() {
+    try {
+      await this.installer.install()
+    } catch (e: any) {
+      this.upfall.drop('error', represent(e))
+    }
   }
 
   repair() {
     return this.installer.repair()
   }
 
-  launch() {
-    return this.launcher.launch()
+  async launch() {
+    try {
+      const code = await this.launcher.launch().catch(mapErr(LaunchException))
+      const lastEvent = this.local.logs.last
+      if (code !== 0 || lastEvent.throwable)
+        this.popup.create(Popup, {
+          level: 'error',
+          title: this.i18n.translate.minecraft.launch.minecraft_crashed,
+          description: (lastEvent?.message ?? '') + '\n\n' + (lastEvent?.throwable ?? ''),
+          actions: [{ label: 'Ok', action: close => close(), isPrimary: true }],
+        })
+    } catch (e) {
+      this.upfall.drop('error', represent(e, 1))
+    }
   }
 
   get logs() {

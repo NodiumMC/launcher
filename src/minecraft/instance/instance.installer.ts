@@ -10,6 +10,13 @@ import { batchDownload } from 'network'
 import { join } from 'native/path'
 import { prepare } from 'native/filesystem'
 import { InstanceLocal } from './instance.local'
+import { mapErr } from 'error'
+import {
+  AssetsInstallException,
+  JVMInstallException,
+  PopulateManifestException,
+  UnpackNativesException,
+} from './instance.exceptions'
 
 @DynamicService
 export class InstanceInstaller {
@@ -79,15 +86,16 @@ export class InstanceInstaller {
   async install() {
     this.tracker.busy = true
     try {
-      await this.installJDK()
+      await this.installJDK().catch(mapErr(JVMInstallException))
       await this.prepare()
-      await this.populateManifest()
-      await this.installAssets()
-      await this.unzipNatives()
+      await this.populateManifest().catch(mapErr(PopulateManifestException))
+      await this.installAssets().catch(mapErr(AssetsInstallException))
+      await this.unzipNatives().catch(mapErr(UnpackNativesException))
       this.tracker.progress.reset(0)
       this.tracker.busy = false
       this.local.installed = true
     } catch (e) {
+      this.tracker.progress.reset(0)
       this.tracker.busy = false
     }
   }

@@ -3,7 +3,6 @@ import { fetchNJDKAsset } from './adoptium'
 import { RdownloadLT, Runzip } from 'native/rust'
 import { prepare } from 'native/filesystem'
 import { Observable } from 'rxjs'
-import { w } from 'debug'
 import { isUnix } from 'native/os'
 import { Service } from 'positron'
 import { JavaRuntimeStore } from './java-runtime.store'
@@ -44,10 +43,10 @@ export class JavaRuntimeService {
     )
   }
 
-  async for(major: number) {
+  for(major: number) {
     major = Math.max(17, major)
     const jdk = this.store.find(major)
-    if (!jdk) w(t => t.no_compatible_jdks, `No compatible JDKS installed. Expected: ${jdk}`)
+    if (!jdk) return
     return join(this.runtimesDir, jdk.name, 'bin', 'javaw')
   }
 

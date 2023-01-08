@@ -6,7 +6,7 @@ import { JavaRuntimeStore } from './java-runtime.store'
 export class JavaRuntimeModule {
   constructor(private readonly service: JavaRuntimeService, private readonly store: JavaRuntimeStore) {}
 
-  async for(major: number) {
+  for(major: number) {
     return this.service.for(major)
   }
 

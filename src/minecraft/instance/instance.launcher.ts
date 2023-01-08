@@ -6,10 +6,18 @@ import { InstanceLogging } from './instance.logging'
 import { JavaRuntimeModule } from 'java'
 import { PlayerLiteModule } from 'user'
 import { action, computed, makeObservable, observable } from 'mobx'
-import { Child } from 'native/shell'
-import { launch } from 'core'
+import { Child, spawn } from 'native/shell'
+import { compileArguments, VersionedLaunchOptions } from 'core'
 import { GeneralSettingsModule } from 'settings'
 import { promise } from 'utils'
+import { extendExecutable } from 'native/path'
+import { exists } from 'native/filesystem'
+import {
+  MissingJVMException,
+  MissingJVMExecutable, MultipleProcessesException,
+  NeedsInstallationException,
+} from 'minecraft/instance/instance.exceptions'
+import { next } from 'error'
 
 @DynamicService
 export class InstanceLauncher {
@@ -36,19 +44,36 @@ export class InstanceLauncher {
 
   @observable private child: Child | null = null
 
+  private getJvmExecutable(major: number) {
+    const candidate = this.java.for(major)
+    if (!candidate) throw new MissingJVMException()
+    return candidate
+  }
+
+  async createProcess() {
+    const version = await this.common.readManifest()
+    const vlaunch: VersionedLaunchOptions = {
+      version,
+      javaExecutable: this.getJvmExecutable(version.javaVersion.majorVersion),
+      vid: this.common.versionId,
+      gameDataDir: this.settings.gameDir,
+      gameDir: this.common.instanceDir,
+      clientDir: this.common.clientDir,
+      ...this.local.settings,
+      username: this.player.nickname,
+    }
+    const args = compileArguments(vlaunch)
+    if (!(await exists(extendExecutable(vlaunch.javaExecutable)))) throw new MissingJVMExecutable()
+    return spawn(vlaunch.javaExecutable, args, vlaunch.gameDir)
+  }
+
   @action
   async launch() {
     return promise<number>(async (r, j) => {
+      if (this.isRunning) throw new MultipleProcessesException()
+      if (!this.local.installed) throw new NeedsInstallationException()
       this.tracker.busy = true
-      this.child = await launch({
-        javaExecutable: major => this.java.for(major),
-        vid: this.common.versionId,
-        gameDataDir: this.settings.gameDir,
-        gameDir: this.common.instanceDir,
-        clientDir: this.common.clientDir,
-        ...this.local.settings,
-        username: this.player.nickname,
-      })
+      this.child = await this.createProcess()
       this.child.on('std', data => this.logging.push(data))
       this.child.on('error', err => {
         this.resetChild()
@@ -60,7 +85,7 @@ export class InstanceLauncher {
       })
       this.local.updateLastUsed()
       this.tracker.busy = false
-    })
+    }).catch(next(() => (this.tracker.busy = false)))
   }
 
   @action

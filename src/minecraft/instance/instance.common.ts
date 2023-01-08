@@ -19,7 +19,6 @@ export class InstanceCommon {
 
   @computed
   get versionId() {
-    console.log(this)
     return this.local.provider === 'custom' ? this.local.version.id : `${this.local.provider}-${this.local.version.id}`
   }
 
