@@ -58,6 +58,7 @@ export function chain(error: any, limit = 1): any[] {
 }
 
 export function represent(error: any, explicit: boolean | number | 'auto' = 'auto'): string {
+  if (typeof error === 'string') return error
   const origin = error?.message ?? error
   if (!explicit) return origin
   if (explicit === 'auto' && !debugModule.isEnabled) return origin
@@ -68,6 +69,12 @@ export function represent(error: any, explicit: boolean | number | 'auto' = 'aut
 export function mapErr(constructor: ErrorConstructor) {
   return function (exception: any): never {
     throw new constructor({ cause: exception })
+  }
+}
+
+export function mapErrFactory(factory: (err: Error) => Error) {
+  return function (exception: any): never {
+    throw factory(exception)
   }
 }
 
