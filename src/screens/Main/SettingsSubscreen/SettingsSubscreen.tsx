@@ -89,7 +89,6 @@ export const SettingsSubscreen: FC = observer(() => {
           icon={<FontAwesomeIcon icon={'folder'} />}
           value={settings.gameDir ?? '...'}
           onChange={dir => (settings.gameDir = dir)}
-          disabled
         />
       </VLabel>
       <Split>{i18n.translate.settings.appearance}</Split>

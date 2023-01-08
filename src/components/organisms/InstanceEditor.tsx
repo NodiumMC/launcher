@@ -201,24 +201,25 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
       close?.()
       return wait(1000)
     } else {
-      istore.add(
-        InstanceModule.fromJson({
-          name: data.name,
-          nid: nanoid(6),
-          installed: false,
-          logs: [],
-          lastUsed: Date.now(),
-          version: vid,
-          provider: data.provider,
-          settings: {
-            alloc: data.alloc,
-            windowWidth: data.ww,
-            windowHeight: data.wh,
-            minecraftArgs: mcArgs,
-            javaArgs: javaArgs,
-          },
-        }),
-      )
+      const newInstance = InstanceModule.fromJson({
+        name: data.name,
+        nid: nanoid(6),
+        installed: false,
+        logs: [],
+        lastUsed: Date.now(),
+        version: vid,
+        provider: data.provider,
+        location: null,
+        settings: {
+          alloc: data.alloc,
+          windowWidth: data.ww,
+          windowHeight: data.wh,
+          minecraftArgs: mcArgs,
+          javaArgs: javaArgs,
+        },
+      })
+      await newInstance.init()
+      istore.add(newInstance)
       close?.()
       return wait(2000)
     }

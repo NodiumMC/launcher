@@ -2,12 +2,13 @@ import { Service } from 'positron'
 import { makeAutoObservable, toJS } from 'mobx'
 import { sync } from 'storage'
 import { JvmRuntime } from 'java/java-runtime.types'
+import { GeneralSettingsModule } from 'settings'
 
 @Service
 export class JavaRuntimeStore {
   runtimes: JvmRuntime[] = []
 
-  constructor() {
+  constructor(private readonly settings: GeneralSettingsModule) {
     makeAutoObservable(this)
     sync(
       this,
@@ -17,15 +18,19 @@ export class JavaRuntimeStore {
     )
   }
 
-  has(major: number) {
-    return this.runtimes.some(v => v.major === major)
+  get list() {
+    return this.runtimes.filter(v => v.location === this.settings.gameDir)
   }
 
   add(name: string, major: number) {
-    this.runtimes.push({ name, major })
+    this.runtimes.push({ name, major, location: this.settings.gameDir })
+  }
+
+  has(major: number) {
+    return this.list.some(v => v.major === major)
   }
 
   find(major: number) {
-    return this.runtimes.find(v => v.major === major)
+    return this.list.find(v => v.major === major)
   }
 }

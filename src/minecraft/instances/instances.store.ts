@@ -1,14 +1,15 @@
 import { Service } from 'positron'
-import { makeAutoObservable } from 'mobx'
+import { autorun, makeAutoObservable, reaction } from 'mobx'
 import { InstanceModule } from 'minecraft/instance'
 import { sync } from 'storage'
 import { InstanceLocalType } from 'minecraft/instance/instance.types'
+import { GeneralSettingsModule } from 'settings'
 
 @Service
 export class InstancesStore {
   instancesv02: InstanceModule[] = []
 
-  constructor() {
+  constructor(private readonly settings: GeneralSettingsModule) {
     makeAutoObservable(this)
     sync(
       this,
@@ -19,14 +20,14 @@ export class InstancesStore {
   }
 
   get instances() {
-    return this.instancesv02
+    return this.instancesv02.filter(v => v.origin === this.settings.gameDir)
   }
 
   add(instance: InstanceModule) {
-    this.instances.push(instance)
+    this.instancesv02.push(instance)
   }
 
   remove(instance: InstanceModule) {
-    this.instances.removeIf(v => v === instance)
+    this.instancesv02.removeIf(v => v === instance)
   }
 }

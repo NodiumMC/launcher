@@ -19,6 +19,7 @@ export class InstanceLocal {
   @observable settings: InstanceSettings = null!
   @observable logs: LogEvent[] = null!
   @observable lastUsed: number = null!
+  @observable location: string | null = null
 
   constructor() {
     makeObservable(this)
@@ -39,6 +40,7 @@ export class InstanceLocal {
     this.settings = other.settings
     this.logs = other.logs
     this.lastUsed = other.lastUsed
+    this.location = other.location
   }
 
   toJSON(): InstanceLocalType {
@@ -51,6 +53,7 @@ export class InstanceLocal {
       settings: toJS(this.settings),
       logs: toJS(this.logs),
       lastUsed: this.lastUsed,
+      location: this.location,
     }
   }
 }

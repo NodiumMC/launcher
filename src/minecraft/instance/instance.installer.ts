@@ -101,6 +101,7 @@ export class InstanceInstaller {
       await this.populateManifest().catch(mapErr(PopulateManifestException))
       await this.installAssets().catch(mapErr(AssetsInstallException))
       await this.unzipNatives().catch(mapErr(UnpackNativesException))
+      this.local.location = this.settings.gameDir
       this.tracker.progress.reset(0)
       this.tracker.busy = false
       this.local.installed = true

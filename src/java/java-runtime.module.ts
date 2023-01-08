@@ -15,6 +15,6 @@ export class JavaRuntimeModule {
   }
 
   get runtimes() {
-    return this.store.runtimes
+    return this.store.list
   }
 }

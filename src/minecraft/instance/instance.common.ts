@@ -29,7 +29,7 @@ export class InstanceCommon {
 
   @computed
   get instanceDir() {
-    return join(this.settings.gameDir, 'instances', this.local.nid)
+    return join(this.local.location ?? this.settings.gameDir, 'instances', this.local.nid)
   }
 
   async exists() {

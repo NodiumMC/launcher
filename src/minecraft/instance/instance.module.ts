@@ -12,10 +12,12 @@ import { Popup, PopupModule, UpfallModule } from 'notifications'
 import { mapErr, represent } from 'error'
 import { I18nModule } from 'i18n'
 import { LaunchException } from 'minecraft/instance/instance.exceptions'
+import { prepare } from 'native/filesystem'
+import { GeneralSettingsModule } from 'settings'
 
 @DynamicModule
 export class InstanceModule {
-  static dyn() {
+  static dyn(): InstanceModule {
     return new (this as any)()
   }
 
@@ -29,6 +31,7 @@ export class InstanceModule {
     private readonly upfall: UpfallModule,
     private readonly popup: PopupModule,
     private readonly i18n: I18nModule,
+    private readonly settings: GeneralSettingsModule,
   ) {
     makeObservable(this, { local: observable })
   }
@@ -40,6 +43,11 @@ export class InstanceModule {
   tracker = InstanceTracker.dyn()
   private installer = InstanceInstaller.dyn(this.local, this.common, this.gameProfile, this.tracker)
   private launcher = InstanceLauncher.dyn(this.local, this.common, this.tracker, this.logging)
+
+  async init() {
+    await prepare(this.common.instanceDir)
+    this.local.location = this.settings.gameDir
+  }
 
   async install() {
     try {
@@ -72,6 +80,10 @@ export class InstanceModule {
 
   get logs() {
     return this.local.logs
+  }
+
+  get origin() {
+    return this.local.location
   }
 
   get location() {
@@ -108,5 +120,9 @@ export class InstanceModule {
 
   clearLogs() {
     this.local.logs = []
+  }
+
+  async exists() {
+    return this.common.exists()
   }
 }
