@@ -31,7 +31,7 @@ export const batchDownload = (resources: Resource[], batchSize = 16) =>
               await cache.setItem(r.local, hash)
               subscriber.next({ total, progress })
             },
-            () => queue.push(r),
+            err => subscriber.error(err),
           ),
         )
       }
