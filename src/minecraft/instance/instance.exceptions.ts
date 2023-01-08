@@ -11,3 +11,4 @@ export const MissingJVMException = error('MissingJVMException', t => t.minecraft
 export const NeedsInstallationException = error('NeedsInstallationException', t => t.minecraft.launch.launch_requires_installation)
 export const MissingJVMExecutable = error('MissingJVMExecutable', t => t.minecraft.launch.missing_jvm_executable)
 export const MultipleProcessesException = error('MultipleProcessesException', t => t.minecraft.launch.unable_to_launch_more_once)
+export const NetworkError = error('NetworkError', t => t.minecraft.install.network_error)

@@ -45,7 +45,8 @@ export class InstanceModule {
     try {
       await this.installer.install()
     } catch (e: any) {
-      this.upfall.drop('error', represent(e))
+      this.upfall.drop('error', represent(e, 1))
+      throw e
     }
   }
 

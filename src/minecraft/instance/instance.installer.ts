@@ -10,10 +10,11 @@ import { batchDownload } from 'network'
 import { join } from 'native/path'
 import { prepare } from 'native/filesystem'
 import { InstanceLocal } from './instance.local'
-import { mapErr } from 'error'
+import { mapErr, mapErrFactory, represent } from 'error'
 import {
   AssetsInstallException,
   JVMInstallException,
+  NetworkError,
   PopulateManifestException,
   UnpackNativesException,
 } from './instance.exceptions'
@@ -39,11 +40,18 @@ export class InstanceInstaller {
   ) {}
 
   private async compile() {
-    return compileLocal(this.common.versionId, this.common.clientDir, this.settings.gameDir)
+    return compileLocal(this.common.versionId, this.common.clientDir, this.settings.gameDir).catch(
+      mapErrFactory(this.mapNetworkError),
+    )
   }
 
   private async prepare() {
     await prepare(this.common.instanceDir)
+  }
+
+  private mapNetworkError(err: any) {
+    const message = represent(err)
+    return message.includes('Network Error') || message.includes('connection error') ? new NetworkError() : err
   }
 
   private installJDK() {
@@ -54,13 +62,15 @@ export class InstanceInstaller {
       installer.subscribe({
         next: value => this.tracker.progress.update(value.progress, value.total, value.stage),
         complete: r,
-        error: j,
+        error: err => j(this.mapNetworkError(err)),
       })
     })
   }
 
   private async populateManifest() {
-    await this.common.updateManifest(await populate(await this.common.readManifest()))
+    await this.common
+      .updateManifest(await populate(await this.common.readManifest()))
+      .catch(mapErrFactory(this.mapNetworkError))
   }
 
   private installAssets() {
@@ -68,7 +78,7 @@ export class InstanceInstaller {
       batchDownload(await this.compile()).subscribe({
         next: value => this.tracker.progress.update(value.progress, value.total, 2),
         complete: r,
-        error: j,
+        error: err => j(this.mapNetworkError(err)),
       })
     })
   }
@@ -97,6 +107,7 @@ export class InstanceInstaller {
     } catch (e) {
       this.tracker.progress.reset(0)
       this.tracker.busy = false
+      throw e
     }
   }
 

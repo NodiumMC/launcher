@@ -138,7 +138,7 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   }, [instance])
 
   const handle = useCallback(() => {
-    if (!instance.installed) return instance.install().then(() => instance.launch())
+    if (!instance.installed) return instance.install()
     else instance.launch()
   }, [])
 
