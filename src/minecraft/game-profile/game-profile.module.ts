@@ -3,7 +3,6 @@ import { GameProfileService } from './game-profile.service'
 import { Provider } from 'core/providers'
 import { PublicVersion } from 'core/providers/types'
 import { GameProfileStore } from './game-profile.store'
-import { w } from 'debug'
 
 @Module
 export class GameProfileModule {

@@ -88,7 +88,7 @@ export class InstanceInstaller {
       unzipNatives(join(this.common.clientDir, 'natives')).subscribe({
         next: value => this.tracker.progress.update(value.progress, value.total, 3),
         complete: r,
-        error: r,
+        error: j,
       })
     })
   }

@@ -14,7 +14,8 @@ import { extendExecutable } from 'native/path'
 import { exists } from 'native/filesystem'
 import {
   MissingJVMException,
-  MissingJVMExecutable, MultipleProcessesException,
+  MissingJVMExecutable,
+  MultipleProcessesException,
   NeedsInstallationException,
 } from 'minecraft/instance/instance.exceptions'
 import { next } from 'error'

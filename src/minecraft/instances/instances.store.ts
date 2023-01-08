@@ -1,5 +1,5 @@
 import { Service } from 'positron'
-import { autorun, makeAutoObservable, reaction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { InstanceModule } from 'minecraft/instance'
 import { sync } from 'storage'
 import { InstanceLocalType } from 'minecraft/instance/instance.types'

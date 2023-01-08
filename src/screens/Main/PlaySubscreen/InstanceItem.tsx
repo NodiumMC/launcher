@@ -9,7 +9,6 @@ import { PopupModule } from 'notifications'
 import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { open } from '@tauri-apps/api/shell'
-import { useI18N } from 'hooks'
 import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
@@ -106,7 +105,6 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const [stage, setStage] = useState(0)
   const popup = useMod(PopupModule)
   const player = useMod(PlayerLiteModule)
-  const i18n = useI18N(t => t.minecraft.instance)
 
   const setProgress = useCallback(
     (value: number) => {
