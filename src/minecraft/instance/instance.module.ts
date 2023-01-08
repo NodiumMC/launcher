@@ -125,4 +125,8 @@ export class InstanceModule {
   async exists() {
     return this.common.exists()
   }
+
+  get working() {
+    return this.isRunning || this.tracker.busy
+  }
 }

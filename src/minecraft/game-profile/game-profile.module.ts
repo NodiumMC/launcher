@@ -18,7 +18,7 @@ export class GameProfileModule {
   }
 
   has(vid: string) {
-    this.store.has(vid)
+    return this.store.has(vid)
   }
 
   find(id: string) {

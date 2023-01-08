@@ -14,6 +14,7 @@ import { SupportedTheme } from 'theme/type'
 import { I18nModule } from 'i18n'
 import { ThemeModule } from 'theme'
 import { JavaRuntimeModule } from 'java'
+import { InstancesModule } from 'minecraft/instances'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -71,6 +72,7 @@ export const SettingsSubscreen: FC = observer(() => {
   const theme = useMod(ThemeModule)
   const i18n = useMod(I18nModule)
   const jrs = useMod(JavaRuntimeModule)
+  const istore = useMod(InstancesModule)
   const changeTheme = (choosenTheme: SupportedTheme) => {
     theme.theme = choosenTheme
   }
@@ -89,6 +91,7 @@ export const SettingsSubscreen: FC = observer(() => {
           icon={<FontAwesomeIcon icon={'folder'} />}
           value={settings.gameDir ?? '...'}
           onChange={dir => (settings.gameDir = dir)}
+          disabled={istore.hasAnyRunners}
         />
       </VLabel>
       <Split>{i18n.translate.settings.appearance}</Split>

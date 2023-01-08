@@ -21,4 +21,8 @@ export class InstancesModule {
   remove(instance: InstanceModule) {
     this.store.remove(instance)
   }
+
+  get hasAnyRunners() {
+    return this.instances.some(v => v.working)
+  }
 }

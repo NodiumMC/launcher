@@ -3,7 +3,9 @@ import { GeneralSettingsStore } from 'settings/general-settings.store'
 
 @Module
 export class GeneralSettingsModule {
-  constructor(private readonly store: GeneralSettingsStore) {}
+  constructor(
+    private readonly store: GeneralSettingsStore,
+  ) {}
 
   get gameDir() {
     return this.store.gameDir
