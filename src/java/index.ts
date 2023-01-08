@@ -1,2 +1,2 @@
 export * from './adoptium'
-export * from './JavaRuntime.service'
+export * from './java-runtime.module'

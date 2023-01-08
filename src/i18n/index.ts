@@ -1,6 +1,6 @@
 import type { Lang } from 'i18n/langs'
 
-export * from './i18n.service'
+export { I18nModule } from './i18n.module'
 export * from './langs'
 
 export type R18T = (structure: Lang) => string

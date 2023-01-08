@@ -1,8 +1,8 @@
 import { makeAutoObservable } from 'mobx'
 import { MainScreenPage } from './types'
-import { singleton } from 'tsyringe'
+import { Module } from 'positron'
 
-@singleton()
+@Module
 export class MainScreenSubRouter {
   location: MainScreenPage = MainScreenPage.PLAY
 

@@ -1,3 +1,3 @@
-export * from './Upfall.service'
-export * from './Upfall.types'
+export * from './upfall.module'
+export * from './upfall.types'
 export * from './Upfall'

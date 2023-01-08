@@ -5,13 +5,13 @@ import { Header } from 'components/organisms/header'
 import { useThemeToggleHotkey } from 'hooks'
 import { PopupContainer, UpfallConatiner } from 'notifications'
 import { Fonts, Style } from 'style'
-import { ThemeService } from 'theme'
-import { Updater } from 'updater'
+import { ThemeModule } from 'theme'
+import { UpdaterModule } from 'updater'
 import { Routes } from 'Routes'
 import 'utils/loadIcons'
 import { useDebugHotkey } from 'hooks/useDebug'
 import { AceStyle } from 'debug/commander'
-import { ErrorBoundary } from 'debug/ErrorBoundary'
+import { ErrorBoundary } from 'components/organisms/ErrorBoundary'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
@@ -35,17 +35,17 @@ const View = styled.div`
 `
 
 export const App: FC = observer(() => {
-  const theme = useMod(ThemeService)
-  useMod(Updater)
+  const theme = useMod(ThemeModule)
+  useMod(UpdaterModule)
   useThemeToggleHotkey()
   useDebugHotkey()
   return (
     <>
-      <ThemeProvider theme={toJS(theme.theme)}>
+      <ThemeProvider theme={toJS(theme.target)}>
         <Style />
         <Fonts />
         <AceStyle />
-        <AppRoot>
+        <AppRoot onContextMenu={e => e.preventDefault()}>
           <Header />
           <ErrorBoundary>
             <View>

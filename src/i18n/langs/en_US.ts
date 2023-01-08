@@ -9,21 +9,9 @@ export default {
     theme_changed: 'Theme changed',
   },
   throws: {
-    missing_jvm_executable: 'There is no Java executable file',
     unsupported_platform: 'The current system is not supported',
     unsupported_arch: 'The {arch} architecture is not supported',
     invalid_jdk_version: 'Incorrect JDK version',
-    no_compatible_jdks: 'There is no compatible JDK. Try to fix an instance and redo the installation',
-    no_game_profiles_selected: 'No profile is selected',
-    launch_requires_installation: 'Running it requires an actual installation. Try fixing the instance and repeating',
-    unable_to_launch_more_once: 'Cannot run more than one process per instance',
-    unknown_provider: 'Unknown provider',
-    no_version_selected: 'Version not selected',
-    missing_version_manifest: 'No version manifest',
-    nothing_to_stop: "There's nothing to stop",
-    jvm_install_failed: 'Failed to install Java',
-    minecraft_assets_download_failed: 'Failed to install Minecraft',
-    unpack_natives_failed: 'Failed to unpack some files',
   },
   minecraft: {
     versions: {
@@ -33,6 +21,14 @@ export default {
       snapshot_type: 'Snapshot',
       latest_type: 'Latest',
       snapshots: 'Snapshots',
+    },
+    install: {
+      install_failed: 'Minecraft crashed',
+      jvm_install_failed: 'Failed to install Java',
+      minecraft_assets_download_failed: 'Failed to install Minecraft assets',
+      unpack_natives_failed: 'Failed to unpack some libraries',
+      populate_manifest_failed: 'Failed to update version resource information',
+      network_error: 'Network error. Check your Internet connection',
     },
     instance: {
       name: 'Name',
@@ -52,10 +48,14 @@ export default {
       full_delete: 'Delete completely',
       cancel: 'Cancel',
       remove: 'Remove',
-      network_error: 'Network error. Check your Internet connection',
-      install_failed: 'Installation failed',
+    },
+    launch: {
       launch_failed: 'Launch failed',
       minecraft_crashed: 'Minecraft crashed',
+      no_compatible_jdks: 'No compatible JDK. Try to fix an instance and redo the installation',
+      launch_requires_installation: 'Launch requires an actual installation. Try fixing the instance and try again',
+      missing_jvm_executable: 'Missing Java executable',
+      unable_to_launch_more_once: 'Cannot run more than one process per instance',
     },
   },
   journal: {

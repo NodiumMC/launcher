@@ -99,6 +99,7 @@ async fn download_file<F: Fn(u64, u64, u64)>(url: &Url, to: &PathBuf, on: Option
 #[allow(unused)]
 #[command]
 pub async fn download<R: Runtime, 'a>(app_handle: AppHandle<R>, item: DownloadItem) -> Result<String, DownloadError> {
+  tfs::create_dir_all(&item.local.parent().unwrap()).await?;
   if let Some(hash) = check_match(item.hash, &item.local) {
     return Ok(hash);
   }

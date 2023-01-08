@@ -7,13 +7,14 @@ import { DialogInput } from 'components/molecules/DialogInput'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { observer } from 'mobx-react'
 import { useMod } from 'hooks/useMod'
-import { GeneralSettings } from 'settings/GeneralSettings.service'
+import { GeneralSettingsModule } from 'settings'
 import { SquareGroupSwitcher } from 'components/molecules/SquareGroupSwitcher'
 import { LangMeta, SupportedLang } from 'i18n/langs'
-import { ThemeService } from 'theme'
 import { SupportedTheme } from 'theme/type'
-import { I18n } from 'i18n'
-import { JavaRuntimeService } from 'java'
+import { I18nModule } from 'i18n'
+import { ThemeModule } from 'theme'
+import { JavaRuntimeModule } from 'java'
+import { InstancesModule } from 'minecraft/instances'
 
 const Page = styled(Screen)`
   padding: 0 100px 0 100px;
@@ -67,12 +68,13 @@ const AccentText = styled(Text)`
 `
 
 export const SettingsSubscreen: FC = observer(() => {
-  const settings = useMod(GeneralSettings)
-  const theme = useMod(ThemeService)
-  const i18n = useMod(I18n)
-  const jrs = useMod(JavaRuntimeService)
+  const settings = useMod(GeneralSettingsModule)
+  const theme = useMod(ThemeModule)
+  const i18n = useMod(I18nModule)
+  const jrs = useMod(JavaRuntimeModule)
+  const istore = useMod(InstancesModule)
   const changeTheme = (choosenTheme: SupportedTheme) => {
-    theme.setTheme(choosenTheme)
+    theme.theme = choosenTheme
   }
   const changeLang = (choosenLang: SupportedLang) => {
     i18n.lang = choosenLang
@@ -89,7 +91,7 @@ export const SettingsSubscreen: FC = observer(() => {
           icon={<FontAwesomeIcon icon={'folder'} />}
           value={settings.gameDir ?? '...'}
           onChange={dir => (settings.gameDir = dir)}
-          disabled
+          disabled={istore.hasAnyRunners}
         />
       </VLabel>
       <Split>{i18n.translate.settings.appearance}</Split>
@@ -116,7 +118,7 @@ export const SettingsSubscreen: FC = observer(() => {
               { id: 'light', label: <FontAwesomeIcon icon={'sun'} /> },
               { id: 'dark', label: <FontAwesomeIcon icon={'moon'} /> },
             ]}
-            value={theme.current}
+            value={theme.theme}
             onChange={(e: SupportedTheme) => changeTheme(e)}
           />
         </VLabel>

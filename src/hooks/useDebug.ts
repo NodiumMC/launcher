@@ -1,10 +1,10 @@
-import { DebugService } from 'debug'
+import { DebugModule } from 'debug'
 import { useEffect, useMemo } from 'react'
 import { filter, fromEvent } from 'rxjs'
 import { useMod } from 'hooks/useMod'
 
 export const useDebugHotkey = () => {
-  const debug = useMod(DebugService)
+  const debug = useMod(DebugModule)
 
   useEffect(() => {
     if (!debug) return
@@ -23,6 +23,6 @@ export const useDebugHotkey = () => {
 }
 
 export const useDebugMode = () => {
-  const debug = useMod(DebugService)
+  const debug = useMod(DebugModule)
   return useMemo(() => !!debug?.isEnabled, [debug?.isEnabled])
 }

@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import type { Upfall } from '.'
+import { UpfallModule } from '.'
 import { FC } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Text } from 'components/atoms/Text'
-import { UpfallService } from 'notifications/upfall/Upfall.service'
 import { mix, rgba } from 'polished'
 import { useOnce } from 'hooks'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -117,12 +117,12 @@ const Container = styled.div`
 `
 
 export const UpfallConatiner: FC = observer(() => {
-  const upfall = useMod(UpfallService)
+  const upfall = useMod(UpfallModule)
 
   return (
     <Container>
       <AnimatePresence>
-        {upfall.list.map(item => (
+        {upfall.upfalls.map(item => (
           <UpfallItem upfall={item} key={item.id} />
         ))}
       </AnimatePresence>

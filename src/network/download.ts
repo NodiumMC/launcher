@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { Rdownload } from 'native/rust'
-import { container } from 'tsyringe'
-import { NetworkChecker } from 'network'
+import { container } from '@nodium/tsyringe'
+import { NetworkCheckerModule } from 'network'
 import { cache } from 'storage'
 
 export interface Resource {
@@ -15,9 +15,9 @@ export interface BatchProgress {
   progress: number
 }
 
-export const batchDownload = (resources: Resource[], batchSize = 64) =>
+export const batchDownload = (resources: Resource[], batchSize = 16) =>
   new Observable<BatchProgress>(subscriber => {
-    const nc = container.resolve(NetworkChecker)
+    const nc = container.resolve(NetworkCheckerModule)
     const total = resources.length
     const queue = [...resources]
     let progress = 0
@@ -31,7 +31,7 @@ export const batchDownload = (resources: Resource[], batchSize = 64) =>
               await cache.setItem(r.local, hash)
               subscriber.next({ total, progress })
             },
-            () => queue.push(r),
+            err => subscriber.error(err),
           ),
         )
       }

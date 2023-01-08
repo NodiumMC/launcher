@@ -1,17 +1,17 @@
 import { FC, useCallback } from 'react'
 import { Screen } from 'components/utils/Screen'
 import styled from 'styled-components'
-import { InstanceStore } from 'minecraft/InstanceStore.service'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
 import { InstanceItem } from 'screens/Main/PlaySubscreen/InstanceItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { PopupService } from 'notifications'
+import { PopupModule } from 'notifications'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { Input } from 'components/atoms/Input'
-import { PlayerLiteService } from 'user/PlayerLite.service'
 import { inputValue } from 'utils'
 import { useI18N } from 'hooks'
+import { PlayerLiteModule } from 'user'
+import { InstancesModule } from 'minecraft/instances'
 
 const Page = styled(Screen)`
   display: flex;
@@ -42,8 +42,8 @@ const InstancesList = styled.div`
 `
 
 const Instances: FC = observer(() => {
-  const istore = useMod(InstanceStore)
-  const popup = useMod(PopupService)
+  const istore = useMod(InstancesModule)
+  const popup = useMod(PopupModule)
   return (
     <InstancesList>
       {istore.instances.map((v, idx) => (
@@ -72,7 +72,7 @@ const NicknameInput = styled(Input)`
 `
 
 const NicknamePanel: FC = observer(() => {
-  const player = useMod(PlayerLiteService)
+  const player = useMod(PlayerLiteModule)
   const i18n = useI18N(t => t.play)
 
   const input = useCallback(

@@ -1,1 +1,1 @@
-export * from './Updater.service'
+export * from './updater.module'

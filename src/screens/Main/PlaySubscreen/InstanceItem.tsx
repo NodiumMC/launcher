@@ -1,23 +1,23 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { Instance } from 'minecraft/Instance'
 import styled from 'styled-components'
 import { Text } from 'components/atoms/Text'
 import { Img } from 'components/utils/Img'
 import { Button } from 'components/atoms/Button'
 import { transition } from 'style'
 import { useMod } from 'hooks/useMod'
-import { Popup, PopupService, UpfallService } from 'notifications'
+import { PopupModule } from 'notifications'
 import { observer } from 'mobx-react'
 import { InstanceEditor } from 'components/organisms/InstanceEditor'
 import { open } from '@tauri-apps/api/shell'
-import { useI18N } from 'hooks'
 import { join } from 'native/path'
 import { exists } from 'native/filesystem'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
-import { erm } from 'debug'
+import { InstanceModule } from 'minecraft/instance'
+import { PlayerLiteModule } from 'user'
+import { autorun } from 'mobx'
 
 export interface InstanceItemProps {
-  instance: Instance
+  instance: InstanceModule
 }
 
 const Actions = styled.div`
@@ -35,6 +35,7 @@ const Container = styled.div`
   height: 48px;
   padding: ${({ theme }) => theme.space(2)};
   border-radius: ${({ theme }) => theme.radius()};
+
   &:hover {
     ${Actions} {
       opacity: 1;
@@ -64,9 +65,16 @@ const Progress = styled.svg<{ stage: number }>`
   z-index: -1;
   margin-top: -1px;
   margin-right: 1px;
+
   path {
     stroke: ${({ theme, stage }) =>
-      stage === 0 ? theme.palette.orange : stage === 1 ? theme.palette.yellow : theme.accent.primary};
+      stage === 0
+        ? theme.palette.orange
+        : stage === 1
+        ? theme.palette.yellow
+        : stage === 2
+        ? theme.accent.primary
+        : theme.palette.pink};
     stroke-dasharray: 133;
     stroke-dashoffset: 133;
     ${transition('stroke-dashoffset')}
@@ -95,62 +103,16 @@ const HideableButton = styled(Button)<{ hide: boolean }>`
 export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
   const progress = useRef<SVGPathElement | null>(null)
   const [stage, setStage] = useState(0)
-  const upfall = useMod(UpfallService)
-  const popup = useMod(PopupService)
-  const i18n = useI18N(t => t.minecraft.instance)
+  const popup = useMod(PopupModule)
+  const player = useMod(PlayerLiteModule)
 
   const setProgress = useCallback(
     (value: number) => {
       if (!progress.current) return
-      progress.current.style.strokeDashoffset = value.map(0, 100, 133, 0).toString()
+      progress.current.style.strokeDashoffset = value.map(0, 1, 133, 0).toString()
     },
     [progress],
   )
-
-  const launch = useCallback(() => {
-    instance.launch().subscribe({
-      error(code) {
-        const lastEvent = instance.logs.last
-        if ((typeof code === 'number' && code !== 0) || lastEvent?.throwable)
-          popup.create(Popup, {
-            title: i18n.minecraft_crashed,
-            description: (lastEvent?.message ?? '') + '\n\n' + (lastEvent?.throwable ?? ''),
-            level: 'error',
-            actions: [{ label: 'Ок', isPrimary: true, action: close => close() }],
-          })
-        else if (typeof code === 'string' || typeof code === 'object')
-          upfall.drop('error', t => `${t.minecraft.instance.launch_failed}: ${erm(code)}`)
-      },
-    })
-  }, [])
-
-  const kill = useCallback(() => {
-    if (instance.child) instance.stop()
-  }, [])
-
-  const handle = useCallback(() => {
-    if (instance.child) kill()
-    else if (!instance.isInstalled) {
-      instance.install().subscribe({
-        next(value) {
-          if (value.stage > stage) {
-            setStage(value.stage)
-            setProgress(value.progress)
-          }
-          if (value.stage === stage) setProgress(value.progress)
-        },
-        error(err) {
-          if (err?.startsWith?.('Network Error')) upfall.drop('error', t => t.minecraft.instance.network_error)
-          else upfall.drop('error', t => t.minecraft.instance.install_failed)
-          setProgress(0)
-        },
-        complete() {
-          setProgress(0)
-          launch()
-        },
-      })
-    } else launch()
-  }, [setProgress])
 
   const settings = useCallback(() => {
     popup.create(InstanceEditor, { instance })
@@ -160,27 +122,39 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
 
   useEffect(() => {
     void (async () => {
-      const assetpath = join(instance.instanceDir, 'icon.png')
+      const assetpath = join(instance.location, 'icon.png')
       if (!(await exists(assetpath))) return
       setIcon(convertFileSrc(assetpath))
     })()
+    autorun(
+      () => {
+        setProgress(instance.tracker.progress.normalized())
+        if (stage !== instance.tracker.progress.stage) setStage(instance.tracker.progress.stage!)
+      },
+      { delay: 100 },
+    )
   }, [instance])
+
+  const handle = useCallback(() => {
+    if (!instance.installed) return instance.install()
+    else instance.launch()
+  }, [])
 
   return (
     <Container>
       <NameContainer>
-        <StatusDot active={!!instance.child || instance.busy} />
+        <StatusDot active={instance.isRunning || instance.busy} />
         <Image src={icon ?? instance.profile?.icon} />
         <Text weight={900} size={14}>
           {instance.displayName}
         </Text>
       </NameContainer>
       <Actions>
-        <Button icon={'folder'} square outlined={false} onClick={async () => open(await instance.getInstanceDir())} />
+        <Button icon={'folder'} square outlined={false} onClick={async () => open(instance.location)} />
         <Button icon={'gear'} square outlined={false} onClick={settings} disabled={instance.busy} />
         <HideableButton
-          icon={instance.busy ? undefined : !instance.child ? (instance.isInstalled ? 'play' : 'download') : 'stop'}
-          disabled={!!instance.child || !instance.isValid}
+          icon={instance.busy ? undefined : !instance.isRunning ? (instance.installed ? 'play' : 'download') : 'stop'}
+          disabled={instance.isRunning || !player.isValid}
           primary
           square
           fetching={instance.busy}
