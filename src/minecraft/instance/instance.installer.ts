@@ -51,7 +51,7 @@ export class InstanceInstaller {
 
   private mapNetworkError(err: any) {
     const message = represent(err)
-    return message.includes('Network Error') || message.includes('connection error') ? new NetworkError() : err
+    return /(Network Error)|(connection error)|(response)/.test(message) ? new NetworkError() : err
   }
 
   private installJDK() {
