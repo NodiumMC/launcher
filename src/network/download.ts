@@ -15,7 +15,7 @@ export interface BatchProgress {
   progress: number
 }
 
-export const batchDownload = (resources: Resource[], batchSize = 64) =>
+export const batchDownload = (resources: Resource[], batchSize = 16) =>
   new Observable<BatchProgress>(subscriber => {
     const nc = container.resolve(NetworkCheckerModule)
     const total = resources.length
