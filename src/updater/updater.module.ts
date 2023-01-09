@@ -45,9 +45,10 @@ export class UpdaterModule {
               },
             ],
           })
-        }
+        } else r()
       } catch (e) {
         error(`Failed to check update: ${e}`)
+        r()
       }
     })
   }
