@@ -94,7 +94,7 @@ export const Popup: FC<IPopup> = observer(({ level, actions, title, description,
         {title}
       </Text>
       <DescriptionContainer>
-        {typeof description !== 'object' ? <Description shade={'medium'}>{description}</Description> : description}
+        {typeof description !== 'object' ? <Description shade={'low'}>{description}</Description> : description}
       </DescriptionContainer>
       <Actions>
         {actions.map(({ label, action, isPrimary, isDanger }, index) => (

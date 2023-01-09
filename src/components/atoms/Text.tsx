@@ -68,13 +68,11 @@ const interactionStyle = css`
 export const Text = styled.span.attrs<TextProps>(({ theme, ...props }) => ({
   style: {
     color: props.color,
-    fontSize: theme?.size?.(props.size),
+    fontSize: props.size ? theme?.size?.(props.size) : undefined,
     lineHeight: lineHeightStyle(props.lineHeight),
   },
 }))<TextProps>`
-  display: inline-block;
   color: inherit;
-  font-size: inherit;
   ${props => css`
     ${props.block && blockStyle}
     ${props.center && centerStyle}

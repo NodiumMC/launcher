@@ -86,31 +86,96 @@ export const Style = createGlobalStyle<{ storybook?: boolean }>`
   *::-webkit-scrollbar {
     display: none;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    display: block;
+  }
 
   h1 {
-    font-size: 60px;
+    font-size: 2.5rem;
     font-weight: bold;
   }
 
   h2 {
-    font-size: 50px;
+    font-size: 2.1rem;
     font-weight: bold;
   }
 
   h3 {
-    font-size: 40px;
+    font-size: 1.7rem;
   }
 
   h4 {
-    font-size: 30px;
+    font-size: 1.3rem;
   }
 
   h5 {
-    font-size: 20px;
+    font-size: 1rem;
+  }
+  
+  h6 {
+    font-size: 0.8rem;
   }
 
-  b {
+  b, strong {
     font-weight: bold;
+  }
+  
+  del {
+    text-decoration: line-through;
+  }
+  
+  em {
+    font-style: italic;
+  }
+  
+  code {
+    background-color: ${({ theme }) => theme.master.tint(0.1)};
+    padding: 0 ${({ theme }) => theme.space()};
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: ${({ theme }) => theme.master.reshade(0.3)};
+  }
+  
+  ul, ol {
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.space()};
+    margin: ${({ theme }) => theme.space()} 0;
+    counter-reset: item;
+  }
+  
+  li {
+    position: relative;
+    list-style: none;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    counter-increment: item;
+    color: ${({ theme }) => theme.master.reshade(0.15)};
+  }
+  
+  ul > li:before {
+    position: absolute;
+    top: 0.65rem;
+    translate: -1rem -50%;
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.master.shade(0.3)};
+  }
+  
+  ol > li:before {
+    position: absolute;
+    top: 0.65rem;
+    translate: -1rem -50%;
+    display: block;
+    color: ${({ theme }) => theme.master.reshade(0.5)};
+    font-size: 0.9rem;
+    content: counter(item);
   }
 
   *::selection {

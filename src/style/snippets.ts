@@ -16,7 +16,7 @@ export const shade = (level?: number | 'low' | 'medium' | 'high') =>
     ? css`
         color: ${({ theme }) =>
           mix(
-            typeof level === 'string' ? (level === 'high' ? 0.5 : level === 'medium' ? 0.3 : 0.1) : level,
+            typeof level === 'string' ? (level === 'high' ? 0.5 : level === 'medium' ? 0.3 : 0.15) : level,
             theme.master.back,
             theme.master.front,
           )};
