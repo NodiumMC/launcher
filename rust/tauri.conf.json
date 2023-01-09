@@ -8,10 +8,14 @@
   },
   "package": {
     "productName": "Nodium Launcher",
-    "version": "0.2.1"
+    "version": "0.2.2"
   },
   "tauri": {
     "allowlist": {
+      "process": {
+        "exit": true,
+        "relaunch": true
+      },
       "os": {
         "all": true
       },
@@ -98,7 +102,10 @@
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
-        "timestampUrl": ""
+        "timestampUrl": "",
+        "wix": {
+          "language": "ru-RU"
+        }
       }
     },
     "updater": {
@@ -106,13 +113,11 @@
       "dialog": false,
       "endpoints": [
         "https://ndml-update.limpix.workers.dev/{{target}}/{{current_version}}",
+        "https://api.nodium.ru/update/{{target}}/{{current_version}}",
         "https://update.nodium.ru/{{target}}/{{current_version}}",
         "https://nodium.ru/update/{{target}}/{{current_version}}"
       ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVGRUE5NUNFODkyQTlFQ0MKUldUTW5pcUp6cFhxWCtYMzR3ZEhYUFlGUFR0Nzhsd1lxT2ZqQTh2ZWlZdkdJYVg0eUtFZTVqQTkK",
-      "windows": {
-        "installMode": "quiet"
-      }
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVGRUE5NUNFODkyQTlFQ0MKUldUTW5pcUp6cFhxWCtYMzR3ZEhYUFlGUFR0Nzhsd1lxT2ZqQTh2ZWlZdkdJYVg0eUtFZTVqQTkK"
     },
     "windows": [
       {

@@ -5,6 +5,7 @@ import { transition } from 'style'
 
 interface SubstrateProps {
   disabled?: boolean
+  checked?: boolean
 }
 
 const Substrate = styled.div<SubstrateProps>`
@@ -91,8 +92,10 @@ export const Checkbox: FC<SubstrateProps & ExtraProps.DataInput<boolean> & Extra
   value,
   disabled,
   onChange,
+  checked,
   ...props
 }) => {
+  value ||= checked
   return (
     <Substrate disabled={disabled} onClick={() => !disabled && onChange?.(!value)} {...props}>
       <Container disabled={disabled} value={value}>
