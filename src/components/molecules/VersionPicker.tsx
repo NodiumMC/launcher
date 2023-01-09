@@ -13,6 +13,7 @@ import { useDebounce } from 'use-debounce'
 import { observer } from 'mobx-react'
 import { useI18N } from 'hooks'
 import { Checkbox } from 'components/atoms/Checkbox'
+import { Scrollbar } from 'components/utils/Scrollbar'
 
 export interface LargePickerProps<T> extends ExtraProps.Styled {
   providers: Array<{
@@ -43,14 +44,13 @@ const VersionsContainer = styled.div`
   overflow: hidden;
 `
 
-const VersionList = styled.div`
+const VersionList = styled(Scrollbar)`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.master.shade()};
   border-radius: ${({ theme }) => theme.radius()};
   flex-grow: 1;
-  height: 0;
-  overflow-y: scroll;
+  height: calc(38px * 5);
 `
 
 interface VersionProps {

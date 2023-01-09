@@ -46,6 +46,7 @@
     "react-ace": "10.1.0",
     "react-beautiful-dnd": "13.1.1",
     "react-country-flag": "3.0.2",
+    "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.41.0",
     "react-router-dom": "6.5.0",

@@ -10,6 +10,7 @@ import { Button } from 'components/atoms/Button'
 import { useI18N } from 'hooks'
 import { InstancesModule } from 'minecraft/instances'
 import { InstanceModule } from 'minecraft/instance'
+import { Scrollbar } from 'components/utils/Scrollbar'
 
 const Page = styled(Screen)`
   display: flex;
@@ -44,7 +45,7 @@ const Instance = styled.div<InstanceProps>`
   color: ${({ active, theme }) => (active ? theme.accent.primary : theme.master.front)};
 `
 
-const LinesContainer = styled.div`
+const LinesContainer = styled(Scrollbar)`
   position: relative;
   display: flex;
   flex-direction: column;
