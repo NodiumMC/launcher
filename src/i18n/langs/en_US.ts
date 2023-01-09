@@ -73,6 +73,11 @@ export default {
     jdks: 'Java Runtimes',
     no_jdks: 'Java is not installed',
   },
+  update: {
+    available: 'Update available {version}',
+    do: 'Update',
+    cancel: 'Cancel',
+  },
   other: {
     launcher_crashed:
       'The launcher crashed with a critical error. Wait until the error report is generated, and then the launcher will restart. Try to figure out what caused the error and report it to the developer or administration',

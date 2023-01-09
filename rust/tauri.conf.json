@@ -8,10 +8,14 @@
   },
   "package": {
     "productName": "Nodium Launcher",
-    "version": "0.2.1"
+    "version": "0.2.0"
   },
   "tauri": {
     "allowlist": {
+      "process": {
+        "exit": true,
+        "relaunch": true
+      },
       "os": {
         "all": true
       },
