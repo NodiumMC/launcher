@@ -15,11 +15,13 @@
   <img src="https://img.shields.io/github/package-json/v/NodiumMC/launcher?color=0484ff" alt="version" />
 </div>
 
+<h1><a href="https://ndml.notion.site/d1841fbd84c4473f86e5948ca77a6e46">💲 Поддержите проект</a><h1/>
+
 <h1>📥 Загрузите лаунчер</h1>
 
 | | |
 |-|-|
-|Стабильная сборка|<a><img src="https://img.shields.io/github/v/release/NodiumMC/launcher?color=blue"></a>|
+|Стабильная сборка|<a href="https://github.com/NodiumMC/launcher/releases/latest"><img src="https://img.shields.io/github/v/release/NodiumMC/launcher?color=blue"></a>|
 |Предварительная сборка|<a href="https://github.com/NodiumMC/launcher/releases/latest"><img src="https://img.shields.io/github/v/release/NodiumMC/launcher?color=blue&include_prereleases" alt="release"></a>|
 |Тестовая сборка|<a href="https://discord.gg/75uYTryUu8"><img src="https://img.shields.io/github/package-json/v/NodiumMC/launcher?color=0484ff&label=Only%20In%20Discord" /></a>|
 
