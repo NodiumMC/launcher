@@ -68,7 +68,7 @@ const interactionStyle = css`
 export const Text = styled.span.attrs<TextProps>(({ theme, ...props }) => ({
   style: {
     color: props.color,
-    fontSize: props.size ? theme?.size?.(props.size) : undefined,
+    fontSize: theme?.size?.(props.size),
     lineHeight: lineHeightStyle(props.lineHeight),
   },
 }))<TextProps>`
