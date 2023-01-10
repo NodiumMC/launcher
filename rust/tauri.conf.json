@@ -46,7 +46,8 @@
           "https://meta.fabricmc.net/v2/*",
           "https://maven.fabricmc.net/*",
           "https://api.adoptium.net/v3/*",
-          "https://meta.multimc.org/v1/*"
+          "https://meta.multimc.org/v1/*",
+          "https://maven.minecraftforge.net/net/minecraftforge/forge/*"
         ],
         "all": true
       },
