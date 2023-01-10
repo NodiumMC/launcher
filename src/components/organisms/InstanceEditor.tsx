@@ -19,7 +19,7 @@ import { removeDir } from '@tauri-apps/api/fs'
 import { GameProfileModule } from 'minecraft/game-profile'
 import { InstanceModule } from 'minecraft/instance'
 import { InstancesModule } from 'minecraft/instances'
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid/non-secure'
 
 export interface InstanceEditorProps {
   close?: () => void

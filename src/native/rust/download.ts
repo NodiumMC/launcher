@@ -1,6 +1,6 @@
 import { invoke } from '@tauri-apps/api'
 import { Observable } from 'rxjs'
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid/non-secure'
 import { emit, listen } from '@tauri-apps/api/event'
 
 export const Rdownload = async (url: string, local: string, hash?: string): Promise<string> => {

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid/non-secure'
 import { PopupStore } from './popup.store'
 import { Service } from 'positron'
 
@@ -7,7 +7,7 @@ import { Service } from 'positron'
 export class PopupService {
   constructor(private readonly store: PopupStore) {}
 
-  private createId = () => nanoid()
+  private createId = () => nanoid(8)
 
   create<T extends object>(template: FC<T>, props: T): void {
     const idx = this.createId()
