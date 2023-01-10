@@ -6,3 +6,5 @@ export const quiltVersion = 'https://meta.quiltmc.org/v3/versions/loader/{id}/{l
 export const quiltManifest = 'https://meta.quiltmc.org/v3/versions/game'
 export const quiltLoaders = 'https://meta.quiltmc.org/v3/versions/loader/{id}'
 export const forgeManifest = 'https://meta.multimc.org/v1/net.minecraftforge/'
+export const forgeVersion =
+  'https://maven.minecraftforge.net/net/minecraftforge/forge/{version}-{loader}/forge-{version}-{loader}-installer.jar'

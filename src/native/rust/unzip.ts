@@ -25,3 +25,6 @@ export const Runzip = (from: string, to: string, deleteAfter = true) =>
       )
     })()
   })
+
+export const RunzipReadSingle = async (from: string, pick: string): Promise<string> =>
+  invoke('unzip_read_single', { from, pick })

@@ -31,8 +31,10 @@ export const fetchFabricLoaders = (id: string) =>
   fetch<FabricLoadersManifest>(fabricLoaders.explain({ id })).then(v => v.data)
 export const fetchForgeManifest = () =>
   fetch<ForgeManifest>(forgeManifest).then(res => res.data.versions.map(v => v.requires[0].equals))
-export const fetchForgeLoaders = () =>
-  fetch<ForgeManifest>(forgeManifest).then(res => res.data.versions.map(v => v.version))
+export const fetchForgeLoaders = (id: string) =>
+  fetch<ForgeManifest>(forgeManifest).then(res =>
+    res.data.versions.filter(v => v.requires[0].equals === id).map(v => v.version),
+  )
 
 export const fetchMinecraftVersions = async (): Promise<PublicVersion[]> => {
   const manifest = await fetchManifest()
