@@ -5,3 +5,4 @@ export const fabricVersion = 'https://meta.fabricmc.net/v2/versions/loader/{id}/
 export const quiltVersion = 'https://meta.quiltmc.org/v3/versions/loader/{id}/{loader}/profile/json'
 export const quiltManifest = 'https://meta.quiltmc.org/v3/versions/game'
 export const quiltLoaders = 'https://meta.quiltmc.org/v3/versions/loader/{id}'
+export const forgeManifest = 'https://meta.multimc.org/v1/net.minecraftforge/'
