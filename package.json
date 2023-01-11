@@ -17,7 +17,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:dev": "vitest dev",
-    "test:ui": "vitest run --ui",
+    "test:ui": "vitest dev --ui",
     "checks": "yarn lint && yarn prebuild && yarn test",
     "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
     "build-storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider build-storybook"
@@ -100,6 +100,7 @@
     "@typescript-eslint/parser": "5.47.0",
     "@vitejs/plugin-react": "2.2.0",
     "@vitejs/plugin-react-swc": "^3.0.1",
+    "@vitest/ui": "^0.27.0",
     "babel-loader": "9.1.0",
     "cross-env": "^7.0.3",
     "deepl-translator": "1.2.1",
