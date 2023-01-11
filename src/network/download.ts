@@ -19,7 +19,7 @@ export const batchDownload = (resources: Resource[], batchSize = 16) =>
   new Observable<BatchProgress>(subscriber => {
     const nc = container.resolve(NetworkCheckerModule)
     const total = resources.length
-    const queue = [...resources]
+    let queue = [...resources]
     let progress = 0
     void (async function loop() {
       while (nc.available && queue.length > 0) {
@@ -31,7 +31,10 @@ export const batchDownload = (resources: Resource[], batchSize = 16) =>
               await cache.setItem(r.local, hash)
               subscriber.next({ total, progress })
             },
-            err => subscriber.error(err),
+            err => {
+              subscriber.error(err)
+              queue = []
+            },
           ),
         )
       }

@@ -4,6 +4,7 @@ use serde::{Serialize, Serializer};
 use futures_util::future::Aborted;
 use std::fs::{self, File};
 use std::io;
+use std::io::Read;
 use tauri::Runtime;
 use tar::Archive;
 use flate2::read::GzDecoder;
@@ -101,4 +102,14 @@ pub async fn unzip<R: Runtime>(app_handle: AppHandle<R>, from: &Path, to: &Path,
     let _ = fs::remove_file(from);
   }
   Ok(())
+}
+
+#[command]
+pub fn unzip_read_single(from: &Path, pick: String) -> Result<String, UnzipError> {
+  let file = File::open(from)?;
+  let mut archive = zip::ZipArchive::new(&file)?;
+  let mut result = String::new();
+  let mut picked = archive.by_name(&pick)?;
+  picked.read_to_string(&mut result)?;
+  Ok(result)
 }

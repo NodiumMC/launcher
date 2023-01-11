@@ -27,6 +27,7 @@ export default {
       unpack_natives_failed: 'Не удалось распаковать некоторые библиотеки',
       populate_manifest_failed: 'Не удалось обновить информацию о ресурсах версии',
       network_error: 'Ошибка сети. Проверьте подключение к интернету',
+      fetch_manifest_exception: 'Не удалось загрузить файл версии',
     },
     instance: {
       name: 'Название',

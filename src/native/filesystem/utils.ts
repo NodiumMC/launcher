@@ -10,7 +10,6 @@ export const exists = async (path: string) => {
 export const prepare = async (path: string, isFile = false) => {
   if (!(await exists(path))) {
     await createDir(isFile ? dirname(path) : path, { recursive: true })
-    if (isFile) await writeTextFile(path, '')
   }
   return path
 }

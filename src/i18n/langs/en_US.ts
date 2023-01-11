@@ -29,6 +29,7 @@ export default {
       unpack_natives_failed: 'Failed to unpack some libraries',
       populate_manifest_failed: 'Failed to update version resource information',
       network_error: 'Network error. Check your Internet connection',
+      fetch_manifest_exception: 'Fetch manifest failed',
     },
     instance: {
       name: 'Name',

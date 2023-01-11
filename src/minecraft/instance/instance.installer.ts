@@ -97,9 +97,9 @@ export class InstanceInstaller {
     this.tracker.busy = true
     try {
       if (!this.profile.exists) await this.profile.create().catch(mapErrFactory(this.mapNetworkError))
-      await this.installJDK().catch(mapErr(JVMInstallException))
       await this.prepare()
       await this.populateManifest().catch(mapErr(PopulateManifestException))
+      await this.installJDK().catch(mapErr(JVMInstallException))
       await this.installAssets().catch(mapErr(AssetsInstallException))
       await this.unzipNatives().catch(mapErr(UnpackNativesException))
       this.local.location = this.settings.gameDir
