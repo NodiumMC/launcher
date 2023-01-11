@@ -12,3 +12,12 @@ export const promise = <T = void>(
     if (isPromise(awaitable)) awaitable.catch(j)
     return awaitable
   })
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest
+  describe('utils/isPromise', () => {
+    it.concurrent('True promise', () => {
+      expect(isPromise(Promise.resolve())).toBeTruthy()
+    })
+  })
+}

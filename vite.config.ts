@@ -4,6 +4,9 @@ import swc from 'unplugin-swc'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
+  define: {
+    'import.meta.vitest': 'undefined',
+  },
   plugins: [react(), tsconfigPaths(), swc.vite()],
   clearScreen: false,
   server: {
