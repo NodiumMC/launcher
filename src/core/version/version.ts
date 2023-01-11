@@ -101,6 +101,7 @@ export interface VersionFile {
     majorVersion: number
   }
   libraries: Library[]
+  mavenFiles?: Library[]
   logging: Logging
   mainClass: string
   minimumLauncherVersion: number
@@ -111,16 +112,18 @@ export interface VersionFile {
   inheritsFrom?: string
 }
 
-export const mergeVersions = (...versions: VersionFile[]) => {
-  const origin = { ...versions[0] }
-  const next = versions.slice(1)
-  const last = versions[versions.length - 1]
-  if (!next) return origin
-  origin.mainClass = last.mainClass
-  origin.type = last.type
-  origin.arguments.jvm = _.union(origin.arguments.jvm, versions.map(v => v.arguments.jvm).flat())
-  origin.arguments.game = _.union(origin.arguments.game, versions.map(v => v.arguments.game).flat())
-  origin.libraries.push(...versions.map(v => v.libraries).flat())
+export interface ForgeProfile {
+  libraries: Library[]
+}
+
+export const mergeVersions = (first: VersionFile, second: VersionFile) => {
+  const origin = { ...first, ...second }
+  origin.libraries = [...(first.libraries ?? []), ...(second.libraries ?? [])]
+  origin.mavenFiles = [...(first.mavenFiles ?? []), ...(second.mavenFiles ?? [])]
+  if (origin.arguments) {
+    origin.arguments.jvm = [...(first.arguments?.jvm ?? []), ...(second.arguments?.jvm ?? [])]
+    origin.arguments.game = [...(first.arguments?.game ?? []), ...(second.arguments?.game ?? [])]
+  }
   return origin
 }
 
