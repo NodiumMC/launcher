@@ -1,8 +1,15 @@
 export * from './providers'
 
 import { VersionFile } from 'core/version'
-import { FabricLoadersManifest, FabricManifest, MojangManifest, PublicVersion } from 'core/providers/types'
-import { fabricLoaders, fabricManifest, mojangManifest } from 'core/providers/endpoints'
+import {
+  FabricLoadersManifest,
+  FabricManifest,
+  MojangManifest,
+  PublicVersion,
+  QuiltLoadersManifest,
+  QuiltManifest,
+} from 'core/providers/types'
+import { fabricLoaders, fabricManifest, mojangManifest, quiltManifest } from 'core/providers/endpoints'
 import { isOld, isRelease } from 'core/utils'
 import { SupportedProviders } from 'core/providers/providers'
 import { fetch } from '@tauri-apps/api/http'
@@ -23,6 +30,10 @@ export const fetchManifest = () => fetch<MojangManifest>(mojangManifest).then(re
 export const fetchFabricManifest = () => fetch<FabricManifest>(fabricManifest).then(v => v.data)
 export const fetchFabricLoaders = (id: string) =>
   fetch<FabricLoadersManifest>(fabricLoaders.explain({ id })).then(v => v.data)
+// Проблема с API. invalid http.
+export const fetchQuiltManifest = () => fetch<QuiltManifest>(quiltManifest).then(v => v.data)
+export const fetchQuiltLoaders = (id: string) =>
+  fetch<QuiltLoadersManifest>(fabricLoaders.explain({ id })).then(v => v.data)
 
 export const fetchMinecraftVersions = async (): Promise<PublicVersion[]> => {
   const manifest = await fetchManifest()
@@ -30,9 +41,12 @@ export const fetchMinecraftVersions = async (): Promise<PublicVersion[]> => {
   const latestRelease = manifest.latest.release
   const latestSnapshot = manifest.latest.snapshot
   const fabricManifest = await fetchFabricManifest()
+  const quiltManifest = await fetchQuiltManifest()
+  console.log(fabricManifest)
   return manifest.versions.map(v => {
     const providers: SupportedProviders[] = ['vanilla']
     if (fabricManifest.some(f => f.version === v.id)) providers.push('fabric')
+    if (quiltManifest.some(f => f.version === v.id)) providers.push('quilt')
     return {
       id: v.id,
       name: v.id,

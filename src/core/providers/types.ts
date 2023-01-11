@@ -31,3 +31,13 @@ export type FabricLoadersManifest = Array<{
     version: string
   }
 }>
+
+export type QuiltManifest = Array<{
+  version: string
+}>
+
+export type QuiltLoadersManifest = Array<{
+  loader: {
+    version: string
+  }
+}>
