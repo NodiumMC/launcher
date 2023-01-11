@@ -20,7 +20,6 @@ import { GameProfileModule } from 'minecraft/game-profile'
 import { InstanceModule } from 'minecraft/instance'
 import { InstancesModule } from 'minecraft/instances'
 import { nanoid } from 'nanoid'
-import { Link } from 'components/atoms/Link'
 
 export interface InstanceEditorProps {
   close?: () => void
@@ -252,32 +251,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
             ]}
             versions={versions}
             provider={getValues('provider')}
-            onProviderChange={value => {
-              if (value === 'forge') {
-                popup.create(Popup, {
-                  level: 'warn',
-                  title: 'Автоматическая установка Forge не поддерживается',
-                  description: (
-                    <div>
-                      <div>
-                        Forge существует благодаря рекламе и спонсорам. Мы не можем спонсировать Forge сейчас, а значит
-                        не можем автоматизировать установку. Перейдите на официальный сайт Forge и выполните установку
-                        вручную.
-                      </div>
-                      <br />
-                      <Link href={'https://files.minecraftforge.net/net/minecraftforge/forge/'}>
-                        https://files.minecraftforge.net/
-                      </Link>
-                    </div>
-                  ),
-                  actions: [{ label: 'Ok', isPrimary: true, action: close => close() }],
-                })
-                return
-              }
-              setValue('provider', value)
-              clearErrors('vid')
-              trigger('provider')
-            }}
+            onProviderChange={value => (setValue('provider', value), clearErrors('vid'), trigger('provider'))}
             version={getValues('vid')}
             onVersionChange={value => (setValue('vid', value), clearErrors('vid'), trigger('vid'))}
             invalid={!!errors.vid}
