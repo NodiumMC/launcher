@@ -15,9 +15,27 @@ export const promise = <T = void>(
 
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
-  describe('utils/isPromise', () => {
-    it.concurrent('True promise', () => {
+  describe('Is Promise', () => {
+    it.concurrent('Should return true for True promise', () => {
       expect(isPromise(Promise.resolve())).toBeTruthy()
+    })
+    it.concurrent('Should return false for promise like', () => {
+      expect(isPromise({ then: () => null })).toBeFalsy()
+    })
+    it.concurrent('Should return false for non object value', () => {
+      expect(isPromise(null)).toBeFalsy()
+    })
+  })
+
+  describe('Promise constructor shortcut', () => {
+    it.concurrent('Should resolve', () => {
+      expect(promise<boolean>(r => r(true))).resolves.toBeTruthy()
+    })
+    it.concurrent('Should reject', () => {
+      expect(promise((_, j) => j(false))).rejects.toBeFalsy()
+    })
+    it.concurrent('Should work with async executor', () => {
+      expect(promise<boolean>(async r => r(true))).resolves.toBeTruthy()
     })
   })
 }

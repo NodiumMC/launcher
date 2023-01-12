@@ -66,3 +66,46 @@ export class Progress<T> {
     if (stage) this._stage = stage
   }
 }
+
+if (import.meta.vitest) {
+  const { describe, it, expect, beforeEach } = import.meta.vitest
+
+  describe('Progress', () => {
+    let progress: Progress<number>
+
+    beforeEach(() => {
+      progress = new Progress<number>(100, 0, 0)
+    })
+
+    it('Should just step', () => {
+      expect(progress.progress).toBe(0)
+      expect(progress.total).toBe(100)
+      progress.update(10)
+      expect(progress.progress).toBe(10)
+      progress.update(10, 50)
+      expect(progress.progress).toBe(10)
+      expect(progress.total).toBe(50)
+      progress.update(50, 100, 1)
+      expect(progress.stage).toBe(1)
+    })
+
+    it('Should normalize value', () => {
+      progress.update(50, 100)
+      expect(progress.total).toBe(100)
+      expect(progress.progress).toBe(50)
+      expect(progress.normalized()).toBe(0.5)
+      expect(progress.normalized(10)).toBe(5)
+    })
+
+    it('Should reset all', () => {
+      progress.update(1, 2, 3)
+      expect(progress.progress).toBe(1)
+      expect(progress.total).toBe(2)
+      expect(progress.stage).toBe(3)
+      progress.reset(0)
+      expect(progress.progress).toBe(0)
+      expect(progress.total).toBe(2)
+      expect(progress.stage).toBe(0)
+    })
+  })
+}
