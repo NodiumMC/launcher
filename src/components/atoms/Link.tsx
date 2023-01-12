@@ -18,7 +18,7 @@ const StyledLink = styled.span`
 
 export const Link: FC<LinkProps & JSX.IntrinsicElements['div']> = ({ href, children, ...props }) => {
   return (
-    <StyledLink onClick={() => open(href)}>
+    <StyledLink {...(props as object)} onClick={() => open(href)}>
       <FontAwesomeIcon icon={'arrow-up-right-from-square'} />
       {children}
     </StyledLink>

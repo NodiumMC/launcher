@@ -1,5 +1,4 @@
 import { readJsonFile } from 'native/filesystem'
-import _ from 'lodash'
 
 export type OSType = 'osx' | 'windows' | 'linux' | 'unknown'
 export type ArchType = string

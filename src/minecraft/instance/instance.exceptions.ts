@@ -12,3 +12,4 @@ export const NeedsInstallationException = error('NeedsInstallationException', t 
 export const MissingJVMExecutable = error('MissingJVMExecutable', t => t.minecraft.launch.missing_jvm_executable)
 export const MultipleProcessesException = error('MultipleProcessesException', t => t.minecraft.launch.unable_to_launch_more_once)
 export const NetworkError = error('NetworkError', t => t.minecraft.install.network_error)
+export const NoProfileException = error('NoProfileException',t => t.minecraft.versions.selected_profile_not_exists)

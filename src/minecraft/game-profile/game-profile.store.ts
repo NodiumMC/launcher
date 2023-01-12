@@ -1,22 +1,30 @@
 import { Service } from 'positron'
 import { LauncherProfileJSON, LauncherProfiles } from 'core'
 import { PublicVersion } from 'core/providers/types'
-import { makeAutoObservable } from 'mobx'
+import { autorun, makeAutoObservable } from 'mobx'
 import { watch } from 'tauri-plugin-fs-watch-api'
 import { exists, readJsonFile, writeJsonFile } from 'native/filesystem'
 import { GameProfileCommon } from 'minecraft/game-profile/game-profile.common'
+import { l } from 'utils'
 
 @Service
 export class GameProfileStore {
   list: LauncherProfileJSON[] = []
   cachedPublic?: PublicVersion[]
+  loaded = false
 
   constructor(private readonly common: GameProfileCommon) {
     makeAutoObservable(this)
-    void (async () => {
+    l(async () => {
       watch(this.common.pathToProfile, {}, this.reloadProfiles.bind(this))
       await this.reloadProfiles()
-    })()
+      this.loaded = true
+    })
+    autorun(() => {
+      if (!this.loaded) return
+      const profiles = this.toProfiles()
+      writeJsonFile<LauncherProfiles>(this.common.pathToProfile, { profiles })
+    })
   }
 
   async reloadProfiles() {
@@ -43,6 +51,10 @@ export class GameProfileStore {
 
   add(profile: LauncherProfileJSON) {
     this.list.push(profile)
+  }
+
+  remove(id: string) {
+    this.list.removeIf(v => v.lastVersionId === id)
   }
 
   find(id: string) {

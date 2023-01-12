@@ -1,4 +1,4 @@
-import { LauncherProfileJSON, LauncherProfiles } from 'core'
+import { LauncherProfileJSON } from 'core'
 import { join } from 'native/path'
 import { prepare, writeJsonFile } from 'native/filesystem'
 import { fetchMinecraftVersions, Provider } from 'core/providers'
@@ -41,8 +41,6 @@ export class GameProfileService {
     await writeJsonFile(jsonPath, json)
     const profile = this.build(name, vid, version)
     this.store.add(profile)
-    const profiles = this.store.toProfiles()
-    await writeJsonFile<LauncherProfiles>(this.common.pathToProfile, { profiles })
     return profile
   }
 

@@ -44,7 +44,8 @@ export function match(map: MapType) {
     for (const [key, then] of Object.entries(map)) {
       if (exception.constructor.name === key) return then?.(exception)
     }
-    map.else?.(exception)
+    if (map.else) map.else(exception)
+    else throw exception
   }
 }
 
@@ -63,6 +64,7 @@ export function represent(error: any, explicit: boolean | number | 'auto' = 'aut
   if (!explicit) return origin
   if (explicit === 'auto' && !debugModule.isEnabled) return origin
   const causes = chain(error, typeof explicit === 'number' ? explicit : 3)
+  if (causes.length === 0) return origin
   return `${origin}: ${causes.map(represent).join(': ')}`
 }
 

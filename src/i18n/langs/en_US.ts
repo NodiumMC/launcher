@@ -16,11 +16,12 @@ export default {
   minecraft: {
     versions: {
       not_found: 'Nothing found',
-      fetching_versions: 'Wait a little while, maybe it will be soon.',
+      fetching_versions: "There's nothing here yet",
       release_type: 'Release',
       snapshot_type: 'Snapshot',
       latest_type: 'Latest',
       snapshots: 'Snapshots',
+      selected_profile_not_exists: 'The selected profile is not exists',
     },
     install: {
       install_failed: 'Minecraft crashed',
@@ -49,6 +50,7 @@ export default {
       full_delete: 'Delete completely',
       cancel: 'Cancel',
       remove: 'Remove',
+      already_removed: 'The current directory no longer exists',
     },
     launch: {
       launch_failed: 'Launch failed',

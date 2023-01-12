@@ -17,8 +17,10 @@ import {
   MissingJVMExecutable,
   MultipleProcessesException,
   NeedsInstallationException,
+  NoProfileException,
 } from 'minecraft/instance/instance.exceptions'
 import { next } from 'error'
+import { InstanceProfile } from 'minecraft/instance/instance.profile'
 
 @DynamicService
 export class InstanceLauncher {
@@ -27,8 +29,9 @@ export class InstanceLauncher {
     common: InstanceCommon,
     tracker: InstanceTracker,
     logging: InstanceLogging,
+    profile: InstanceProfile,
   ): InstanceLauncher {
-    return new (this as any)(local, common, tracker, logging)
+    return new (this as any)(local, common, tracker, logging, profile)
   }
 
   constructor(
@@ -36,6 +39,7 @@ export class InstanceLauncher {
     private readonly common: InstanceCommon,
     private readonly tracker: InstanceTracker,
     private readonly logging: InstanceLogging,
+    private readonly profile: InstanceProfile,
     private readonly java: JavaRuntimeModule,
     private readonly player: PlayerLiteModule,
     private readonly settings: GeneralSettingsModule,
@@ -73,6 +77,7 @@ export class InstanceLauncher {
     return promise<number>(async (r, j) => {
       if (this.isRunning) throw new MultipleProcessesException()
       if (!this.local.installed) throw new NeedsInstallationException()
+      if (!(await this.profile.exists())) throw new NoProfileException()
       this.tracker.busy = true
       this.child = await this.createProcess()
       this.child.on('std', data => this.logging.push(data))

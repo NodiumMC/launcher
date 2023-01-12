@@ -14,11 +14,12 @@ export default {
   minecraft: {
     versions: {
       not_found: 'Ничего не найдено',
-      fetching_versions: 'Подождите немного, возможно скоро всё будет',
+      fetching_versions: 'Тут пока пусто',
       release_type: 'Релиз',
       snapshot_type: 'Снапшот',
       latest_type: 'Последняя',
       snapshots: 'Снапшоты',
+      selected_profile_not_exists: 'Выбранный профиль отсутствует',
     },
     install: {
       install_failed: 'Установка не удалась',
@@ -47,6 +48,7 @@ export default {
       full_delete: 'Удалить полностью',
       cancel: 'Отмена',
       remove: 'Удалить',
+      already_removed: 'Текущего каталога уже не существует',
     },
     launch: {
       launch_failed: 'Запуск не удался',

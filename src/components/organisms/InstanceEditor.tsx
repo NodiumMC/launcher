@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import { Button } from 'components/atoms/Button'
@@ -12,14 +12,16 @@ import { ProviderIcon, SupportedProviders } from 'core/providers'
 import { useMod } from 'hooks/useMod'
 import { VersionPicker } from 'components/molecules/VersionPicker'
 import { PublicVersion } from 'core/providers/types'
-import { useI18N, useOnce } from 'hooks'
+import { useI18N } from 'hooks'
 import { Popup, PopupModule, UpfallModule } from 'notifications'
 import { wait } from 'utils'
-import { removeDir } from '@tauri-apps/api/fs'
+import { exists, removeDir } from '@tauri-apps/api/fs'
 import { GameProfileModule } from 'minecraft/game-profile'
 import { InstanceModule } from 'minecraft/instance'
 import { InstancesModule } from 'minecraft/instances'
 import { nanoid } from 'nanoid/non-secure'
+import { match, of } from 'error'
+import { NoProfileException } from 'minecraft/instance/instance.exceptions'
 
 export interface InstanceEditorProps {
   close?: () => void
@@ -131,9 +133,18 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
       actions: [
         {
           label: i18n.full_delete,
-          action: async c =>
-            instance &&
-            (await removeDir(await instance.location, { recursive: true }), istore.remove(instance!), close?.(), c()),
+          action: async c => {
+            if (instance) {
+              if (await exists(instance.location)) {
+                await removeDir(instance.location, { recursive: true })
+                istore.remove(instance!)
+                close?.()
+              } else {
+                upfall.drop('warn', t => t.minecraft.instance.already_removed)
+              }
+              c()
+            }
+          },
         },
         {
           label: i18n.cancel,
@@ -153,9 +164,9 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
     })
   }, [])
 
-  useOnce(() => {
+  useEffect(() => {
     gp.fetchAllVersions().then(setVersions)
-  })
+  }, [gp.profiles])
 
   const {
     register,
@@ -218,9 +229,17 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
           javaArgs: javaArgs,
         },
       })
-      await newInstance.init()
-      istore.add(newInstance)
-      close?.()
+      try {
+        await newInstance.init()
+        istore.add(newInstance)
+        close?.()
+      } catch (e) {
+        match({
+          [of(NoProfileException)]() {
+            setError('vid', { type: 'pattern' })
+          },
+        })(e)
+      }
       return wait(2000)
     }
   }
