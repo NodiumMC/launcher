@@ -14,7 +14,8 @@ import { mapErr, mapErrFactory, represent } from 'error'
 import {
   AssetsInstallException,
   JVMInstallException,
-  NetworkError, NoProfileException,
+  NetworkError,
+  NoProfileException,
   PopulateManifestException,
   UnpackNativesException,
 } from './instance.exceptions'

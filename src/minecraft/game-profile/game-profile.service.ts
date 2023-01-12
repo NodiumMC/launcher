@@ -1,4 +1,4 @@
-import { LauncherProfileJSON, LauncherProfiles } from 'core'
+import { LauncherProfileJSON } from 'core'
 import { join } from 'native/path'
 import { prepare, writeJsonFile } from 'native/filesystem'
 import { fetchMinecraftVersions, Provider } from 'core/providers'

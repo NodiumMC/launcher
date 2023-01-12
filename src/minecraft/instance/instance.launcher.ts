@@ -16,7 +16,8 @@ import {
   MissingJVMException,
   MissingJVMExecutable,
   MultipleProcessesException,
-  NeedsInstallationException, NoProfileException,
+  NeedsInstallationException,
+  NoProfileException,
 } from 'minecraft/instance/instance.exceptions'
 import { next } from 'error'
 import { InstanceProfile } from 'minecraft/instance/instance.profile'
