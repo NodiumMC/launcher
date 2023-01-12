@@ -63,6 +63,7 @@ export function represent(error: any, explicit: boolean | number | 'auto' = 'aut
   if (!explicit) return origin
   if (explicit === 'auto' && !debugModule.isEnabled) return origin
   const causes = chain(error, typeof explicit === 'number' ? explicit : 3)
+  if (causes.length === 0) return origin
   return `${origin}: ${causes.map(represent).join(': ')}`
 }
 
