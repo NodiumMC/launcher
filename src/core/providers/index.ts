@@ -9,7 +9,7 @@ import {
   QuiltLoadersManifest,
   QuiltManifest,
 } from 'core/providers/types'
-import { fabricLoaders, fabricManifest, mojangManifest, quiltManifest } from 'core/providers/endpoints'
+import { fabricLoaders, fabricManifest, mojangManifest, quiltLoaders, quiltManifest } from 'core/providers/endpoints'
 import { isOld, isRelease } from 'core/utils'
 import { SupportedProviders } from 'core/providers/providers'
 import { fetch } from '@tauri-apps/api/http'
@@ -30,10 +30,9 @@ export const fetchManifest = () => fetch<MojangManifest>(mojangManifest).then(re
 export const fetchFabricManifest = () => fetch<FabricManifest>(fabricManifest).then(v => v.data)
 export const fetchFabricLoaders = (id: string) =>
   fetch<FabricLoadersManifest>(fabricLoaders.explain({ id })).then(v => v.data)
-// Проблема с API. invalid http.
 export const fetchQuiltManifest = () => fetch<QuiltManifest>(quiltManifest).then(v => v.data)
 export const fetchQuiltLoaders = (id: string) =>
-  fetch<QuiltLoadersManifest>(fabricLoaders.explain({ id })).then(v => v.data)
+  fetch<QuiltLoadersManifest>(quiltLoaders.explain({ id })).then(v => v.data)
 
 export const fetchMinecraftVersions = async (): Promise<PublicVersion[]> => {
   const manifest = await fetchManifest()
