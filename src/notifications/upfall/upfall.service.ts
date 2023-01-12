@@ -1,5 +1,5 @@
 import { Upfall } from '.'
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid/non-secure'
 import { I18nModule, R18T } from 'i18n'
 import { singleton } from '@nodium/tsyringe'
 import { UpfallStore } from 'notifications/upfall/upfall.store'
@@ -9,7 +9,7 @@ export class UpfallService {
   constructor(private readonly store: UpfallStore, private readonly i18n: I18nModule) {}
 
   createId() {
-    return nanoid()
+    return nanoid(8)
   }
 
   drop(type: Upfall['type'], content: string | R18T, icon?: Upfall['icon']) {

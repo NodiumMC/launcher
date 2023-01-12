@@ -41,3 +41,12 @@ export type QuiltLoadersManifest = Array<{
     version: string
   }
 }>
+
+export interface ForgeManifest {
+  versions: ForgeManifestVersion[]
+}
+
+export interface ForgeManifestVersion {
+  requires: Array<{ equals: string }>
+  version: string
+}

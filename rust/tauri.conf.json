@@ -43,8 +43,10 @@
           "https://resources.download.minecraft.net/*",
           "https://meta.fabricmc.net/v2/*",
           "https://maven.fabricmc.net/*",
+          "https://api.adoptium.net/v3/*",
+          "https://meta.multimc.org/v1/*",
           "https://meta.quiltmc.org/v3/*",
-          "https://api.adoptium.net/v3/*"
+          "https://maven.minecraftforge.net/*"
         ],
         "all": true
       },

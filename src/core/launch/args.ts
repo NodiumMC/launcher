@@ -34,6 +34,7 @@ const placeholderifyArguments =
         .replaceAll('${assets_index_name}', options.version.assets)
         .replaceAll('${version_type}', options.version.type)
         .replaceAll('${natives_directory}', join(options.clientDir, 'natives'))
+        .replaceAll('${client_path}', join(options.clientDir, `${options.vid}.jar`))
         .replaceAll('${launcher_name}', 'NodiumLauncher')
         .replaceAll('${launcher_version}', version)
         .replaceAll('${user_type}', 'mojang')

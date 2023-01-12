@@ -34,7 +34,7 @@
     "eventemitter3": "5.0.0",
     "fast-xml-parser": "^4.0.12",
     "flinject": "1.2.0",
-    "framer-motion": "^7.6.12",
+    "framer-motion": "^8.0.0",
     "localforage": "^1.10.0",
     "lodash": "4.17.21",
     "mobx": "6.7.0",

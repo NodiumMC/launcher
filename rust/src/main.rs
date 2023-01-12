@@ -24,7 +24,7 @@ async fn main() {
       Ok(())
     })
     .plugin(Watcher::default())
-    .invoke_handler(tauri::generate_handler![download::download, download::download_longtime, unzip::unzip, os::info, process::spawn])
+    .invoke_handler(tauri::generate_handler![download::download, download::download_longtime, unzip::unzip, unzip::unzip_read_single, os::info, process::spawn])
     .run(context)
     .expect("error while running tauri application");
 }

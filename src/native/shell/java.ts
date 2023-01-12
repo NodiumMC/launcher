@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api'
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid/non-secure'
 import EventEmitter from 'eventemitter3'
 import { emit, listen } from '@tauri-apps/api/event'
 
@@ -17,10 +17,10 @@ export class Child extends EventEmitter<Events> {
 }
 
 export const spawn = async (binary: string, args: string[], cwd?: string) => {
-  const std = nanoid()
-  const errevent = nanoid()
+  const std = nanoid(8)
+  const errevent = nanoid(8)
   // const kill = nanoid()
-  const close = nanoid()
+  const close = nanoid(8)
   await invoke('spawn', { binary, args, cwd, std, errevent, close })
   const emitter = new Child()
   const uStd = await listen<string>(std, data => {
