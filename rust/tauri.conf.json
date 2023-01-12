@@ -31,9 +31,7 @@
       },
       "fs": {
         "all": true,
-        "scope": [
-          "**"
-        ]
+        "scope": ["**"]
       },
       "dialog": {
         "open": true
@@ -47,7 +45,9 @@
           "https://maven.fabricmc.net/*",
           "https://api.adoptium.net/v3/*",
           "https://meta.multimc.org/v1/*",
-          "https://maven.minecraftforge.net/net/minecraftforge/forge/*"
+          "https://meta.quiltmc.org/v3/*",
+          "https://maven.minecraftforge.net/*",
+          "https://maven.quiltmc.org/*"
         ],
         "all": true
       },
@@ -82,13 +82,7 @@
         "depends": []
       },
       "externalBin": [],
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
+      "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
       "identifier": "com.nodium.launcher",
       "longDescription": "Nodium Minecraft Launcher",
       "macOS": {

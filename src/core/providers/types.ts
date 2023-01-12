@@ -32,6 +32,16 @@ export type FabricLoadersManifest = Array<{
   }
 }>
 
+export type QuiltManifest = Array<{
+  version: string
+}>
+
+export type QuiltLoadersManifest = Array<{
+  loader: {
+    version: string
+  }
+}>
+
 export interface ForgeManifest {
   versions: ForgeManifestVersion[]
 }

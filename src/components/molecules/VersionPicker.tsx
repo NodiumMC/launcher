@@ -159,7 +159,6 @@ export const VersionPicker = observer(
     const [searchedb] = useDebounce(search, 1000)
 
     const [snapshotCheckbox, setSnapshotCheckbox] = useState(false)
-
     const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
     const searchedAndFiltered = useMemo(() => {
       const searchedandFiltered = filtered.filter(v => (snapshotCheckbox ? true : !v.isSnapshot))
@@ -173,7 +172,7 @@ export const VersionPicker = observer(
           value={provider}
           onChange={onProviderChange}
           vertical
-          disoptions={['quilt']}
+          disoptions={[]}
         />
         <VersionsContainer>
           <InputWrapper>
