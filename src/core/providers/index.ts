@@ -10,7 +10,14 @@ import {
   MojangManifest,
   PublicVersion,
 } from 'core/providers/types'
-import { fabricLoaders, fabricManifest, quiltLoaders, quiltManifest, forgeManifest, mojangManifest } from 'core/providers/endpoints'
+import {
+  fabricLoaders,
+  fabricManifest,
+  quiltLoaders,
+  quiltManifest,
+  forgeManifest,
+  mojangManifest,
+} from 'core/providers/endpoints'
 import { isOld, isRelease } from 'core/utils'
 import { SupportedProviders } from 'core/providers/providers'
 import { fetch } from '@tauri-apps/api/http'
