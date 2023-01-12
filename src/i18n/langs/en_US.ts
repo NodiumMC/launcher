@@ -49,6 +49,7 @@ export default {
       full_delete: 'Delete completely',
       cancel: 'Cancel',
       remove: 'Remove',
+      already_removed: 'The current directory no longer exists',
     },
     launch: {
       launch_failed: 'Launch failed',

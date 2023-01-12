@@ -47,6 +47,7 @@ export default {
       full_delete: 'Удалить полностью',
       cancel: 'Отмена',
       remove: 'Удалить',
+      already_removed: 'Текущего каталога уже не существует',
     },
     launch: {
       launch_failed: 'Запуск не удался',
