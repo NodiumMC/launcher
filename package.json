@@ -36,7 +36,6 @@
     "flinject": "1.2.0",
     "framer-motion": "^8.0.0",
     "localforage": "^1.10.0",
-    "lodash": "4.17.21",
     "mobx": "6.7.0",
     "mobx-react": "7.6.0",
     "nanoid": "4.0.0",
