@@ -23,4 +23,12 @@ export class GameProfileModule {
   find(id: string) {
     return this.store.find(id)
   }
+
+  remove(id: string) {
+    this.store.remove(id)
+  }
+
+  get profiles() {
+    return this.store.list
+  }
 }

@@ -3,6 +3,7 @@ import { InstanceLocal } from './instance.local'
 import { GameProfileModule } from 'minecraft/game-profile'
 import { InstanceCommon } from './instance.common'
 import * as providers from 'core/providers/implemented'
+import { exists } from '@tauri-apps/api/fs'
 
 @DynamicService
 export class InstanceProfile {
@@ -16,8 +17,9 @@ export class InstanceProfile {
     private readonly gp: GameProfileModule,
   ) {}
 
-  get exists() {
-    return this.gp.has(this.common.versionId)
+  async exists() {
+    if (this.common.isCustom) return true
+    return this.gp.has(this.common.versionId) && (await exists(this.common.clientDir))
   }
 
   get profile() {
@@ -31,5 +33,9 @@ export class InstanceProfile {
       this.common.versionId,
       this.common.versionId,
     )
+  }
+
+  remove() {
+    this.gp.remove(this.common.versionId)
   }
 }

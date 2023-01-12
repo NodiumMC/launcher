@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import { Button } from 'components/atoms/Button'
@@ -14,12 +14,14 @@ import { VersionPicker } from 'components/molecules/VersionPicker'
 import { PublicVersion } from 'core/providers/types'
 import { useI18N, useOnce } from 'hooks'
 import { Popup, PopupModule, UpfallModule } from 'notifications'
-import { wait } from 'utils'
+import { snapshot, wait } from 'utils'
 import { exists, removeDir } from '@tauri-apps/api/fs'
 import { GameProfileModule } from 'minecraft/game-profile'
 import { InstanceModule } from 'minecraft/instance'
 import { InstancesModule } from 'minecraft/instances'
 import { nanoid } from 'nanoid/non-secure'
+import { match, of } from 'error'
+import { NoProfileException } from 'minecraft/instance/instance.exceptions'
 
 export interface InstanceEditorProps {
   close?: () => void
@@ -162,9 +164,9 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
     })
   }, [])
 
-  useOnce(() => {
+  useEffect(() => {
     gp.fetchAllVersions().then(setVersions)
-  })
+  }, [gp.profiles])
 
   const {
     register,
@@ -227,9 +229,17 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
           javaArgs: javaArgs,
         },
       })
-      await newInstance.init()
-      istore.add(newInstance)
-      close?.()
+      try {
+        await newInstance.init()
+        istore.add(newInstance)
+        close?.()
+      } catch (e) {
+        match({
+          [of(NoProfileException)]() {
+            setError('vid', { type: 'pattern' })
+          },
+        })(e)
+      }
       return wait(2000)
     }
   }

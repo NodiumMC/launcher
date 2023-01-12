@@ -14,7 +14,7 @@ import { mapErr, mapErrFactory, represent } from 'error'
 import {
   AssetsInstallException,
   JVMInstallException,
-  NetworkError,
+  NetworkError, NoProfileException,
   PopulateManifestException,
   UnpackNativesException,
 } from './instance.exceptions'
@@ -96,7 +96,10 @@ export class InstanceInstaller {
   async install() {
     this.tracker.busy = true
     try {
-      if (!this.profile.exists) await this.profile.create().catch(mapErrFactory(this.mapNetworkError))
+      if (!(await this.profile.exists())) {
+        if (this.common.isCustom) throw new NoProfileException()
+        else await this.profile.create().catch(mapErrFactory(this.mapNetworkError))
+      }
       await this.prepare()
       await this.populateManifest().catch(mapErr(PopulateManifestException))
       await this.installJDK().catch(mapErr(JVMInstallException))

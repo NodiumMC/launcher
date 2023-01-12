@@ -48,4 +48,9 @@ export class InstanceCommon {
   async updateManifest(manifest: VersionFile) {
     return writeJsonFile(this.manifestPath, manifest)
   }
+
+  @computed
+  get isCustom() {
+    return this.local.provider === 'custom'
+  }
 }

@@ -11,7 +11,7 @@ import { makeObservable, observable } from 'mobx'
 import { Popup, PopupModule, UpfallModule } from 'notifications'
 import { mapErr, represent } from 'error'
 import { I18nModule } from 'i18n'
-import { LaunchException } from 'minecraft/instance/instance.exceptions'
+import { LaunchException, NoProfileException } from 'minecraft/instance/instance.exceptions'
 import { prepare } from 'native/filesystem'
 import { GeneralSettingsModule } from 'settings'
 
@@ -42,9 +42,10 @@ export class InstanceModule {
   private logging = InstanceLogging.dyn(this.local)
   tracker = InstanceTracker.dyn()
   private installer = InstanceInstaller.dyn(this.local, this.common, this.gameProfile, this.tracker)
-  private launcher = InstanceLauncher.dyn(this.local, this.common, this.tracker, this.logging)
+  private launcher = InstanceLauncher.dyn(this.local, this.common, this.tracker, this.logging, this.gameProfile)
 
   async init() {
+    await this.validate(true)
     await prepare(this.common.instanceDir)
     this.local.location = this.settings.gameDir
   }
@@ -128,5 +129,13 @@ export class InstanceModule {
 
   get working() {
     return this.isRunning || this.tracker.busy
+  }
+
+  async validate(first = false) {
+    if (!(await this.gameProfile.exists()) && !first) {
+      this.upfall.drop('error', t => t.minecraft.versions.selected_profile_not_exists)
+      this.gameProfile.remove()
+      throw new NoProfileException()
+    }
   }
 }

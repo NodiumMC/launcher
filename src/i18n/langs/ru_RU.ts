@@ -14,11 +14,12 @@ export default {
   minecraft: {
     versions: {
       not_found: 'Ничего не найдено',
-      fetching_versions: 'Подождите немного, возможно скоро всё будет',
+      fetching_versions: 'Тут пока пусто',
       release_type: 'Релиз',
       snapshot_type: 'Снапшот',
       latest_type: 'Последняя',
       snapshots: 'Снапшоты',
+      selected_profile_not_exists: 'Выбранный профиль отсутствует',
     },
     install: {
       install_failed: 'Установка не удалась',

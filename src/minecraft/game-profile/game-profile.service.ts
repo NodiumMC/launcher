@@ -41,8 +41,6 @@ export class GameProfileService {
     await writeJsonFile(jsonPath, json)
     const profile = this.build(name, vid, version)
     this.store.add(profile)
-    const profiles = this.store.toProfiles()
-    await writeJsonFile<LauncherProfiles>(this.common.pathToProfile, { profiles })
     return profile
   }
 

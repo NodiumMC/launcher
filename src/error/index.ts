@@ -44,7 +44,8 @@ export function match(map: MapType) {
     for (const [key, then] of Object.entries(map)) {
       if (exception.constructor.name === key) return then?.(exception)
     }
-    map.else?.(exception)
+    if (map.else) map.else(exception)
+    else throw exception
   }
 }
 

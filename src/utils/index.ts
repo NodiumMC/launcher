@@ -9,5 +9,6 @@ export * from './import'
 export * from './progress'
 export * from './reflection'
 export * from './string'
+export * from './snapshot'
 
 export const l = (fn: () => Awaitable) => fn()
