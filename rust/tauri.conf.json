@@ -46,7 +46,8 @@
           "https://api.adoptium.net/v3/*",
           "https://meta.multimc.org/v1/*",
           "https://meta.quiltmc.org/v3/*",
-          "https://maven.minecraftforge.net/*"
+          "https://maven.minecraftforge.net/*",
+          "https://maven.quiltmc.org/*"
         ],
         "all": true
       },
