@@ -15,10 +15,8 @@ export class HttpAxios implements IHttpAxios {
     @inject(delay(() => HttpService)) private readonly service: IHttpService,
   ) {
     this.instance.interceptors.request.use((config: any) => {
-      config.headers = {
-        ...(config.headers ?? {}),
-        Authorization: config.headers?.Authorization ?? `Bearer ${this.store.access}`,
-      }
+      if (this.store.access)
+        config.headers!.set('Authorization', config.headers.Authorization ?? `Bearer ${this.store.access}`)
 
       return config
     })
@@ -27,7 +25,8 @@ export class HttpAxios implements IHttpAxios {
       value => value,
       async error => {
         const request = error.config
-        if ((error.response.status = 401 && !request._retry && !request.refresh)) {
+        const isRefresh = request.headers['X-Token-Type'] === 'refresh'
+        if (error.response.status === 401 && !request._retry && !isRefresh) {
           request._retry = true
           await this.service.refresh()
           return this.request(request)

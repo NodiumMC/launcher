@@ -32,4 +32,8 @@ export class HttpModule {
     this.axios.post(url, data, config)
   put = <T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> =>
     this.axios.put(url, data, config)
+
+  async logout() {
+    return this.service.logout()
+  }
 }

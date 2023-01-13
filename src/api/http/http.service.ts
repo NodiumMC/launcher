@@ -6,6 +6,7 @@ import { LogoutException } from './http.exceptions'
 import type { IHttpAxios, IHttpService } from './http.interfaces'
 import { HttpStore } from './http.store'
 import { TokenPair } from './http.types'
+import { AxiosResponse } from 'axios'
 
 @Service
 export class HttpService implements IHttpService {
@@ -34,11 +35,11 @@ export class HttpService implements IHttpService {
 
   async refresh() {
     const { accessToken, refreshToken } = await this.axios
-      .put<TokenPair>('auth/refresh', {
+      .put<TokenPair>('auth/refresh', null, {
         headers: {
           Authorization: `Bearer ${this.store.refresh}`,
+          'X-Token-Type': 'refresh',
         },
-        refresh: true,
       })
       .then(res => res.data)
     this.store.access = accessToken
