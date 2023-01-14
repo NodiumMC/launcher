@@ -85,3 +85,5 @@ export function next(fn: (err: Error) => any) {
     throw exception
   }
 }
+
+export const suppress = () => void 0
