@@ -15,6 +15,7 @@ import { ErrorBoundary } from 'components/organisms/ErrorBoundary'
 import { useMod } from 'hooks/useMod'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
+import { HttpModule } from 'api/http'
 
 const AppRoot = styled.div`
   width: 100%;
@@ -37,6 +38,7 @@ const View = styled.div`
 export const App: FC = observer(() => {
   const theme = useMod(ThemeModule)
   useMod(UpdaterModule)
+  useMod(HttpModule)
   useThemeToggleHotkey()
   useDebugHotkey()
   return (

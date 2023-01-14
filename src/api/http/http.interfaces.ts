@@ -13,4 +13,5 @@ export interface IHttpService {
   logout(): Promise<void>
   auth(access: string, refresh: string): void
   refresh(): Promise<void>
+  tryRefresh(): Promise<void>
 }

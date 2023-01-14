@@ -4,6 +4,7 @@ export default {
   preload: {
     loading: 'Loading',
     updating: 'Updating',
+    loggingin: 'Logging in',
   },
   appearance: {
     theme_changed: 'Theme changed',

@@ -1,12 +1,12 @@
 import { delay, inject } from '@nodium/tsyringe'
-import { mapErr } from 'error'
+import { mapErr, suppress } from 'error'
 import { Service } from 'positron'
 import { HttpAxios } from './http.axios'
-import { LogoutException } from './http.exceptions'
+import { LogoutException, RefreshException } from './http.exceptions'
 import type { IHttpAxios, IHttpService } from './http.interfaces'
 import { HttpStore } from './http.store'
 import { TokenPair } from './http.types'
-import { AxiosResponse } from 'axios'
+import { when } from 'mobx'
 
 @Service
 export class HttpService implements IHttpService {
@@ -40,9 +40,22 @@ export class HttpService implements IHttpService {
           Authorization: `Bearer ${this.store.refresh}`,
           'X-Token-Type': 'refresh',
         },
+        timeout: 5000,
       })
+      .catch(mapErr(RefreshException))
       .then(res => res.data)
     this.store.access = accessToken
     this.store.refresh = refreshToken
+  }
+
+  async tryRefresh() {
+    await when(() => !!this.store.refresh, { timeout: 1000 }).catch(suppress)
+    if (!this.store.refresh) return
+    try {
+      await this.refresh()
+      return
+    } catch (e) {
+      return
+    }
   }
 }

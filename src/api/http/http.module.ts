@@ -5,14 +5,20 @@ import { HttpAxios } from './http.axios'
 import type { IHttpAxios, IHttpService } from './http.interfaces'
 import { HttpService } from './http.service'
 import { HttpStore } from './http.store'
+import { PreloaderModule } from 'preload'
+import { I18nModule } from 'i18n'
 
 @Module
 export class HttpModule {
   constructor(
-    @inject(delay(() => HttpService)) private readonly service: IHttpService,
     private readonly store: HttpStore,
+    @inject(delay(() => HttpService)) private readonly service: IHttpService,
     @inject(delay(() => HttpAxios)) private readonly axios: IHttpAxios,
-  ) {}
+    private readonly prelaod: PreloaderModule,
+    private readonly i18n: I18nModule,
+  ) {
+    this.prelaod.spawn(this.i18n.translate.preload.loggingin, () => this.service.tryRefresh())
+  }
 
   get isAuth() {
     return this.service.isAuth
