@@ -2,6 +2,7 @@ export default {
   preload: {
     loading: 'Загрузка',
     updating: 'Обновление',
+    loggingin: 'Вход',
   },
   appearance: {
     theme_changed: 'Тема изменена',
