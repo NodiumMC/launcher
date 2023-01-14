@@ -15,7 +15,7 @@ export class HttpAxios implements IHttpAxios {
     @inject(delay(() => HttpService)) private readonly service: IHttpService,
   ) {
     this.instance.interceptors.request.use((config: any) => {
-      if (this.store.access)
+      if (this.store.access || config.headers['X-Token-Type'] === 'refresh')
         config.headers!.set('Authorization', config.headers.Authorization ?? `Bearer ${this.store.access}`)
 
       return config
