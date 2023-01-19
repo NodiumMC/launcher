@@ -17,7 +17,7 @@ interface SidebarProps {
 
 const StyledSidebar = styled.div`
   position: relative;
-  width: 50px;
+  width: 42px;
   height: 100%;
   border-radius: ${({ theme }) => theme.radius()};
   z-index: 1;
@@ -28,13 +28,12 @@ const StyledSidebar = styled.div`
 
 const Selector = styled.div<{ position: number }>`
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 42px;
+  height: 42px;
   border-radius: inherit;
   transform: translateY(calc(${({ position }) => position} * 100%));
   top: 0;
   left: 0;
-  border: 2px solid ${({ theme }) => theme.accent.primary};
   background-size: 200%;
   z-index: -1;
   background-color: ${({ theme }) => rgba(theme.accent.primary, 0.2)};
@@ -54,14 +53,14 @@ const Selector = styled.div<{ position: number }>`
 `
 
 const SidebarItem = styled.div<{ active: boolean }>`
-  width: 50px;
-  height: 50px;
+  width: 42px;
+  height: 42px;
   border-radius: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme, active }) => (active ? theme.master.reshade(0.15) : theme.accent.primary)};
-  font-size: 18px;
+  color: ${({ theme, active }) => (active ? theme.master.reshade(0.6) : theme.accent.primary)};
+  font-size: 16px;
   cursor: pointer;
 `
 

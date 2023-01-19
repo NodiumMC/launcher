@@ -60,12 +60,14 @@ export const Components: FC = () => {
       <Split>Кнопки</Split>
       <Container>
         <Button>Это кнопка</Button>
-        <Button primary>Крутая кнопка</Button>
-        <Button danger>Страшная кнопка</Button>
-        <Button outlined={false}>Не нажимай</Button>
+        <Button variant={'primary'}>Крутая кнопка</Button>
+        <Button destructive>Страшная кнопка</Button>
+        <Button variant={'secondary'}>Не нажимай</Button>
         <Button fetching>Загрузка</Button>
         <Button disabled>В отключке</Button>
-        <Button icon={'thumbs-up'}>Кнопка с emoji</Button>
+        <Button>
+          <FontAwesomeIcon icon={'thumbs-up'} /> Кнопка с emoji
+        </Button>
       </Container>
       <Split>Chechотка</Split>
       <Container>

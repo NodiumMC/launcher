@@ -1,4 +1,4 @@
-import { hsl, linearGradient, parseToHsl, shade, tint } from 'polished'
+import { hsl, linearGradient, mix, parseToHsl, shade, tint } from 'polished'
 
 const primary = '#5297ff'
 const secondary = '#7b2eff'
@@ -33,6 +33,7 @@ export const generic = {
     },
   },
   palette: {
+    gray: mix(0.5, deshade(primary, 0.8), detint(primary, 0.8)),
     red: '#ff5c7a',
     green: '#a7ff77',
     blue: '#779eff',

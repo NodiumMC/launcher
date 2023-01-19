@@ -10,5 +10,6 @@ export * from './progress'
 export * from './reflection'
 export * from './string'
 export * from './snapshot'
+export * from './math'
 
 export const l = (fn: () => Awaitable) => fn()

@@ -22,7 +22,7 @@ const Popuup = styled.div`
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: ${({ theme }) => theme.space(3)};
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
   gap: 20px;
@@ -54,7 +54,7 @@ const Icon = styled.div<Pick<IPopup, 'level'>>`
 const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: 20px;
+  gap: ${({ theme }) => theme.space(2)};
   flex-grow: 1;
   align-items: flex-end;
 `
@@ -107,8 +107,8 @@ export const Popup: FC<IPopup> = observer(({ level, actions, title, description,
                 result.finally(() => setWaiting(false))
               }
             }}
-            primary={isPrimary}
-            danger={isDanger}
+            variant={isPrimary ? 'primary' : 'default'}
+            destructive={isDanger}
             fetching={waiting}
           >
             {label}
