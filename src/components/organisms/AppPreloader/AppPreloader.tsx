@@ -50,11 +50,12 @@ const Titles = styled.div`
 `
 
 const AbsolutePreloader = styled(Preloader)`
+  font-size: 1rem;
   position: absolute;
   top: 50%;
-  transform: translate(-32px, -50%);
+  transform: translate(-24px, -50%);
   mix-blend-mode: difference;
-  filter: brightness(50%);
+  color: ${({ theme }) => theme.palette.gray};
 `
 
 const Stage = styled.div`
