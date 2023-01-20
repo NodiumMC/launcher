@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import preloader from 'assets/img/preloader.svg'
 
 const PreloaderImg = styled.svg`
   width: 100%;
@@ -18,11 +17,6 @@ const PreloaderImg = styled.svg`
       transform: rotate(360deg);
     }
   }
-`
-
-const Blured = styled(PreloaderImg)`
-  filter: blur(10px);
-  opacity: 0.5;
 `
 
 const Wrapper = styled.div`

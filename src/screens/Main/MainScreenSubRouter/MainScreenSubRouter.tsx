@@ -49,7 +49,7 @@ export const MainScreenSidebarSubrouter: FC<Required<ExtraProps.HasChildren<Arra
     return (
       <Wrapper>
         <FixedSidebar
-          items={items.map((v, i) => ({
+          items={items.map(v => ({
             ...v,
             id: v.to,
             onChange: id => subrouter.locate(id),

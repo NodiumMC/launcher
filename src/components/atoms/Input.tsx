@@ -56,15 +56,14 @@ export const StyledInput = styled.input<InputProps>`
 
   &:not(:placeholder-shown:empty) ~ ${Placeholder}, &:focus ~ ${Placeholder} {
     top: 0;
-    background-color: ${({ theme, invalid, valid }) =>
-      theme.master.tint(0.01)};
+    background-color: ${({ theme }) => theme.master.tint(0.01)};
     font-size: ${({ theme }) => theme.size(8)};
     color: ${({ theme, valid, invalid }) => (valid || invalid ? theme.master.back : theme.master.front)};
   }
 
   &:focus ~ ${Placeholder} {
     background-color: ${({ theme, valid, invalid }) => !valid && !invalid && theme.master.back} !important;
-    color: ${({ theme, valid, invalid }) => theme.master.front} !important;
+    color: ${({ theme }) => theme.master.front} !important;
   }
 `
 
