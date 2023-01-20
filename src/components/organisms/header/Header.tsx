@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { Empty } from 'components/utils/Empty'
+import logo from 'assets/img/modern_ndlogo.png'
 import { WindowControl } from './WindowControl'
 import { font } from 'style'
 import { useDebugMode } from 'hooks'
@@ -60,7 +60,7 @@ export const Header: FC = observer(() => {
 
   return (
     <HeaderBlock data-tauri-drag-region>
-      <Empty />
+      <img src={logo} style={{ height: '100%', pointerEvents: 'none' }} />
       <Title data-tauri-drag-region>Nodium Launcher {debug && <Debug>Debug</Debug>}</Title>
       <WindowControl />
     </HeaderBlock>

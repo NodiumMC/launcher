@@ -51,14 +51,14 @@ export const MainScreenSidebarSubrouter: FC<Required<ExtraProps.HasChildren<Arra
         <FixedSidebar
           items={items.map((v, i) => ({
             ...v,
-            id: i,
+            id: v.to,
             onChange: id => subrouter.locate(id),
           }))}
           selected={subrouter.location}
         />
         <Content>
-          {items.map(({ children, to, debug }, i) => (
-            <Page key={to} position={i - subrouter.location}>
+          {items.map(({ children, to, debug }) => (
+            <Page key={to} position={to - subrouter.location}>
               {debug ? subrouter.location === to && children : children}
             </Page>
           ))}

@@ -5,4 +5,6 @@ export enum MainScreenPage {
   // Debug sub screens
   COMPONENTS = 3,
   LOGS = 4,
+  // Unders
+  USER = -1,
 }
