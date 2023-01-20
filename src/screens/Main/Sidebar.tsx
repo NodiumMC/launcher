@@ -48,18 +48,6 @@ const Selector = styled.div<{ position: number }>`
   z-index: -1;
   background-color: ${({ theme }) => theme.accent.primary};
   ${transition('all')}
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    filter: blur(10px);
-    opacity: 0.5;
-  }
 `
 
 const SidebarItem = styled.div<{ active: boolean; position: number }>`
