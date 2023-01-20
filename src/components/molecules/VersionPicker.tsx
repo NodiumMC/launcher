@@ -7,7 +7,7 @@ import { Text } from 'components/atoms/Text'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { inputValue } from 'utils'
 import { mix } from 'polished'
-import { ColoredTag } from 'components/atoms/ColoredTag'
+import { Badge } from 'components/atoms/Badge'
 import { Pair } from 'components/utils/Pair'
 import { useDebounce } from 'use-debounce'
 import { observer } from 'mobx-react'
@@ -206,9 +206,9 @@ export const VersionPicker = observer(
                       </Text>
                     </VersionName>
                     <Pair>
-                      {v.isRelease && <ColoredTag color={theme.palette.green}>{i18n.release_type}</ColoredTag>}
-                      {v.isSnapshot && <ColoredTag color={theme.palette.magenta}>{i18n.snapshot_type}</ColoredTag>}
-                      {v.latest && <ColoredTag color={theme.palette.cyan}>{i18n.latest_type}</ColoredTag>}
+                      {v.isRelease && <Badge color={theme.palette.green}>{i18n.release_type}</Badge>}
+                      {v.isSnapshot && <Badge color={theme.palette.magenta}>{i18n.snapshot_type}</Badge>}
+                      {v.latest && <Badge color={theme.palette.cyan}>{i18n.latest_type}</Badge>}
                     </Pair>
                   </Version>
                 ))

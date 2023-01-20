@@ -28,11 +28,12 @@ export const StyledInput = styled.input<InputProps>`
   border: 2px solid
     ${({ theme, invalid, valid }) => (valid ? theme.palette.green : invalid ? theme.palette.red : theme.master.shade())};
   border-radius: ${({ theme }) => theme.radius()};
-  background-color: ${({ theme }) => theme.master.edge()};
+  background-color: ${({ theme }) => theme.master.tint(0.01)};
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0 ${({ theme }) => theme.space()};
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
 
   ${props => css`
     ${props.center && centerStyle}
@@ -40,7 +41,7 @@ export const StyledInput = styled.input<InputProps>`
 
   ${transition()}
   &:focus:not([readonly]) {
-    background-color: ${({ theme, invalid, valid }) => !valid && !invalid && theme.master.edge(0.1)};
+    background-color: ${({ theme, invalid, valid }) => !valid && !invalid && theme.master.tint(0.01)};
     border-color: ${({ theme, invalid, valid }) => !valid && !invalid && theme.accent.primary};
   }
 
@@ -56,14 +57,14 @@ export const StyledInput = styled.input<InputProps>`
   &:not(:placeholder-shown:empty) ~ ${Placeholder}, &:focus ~ ${Placeholder} {
     top: 0;
     background-color: ${({ theme, invalid, valid }) =>
-      valid ? theme.palette.green : invalid ? theme.palette.red : theme.master.shade()};
+      theme.master.tint(0.01)};
     font-size: ${({ theme }) => theme.size(8)};
     color: ${({ theme, valid, invalid }) => (valid || invalid ? theme.master.back : theme.master.front)};
   }
 
   &:focus ~ ${Placeholder} {
-    background-color: ${({ theme, valid, invalid }) => !valid && !invalid && theme.accent.primary} !important;
-    color: ${({ theme, valid, invalid }) => !valid && !invalid && theme.master.back} !important;
+    background-color: ${({ theme, valid, invalid }) => !valid && !invalid && theme.master.back} !important;
+    color: ${({ theme, valid, invalid }) => theme.master.front} !important;
   }
 `
 
