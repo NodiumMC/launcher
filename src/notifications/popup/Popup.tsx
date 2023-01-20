@@ -13,16 +13,16 @@ import { Text } from 'components/atoms/Text'
 import { Button } from 'components/atoms/Button'
 import { isPromise } from 'utils/promise'
 import { observer } from 'mobx-react'
+import { rgba } from 'polished'
 
 const Popuup = styled.div`
   width: 580px;
-  min-height: 320px;
   max-height: 90%;
   background-color: ${({ theme }) => theme.master.back};
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
-  padding: ${({ theme }) => theme.space(3)};
+  flex-direction: row;
+  padding: 24px;
   position: relative;
   transition: all ${({ theme }) => theme.transition.time};
   gap: 20px;
@@ -31,8 +31,10 @@ const Popuup = styled.div`
 `
 
 const Icon = styled.div<Pick<IPopup, 'level'>>`
-  font-size: 70px;
+  font-size: 42px;
+  width: 50px;
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   color: ${({ theme, level }) => {
     switch (level) {
@@ -48,6 +50,23 @@ const Icon = styled.div<Pick<IPopup, 'level'>>`
         return theme.accent.primary
     }
   }};
+  svg {
+    border-radius: 50%;
+    box-shadow: 0 0 0 6px
+      ${({ theme, level }) => {
+        switch (level) {
+          case 'ok':
+            return rgba(theme.palette.green, 0.2)
+          case 'warn':
+            return rgba(theme.palette.yellow, 0.2)
+          case 'error':
+            return rgba(theme.palette.red, 0.2)
+          case 'question':
+          case 'info':
+            return rgba(theme.accent.primary, 0.2)
+        }
+      }};
+  }
   transition: background-color ${({ theme }) => theme.transition.time};
 `
 
@@ -57,6 +76,7 @@ const Actions = styled.div`
   gap: ${({ theme }) => theme.space(2)};
   flex-grow: 1;
   align-items: flex-end;
+  margin-top: 24px;
 `
 
 const DescriptionContainer = styled.div`
@@ -66,8 +86,16 @@ const DescriptionContainer = styled.div`
 
 const Description = styled(Text)`
   white-space: pre-wrap;
+  word-break: break-word;
   overflow: scroll;
   user-select: initial;
+`
+
+const DataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 6px;
 `
 
 export const Popup: FC<IPopup> = observer(({ level, actions, title, description, close }) => {
@@ -90,31 +118,33 @@ export const Popup: FC<IPopup> = observer(({ level, actions, title, description,
   return (
     <Popuup>
       <Icon level={level}>{icon}</Icon>
-      <Text size={15} center weight={'bold'}>
-        {title}
-      </Text>
-      <DescriptionContainer>
-        {typeof description !== 'object' ? <Description shade={'low'}>{description}</Description> : description}
-      </DescriptionContainer>
-      <Actions>
-        {actions.map(({ label, action, isPrimary, isDanger }, index) => (
-          <Button
-            key={index}
-            onClick={() => {
-              const result = action?.(close!)
-              if (isPromise(result)) {
-                setWaiting(true)
-                result.finally(() => setWaiting(false))
-              }
-            }}
-            variant={isPrimary ? 'primary' : 'default'}
-            destructive={isDanger}
-            fetching={waiting}
-          >
-            {label}
-          </Button>
-        ))}
-      </Actions>
+      <DataContainer>
+        <Text size={15} weight={'bold'}>
+          {title}
+        </Text>
+        <DescriptionContainer>
+          {typeof description !== 'object' ? <Description shade={'low'}>{description}</Description> : description}
+        </DescriptionContainer>
+        <Actions>
+          {actions.map(({ label, action, isPrimary, isDanger }, index) => (
+            <Button
+              key={index}
+              onClick={() => {
+                const result = action?.(close!)
+                if (isPromise(result)) {
+                  setWaiting(true)
+                  result.finally(() => setWaiting(false))
+                }
+              }}
+              variant={isPrimary ? 'primary' : 'default'}
+              destructive={isDanger}
+              fetching={waiting}
+            >
+              {label}
+            </Button>
+          ))}
+        </Actions>
+      </DataContainer>
     </Popuup>
   )
 })
