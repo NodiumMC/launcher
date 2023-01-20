@@ -67,18 +67,25 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ onChange,
     >
       {props.checked &&
         (props.indeterminate ? (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7.5 1.5" width={7.5} height={1.5}>
-            <path d="m0.75 0.75h6" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7.864 5.743" width={7.864} height={5.743}>
-            <g
-              transform="translate(1.4926 2.3713)"
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7.5 1.5" width={7.5} height={1.5} overflow={'visible'}>
+            <path
+              d="m0.75 0.75h6"
               fill="none"
               stroke="currentColor"
               strokeLinecap="round"
               strokeWidth="1.5"
-            >
+              transform="translate(0.1, 0.3)"
+            />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 7.864 5.743"
+            width={7.864}
+            height={5.743}
+            overflow={'visible'}
+          >
+            <g transform="translate(1.5 2.5)" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5">
               <path d="m1.3787 2.6213 4.2426-4.2426" />
               <path d="m-0.74264 0.5 2.1213 2.1213" />
             </g>

@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 export const StoryCheckBox = ({ ...args }) => {
   const [checked, setChecked] = useState(false)
-  return <Checkbox checked={checked} onChange={setChecked} {...args} />
+  return <Checkbox {...args} checked={checked} onChange={setChecked} />
 }
 
 # Checkbox
