@@ -1,108 +1,96 @@
-import { FC } from 'react'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 import styled from 'styled-components'
+import { build, styield } from 'styield'
+import { pick } from 'theme'
 
-import { transition } from 'style'
-
-interface SubstrateProps {
+export interface CheckboxProps extends Omit<ComponentPropsWithRef<'input'>, 'onChange'> {
   disabled?: boolean
   checked?: boolean
+  indeterminate?: boolean
+  onChange?: (checked: boolean) => void
 }
 
-const Substrate = styled.div<SubstrateProps>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 18px;
-  height: 18px;
-  background-color: ${({ theme, disabled }) => (disabled ? theme.master.shade(0.3) : theme.accent.primary)};
-  border-radius: ${({ theme }) => theme.radius(0.5)};
-  position: relative;
-  ${transition('all', '0.1s')}
+const StyledCheckbox = styled.label<CheckboxProps>(({ theme, disabled, checked }) =>
+  build(
+    styield
+      .display('flex')
+      .alignItems('center')
+      .justifyContent('center')
+      .width('16px')
+      .height('16px')
+      .borderRadius('4px')
+      .borderWidth('1px')
+      .borderStyle('solid')
+      .transition('all .2s')
+      .if(
+        checked,
+        styield.if(
+          disabled,
+          styield.backgroundColor(pick(theme.palette.gray, 100)).borderColor(pick(theme.palette.gray, 300)),
+          styield.backgroundColor(pick(theme.accent.primary, 50)).borderColor(theme.accent.primary),
+        ),
+        styield
+          .borderColor(pick(theme.palette.gray, 300))
+          .if(
+            disabled,
+            styield.backgroundColor(pick(theme.palette.gray, 100)),
+            styield.backgroundColor(theme.master.back),
+          ),
+      )
+      .boxShadow('0px 1px 2px rgba(16, 24, 40, 0.05)')
+      .if(disabled, styield.color(pick(theme.palette.gray, 300)), styield.color(theme.accent.primary))
+      .ifNot(
+        disabled,
+        styield
+          .cursor('pointer')
+          .selector(
+            '&:hover',
+            styield.borderColor(theme.accent.primary).backgroundColor(pick(theme.accent.primary, 100)),
+          ),
+      ),
+  ),
+)
 
-  &:hover {
-    ${({ disabled, theme }) =>
-      !disabled
-        ? `
-    box-shadow: 0 0 10px 1px ${theme.accent.primary}3F
-    `
-        : ''}
-  }
-`
+const Input = styled.input(() => build(styield.display('none')))
 
-const Container = styled(Substrate)<ExtraProps.Value<boolean>>`
-  width: 16px;
-  height: 16px;
-  background-color: ${({ theme, value }) => (value ? theme.accent.primary : theme.master.back)};
-  z-index: 1;
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-
-  &:before,
-  &:after {
-    background-color: inherit;
-  }
-`
-
-const L = styled.div`
-  width: 40%;
-  height: 55%;
-  position: absolute;
-  z-index: 2;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-150deg);
-
-  &:after,
-  &:before {
-    content: '';
-    display: block;
-    position: absolute;
-    background-color: white;
-    z-index: 2;
-  }
-
-  &:before {
-    top: 0;
-    left: 0;
-    width: 2px;
-    height: 100%;
-  }
-
-  &:after {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-  }
-`
-
-const Checked = styled.div<ExtraProps.Value<boolean> & SubstrateProps>`
-  position: absolute;
-  width: ${({ value }) => (value ? '100%' : 0)};
-  height: ${({ value }) => (value ? '100%' : 0)};
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 0;
-  ${transition('all', '0.1s')}
-  background-color: ${({ theme, disabled }) => (disabled ? theme.master.shade(0.3) : theme.accent.primary)};
-  z-index: 2;
-`
-
-export const Checkbox: FC<SubstrateProps & ExtraProps.DataInput<boolean> & ExtraProps.Styled> = ({
-  value,
-  disabled,
-  onChange,
-  checked,
-  ...props
-}) => {
-  value ||= checked
-  return (
-    <Substrate disabled={disabled} onClick={() => !disabled && onChange?.(!value)} {...props}>
-      <Container disabled={disabled} value={value}>
-        <Checked value={value} disabled={disabled}>
-          <L />
-        </Checked>
-      </Container>
-    </Substrate>
-  )
-}
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ onChange, className, style, ...props }, ref) => (
+  <>
+    <Input {...(props as object)} ref={ref} />
+    <StyledCheckbox
+      checked={props.checked}
+      indeterminate={props.indeterminate}
+      disabled={props.disabled}
+      htmlFor={props.id}
+      onClick={() => onChange?.(!props.checked)}
+      className={className}
+      style={style}
+    >
+      {props.checked &&
+        (props.indeterminate ? (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7.5 1.5" width={7.5} height={1.5} overflow={'visible'}>
+            <path
+              d="m0.75 0.75h6"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="1.5"
+              transform="translate(0.1, 0.3)"
+            />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 7.864 5.743"
+            width={7.864}
+            height={5.743}
+            overflow={'visible'}
+          >
+            <g transform="translate(1.5 2.5)" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5">
+              <path d="m1.3787 2.6213 4.2426-4.2426" />
+              <path d="m-0.74264 0.5 2.1213 2.1213" />
+            </g>
+          </svg>
+        ))}
+    </StyledCheckbox>
+  </>
+))

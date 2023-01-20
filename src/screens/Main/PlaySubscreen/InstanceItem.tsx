@@ -15,12 +15,14 @@ import { convertFileSrc } from '@tauri-apps/api/tauri'
 import { InstanceModule } from 'minecraft/instance'
 import { PlayerLiteModule } from 'user'
 import { autorun } from 'mobx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export interface InstanceItemProps {
   instance: InstanceModule
 }
 
 const Actions = styled.div`
+  display: flex;
   opacity: 0;
   align-items: center;
   gap: ${({ theme }) => theme.space()};
@@ -150,17 +152,24 @@ export const InstanceItem: FC<InstanceItemProps> = observer(({ instance }) => {
         </Text>
       </NameContainer>
       <Actions>
-        <Button icon={'folder'} square outlined={false} onClick={async () => open(instance.location)} />
-        <Button icon={'gear'} square outlined={false} onClick={settings} disabled={instance.busy} />
+        <Button only variant={'tertiary-gray'} onClick={async () => open(instance.location)}>
+          <FontAwesomeIcon icon={'folder'} />
+        </Button>
+        <Button only variant={'tertiary-gray'} onClick={settings} disabled={instance.busy}>
+          <FontAwesomeIcon icon={'gear'} />
+        </Button>
         <HideableButton
-          icon={instance.busy ? undefined : !instance.isRunning ? (instance.installed ? 'play' : 'download') : 'stop'}
           disabled={instance.isRunning || !player.isValid}
-          primary
-          square
+          variant={'primary'}
+          only
           fetching={instance.busy}
           onClick={handle}
           hide={instance.busy}
-        />
+        >
+          {!instance.busy && (
+            <FontAwesomeIcon icon={!instance.isRunning ? (instance.installed ? 'play' : 'download') : 'stop'} />
+          )}
+        </HideableButton>
       </Actions>
       <Progress
         width="38"

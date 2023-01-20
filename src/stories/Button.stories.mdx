@@ -1,51 +1,36 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Button } from '../components/atoms/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 
 <Meta title="Atoms/Button" component={Button} />
 
 export const StoryButton = ({ text, ...args }) => <Button {...args}>{text}</Button>
 
-# Кнопка
-
+# Button
 <Canvas>
   <Story name="default" args={{ text: 'Кнопка' }}>
     {StoryButton.bind({})}
   </Story>
 </Canvas>
 
-# Primary кнопка
+# Button with icon
 <Canvas>
-  <Story name="primary" args={{ text: 'Отправить', primary: true }}>
+  <Story name="with icon" args={{ text: <><FontAwesomeIcon icon={faThumbsUp}/>Кнопка</> }}>
     {StoryButton.bind({})}
   </Story>
 </Canvas>
 
-# Красная кнопка
-Когда нужно выполнить какое-либо опасное действие
+# Icon only
 <Canvas>
-  <Story name="danger" args={{ text: 'Удалить', danger: true }}>
+  <Story name="icon only" args={{ text: <FontAwesomeIcon icon={faThumbsUp}/>, only: true }}>
     {StoryButton.bind({})}
   </Story>
 </Canvas>
 
-# Кнопка с иконкой
+# Fetching
 <Canvas>
-  <Story name="icon" args={{ text: 'Лайк', icon: 'thumbs-up' }}>
-    {StoryButton.bind({})}
-  </Story>
-</Canvas>
-
-# Ожидание
-Кнопка в режиме ожидания отключена
-<Canvas>
-  <Story name="fetching" args={{ text: 'Загрузка', fetching: true }}>
-    {StoryButton.bind({})}
-  </Story>
-</Canvas>
-
-# Disabled
-<Canvas>
-  <Story name="disabled" args={{ disabled: true, text: 'Никак' }}>
+  <Story name="fetching" args={{ text: 'Кнопка', fetching: true }}>
     {StoryButton.bind({})}
   </Story>
 </Canvas>

@@ -15,9 +15,11 @@ const Styled = styled.div`
 
 const View = styled(Input)`
   flex-grow: 1;
-  border-right: 0;
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  input {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 `
 
 const Btn = styled(Button)`
@@ -31,9 +33,8 @@ export const DialogInput: FC<DialogInputProps> = ({ disabled, icon, value, onCha
       <View readOnly value={value} />
       <Btn
         disabled={disabled}
-        square
-        noShadow
-        primary
+        only
+        variant={'primary'}
         onClick={async () => {
           const selected = await open(props)
           if (selected !== null && !Array.isArray(selected)) onChange?.(selected)

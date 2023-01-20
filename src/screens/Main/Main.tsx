@@ -23,6 +23,9 @@ export const Main: FC = () => {
       <SubRoute icon={'circle-notch'} to={MainScreenPage.LOGS} debug>
         <Logs />
       </SubRoute>
+      {/*<SubRoute icon={'user'} to={MainScreenPage.USER}>*/}
+      {/*  */}
+      {/*</SubRoute>*/}
     </MainScreenSidebarSubrouter>
   )
 }

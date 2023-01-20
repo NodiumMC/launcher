@@ -335,14 +335,22 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
         <Pair>
           {instance && (
             <>
-              <Button square danger icon={'trash'} onClick={remove} />
-              <Button square icon={'screwdriver-wrench'} onClick={repair} />
+              <Button only destructive onClick={remove}>
+                <FontAwesomeIcon icon={'trash'} />
+              </Button>
+              <Button only onClick={repair}>
+                <FontAwesomeIcon icon={'screwdriver-wrench'} />
+              </Button>
             </>
           )}
         </Pair>
         <Pair>
           <Button onClick={close}>{i18n.cancel}</Button>
-          <Button onClick={handleSubmit(submit)} primary disabled={versions.length === 0 || isSubmitting || !isValid}>
+          <Button
+            onClick={handleSubmit(submit)}
+            variant={'primary'}
+            disabled={versions.length === 0 || isSubmitting || !isValid}
+          >
             {instance ? i18n.save : i18n.create}
           </Button>
         </Pair>

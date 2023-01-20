@@ -11,6 +11,7 @@ import { useI18N } from 'hooks'
 import { InstancesModule } from 'minecraft/instances'
 import { InstanceModule } from 'minecraft/instance'
 import { Scrollbar } from 'components/utils/Scrollbar'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Page = styled(Screen)`
   display: flex;
@@ -106,7 +107,9 @@ export const JournalSubscreen: FC = observer(() => {
               <Event key={idx} event={ll} />
             ))}
             <ClearButtonWrapper>
-              <ClearButton icon={'trash'} outlined={false} onClick={() => instance?.clearLogs()} />
+              <ClearButton variant={'tertiary-gray'} onClick={() => instance?.clearLogs()}>
+                <FontAwesomeIcon icon={'trash'} />
+              </ClearButton>
             </ClearButtonWrapper>
           </>
         ) : (

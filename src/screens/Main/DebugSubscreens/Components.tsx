@@ -5,7 +5,7 @@ import { Button } from 'components/atoms/Button'
 import { Text } from 'components/atoms/Text'
 import { Checkbox } from 'components/atoms/Checkbox'
 import { Input } from 'components/atoms/Input'
-import { ColoredTag } from 'components/atoms/ColoredTag'
+import { Badge } from 'components/atoms/Badge'
 import { linearGradient } from 'polished'
 import { Select } from 'components/molecules/Select'
 import { ObjectRenderer } from 'components/organisms/ObjectRenderer'
@@ -60,18 +60,22 @@ export const Components: FC = () => {
       <Split>Кнопки</Split>
       <Container>
         <Button>Это кнопка</Button>
-        <Button primary>Крутая кнопка</Button>
-        <Button danger>Страшная кнопка</Button>
-        <Button outlined={false}>Не нажимай</Button>
+        <Button variant={'primary'}>Крутая кнопка</Button>
+        <Button destructive>Страшная кнопка</Button>
+        <Button variant={'secondary'}>Не нажимай</Button>
         <Button fetching>Загрузка</Button>
         <Button disabled>В отключке</Button>
-        <Button icon={'thumbs-up'}>Кнопка с emoji</Button>
+        <Button>
+          <FontAwesomeIcon icon={'thumbs-up'} /> Кнопка с emoji
+        </Button>
       </Container>
       <Split>Chechотка</Split>
       <Container>
         <Checkbox />
-        <Checkbox value />
-        <Checkbox value disabled />
+        <Checkbox checked />
+        <Checkbox checked indeterminate />
+        <Checkbox checked disabled />
+        <Checkbox checked indeterminate disabled />
       </Container>
       <Split>ПереключалОчки</Split>
       <Container>
@@ -136,17 +140,17 @@ export const Components: FC = () => {
       </Container>
       <Split>Тэгусы</Split>
       <Container>
-        <ColoredTag>Ты</ColoredTag>
-        <ColoredTag>Кста</ColoredTag>
-        <ColoredTag>Крутой</ColoredTag>
-        <ColoredTag>Чел</ColoredTag>
-        <ColoredTag color={'#96e6ff'}>Ещё</ColoredTag>
-        <ColoredTag color={'#fc9dff'}>Могу</ColoredTag>
-        <ColoredTag color={'#ffafc5'}>Быть</ColoredTag>
-        <ColoredTag color={'#fffa99'}>Цветным</ColoredTag>
-        <ColoredTag color={'#3a2100'}>И тёмненьким :]</ColoredTag>
-        <ColoredTag>v 0.1.0</ColoredTag>
-        <ColoredTag icon={'code-branch'}>master</ColoredTag>
+        <Badge>Ты</Badge>
+        <Badge>Кста</Badge>
+        <Badge>Крутой</Badge>
+        <Badge>Чел</Badge>
+        <Badge color={'#96e6ff'}>Ещё</Badge>
+        <Badge color={'#fc9dff'}>Могу</Badge>
+        <Badge color={'#ffafc5'}>Быть</Badge>
+        <Badge color={'#fffa99'}>Цветным</Badge>
+        <Badge color={'#3a2100'}>И тёмненьким :]</Badge>
+        <Badge>v 0.1.0</Badge>
+        <Badge icon={'code-branch'}>master</Badge>
       </Container>
       <Split>Текстульки</Split>
       <Container v gap={0}>
