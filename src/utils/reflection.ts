@@ -7,7 +7,7 @@ if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
 
   describe('namedClass', () => {
-    it('Should add name to class', () => {
+    it.concurrent('Should add name to class', () => {
       expect(namedClass(class {}, 'Test')).toHaveProperty('name', 'Test')
     })
   })

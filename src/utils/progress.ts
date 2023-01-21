@@ -77,7 +77,7 @@ if (import.meta.vitest) {
       progress = new Progress<number>(100, 0, 0)
     })
 
-    it('Should just step', () => {
+    it.concurrent('Should just step', () => {
       expect(progress.progress).toBe(0)
       expect(progress.total).toBe(100)
       progress.update(10)
@@ -89,7 +89,7 @@ if (import.meta.vitest) {
       expect(progress.stage).toBe(1)
     })
 
-    it('Should normalize value', () => {
+    it.concurrent('Should normalize value', () => {
       progress.update(50, 100)
       expect(progress.total).toBe(100)
       expect(progress.progress).toBe(50)
@@ -97,7 +97,7 @@ if (import.meta.vitest) {
       expect(progress.normalized(10)).toBe(5)
     })
 
-    it('Should reset all', () => {
+    it.concurrent('Should reset all', () => {
       progress.update(1, 2, 3)
       expect(progress.progress).toBe(1)
       expect(progress.total).toBe(2)

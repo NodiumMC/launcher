@@ -4,7 +4,7 @@ if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
 
   describe('Non-null filter', () => {
-    it('Should filters null types', () => {
+    it.concurrent('Should filters null types', () => {
       expect([0, 1, null, 2, undefined].filter(NonNullFilter)).toStrictEqual([0, 1, 2])
       expect([undefined, undefined].filter(NonNullFilter)).toStrictEqual([])
       expect([null, undefined].filter(NonNullFilter)).toStrictEqual([])
