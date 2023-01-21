@@ -21,4 +21,15 @@ export default defineConfig({
     sourcemap: !!process.env.TAURI_DEBUG,
     chunkSizeWarningLimit: 1024 * 1024,
   },
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  test: {
+    includeSource: ['src/**/*.{ts,tsx}'],
+    setupFiles: ['reflect-metadata', 'src/extra/jsutils'],
+    environment: 'happy-dom',
+    globals: true,
+    coverage: {
+      provider: 'istanbul',
+    },
+  },
 })
