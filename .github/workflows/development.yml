@@ -50,6 +50,6 @@ jobs:
           cache: yarn
       - name: "📦 Install deps"
         run: yarn
-      - name: "💠 Prebuild"
+      - name: "🚩 Testing"
         run: yarn test
 
