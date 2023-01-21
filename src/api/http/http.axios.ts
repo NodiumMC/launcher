@@ -1,5 +1,5 @@
 import { Service } from 'positron'
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
+import axios, { AxiosResponse, RawAxiosRequestConfig } from 'axios'
 import axiosTauriApiAdapter from 'axios-tauri-api-adapter'
 import { HttpStore } from './http.store'
 import { HttpService } from './http.service'
@@ -36,14 +36,20 @@ export class HttpAxios implements IHttpAxios {
     )
   }
 
-  request = <T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R> =>
+  request = <T = any, R = AxiosResponse<T>, D = any>(config: RawAxiosRequestConfig<D>): Promise<R> =>
     this.instance.request(config)
-  get = <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> =>
+  get = <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: RawAxiosRequestConfig<D>): Promise<R> =>
     this.instance.get(url, config)
-  delete = <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> =>
+  delete = <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: RawAxiosRequestConfig<D>): Promise<R> =>
     this.instance.delete(url, config)
-  post = <T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> =>
-    this.instance.post(url, data, config)
-  put = <T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> =>
-    this.instance.put(url, data, config)
+  post = <T = any, R = AxiosResponse<T>, D = any>(
+    url: string,
+    data?: D,
+    config?: RawAxiosRequestConfig<D>,
+  ): Promise<R> => this.instance.post(url, data, config)
+  put = <T = any, R = AxiosResponse<T>, D = any>(
+    url: string,
+    data?: D,
+    config?: RawAxiosRequestConfig<D>,
+  ): Promise<R> => this.instance.put(url, data, config)
 }
