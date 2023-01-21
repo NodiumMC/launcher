@@ -5,6 +5,7 @@ export default defineConfig({
     includeSource: ['src/**/*.{ts,tsx}'],
     setupFiles: ['reflect-metadata', 'src/extra/jsutils'],
     environment: 'happy-dom',
+    globals: true,
     coverage: {
       provider: 'istanbul',
     },

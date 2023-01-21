@@ -19,7 +19,7 @@
       "noEmit": true,
       "baseUrl": "src",
       "jsx": "react-jsx",
-      "types": ["reflect-metadata", "vitest/importMeta"]
+      "types": ["reflect-metadata", "vitest/importMeta", "vitest/globals"]
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]
