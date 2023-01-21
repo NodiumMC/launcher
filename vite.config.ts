@@ -25,7 +25,7 @@ export default defineConfig({
   // @ts-ignore
   test: {
     includeSource: ['src/**/*.{ts,tsx}'],
-    setupFiles: ['reflect-metadata', 'src/extra/jsutils'],
+    setupFiles: ['reflect-metadata', './src/extra/jsutils.ts'],
     environment: 'happy-dom',
     globals: true,
     coverage: {
