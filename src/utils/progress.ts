@@ -63,7 +63,7 @@ export class Progress<T> {
    */
   reset(stage?: T) {
     this._progress = 0
-    if (stage) this._stage = stage
+    if (stage !== undefined) this._stage = stage
   }
 }
 
