@@ -89,7 +89,7 @@
     "@types/lodash": "4.14.191",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.9",
+    "@types/react-dom": "18.0.10",
     "@types/throttle-debounce": "5.0.0",
     "@types/url-parse": "^1.4.8",
     "@types/webfontloader": "1.6.35",
