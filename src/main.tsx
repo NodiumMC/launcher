@@ -7,6 +7,7 @@ import { time } from 'debug'
 import { configure } from 'mobx'
 import { register } from 'native/deeplink'
 import { appWindow } from '@tauri-apps/api/window'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 configure({
   enforceActions: 'never',
@@ -19,9 +20,13 @@ register('open', () => {
   appWindow.setFocus()
 })
 
+const queryClient = new QueryClient()
+
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <MemoryRouter>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </MemoryRouter>,
 )
