@@ -39,11 +39,9 @@ const Instance = styled.div<InstanceProps>`
   align-items: center;
   display: flex;
   padding: 0 ${({ theme }) => theme.space(2)};
-  background-color: ${({ active, theme }) =>
-    active ? mix(0.2, theme.accent.primary, theme.master.back) : 'transparent'};
-  border-radius: ${({ theme }) => theme.radius()};
   border-left: 2px solid ${({ active, theme }) => (active ? theme.accent.primary : 'transparent')};
   color: ${({ active, theme }) => (active ? theme.accent.primary : theme.master.front)};
+  transition: all 0.3s;
 `
 
 const LinesContainer = styled(Scrollbar)`
@@ -107,7 +105,7 @@ export const JournalSubscreen: FC = observer(() => {
               <Event key={idx} event={ll} />
             ))}
             <ClearButtonWrapper>
-              <ClearButton variant={'tertiary-gray'} onClick={() => instance?.clearLogs()}>
+              <ClearButton variant={'tertiary-gray'} only onClick={() => instance?.clearLogs()}>
                 <FontAwesomeIcon icon={'trash'} />
               </ClearButton>
             </ClearButtonWrapper>
