@@ -6,15 +6,10 @@ import { PublicVersion } from 'core/providers/types'
 import { Service } from 'positron'
 import { GameProfileStore } from './game-profile.store'
 import { GeneralSettingsModule } from 'settings'
-import { GameProfileCommon } from 'minecraft/game-profile/game-profile.common'
 
 @Service
 export class GameProfileService {
-  constructor(
-    private readonly store: GameProfileStore,
-    private readonly settings: GeneralSettingsModule,
-    private readonly common: GameProfileCommon,
-  ) {}
+  constructor(private readonly store: GameProfileStore, private readonly settings: GeneralSettingsModule) {}
 
   private build(name: string, vid: string, version: PublicVersion): LauncherProfileJSON {
     return {
@@ -45,7 +40,7 @@ export class GameProfileService {
   }
 
   async fetchAllVersions(): Promise<PublicVersion[]> {
-    const publicVersions = (this.store.cachedPublic ||= await fetchMinecraftVersions())
+    const publicVersions = await fetchMinecraftVersions()
     const publicLocals: PublicVersion[] = this.store.list.map(v => ({
       name: v.name,
       id: v.lastVersionId,
