@@ -84,7 +84,7 @@
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.0.13",
     "@storybook/theming": "^6.5.15",
-    "@tauri-apps/cli": "1.2.2",
+    "@tauri-apps/cli": "1.2.3",
     "@types/country-flag-icons": "1.2.0",
     "@types/lodash": "4.14.191",
     "@types/node": "18.11.18",

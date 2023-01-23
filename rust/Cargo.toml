@@ -23,7 +23,7 @@ members = [
 tauri-build = { version = "1.2.1", features = [] }
 
 [dependencies]
-tauri = { version = "1.2.3", features = ["devtools", "dialog-open", "fs-all", "http-all", "os-all", "path-all", "process-exit", "process-relaunch", "protocol-all", "shell-all", "updater", "window-all"] }
+tauri = { version = "1.2.4", features = ["devtools", "dialog-open", "fs-all", "http-all", "os-all", "path-all", "process-exit", "process-relaunch", "protocol-all", "shell-all", "updater", "window-all"] }
 tokio = { version = "1", features = ["full"] }
 commands = { path = "./commands" }
 macros = { path = "./macros" }
