@@ -22,6 +22,7 @@ import { InstancesModule } from 'minecraft/instances'
 import { nanoid } from 'nanoid/non-secure'
 import { match, of } from 'error'
 import { NoProfileException } from 'minecraft/instance/instance.exceptions'
+import { useQuery } from 'react-query'
 
 export interface InstanceEditorProps {
   close?: () => void
@@ -117,7 +118,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
   const upfall = useMod(UpfallModule)
   const popup = useMod(PopupModule)
   const i18n = useI18N(t => t.minecraft.instance)
-  const [versions, setVersions] = useState<PublicVersion[]>([])
+  const { data: versions, isLoading } = useQuery('public_versions', () => gp.fetchAllVersions())
 
   const repair = useCallback(() => {
     upfall.drop('default', i18n.instance_fixed, 'screwdriver-wrench')
@@ -164,10 +165,6 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
     })
   }, [])
 
-  useEffect(() => {
-    gp.fetchAllVersions().then(setVersions)
-  }, [gp.profiles])
-
   const {
     register,
     handleSubmit,
@@ -191,6 +188,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
   })
 
   const submit = async (data: FormData) => {
+    if (!versions) return
     const vid = versions.find(v => v.id === data.vid)!
     const javaArgs = data.jvmArgs?.split(' ').filter(v => v)
     const mcArgs = data.minecraftArgs?.split(' ').filter(v => v)
@@ -268,6 +266,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
               { id: 'quilt', label: ProviderIcon.quilt },
               { id: 'custom', label: ProviderIcon.custom },
             ]}
+            fetching={isLoading}
             versions={versions}
             provider={getValues('provider')}
             onProviderChange={value => (setValue('provider', value), clearErrors('vid'), trigger('provider'))}
@@ -349,7 +348,7 @@ export const InstanceEditor: FC<InstanceEditorProps> = observer(({ instance, clo
           <Button
             onClick={handleSubmit(submit)}
             variant={'primary'}
-            disabled={versions.length === 0 || isSubmitting || !isValid}
+            disabled={(versions?.length ?? 0) === 0 || isSubmitting || !isValid}
           >
             {instance ? i18n.save : i18n.create}
           </Button>

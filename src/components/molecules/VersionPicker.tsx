@@ -14,13 +14,15 @@ import { observer } from 'mobx-react'
 import { useI18N } from 'hooks'
 import { Checkbox } from 'components/atoms/Checkbox'
 import { Scrollbar } from 'components/utils/Scrollbar'
+import { Preloader } from 'components/atoms/Preloader'
 
 export interface LargePickerProps<T> extends ExtraProps.Styled {
   providers: Array<{
     label: T
     id: SupportedProviders
   }>
-  versions: PublicVersion[]
+  fetching: boolean
+  versions?: PublicVersion[]
   provider: SupportedProviders
   onProviderChange: (provider: SupportedProviders) => void
   version: string
@@ -151,6 +153,7 @@ export const VersionPicker = observer(
     onProviderChange,
     version,
     onVersionChange,
+    fetching,
     ...props
   }: LargePickerProps<T>) => {
     const theme = useTheme()
@@ -159,7 +162,7 @@ export const VersionPicker = observer(
     const [searchedb] = useDebounce(search, 1000)
 
     const [snapshotCheckbox, setSnapshotCheckbox] = useState(false)
-    const filtered = useMemo(() => versions.filter(v => v.providers.includes(provider)), [versions, provider])
+    const filtered = useMemo(() => (versions ?? []).filter(v => v.providers.includes(provider)), [versions, provider])
     const searchedAndFiltered = useMemo(() => {
       const searchedandFiltered = filtered.filter(v => (snapshotCheckbox ? true : !v.isSnapshot))
       return searchedandFiltered.filter(v => (search ? v.name.includes(search) : true))
@@ -190,7 +193,11 @@ export const VersionPicker = observer(
               <FontAwesomeIcon icon={'magnifying-glass'} />
             </Placeholder>
           </InputWrapper>
-          {filtered.length > 0 ? (
+          {fetching ? (
+            <Fetching>
+              <Preloader />
+            </Fetching>
+          ) : filtered.length > 0 ? (
             <VersionList>
               {searchedAndFiltered.length > 0 ? (
                 searchedAndFiltered.map(v => (

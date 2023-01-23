@@ -1,6 +1,5 @@
 import { Service } from 'positron'
 import { LauncherProfileJSON, LauncherProfiles } from 'core'
-import { PublicVersion } from 'core/providers/types'
 import { autorun, makeAutoObservable } from 'mobx'
 import { watch } from 'tauri-plugin-fs-watch-api'
 import { exists, readJsonFile, writeJsonFile } from 'native/filesystem'
@@ -10,7 +9,6 @@ import { l } from 'utils'
 @Service
 export class GameProfileStore {
   list: LauncherProfileJSON[] = []
-  cachedPublic?: PublicVersion[]
   loaded = false
 
   constructor(private readonly common: GameProfileCommon) {
