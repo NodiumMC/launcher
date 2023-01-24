@@ -5,6 +5,7 @@ import { fetch } from '@tauri-apps/api/http'
 import { join } from 'native/path'
 import { NonNullFilter } from 'utils/filters'
 import { Resource } from 'network'
+import { injectorPath } from 'core/injector'
 
 export const isNativeLibrary = (lib: Library) => !!lib.natives
 
@@ -40,7 +41,7 @@ export const compileLibraries = (libs: Library[], gameDataDir: string, clientDir
 
 export const getInjector = (gameDataDir: string) => {
   return {
-    local: join(gameDataDir, 'libraries', ...'moe/yushi/authlibinjector/1.2.1/authlib-injector-1.2.1.jar'.split('/')),
+    local: injectorPath(gameDataDir),
     url: 'https://github.com/yushijinhun/authlib-injector/releases/download/v1.2.1/authlib-injector-1.2.1.jar',
     size: 336896,
   }

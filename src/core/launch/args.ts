@@ -81,7 +81,7 @@ export const compileArguments = (options: VersionedLaunchOptions): string[] => {
   const jargs = chain(placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(jvm))))
   jargs.push(log4jArgument(options.version, options.clientDir))
   jargs.push(
-    `-javaagent:${injectorPath(options.gameDataDir)}=https://api.nodium.ru/minecraft`,
+    // `-javaagent:${injectorPath(options.gameDataDir)}=https://api.nodium.ru/minecraft`,
     '-Dauthlibinjector.disableHttpd',
     '-Dauthlibinjector.noShowServerName',
   )
