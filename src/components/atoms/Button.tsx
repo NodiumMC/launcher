@@ -42,18 +42,18 @@ export const StyledButton = styled.button<ButtonProps>(
           sm: styield
             .var('size', '30px')
             .fontSize('0.825rem')
-            .padding(`0 ${theme.space(2)}`),
+            .var('padding', `0 ${theme.space(2)}`),
           lg: styield
             .var('size', '42px')
             .fontSize('1.15rem')
-            .padding(`0 ${theme.space(4)}`),
+            .var('padding', `0 ${theme.space(4)}`),
           default: styield
             .var('size', '38px')
             .fontSize('1rem')
-            .padding(`0 ${theme.space(3)}`),
+            .var('padding', `0 ${theme.space(3)}`),
         })
         .height.var('size')
-        .if(only, styield.width.var('size'))
+        .if(only, styield.width.var('size'), styield.padding.var('padding'))
         .lineHeight('0px')
         .switch(variant, {
           primary() {

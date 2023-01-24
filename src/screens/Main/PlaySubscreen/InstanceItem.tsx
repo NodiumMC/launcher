@@ -25,7 +25,7 @@ const Actions = styled.div`
   display: flex;
   opacity: 0;
   align-items: center;
-  gap: ${({ theme }) => theme.space()};
+  gap: 3px;
   ${transition('opacity')}
 `
 

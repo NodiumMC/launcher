@@ -175,7 +175,7 @@ export const VersionPicker = observer(
           value={provider}
           onChange={onProviderChange}
           vertical
-          disoptions={[]}
+          disoptions={['forge']}
         />
         <VersionsContainer>
           <InputWrapper>
