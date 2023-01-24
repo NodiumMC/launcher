@@ -1,4 +1,4 @@
-import { compileAssetIndex, compileLibraries, readVersionFile } from 'core'
+import { compileAssetIndex, compileLibraries, getInjector, readVersionFile } from 'core'
 import { join } from 'native/path'
 import { log4jConfig } from 'core/log4j'
 
@@ -8,11 +8,13 @@ export const compileLocal = async (vid: string, clientDir: string, gameDataDir: 
   const maven = compileLibraries(version.mavenFiles ?? [], gameDataDir, clientDir)
   const assets = await compileAssetIndex(version, gameDataDir)
   const logging = version.logging?.client ? [log4jConfig(version, clientDir)] : []
+  const injector = getInjector(gameDataDir)
   return [
     ...libs,
     ...maven,
     ...assets,
     ...logging,
     { ...version.downloads.client, local: join(clientDir, `${vid}.jar`) },
+    injector,
   ]
 }

@@ -38,6 +38,14 @@ export const compileLibraries = (libs: Library[], gameDataDir: string, clientDir
   ]
 }
 
+export const getInjector = (gameDataDir: string) => {
+  return {
+    local: join(gameDataDir, 'libraries', ...'moe/yushi/authlibinjector/1.2.1/authlib-injector-1.2.1.jar'.split('/')),
+    url: 'https://github.com/yushijinhun/authlib-injector/releases/download/v1.2.1/authlib-injector-1.2.1.jar',
+    size: 336896,
+  }
+}
+
 export const libPath = (path: string): string[] => path.split('/')
 export const libFile = (path: string): string => libPath(path).at(-1)!
 export const isPartialLib = (lib: Library): lib is PartialLib => !lib.downloads
