@@ -5,6 +5,7 @@ import { delimiter, join } from 'native/path'
 import { compileClasspath } from 'core'
 import { version } from 'native/app'
 import { log4jArgument } from 'core/log4j'
+import { injectorPath } from 'core/injector'
 
 const rulifyArgumnets = (args: ArgumentsArray): ArgumentsArray =>
   typeof args !== 'string'
@@ -79,5 +80,10 @@ export const compileArguments = (options: VersionedLaunchOptions): string[] => {
   const gargs = placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(game)))
   const jargs = chain(placeholderifyArguments(options, classPathString)(flatArguments(rulifyArgumnets(jvm))))
   jargs.push(log4jArgument(options.version, options.clientDir))
+  jargs.push(
+    // `-javaagent:${injectorPath(options.gameDataDir)}=https://api.nodium.ru/minecraft`,
+    '-Dauthlibinjector.disableHttpd',
+    '-Dauthlibinjector.noShowServerName',
+  )
   return [...jargs, ...(options.javaArgs ?? []), options.version.mainClass, ...gargs, ...(options.minecraftArgs ?? [])]
 }
