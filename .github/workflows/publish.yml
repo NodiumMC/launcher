@@ -34,8 +34,7 @@ jobs:
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
-          cache: 'yarn'
+          node-version: '19.x'
 
       - name: Install dependencies
 

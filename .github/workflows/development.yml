@@ -14,8 +14,7 @@ jobs:
       - name: "🔧 Setup node"
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-          cache: yarn
+          node-version: 19.x
       - name: "📦 Install deps"
         run: yarn
       - name: "💠 Lint"
@@ -30,8 +29,7 @@ jobs:
       - name: "🔧 Setup node"
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-          cache: yarn
+          node-version: 19.x
       - name: "📦 Install deps"
         run: yarn
       - name: "💠 Prebuild"
@@ -46,10 +44,8 @@ jobs:
       - name: "🔧 Setup node"
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-          cache: yarn
+          node-version: 19.x
       - name: "📦 Install deps"
         run: yarn
       - name: "🚩 Testing"
         run: yarn test
-
