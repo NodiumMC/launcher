@@ -2872,6 +2872,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nodium/plugin-react-swc@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@nodium/plugin-react-swc@npm:1.0.0"
+  dependencies:
+    "@swc/core": ^1.3.35
+  peerDependencies:
+    vite: ^4
+  checksum: b384bdf1f803803adfcf1de5aaae13f90bb4b42a41e09f8ab16d8236072fb154e3e3c4305158c0cb36d7d181c644b58476df1b4292d0368f1784625c24a12322
+  languageName: node
+  linkType: hard
+
 "@nodium/tsyringe@npm:^1.0.0":
   version: 1.0.0
   resolution: "@nodium/tsyringe@npm:1.0.0"
@@ -4220,231 +4231,90 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-android-arm-eabi@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-android-arm-eabi@npm:1.2.208"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@swc/core-android-arm64@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-android-arm64@npm:1.2.208"
-  conditions: os=android & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-darwin-arm64@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-darwin-arm64@npm:1.2.208"
+"@swc/core-darwin-arm64@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-darwin-arm64@npm:1.3.36"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-darwin-arm64@npm:1.3.23"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-darwin-x64@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-darwin-x64@npm:1.2.208"
+"@swc/core-darwin-x64@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-darwin-x64@npm:1.3.36"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-darwin-x64@npm:1.3.23"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core-freebsd-x64@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-freebsd-x64@npm:1.2.208"
-  conditions: os=freebsd & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-arm-gnueabihf@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.208"
+"@swc/core-linux-arm-gnueabihf@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.36"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.23"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-arm64-gnu@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.208"
+"@swc/core-linux-arm64-gnu@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.36"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.23"
-  conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-arm64-musl@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-linux-arm64-musl@npm:1.2.208"
+"@swc/core-linux-arm64-musl@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-linux-arm64-musl@npm:1.3.36"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-linux-arm64-musl@npm:1.3.23"
-  conditions: os=linux & cpu=arm64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-x64-gnu@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-linux-x64-gnu@npm:1.2.208"
+"@swc/core-linux-x64-gnu@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-linux-x64-gnu@npm:1.3.36"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-linux-x64-gnu@npm:1.3.23"
-  conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-x64-musl@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-linux-x64-musl@npm:1.2.208"
+"@swc/core-linux-x64-musl@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-linux-x64-musl@npm:1.3.36"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-linux-x64-musl@npm:1.3.23"
-  conditions: os=linux & cpu=x64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@swc/core-win32-arm64-msvc@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.208"
+"@swc/core-win32-arm64-msvc@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.36"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.23"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-win32-ia32-msvc@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.208"
+"@swc/core-win32-ia32-msvc@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.36"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.23"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"@swc/core-win32-x64-msvc@npm:1.2.208":
-  version: 1.2.208
-  resolution: "@swc/core-win32-x64-msvc@npm:1.2.208"
+"@swc/core-win32-x64-msvc@npm:1.3.36":
+  version: 1.3.36
+  resolution: "@swc/core-win32-x64-msvc@npm:1.3.36"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.3.23":
-  version: 1.3.23
-  resolution: "@swc/core-win32-x64-msvc@npm:1.3.23"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core@npm:^1.2.98":
-  version: 1.2.208
-  resolution: "@swc/core@npm:1.2.208"
+"@swc/core@npm:^1.3.35":
+  version: 1.3.36
+  resolution: "@swc/core@npm:1.3.36"
   dependencies:
-    "@swc/core-android-arm-eabi": 1.2.208
-    "@swc/core-android-arm64": 1.2.208
-    "@swc/core-darwin-arm64": 1.2.208
-    "@swc/core-darwin-x64": 1.2.208
-    "@swc/core-freebsd-x64": 1.2.208
-    "@swc/core-linux-arm-gnueabihf": 1.2.208
-    "@swc/core-linux-arm64-gnu": 1.2.208
-    "@swc/core-linux-arm64-musl": 1.2.208
-    "@swc/core-linux-x64-gnu": 1.2.208
-    "@swc/core-linux-x64-musl": 1.2.208
-    "@swc/core-win32-arm64-msvc": 1.2.208
-    "@swc/core-win32-ia32-msvc": 1.2.208
-    "@swc/core-win32-x64-msvc": 1.2.208
-  dependenciesMeta:
-    "@swc/core-android-arm-eabi":
-      optional: true
-    "@swc/core-android-arm64":
-      optional: true
-    "@swc/core-darwin-arm64":
-      optional: true
-    "@swc/core-darwin-x64":
-      optional: true
-    "@swc/core-freebsd-x64":
-      optional: true
-    "@swc/core-linux-arm-gnueabihf":
-      optional: true
-    "@swc/core-linux-arm64-gnu":
-      optional: true
-    "@swc/core-linux-arm64-musl":
-      optional: true
-    "@swc/core-linux-x64-gnu":
-      optional: true
-    "@swc/core-linux-x64-musl":
-      optional: true
-    "@swc/core-win32-arm64-msvc":
-      optional: true
-    "@swc/core-win32-ia32-msvc":
-      optional: true
-    "@swc/core-win32-x64-msvc":
-      optional: true
-  bin:
-    swcx: run_swcx.js
-  checksum: d66c5ec478a96f8695b1628a078d5e41903dc55bc20e37b2098ab953fcbf2a62b50c4ec65f3013321fcbd6d74befef9781bffccce8903f529ac957769d2a3a0c
-  languageName: node
-  linkType: hard
-
-"@swc/core@npm:^1.3.22":
-  version: 1.3.23
-  resolution: "@swc/core@npm:1.3.23"
-  dependencies:
-    "@swc/core-darwin-arm64": 1.3.23
-    "@swc/core-darwin-x64": 1.3.23
-    "@swc/core-linux-arm-gnueabihf": 1.3.23
-    "@swc/core-linux-arm64-gnu": 1.3.23
-    "@swc/core-linux-arm64-musl": 1.3.23
-    "@swc/core-linux-x64-gnu": 1.3.23
-    "@swc/core-linux-x64-musl": 1.3.23
-    "@swc/core-win32-arm64-msvc": 1.3.23
-    "@swc/core-win32-ia32-msvc": 1.3.23
-    "@swc/core-win32-x64-msvc": 1.3.23
+    "@swc/core-darwin-arm64": 1.3.36
+    "@swc/core-darwin-x64": 1.3.36
+    "@swc/core-linux-arm-gnueabihf": 1.3.36
+    "@swc/core-linux-arm64-gnu": 1.3.36
+    "@swc/core-linux-arm64-musl": 1.3.36
+    "@swc/core-linux-x64-gnu": 1.3.36
+    "@swc/core-linux-x64-musl": 1.3.36
+    "@swc/core-win32-arm64-msvc": 1.3.36
+    "@swc/core-win32-ia32-msvc": 1.3.36
+    "@swc/core-win32-x64-msvc": 1.3.36
   dependenciesMeta:
     "@swc/core-darwin-arm64":
       optional: true
@@ -4466,9 +4336,7 @@ __metadata:
       optional: true
     "@swc/core-win32-x64-msvc":
       optional: true
-  bin:
-    swcx: run_swcx.js
-  checksum: 2a92949c33f292a369f4a750a8a9759f88f6f399bc0beef54768fce3d1af5cf0c33a4c8f3c2478020ae95e99d99b7c17f301b79163cdbcdf533b91675f1d2e8d
+  checksum: 36e96e86d1ab8fd84eb51e7264a7ae781ee7e507d36b9ccc028d7f31a2ccf2949f074656e34139c970196774d24d55a54c3aa5c53d04eb6e3569c71cbfed0c0d
   languageName: node
   linkType: hard
 
@@ -5312,18 +5180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react-swc@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@vitejs/plugin-react-swc@npm:3.0.1"
-  dependencies:
-    "@swc/core": ^1.3.22
-  peerDependencies:
-    vite: ^4
-  checksum: 4023b8a582d8f30d0969dd485b2de1ffed8b5110ee732e8129c427cb9ce6c4238343afe4c5bf451cfebf2822df67ff989915231f93e0c94ac74a1aca42fb2f00
-  languageName: node
-  linkType: hard
-
-"@vitejs/plugin-react@npm:2.2.0, @vitejs/plugin-react@npm:^2.0.0":
+"@vitejs/plugin-react@npm:^2.0.0":
   version: 2.2.0
   resolution: "@vitejs/plugin-react@npm:2.2.0"
   dependencies:
@@ -7364,7 +7221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.4.1, chokidar@npm:^3.4.2, chokidar@npm:^3.5.3":
+"chokidar@npm:^3.4.1, chokidar@npm:^3.4.2":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
   dependencies:
@@ -8149,13 +8006,6 @@ __metadata:
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: edb65dd0d7d1b9c40b2f50219aef30e116cedd6fc79290e740972c132c09106d2e80aa0bc8826673dd5a00222d4179c84b36a790eef63a4c4bca75a37ef90804
-  languageName: node
-  linkType: hard
-
-"deepl-translator@npm:1.2.1":
-  version: 1.2.1
-  resolution: "deepl-translator@npm:1.2.1"
-  checksum: 4ddcced418677920d799958b0f4897f67e8322aee324b4c3fcc4b41b8c3ea699d7aa193c1977ff0f651dde81d776a30c4d83b0f33ce152ec77ff8af1f72f8da1
   languageName: node
   linkType: hard
 
@@ -13606,6 +13456,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": 6.2.1
     "@fortawesome/free-solid-svg-icons": 6.2.1
     "@fortawesome/react-fontawesome": 0.2.0
+    "@nodium/plugin-react-swc": ^1.0.0
     "@nodium/tsyringe": ^1.0.0
     "@storybook/addon-actions": ^6.5.15
     "@storybook/addon-docs": ^6.5.15
@@ -13631,15 +13482,12 @@ __metadata:
     "@types/webfontloader": 1.6.35
     "@typescript-eslint/eslint-plugin": 5.49.0
     "@typescript-eslint/parser": 5.49.0
-    "@vitejs/plugin-react": 2.2.0
-    "@vitejs/plugin-react-swc": ^3.0.1
     "@vitest/ui": ^0.28.0
     axios: ^1.2.3
     axios-tauri-api-adapter: ^0.1.3
     babel-loader: 9.1.2
     country-flag-icons: 1.5.5
     cross-env: ^7.0.3
-    deepl-translator: 1.2.1
     dotenv-cli: 7.0.0
     eslint: 8.32.0
     eslint-config-prettier: 8.6.0
@@ -13651,6 +13499,7 @@ __metadata:
     flinject: 1.2.0
     framer-motion: ^8.0.0
     happy-dom: ^8.1.3
+    json5: ^2.2.3
     localforage: ^1.10.0
     mobx: 6.7.0
     mobx-react: 7.6.0
@@ -13685,11 +13534,9 @@ __metadata:
     ts-node: 10.9.1
     typescript: 4.9.4
     unified: ^10.1.2
-    unplugin-swc: 1.3.2
     url-parse: ^1.5.10
     use-debounce: ^9.0.2
     vite: ^4.0.3
-    vite-plugin-swc-react: 0.1.12
     vite-tsconfig-paths: 4.0.5
     vitest: ^0.28.0
   languageName: unknown
@@ -15259,13 +15106,6 @@ __metadata:
     react-native:
       optional: true
   checksum: ecf1933e91013f2d41bfc781515b536bf81eb1f70ff228607841094c8330fe77d522372b359687e51c0b52b9888dba73db9ac0486aace1896ab9eb9daec102d5
-  languageName: node
-  linkType: hard
-
-"react-refresh@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "react-refresh@npm:0.10.0"
-  checksum: 089b8ea9ad8038046c0467a2476595eedab9e30620f50daa50e844c81d626de43a44a6a628256ae58e68885d5fe1d7e05074ddfd99ece3808b013d043f0c6030
   languageName: node
   linkType: hard
 
@@ -17999,42 +17839,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unplugin-swc@npm:1.3.2":
-  version: 1.3.2
-  resolution: "unplugin-swc@npm:1.3.2"
-  dependencies:
-    unplugin: ^0.6.0
-  peerDependencies:
-    "@swc/core": ^1.2.108
-  checksum: 3aea46ef5980603ec8842597c4d75254d8c09729ece3f221ab2b51f589bbbe4c53cd54d617baadc2786a68c4ddcf27bf53a4cd91226ff775d5b5736c2091d6c4
-  languageName: node
-  linkType: hard
-
-"unplugin@npm:^0.6.0":
-  version: 0.6.3
-  resolution: "unplugin@npm:0.6.3"
-  dependencies:
-    chokidar: ^3.5.3
-    webpack-sources: ^3.2.3
-    webpack-virtual-modules: ^0.4.3
-  peerDependencies:
-    esbuild: ">=0.13"
-    rollup: ^2.50.0
-    vite: ^2.3.0
-    webpack: 4 || 5
-  peerDependenciesMeta:
-    esbuild:
-      optional: true
-    rollup:
-      optional: true
-    vite:
-      optional: true
-    webpack:
-      optional: true
-  checksum: 14e1f9c941e87e97fdda3efc745183e027de7d8b88eed8be5fa0708c2ec5dd114cc10e569c4b9dd2dafc89ba84d8bf90935d01e02cef510b7faedaa8af2b081f
-  languageName: node
-  linkType: hard
-
 "unset-value@npm:^1.0.0":
   version: 1.0.0
   resolution: "unset-value@npm:1.0.0"
@@ -18378,20 +18182,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-swc-react@npm:0.1.12":
-  version: 0.1.12
-  resolution: "vite-plugin-swc-react@npm:0.1.12"
-  dependencies:
-    "@swc/core": ^1.2.98
-    lodash.merge: ^4.6.2
-    react-refresh: ^0.10.0
-  peerDependencies:
-    "@swc/core": ^1.2.98
-    vite: ^2.6.7
-  checksum: c0436d0e1bba432e42bf5d1f9bf609caf34e8b7298f434011c09edb955a631b1577bb691aaac64a83e611f8293b44f25ea5bc4d6aa34294aa57295e3e5d35f3e
-  languageName: node
-  linkType: hard
-
 "vite-tsconfig-paths@npm:4.0.5":
   version: 4.0.5
   resolution: "vite-tsconfig-paths@npm:4.0.5"
@@ -18678,13 +18468,6 @@ __metadata:
   dependencies:
     debug: ^3.0.0
   checksum: 38706eb5ffd7a5120a731c2d35d4de5714cb16dcc87076276d7b130e3221d2665f5c30696bfde5edfddc6b7ae40d772096a0019202260a9d4e19df43b7cf9c95
-  languageName: node
-  linkType: hard
-
-"webpack-virtual-modules@npm:^0.4.3":
-  version: 0.4.4
-  resolution: "webpack-virtual-modules@npm:0.4.4"
-  checksum: 6720b4c47d76dc9cbaff557562506c192da7560a90395e9918a418e257a0c0cda9f5e3ac92107ec0789f8f23ad942313bd8cdebc95031d0adef1032bf6142bc7
   languageName: node
   linkType: hard
 

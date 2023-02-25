@@ -1,14 +1,13 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import swc from 'unplugin-swc'
+import react from '@nodium/plugin-react-swc'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   define: {
     'import.meta.vitest': 'undefined',
   },
-  plugins: [react(), tsconfigPaths(), swc.vite()],
+  plugins: [react(), tsconfigPaths()],
   clearScreen: false,
   server: {
     port: 3000,
