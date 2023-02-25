@@ -28,9 +28,7 @@ tokio = { version = "1", features = ["full"] }
 commands = { path = "./commands" }
 macros = { path = "./macros" }
 ndml = { path = "./ndml" }
-
-[dependencies.tauri-plugin-fs-watch]
-git = "https://github.com/tauri-apps/tauri-plugin-fs-watch"
+tauri-plugin-fs-watch = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 
 [dependencies.tauri-plugin-deep-link]
 git = "https://github.com/FabianLars/tauri-plugin-deep-link"
