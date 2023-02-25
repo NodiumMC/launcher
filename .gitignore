@@ -25,3 +25,7 @@ dist-ssr
 
 .tauri
 .env
+
+/.yarn/build-state.yml
+
+/.yarn/install-state.gz
