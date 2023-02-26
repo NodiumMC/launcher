@@ -17,10 +17,12 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
-      "baseUrl": "src",
+      "baseUrl": "./",
       "jsx": "react-jsx",
-      "types": ["reflect-metadata", "vitest/importMeta", "vitest/globals"]
+      "paths": {
+        "@app/*": ["app/*"]
+      }
     },
-    "include": ["src"],
+    "include": ["app/**/*"],
     "references": [{ "path": "./tsconfig.node.json" }]
   }

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "composite": true,
     "module": "esnext",
     "moduleResolution": "node"
   },
-  "include": ["vite.config.ts"]
 }

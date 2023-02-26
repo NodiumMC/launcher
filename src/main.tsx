@@ -1,3 +1,4 @@
+console.log('Higer')
 import 'reflect-metadata'
 import './extra/jsutils'
 import ReactDOM from 'react-dom/client'
