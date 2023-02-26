@@ -1,0 +1,11 @@
+{
+  "name": "@shared/env",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@jsx/helpers": "workspace:*",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28"
+  }
+}

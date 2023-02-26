@@ -28,6 +28,14 @@ const RAW_RUNTIME_STATE =
     {\
       "name": "@app/vite",\
       "reference": "workspace:app/vite"\
+    },\
+    {\
+      "name": "@jsx/helpers",\
+      "reference": "workspace:jsx/helpers"\
+    },\
+    {\
+      "name": "@shared/env",\
+      "reference": "workspace:shared/env"\
     }\
   ],\
   "enableTopLevelFallback": true,\
@@ -37,6 +45,8 @@ const RAW_RUNTIME_STATE =
     ["@app/providers", ["workspace:app/providers"]],\
     ["@app/root", ["workspace:app/root"]],\
     ["@app/vite", ["workspace:app/vite"]],\
+    ["@jsx/helpers", ["workspace:jsx/helpers"]],\
+    ["@shared/env", ["workspace:shared/env"]],\
     ["nodium-launcher", ["workspace:."]]\
   ],\
   "fallbackPool": [\
@@ -87,6 +97,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@app/root", "workspace:app/root"],\
           ["@app/providers", "workspace:app/providers"],\
+          ["@shared/env", "workspace:shared/env"],\
           ["@types/react", "npm:18.0.28"],\
           ["react", "npm:18.2.0"]\
         ],\
@@ -467,6 +478,17 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@jsx/helpers", [\
+      ["workspace:jsx/helpers", {\
+        "packageLocation": "./jsx/helpers/",\
+        "packageDependencies": [\
+          ["@jsx/helpers", "workspace:jsx/helpers"],\
+          ["@types/react", "npm:18.0.28"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@nodium/plugin-react-swc", [\
       ["npm:1.0.0", {\
         "packageLocation": "../../../.yarn/berry/cache/@nodium-plugin-react-swc-npm-1.0.0-087a1ae7f6-9.zip/node_modules/@nodium/plugin-react-swc/",\
@@ -519,6 +541,18 @@ const RAW_RUNTIME_STATE =
           ["@remix-run/router", "npm:1.3.2"]\
         ],\
         "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@shared/env", [\
+      ["workspace:shared/env", {\
+        "packageLocation": "./shared/env/",\
+        "packageDependencies": [\
+          ["@shared/env", "workspace:shared/env"],\
+          ["@jsx/helpers", "workspace:jsx/helpers"],\
+          ["@types/react", "npm:18.0.28"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "linkType": "SOFT"\
       }]\
     ]],\
     ["@swc/core", [\

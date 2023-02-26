@@ -3,6 +3,7 @@
   "main": "src/index.tsx",
   "devDependencies": {
     "@app/providers": "workspace:*",
+    "@shared/env": "workspace:*",
     "@types/react": "^18.0.28"
   },
   "dependencies": {
