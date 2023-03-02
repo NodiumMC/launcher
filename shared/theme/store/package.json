@@ -1,0 +1,8 @@
+{
+  "name": "@theme/store",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@theme/dark-schema": "workspace:*",
+    "recoil": "^0.7.6"
+  }
+}

@@ -20,11 +20,26 @@
       "baseUrl": "./",
       "jsx": "react-jsx",
       "paths": {
-        "@app/*": ["app/*"],
-        "@shared/*": ["shared/*"],
-        "@jsx/*": ["jsx/*"]
+        "@app/entrypoint": ["app/entrypoint"],
+        "@app/providers": ["app/providers"],
+        "@app/root": ["app/root"],
+        "@app/vite": ["app/vite"],
+        "@lib/types": ["shared/lib/types"],
+        "@lib/math": ["shared/lib/math"],
+        "@lib/jsx": ["shared/lib/jsx"],
+        "@theme/builder": ["shared/theme/builder"],
+        "@theme/common": ["shared/theme/common"],
+        "@theme/global": ["shared/theme/global"],
+        "@theme/provider": ["shared/theme/provider"],
+        "@theme/store": ["shared/theme/store"],
+        "@theme/tools": ["shared/theme/tools"],
+        "@theme/types": ["shared/theme/types"],
+        "@theme/dark-schema": ["shared/theme/schemas/dark"],
+        "@theme/light-schema": ["shared/theme/schemas/light"],
       }
     },
-    "include": ["app/**/*"],
+    "include": ["app/**/*", "shared/**/*",
+      "shared/theme/**/*",
+      "shared/lib/jsx/**/*", "ui/**/*"],
     "references": [{ "path": "./tsconfig.node.json" }]
   }

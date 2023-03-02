@@ -1,0 +1,10 @@
+{
+  "name": "@lib/jsx",
+  "main": "src/index.ts",
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@theme/tools",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@theme/types": "workspace:*",
+    "styled-tools": "^1.7.2"
+  }
+}

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="256px" height="256px"
-     viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="display:block;animation-play-state:paused">
-    <circle cx="50" cy="50" fill="none" stroke="#fff8e8" stroke-width="5" r="46"
-            stroke-dasharray="216.76989309769573 74.25663103256524" transform="matrix(1,0,0,1,0,0)"
-            style="animation-play-state:paused"/>
-</svg>

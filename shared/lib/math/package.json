@@ -1,0 +1,4 @@
+{
+  "name": "@lib/math",
+  "main": "src/index.ts"
+}
