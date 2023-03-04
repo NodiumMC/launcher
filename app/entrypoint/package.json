@@ -1,6 +1,6 @@
 {
   "name": "@app/entrypoint",
-  "main": "src/index.ts",
+  "main": "src/index.tsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

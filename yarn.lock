@@ -25,9 +25,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/providers@workspace:app/providers"
   dependencies:
+    "@theme/provider": "workspace:*"
     "@types/react": "npm:^18.0.28"
+    "@types/react-dom": "npm:^18.0.11"
     react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
     react-router-dom: "npm:^6.8.1"
+    recoil: "npm:^0.7.7"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -36,8 +43,25 @@ __metadata:
   resolution: "@app/root@workspace:app/root"
   dependencies:
     "@app/providers": "workspace:*"
+    "@app/routes": "workspace:*"
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
+  languageName: unknown
+  linkType: soft
+
+"@app/routes@workspace:*, @app/routes@workspace:app/routes":
+  version: 0.0.0-use.local
+  resolution: "@app/routes@workspace:app/routes"
+  dependencies:
+    "@pages/home": "workspace:*"
+    "@types/react": "npm:^18.0.28"
+    "@types/react-dom": "npm:^18.0.11"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    react-router-dom: "npm:^6.8.2"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -644,6 +668,8 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
+  peerDependencies:
+    react: "*"
   languageName: unknown
   linkType: soft
 
@@ -717,10 +743,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pages/home@workspace:*, @pages/home@workspace:pages/home":
+  version: 0.0.0-use.local
+  resolution: "@pages/home@workspace:pages/home"
+  dependencies:
+    "@types/react": "npm:^18.0.28"
+    "@ui/--template": "workspace:*"
+    react: "npm:^18.2.0"
+  peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@remix-run/router@npm:1.3.2":
   version: 1.3.2
   resolution: "@remix-run/router@npm:1.3.2"
   checksum: 517a7372a7b9051b80b333e7b20cb98fd6c5bf3412e941dca3d2c45f72b3b3e94744ae9f3f23fbbf76d5eb5436016155a0d490e3d36c402dc443cdf6b5376eb9
+  languageName: node
+  linkType: hard
+
+"@remix-run/router@npm:1.3.3":
+  version: 1.3.3
+  resolution: "@remix-run/router@npm:1.3.3"
+  checksum: 3d18dd18a3b339e754dd417e3063d21775dce282667084349952bf7f503148b9613243492fa0ba7adc558839552700ecb277d78725342a914adccd2639872d25
   languageName: node
   linkType: hard
 
@@ -730,6 +775,122 @@ __metadata:
   dependencies:
     lodash: "npm:^4.17.15"
   checksum: 95653a459baf6b6195142bc2ff64d2d5b9343396c530bf8d167c492d37a6d3cfde9877bdd0c2a66d47c72bb13af107ea924a3fef4047a2f161266ae767189351
+  languageName: node
+  linkType: hard
+
+"@styled-system/background@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/background@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: c62dab5c33475789566a46ce670fc85b12c4ea4a5a83df186a9a3201eaf288b83870b30144f3f6fdcd1f909aca3007c48ef58057b45e6553012573e54c59195a
+  languageName: node
+  linkType: hard
+
+"@styled-system/border@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "@styled-system/border@npm:5.1.5"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: 2131ee0a33cf37f7771f0e278ad58d0dc4d871201be1a0d6719341fd8d530305d50749da709c484bbb342d8deb0e13e354ab758c860cc81bc91afb1bd02fa4e6
+  languageName: node
+  linkType: hard
+
+"@styled-system/color@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/color@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: 9b678a55d8103aed1b6a02082fbafa6b88260ec94bad8268f8625472c44a9e2b082d966c76e7fbda03e430a27b3ae626adf970e8c22ab095be55f695183b67c3
+  languageName: node
+  linkType: hard
+
+"@styled-system/core@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/core@npm:5.1.2"
+  dependencies:
+    object-assign: "npm:^4.1.1"
+  checksum: 944a1dde17f7f7873f09d9056a85fa9202bd66c4625ec4e127a174343ca665d47f45e59535b9780faa3f00bc205751ce913ac3428b40362606e21028df66f926
+  languageName: node
+  linkType: hard
+
+"@styled-system/css@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "@styled-system/css@npm:5.1.5"
+  checksum: e67a0eff94be4ca4279afec504cdaaadc15f970e520c16c20417d7ab3d949b84b12ab04cfbb8ef82bd2f05b395b5844af65a4ff9127c4fe3a47fd2eeab1020d9
+  languageName: node
+  linkType: hard
+
+"@styled-system/flexbox@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/flexbox@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: 39d6254226c3d4ddadd16d6e0615fd7aa52f5ddfe811bc63dfb0e2063e3fd6ca52dd5b4e69347aa7fe49f343092d0f1d66897c5981d21fb10098b25ad6d0a55b
+  languageName: node
+  linkType: hard
+
+"@styled-system/grid@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/grid@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: 15616cd82da5510d1a0a6fc7b7d671653870810370cd3ca3accd4cbd06cdb2266c850c078bef93140f0e8d3c2aa3a4115f2a69a52de27170baebb8c867298d0e
+  languageName: node
+  linkType: hard
+
+"@styled-system/layout@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/layout@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: 5fe031829d449abbb2c2807660fc0ce998a25d233cb70fc2781b82589e635b86690159d6b5b5cb97e1b6f82e6cea90e1e8a8212b55935a1f73c16cbb6f1c67ea
+  languageName: node
+  linkType: hard
+
+"@styled-system/position@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/position@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: edde22f7117476414d40ed52fbd56f403c35d8836dd312bcae535fb8cb021e7769827aed0f254ef69efc48973df925da21e3c7b41cbc02a18c6636422174a411
+  languageName: node
+  linkType: hard
+
+"@styled-system/shadow@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/shadow@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: a84256857893d4761717ef2b855b075ceba65e4153b6934c365e1bbae5920f8ab3942dbc8dd92b9307993d28028e75a8d179fb6cb3e6e929d1a6d3faaf080142
+  languageName: node
+  linkType: hard
+
+"@styled-system/space@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/space@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: f7558bcca43aa322acdf1f4284c7bbc77d16df02d9ff8b994438d515c01cfb41554a90e95f07029404f7447921a4baf54e31a390f6bccfbf798c8a3fbbc403f4
+  languageName: node
+  linkType: hard
+
+"@styled-system/typography@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@styled-system/typography@npm:5.1.2"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+  checksum: 42165225c6bcad4f08b0851732c02cbf9961f19f656a16421fb774f7b7ef3b5c23485607c7cc1ec8364af15825c206879e5ef20d954801b888261e4ba014031a
+  languageName: node
+  linkType: hard
+
+"@styled-system/variant@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "@styled-system/variant@npm:5.1.5"
+  dependencies:
+    "@styled-system/core": "npm:^5.1.2"
+    "@styled-system/css": "npm:^5.1.5"
+  checksum: 4a123ce65ed82adca57b20ae5307bad2695d7f5c88a479c2d949b7e723c57d22bf1c9f52193ad6724ce7819ebb1c3e4014ff241a166417c0ec79e07fc2b70502
   languageName: node
   linkType: hard
 
@@ -972,6 +1133,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@theme/definitions@workspace:shared/theme/definitions":
+  version: 0.0.0-use.local
+  resolution: "@theme/definitions@workspace:shared/theme/definitions"
+  dependencies:
+    "@theme/types": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@theme/global@workspace:*, @theme/global@workspace:shared/theme/global":
   version: 0.0.0-use.local
   resolution: "@theme/global@workspace:shared/theme/global"
@@ -989,34 +1158,43 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@theme/provider@workspace:shared/theme/provider":
+"@theme/provider@workspace:*, @theme/provider@workspace:shared/theme/provider":
   version: 0.0.0-use.local
   resolution: "@theme/provider@workspace:shared/theme/provider"
   dependencies:
     "@emotion/react": "npm:^11.10.6"
     "@theme/global": "workspace:*"
+    "@theme/store": "workspace:*"
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
+    recoil: "npm:^0.7.7"
   peerDependencies:
     "@emotion/react": "*"
     react: "*"
   languageName: unknown
   linkType: soft
 
-"@theme/store@workspace:shared/theme/store":
+"@theme/store@workspace:*, @theme/store@workspace:shared/theme/store":
   version: 0.0.0-use.local
   resolution: "@theme/store@workspace:shared/theme/store"
   dependencies:
     "@theme/dark-schema": "workspace:*"
+    "@types/react": "npm:^18.0.28"
+    react: "npm:^18.2.0"
     recoil: "npm:^0.7.6"
+  peerDependencies:
+    react: "*"
   languageName: unknown
   linkType: soft
 
-"@theme/tools@workspace:shared/theme/tools":
+"@theme/tools@workspace:*, @theme/tools@workspace:shared/theme/tools":
   version: 0.0.0-use.local
   resolution: "@theme/tools@workspace:shared/theme/tools"
   dependencies:
+    "@emotion/serialize": "npm:^1.1.1"
     "@theme/types": "workspace:*"
+    "@types/styled-system": "npm:^5"
+    styled-system: "npm:^5.1.5"
     styled-tools: "npm:^1.7.2"
   languageName: unknown
   linkType: soft
@@ -1147,7 +1325,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-system@npm:^5.1.16":
+"@types/styled-system@npm:^5, @types/styled-system@npm:^5.1.16":
   version: 5.1.16
   resolution: "@types/styled-system@npm:5.1.16"
   dependencies:
@@ -1276,6 +1454,26 @@ __metadata:
   checksum: bf2a2fd34988ea6b427bc786e9a149187cc35b07326d666b8370b6356dbe897bfa138804e9df9a9762475f753b2741f6c62fbcb5b5474d7488ab9b451dc2e25c
   languageName: node
   linkType: hard
+
+"@ui/--template@workspace:*, @ui/--template@workspace:shared/ui/--template":
+  version: 0.0.0-use.local
+  resolution: "@ui/--template@workspace:shared/ui/--template"
+  dependencies:
+    "@emotion/css": "npm:^11.10.6"
+    "@emotion/react": "npm:^11.10.6"
+    "@emotion/styled": "npm:^11.10.6"
+    "@theme/tools": "workspace:*"
+    "@types/react": "npm:^18.0.28"
+    "@types/styled-system": "npm:^5"
+    react: "npm:^18.2.0"
+    styled-system: "npm:^5.1.5"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    react: "*"
+  languageName: unknown
+  linkType: soft
 
 "@vitest/expect@npm:0.29.1":
   version: 0.29.1
@@ -3930,6 +4128,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-router-dom@npm:^6.8.2":
+  version: 6.8.2
+  resolution: "react-router-dom@npm:6.8.2"
+  dependencies:
+    "@remix-run/router": "npm:1.3.3"
+    react-router: "npm:6.8.2"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 21803bdf0cc750cf29e85c0118c1609597eeee1e9947a4152de5538a91f5a3b62b7caf3802535c8f10c557aac11baaf4615181cf70dc92fec06ce2787a85b0af
+  languageName: node
+  linkType: hard
+
 "react-router@npm:6.8.1":
   version: 6.8.1
   resolution: "react-router@npm:6.8.1"
@@ -3938,6 +4149,17 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: 24e4b12e86a01c0491ec3188a0d1503cf52c59324d395a0967ea4a8eb9f09120da9533f2758d098d3435ed5a8788f2996d7fb4a53614fdbe37eca164cb5d58b8
+  languageName: node
+  linkType: hard
+
+"react-router@npm:6.8.2":
+  version: 6.8.2
+  resolution: "react-router@npm:6.8.2"
+  dependencies:
+    "@remix-run/router": "npm:1.3.3"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 5b30febf388003a85226c5ba6acc16b07ad9ffcfda839a2a24a4bf54efdad389f92a68a1d63967bf151a321d091152751792de93f503cf29960ee26236f29eb7
   languageName: node
   linkType: hard
 
@@ -3974,6 +4196,22 @@ __metadata:
     react-native:
       optional: true
   checksum: 42fd256e35e03dcce4dfa94089ef718cb2b6983c1e6802d6373a523ecc5d7f28deede6ede1aa2a441e1ee547a38acd96dd1a9890f658835b77dd7635d1ed21fe
+  languageName: node
+  linkType: hard
+
+"recoil@npm:^0.7.7":
+  version: 0.7.7
+  resolution: "recoil@npm:0.7.7"
+  dependencies:
+    hamt_plus: "npm:1.0.2"
+  peerDependencies:
+    react: ">=16.13.1"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 62b45949c0e47a6df2365f52cca67cb953173fef630ec3e2bfedb78f25212f4420c58d583a3aad68651d2301163ef869eeb738779e17687007f2842391d70479
   languageName: node
   linkType: hard
 
@@ -4432,6 +4670,27 @@ __metadata:
   dependencies:
     acorn: "npm:^8.8.1"
   checksum: ae83ff31406ff54ee1f181c6a233b83882d458f210a2ae783e3e2b3bbd212f83ad6034541f3910bc26b1cc6616534bd1a9b4cb0553e74627f464da9ded8b47df
+  languageName: node
+  linkType: hard
+
+"styled-system@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "styled-system@npm:5.1.5"
+  dependencies:
+    "@styled-system/background": "npm:^5.1.2"
+    "@styled-system/border": "npm:^5.1.5"
+    "@styled-system/color": "npm:^5.1.2"
+    "@styled-system/core": "npm:^5.1.2"
+    "@styled-system/flexbox": "npm:^5.1.2"
+    "@styled-system/grid": "npm:^5.1.2"
+    "@styled-system/layout": "npm:^5.1.2"
+    "@styled-system/position": "npm:^5.1.2"
+    "@styled-system/shadow": "npm:^5.1.2"
+    "@styled-system/space": "npm:^5.1.2"
+    "@styled-system/typography": "npm:^5.1.2"
+    "@styled-system/variant": "npm:^5.1.5"
+    object-assign: "npm:^4.1.1"
+  checksum: 3779f07e58e8c6729fd18e379be71977a3e4c8fce72e8d8a70d68eb1576922243ae7534070530998942685fe56a8f328e2c2fb1c68b3438a74d39fc7d23c9870
   languageName: node
   linkType: hard
 

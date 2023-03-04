@@ -1,0 +1,7 @@
+{
+  "name": "@theme/definitions",
+  "types": "styled.d.ts",
+  "dependencies": {
+    "@theme/types": "workspace:*"
+  }
+}

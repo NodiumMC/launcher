@@ -1,12 +1,11 @@
 {
-  "name": "@app/providers",
-  "main": "src/index.ts",
+  "name": "@app/routes",
+  "main": "src/index.tsx",
   "dependencies": {
-    "@theme/provider": "workspace:*",
+    "@pages/home": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1",
-    "recoil": "^0.7.7"
+    "react-router-dom": "^6.8.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

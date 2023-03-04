@@ -1,14 +1,16 @@
 import { GlobalStyles } from '@theme/global'
 import type { FC, PropsWithChildren } from 'react'
-import { Theme, ThemeProvider as EmotionThemeProvider } from '@emotion/react'
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
+import { theme } from '@theme/store'
+import { useRecoilState } from 'recoil'
 
-export interface ThemeProviderProps extends PropsWithChildren {
-  theme: Partial<Theme> | ((outerTheme: Theme) => Theme)
+export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
+  const [themeValue] = useRecoilState(theme)
+
+  return (
+    <>
+      <GlobalStyles />
+      <EmotionThemeProvider theme={themeValue}>{children}</EmotionThemeProvider>
+    </>
+  )
 }
-
-export const ThemeProvider: FC<ThemeProviderProps> = ({ children, theme }) => (
-  <>
-    <GlobalStyles />
-    <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
-  </>
-)

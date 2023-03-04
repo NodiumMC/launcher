@@ -7,15 +7,7 @@ import {
   withProp as _withProp,
 } from 'styled-tools'
 
-function transform<T extends (...args: any) => any>(fn: T): Transform<T> {
-  return ((path: () => string, ...rest: any[]) => fn(path(), ...rest)) as Transform<T>
-}
-
-type Transform<T> = T extends (path: infer _, ...rest: infer U) => infer R
-  ? (path: () => string, ...rest: U) => R
-  : never
-
-export const theme = transform(_theme)
+export const theme = _theme
 export const prop = _prop
 export const ifProp = _ifProp
 export const ifNotProp = _ifNotProp
