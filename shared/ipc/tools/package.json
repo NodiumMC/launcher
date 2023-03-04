@@ -1,0 +1,4 @@
+{
+  "name": "@ipc/tools",
+  "main": "src/index.ts"
+}

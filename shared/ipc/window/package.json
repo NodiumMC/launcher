@@ -1,0 +1,8 @@
+{
+  "name": "@ipc/window",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@ipc/tools": "workspace:*",
+    "@tauri-apps/api": "^1.2.0"
+  }
+}
