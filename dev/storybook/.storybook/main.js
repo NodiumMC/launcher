@@ -1,10 +1,9 @@
 const { mergeConfig } = require('vite')
-const { default: tsconfigPaths } = require('vite-tsconfig-paths')
 const react = require('@nodium/plugin-react-swc')
 module.exports = {
   "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+    "../**/*.stories.mdx",
+    "../**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "@storybook/addon-links",
@@ -20,7 +19,7 @@ module.exports = {
   },
   async viteFinal(config) {
     return mergeConfig(config, {
-      plugins: [tsconfigPaths(), react()]
+      plugins: [react()]
     })
   }
 }

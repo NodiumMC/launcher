@@ -33,6 +33,7 @@
         "@theme/light-schema": ["shared/theme/schemas/light"],
         "@pages/*": ["pages/*"],
         "@ui/*": ["shared/ui/*"],
+        "@dev/*": ["dev/*"],
       }
     },
     "include": ["app/**/*", "shared/**/*",

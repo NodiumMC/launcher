@@ -12,8 +12,8 @@
     "shared/**",
     "jsx/**",
     "theme/**",
-    "ui/**",
-    "pages/**"
+    "pages/**",
+    "dev/**"
   ],
   "devDependencies": {
     "@types/eslint": "^8",
