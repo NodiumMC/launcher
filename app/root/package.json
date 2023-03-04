@@ -1,0 +1,12 @@
+{
+  "name": "@app/root",
+  "main": "src/index.tsx",
+  "devDependencies": {
+    "@app/providers": "workspace:*",
+    "@app/routes": "workspace:*",
+    "@types/react": "^18.0.28"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}

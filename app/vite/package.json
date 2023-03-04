@@ -1,0 +1,10 @@
+{
+  "name": "@app/vite",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@nodium/plugin-react-swc": "^1.0.0",
+    "vite": "^4.1.4",
+    "vite-tsconfig-paths": "^4.0.5",
+    "vitest": "^0.29.1"
+  }
+}

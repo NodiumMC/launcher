@@ -17,10 +17,24 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
-      "baseUrl": "src",
+      "baseUrl": "./",
       "jsx": "react-jsx",
-      "types": ["reflect-metadata", "vitest/importMeta", "vitest/globals"]
+      "paths": {
+        "@app/*": ["app/*"],
+        "@lib/*": ["shared/lib/*"],
+        "@theme/builder": ["shared/theme/builder"],
+        "@theme/common": ["shared/theme/common"],
+        "@theme/global": ["shared/theme/global"],
+        "@theme/provider": ["shared/theme/provider"],
+        "@theme/store": ["shared/theme/store"],
+        "@theme/tools": ["shared/theme/tools"],
+        "@theme/types": ["shared/theme/types"],
+        "@theme/dark-schema": ["shared/theme/schemas/dark"],
+        "@theme/light-schema": ["shared/theme/schemas/light"],
+        "@pages/*": ["pages/*"],
+        "@ui/*": ["shared/ui/*"],
+        "@dev/*": ["dev/*"]
+      }
     },
-    "include": ["src"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    "include": ["app/**/*", "dev/**/*", "pages/**/*", "shared/**/*"]
   }
