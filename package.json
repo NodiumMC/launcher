@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.3.0",
   "license": "BSD 3-Clause",
+  "scripts": {
+    "lint": "eslint .",
+    "prebuild": "tsc"
+  },
   "moduleDirectories": [
     "node_modules",
     "src"

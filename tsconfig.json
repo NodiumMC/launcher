@@ -33,11 +33,8 @@
         "@theme/light-schema": ["shared/theme/schemas/light"],
         "@pages/*": ["pages/*"],
         "@ui/*": ["shared/ui/*"],
-        "@dev/*": ["dev/*"],
+        "@dev/*": ["dev/*"]
       }
     },
-    "include": ["app/**/*", "shared/**/*",
-      "shared/theme/**/*",
-      "shared/lib/jsx/**/*", "ui/**/*"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    "include": ["app/**/*", "dev/**/*", "pages/**/*", "shared/**/*"]
   }

@@ -1,11 +1,11 @@
 import { Schema } from '@theme/types'
-import { LazyRecord } from '@shared/lib/types'
+import { LazyRecord } from '@lib/types'
 
 type LazySchema = {
   [K in keyof Schema]: LazyRecord<Schema[K]>
 }
 
-function initialize<T>(record: LazyRecord<T>): T {
+function initialize<T extends Record<any, any>>(record: LazyRecord<T>): T {
   return Object.fromEntries(
     Object.entries(record).map(([key, value]) => [key, typeof value === 'function' ? value() : value]),
   ) as T
