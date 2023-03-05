@@ -1,5 +1,20 @@
 import { makeShadesFactory, makeTheme } from '@theme/builder'
-import { dark, error, light, primary, radius, secondary, space, success, tertiary, warning } from '@theme/common'
+import {
+  dark,
+  error,
+  font,
+  light,
+  line,
+  primary,
+  radius,
+  secondary,
+  size,
+  space,
+  success,
+  tertiary,
+  time,
+  warning,
+} from '@theme/common'
 
 const shades = makeShadesFactory(dark, light)
 
@@ -16,6 +31,10 @@ export default makeTheme({
     warning: shades(warning),
     success: shades(success),
   },
+  font,
   radius,
   space,
+  size,
+  line,
+  time,
 })

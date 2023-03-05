@@ -1,0 +1,17 @@
+{
+  "name": "@ui/icons",
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}

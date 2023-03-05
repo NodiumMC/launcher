@@ -3,6 +3,7 @@
   "main": "src/index.ts",
   "dependencies": {
     "@theme/dark-schema": "workspace:*",
+    "@theme/light-schema": "workspace:*",
     "recoil": "^0.7.6"
   },
   "devDependencies": {

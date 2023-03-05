@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import { withProviders } from '@app/providers'
 import { Routes } from '@app/routes'
+import { Window } from '@ui/window'
 
 const App: FC = () => {
   return (
-    <div>
+    <Window>
       <Routes />
-    </div>
+    </Window>
   )
 }
 

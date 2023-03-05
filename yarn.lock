@@ -55,6 +55,7 @@ __metadata:
     "@app/providers": "workspace:*"
     "@app/routes": "workspace:*"
     "@types/react": "npm:^18.0.28"
+    "@ui/window": "workspace:*"
     react: "npm:^18.2.0"
   languageName: unknown
   linkType: soft
@@ -2281,6 +2282,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.3.0"
+  checksum: bde2ed1cd828160196829e8e3406a3ab66053fbdc5a06d904b2e0b0f950a13b595ff68da0938abddfaf130bbbe265d2f35a01909624e9083cbd02bb9c1683b75
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.3.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.3.0"
+  checksum: 216ade7dcd7f51adca09df43d53ce16a9ef5086c58d143cf86640230c6f2200f9dca9d648963ff1e4466c850e667de688ef60d019fe22e99c14c7b32940ce14b
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-regular-svg-icons@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/free-regular-svg-icons@npm:6.3.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.3.0"
+  checksum: 3abb588e556fd7606fd7271df7736e2c198238ad794b651b468e4439db7c6665ccf3622f3d98d81ae670e0f2894c89a1d82c9ab74c1c5c83d17e18371caa47c5
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-solid-svg-icons@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.3.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.3.0"
+  checksum: e235bf6911e21b0942fdcbd427baf78324243db7a26459c00ff7320b625154f11e3d4e51aaa52a7a40fb1ee263739a1658db68fbff12e0407f07bde89ea8ed02
+  languageName: node
+  linkType: hard
+
+"@fortawesome/react-fontawesome@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@fortawesome/react-fontawesome@npm:0.2.0"
+  dependencies:
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@fortawesome/fontawesome-svg-core": ~1 || ~6
+    react: ">=16.3"
+  checksum: 6a07da5ce3f8d70dda73025bb792e2db81b2ab8330f8c11deeff584c4788be6583ba7f87d27ae61e15d9464a134ec5541a847db160d7fc9ebf909cdff85fbc0b
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1, @gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -2323,6 +2370,21 @@ __metadata:
   checksum: c860f96faaaaecd6c5c4ee6912f7c761579031b464c3cf55832e59e18b116968d89b570ef6a9a10b1670a67e7998a530c8c549b4a41b118153340772ad10cea9
   languageName: node
   linkType: hard
+
+"@ipc/tools@workspace:*, @ipc/tools@workspace:shared/ipc/tools":
+  version: 0.0.0-use.local
+  resolution: "@ipc/tools@workspace:shared/ipc/tools"
+  languageName: unknown
+  linkType: soft
+
+"@ipc/window@workspace:*, @ipc/window@workspace:shared/ipc/window":
+  version: 0.0.0-use.local
+  resolution: "@ipc/window@workspace:shared/ipc/window"
+  dependencies:
+    "@ipc/tools": "workspace:*"
+    "@tauri-apps/api": "npm:^1.2.0"
+  languageName: unknown
+  linkType: soft
 
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.1.0
@@ -2639,7 +2701,6 @@ __metadata:
   resolution: "@pages/home@workspace:pages/home"
   dependencies:
     "@types/react": "npm:^18.0.28"
-    "@ui/--template": "workspace:*"
     react: "npm:^18.2.0"
   peerDependencies:
     react: "*"
@@ -3920,6 +3981,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@style/tools@workspace:*, @style/tools@workspace:shared/style/tools":
+  version: 0.0.0-use.local
+  resolution: "@style/tools@workspace:shared/style/tools"
+  dependencies:
+    "@emotion/serialize": "npm:^1.1.1"
+    "@theme/types": "workspace:*"
+    "@types/styled-system": "npm:^5"
+    styled-system: "npm:^5.1.5"
+    styled-tools: "npm:^1.7.2"
+  languageName: unknown
+  linkType: soft
+
 "@styled-system/background@npm:^5.1.2":
   version: 5.1.2
   resolution: "@styled-system/background@npm:5.1.2"
@@ -4145,6 +4218,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tauri-apps/api@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@tauri-apps/api@npm:1.2.0"
+  checksum: 8acda23f41a3128a099a403975693f24a7674b17f61aac0e5841985c63b68fa67824cd27eb1e75c4019f469d9f7f49b8dae7232d85c7218d7d817422e3560b12
+  languageName: node
+  linkType: hard
+
 "@tauri-apps/cli-darwin-arm64@npm:1.2.3":
   version: 1.2.3
   resolution: "@tauri-apps/cli-darwin-arm64@npm:1.2.3"
@@ -4275,6 +4355,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@theme/font@workspace:*, @theme/font@workspace:shared/theme/font":
+  version: 0.0.0-use.local
+  resolution: "@theme/font@workspace:shared/theme/font"
+  dependencies:
+    "@emotion/react": "npm:^11.10.6"
+    "@types/react": "npm:^18.0.28"
+    react: "npm:^18.2.0"
+  peerDependencies:
+    "@emotion/react": "*"
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@theme/global@workspace:*, @theme/global@workspace:shared/theme/global":
   version: 0.0.0-use.local
   resolution: "@theme/global@workspace:shared/theme/global"
@@ -4292,11 +4385,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@theme/light-schema@workspace:*, @theme/light-schema@workspace:shared/theme/schemas/light":
+  version: 0.0.0-use.local
+  resolution: "@theme/light-schema@workspace:shared/theme/schemas/light"
+  dependencies:
+    "@theme/builder": "workspace:*"
+    "@theme/common": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@theme/provider@workspace:*, @theme/provider@workspace:shared/theme/provider":
   version: 0.0.0-use.local
   resolution: "@theme/provider@workspace:shared/theme/provider"
   dependencies:
     "@emotion/react": "npm:^11.10.6"
+    "@theme/font": "workspace:*"
     "@theme/global": "workspace:*"
     "@theme/store": "workspace:*"
     "@types/react": "npm:^18.0.28"
@@ -4313,23 +4416,12 @@ __metadata:
   resolution: "@theme/store@workspace:shared/theme/store"
   dependencies:
     "@theme/dark-schema": "workspace:*"
+    "@theme/light-schema": "workspace:*"
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
     recoil: "npm:^0.7.6"
   peerDependencies:
     react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@theme/tools@workspace:*, @theme/tools@workspace:shared/theme/tools":
-  version: 0.0.0-use.local
-  resolution: "@theme/tools@workspace:shared/theme/tools"
-  dependencies:
-    "@emotion/serialize": "npm:^1.1.1"
-    "@theme/types": "workspace:*"
-    "@types/styled-system": "npm:^5"
-    styled-system: "npm:^5.1.5"
-    styled-tools: "npm:^1.7.2"
   languageName: unknown
   linkType: soft
 
@@ -4886,16 +4978,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui/--template@workspace:*, @ui/--template@workspace:shared/ui/--template":
+"@ui/icons@workspace:*, @ui/icons@workspace:shared/ui/icons":
   version: 0.0.0-use.local
-  resolution: "@ui/--template@workspace:shared/ui/--template"
+  resolution: "@ui/icons@workspace:shared/ui/icons"
+  dependencies:
+    "@fortawesome/fontawesome-svg-core": "npm:^6.3.0"
+    "@fortawesome/free-regular-svg-icons": "npm:^6.3.0"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.3.0"
+    "@fortawesome/react-fontawesome": "npm:^0.2.0"
+    "@types/react": "npm:^18.0.28"
+    react: "npm:^18.2.0"
+  peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@ui/window@workspace:*, @ui/window@workspace:shared/ui/window":
+  version: 0.0.0-use.local
+  resolution: "@ui/window@workspace:shared/ui/window"
   dependencies:
     "@emotion/css": "npm:^11.10.6"
     "@emotion/react": "npm:^11.10.6"
     "@emotion/styled": "npm:^11.10.6"
-    "@theme/tools": "workspace:*"
+    "@ipc/window": "workspace:*"
+    "@style/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
+    "@ui/icons": "workspace:*"
     react: "npm:^18.2.0"
     styled-system: "npm:^5.1.5"
   peerDependencies:
@@ -12019,6 +12128,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.6.11"
     prettier: "npm:^2.8.4"
     typescript: "npm:^4.9.5"
+    vite: "npm:^4.1.4"
   languageName: unknown
   linkType: soft
 
