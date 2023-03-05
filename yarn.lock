@@ -2701,6 +2701,7 @@ __metadata:
   resolution: "@pages/home@workspace:pages/home"
   dependencies:
     "@types/react": "npm:^18.0.28"
+    "@ui/spinner": "workspace:*"
     react: "npm:^18.2.0"
   peerDependencies:
     react: "*"
@@ -4989,6 +4990,28 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
   peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@ui/spinner@workspace:*, @ui/spinner@workspace:shared/ui/spinner":
+  version: 0.0.0-use.local
+  resolution: "@ui/spinner@workspace:shared/ui/spinner"
+  dependencies:
+    "@emotion/css": "npm:^11.10.6"
+    "@emotion/react": "npm:^11.10.6"
+    "@emotion/styled": "npm:^11.10.6"
+    "@ipc/window": "workspace:*"
+    "@style/tools": "workspace:*"
+    "@types/react": "npm:^18.0.28"
+    "@types/styled-system": "npm:^5"
+    "@ui/icons": "workspace:*"
+    react: "npm:^18.2.0"
+    styled-system: "npm:^5.1.5"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft

@@ -1,7 +1,7 @@
 import { StyleFn } from '@style/tools'
 
 export const appearanceStyles: StyleFn = ({ theme }) => ({
-  color: theme.palette.foreground._200,
+  color: theme.palette.gray._200,
   fontFamily: theme.font.main,
   fontSize: theme.size.sm,
   fontWeight: '500',

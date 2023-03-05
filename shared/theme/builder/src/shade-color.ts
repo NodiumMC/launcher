@@ -5,13 +5,22 @@ import { map } from '@lib/math'
 
 const SHADE_VALUES: Shade[] = [5, 25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950, 975]
 
+function mapRatio(shade: Shade) {
+  return map(shade, MIN_SHADE, MAX_SHADE, MIN_MIX_SHADE_RATIO, MAX_MIX_SHADE_RATIO)
+}
+
 export function shade(color: string, background: string, foreground: string, shadeValue: Shade) {
   if (shadeValue === MID_SHADE) return color
   const mixWithBackground = shadeValue <= MID_SHADE
 
-  const ratio = map(shadeValue, MIN_SHADE, MAX_SHADE, MIN_MIX_SHADE_RATIO, MAX_MIX_SHADE_RATIO)
+  const ratio = mapRatio(shadeValue)
 
   return mixWithBackground ? mix(ratio, color, background) : mix(ratio, foreground, color)
+}
+
+export function shadeNative(primary: string, secondary: string, shadeValue: Shade) {
+  const ratio = mapRatio(shadeValue)
+  return mix(ratio, primary, secondary)
 }
 
 export function shadeFactory(background: string, foreground: string) {
@@ -20,6 +29,10 @@ export function shadeFactory(background: string, foreground: string) {
 
 export function shadeBatchFactory(color: string, background: string, foreground: string) {
   return (shadeValue: Shade) => shade(color, background, foreground, shadeValue)
+}
+
+export function shadeNativeBatchFactory(primary: string, secondary: string) {
+  return (shadeValue: Shade) => shadeNative(primary, secondary, shadeValue)
 }
 
 export function makeShades(color: string, background: string, foreground: string): ShadesRecord {
@@ -31,4 +44,11 @@ export function makeShades(color: string, background: string, foreground: string
 
 export function makeShadesFactory(background: string, foreground: string) {
   return (color: string) => makeShades(color, background, foreground)
+}
+
+export function makeNativeShades(primary: string, secondary: string) {
+  const factory = shadeNativeBatchFactory(primary, secondary)
+  const shades = SHADE_VALUES.map(factory)
+
+  return Object.fromEntries(shades.map((shade, idx) => [`_${SHADE_VALUES[idx]}`, shade])) as ShadesRecord
 }
