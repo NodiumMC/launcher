@@ -2,8 +2,9 @@ import { ShadesRecord } from './utils'
 
 export interface Palette {
   // Appearance
-  background: ShadesRecord
-  foreground: ShadesRecord
+  background: string
+  foreground: string
+  gray: ShadesRecord
   // Accent
   primary: ShadesRecord
   secondary: ShadesRecord

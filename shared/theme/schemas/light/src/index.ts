@@ -1,4 +1,4 @@
-import { makeShadesFactory, makeTheme } from '@theme/builder'
+import { makeNativeShades, makeShadesFactory, makeTheme } from '@theme/builder'
 import {
   dark,
   error,
@@ -20,8 +20,9 @@ const shades = makeShadesFactory(light, dark)
 
 export default makeTheme({
   palette: {
-    background: shades(light),
-    foreground: shades(dark),
+    background: light,
+    foreground: dark,
+    gray: makeNativeShades(dark, light),
 
     primary: shades(primary),
     secondary: shades(secondary),
