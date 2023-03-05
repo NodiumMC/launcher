@@ -1,9 +1,6 @@
 {
   "name": "@pages/home",
   "main": "src/index.tsx",
-  "dependencies": {
-    "@ui/--template": "workspace:*"
-  },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "react": "^18.2.0"

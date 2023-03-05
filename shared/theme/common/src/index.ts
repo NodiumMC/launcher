@@ -1,3 +1,6 @@
 export * from './layout'
 export * from './colors'
 export * from './shape'
+export * from './font'
+export * from './text'
+export * from './transition'

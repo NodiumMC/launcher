@@ -1,14 +1,16 @@
 {
-  "name": "@ui/--template",
+  "name": "@ui/window",
   "main": "src/index.tsx",
   "dependencies": {
+    "@ipc/window": "workspace:*",
+    "@ui/icons": "workspace:*",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@emotion/css": "^11.10.6",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@theme/tools": "workspace:*",
+    "@style/tools": "workspace:*",
     "@types/react": "^18.0.28",
     "@types/styled-system": "^5",
     "react": "^18.2.0"

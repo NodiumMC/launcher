@@ -5,6 +5,8 @@ export type FullScale = XsScale | XlScale
 export type XxlScale = FullScale | 'xxl'
 export type XxsScale = 'xxs' | FullScale
 export type ExtendedScale = XxlScale | XxsScale
+export type FontScale = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'dxs' | 'dsm' | 'dmd' | 'dlg' | 'dxl' | 'dxxl'
+export type TimeScale = 'shortest' | 'short' | 'default' | 'long' | 'longest'
 
 export type ThemeRecord<K extends string, V = any> = Record<K, V>
 

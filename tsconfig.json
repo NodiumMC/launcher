@@ -27,13 +27,16 @@
         "@theme/global": ["shared/theme/global"],
         "@theme/provider": ["shared/theme/provider"],
         "@theme/store": ["shared/theme/store"],
-        "@theme/tools": ["shared/theme/tools"],
+        "@style/tools": ["shared/style/tools"],
         "@theme/types": ["shared/theme/types"],
+        "@theme/font": ["shared/theme/font"],
         "@theme/dark-schema": ["shared/theme/schemas/dark"],
         "@theme/light-schema": ["shared/theme/schemas/light"],
+        "@ipc/*": ["shared/ipc/*"],
         "@pages/*": ["pages/*"],
         "@ui/*": ["shared/ui/*"],
-        "@dev/*": ["dev/*"]
+        "@dev/*": ["dev/*"],
+        "@widgets/*": ["widgets/*"],
       }
     },
     "include": ["app/**/*", "dev/**/*", "pages/**/*", "shared/**/*"]

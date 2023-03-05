@@ -1,0 +1,8 @@
+{
+  "name": "@theme/light-schema",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@theme/builder": "workspace:*",
+    "@theme/common": "workspace:*"
+  }
+}

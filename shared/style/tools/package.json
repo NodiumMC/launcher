@@ -1,5 +1,5 @@
 {
-  "name": "@theme/tools",
+  "name": "@style/tools",
   "main": "src/index.ts",
   "dependencies": {
     "@emotion/serialize": "^1.1.1",
