@@ -31,6 +31,9 @@ jobs:
         with:
           workspaces: './rust -> target'
 
+      - name: Make dist
+        run: mkdir dist
+
       - name: Cd
         run: cd rust
 
