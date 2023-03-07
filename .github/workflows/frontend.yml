@@ -2,6 +2,8 @@ name: "🔷 Frontend"
 on:
   pull_request:
     branches: [ master ]
+    paths:
+      - '!rust/**'
 
 jobs:
   lint-frontend:
