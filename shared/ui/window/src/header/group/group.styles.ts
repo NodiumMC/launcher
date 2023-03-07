@@ -1,4 +1,4 @@
-import { StyleFn } from '@style/tools'
+import { StyleFn } from '@styled/tools'
 
 export const styles: StyleFn = ({ theme }) => ({
   display: 'flex',

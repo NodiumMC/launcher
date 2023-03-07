@@ -1,4 +1,4 @@
-import { ifProp, StyleFn } from '@style/tools'
+import { ifProp, StyleFn } from '@styled/tools'
 import { ControlButtonProps } from '../control-button.interface'
 
 export const defaultAppearanceStyles: StyleFn = ({ theme }) => ({
@@ -9,8 +9,8 @@ export const defaultAppearanceStyles: StyleFn = ({ theme }) => ({
   },
 })
 
-export const destructiveAppearanceStyles = ifProp<ControlButtonProps, StyleFn>(
-  props => props?.isDestructive,
+export const destructiveAppearanceStyles = ifProp(
+  (props: ControlButtonProps) => props.isDestructive,
   ({ theme }) => ({
     ':hover': {
       color: theme.palette.error._500,
