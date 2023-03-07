@@ -31,5 +31,8 @@ jobs:
         with:
           workspaces: './rust -> target'
 
+      - name: Cd
+        run: cd rust
+
       - name: Compile
-        run: cd rust && cargo clippy
+        run: cargo check
