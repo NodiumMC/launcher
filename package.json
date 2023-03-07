@@ -21,18 +21,8 @@
     "widgets/**"
   ],
   "devDependencies": {
-    "@types/eslint": "^8",
-    "@types/prettier": "^2",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "eslint": "^8.35.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-storybook": "^0.6.11",
-    "prettier": "^2.8.4",
     "typescript": "^4.9.5",
-    "vite": "^4.1.4"
+    "vitest": "^0.29.2"
   },
   "resolutions": {
     "typescript": "^4.9.5"
