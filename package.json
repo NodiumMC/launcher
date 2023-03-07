@@ -26,5 +26,5 @@
   "resolutions": {
     "typescript": "^4.9.5"
   },
-  "packageManager": "yarn@4.0.0-rc.39"
+  "packageManager": "yarn@4.0.0-rc.40"
 }
