@@ -1,0 +1,64 @@
+name: "🔷 Frontend"
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'dev/**'
+      - 'app/**'
+      - 'shared/**'
+      - 'pages/**'
+      - 'core/**'
+      - '.yarn/**'
+      - '.pnp.*'
+      - '.yarnrc.yml'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'tsconfig.json'
+      - 'yarn.lock'
+
+jobs:
+  lint-frontend:
+    name: "📄 Lint"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ Checkout"
+        uses: actions/checkout@v3
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+      - name: "📦 Install deps"
+        run: yarn
+      - name: "💠 Lint"
+        run: yarn workspace @dev/codestyle lint
+  prebuild-frontend:
+    name: "🛠 Prebuild"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ Checkout"
+        uses: actions/checkout@v3
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+      - name: "📦 Install deps"
+        run: yarn
+      - name: "💠 Prebuild"
+        run: yarn prebuild
+  test-frontend:
+    name: "🚩 Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "☁️ Checkout"
+        uses: actions/checkout@v3
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+      - name: "📦 Install deps"
+        run: yarn
+      - name: "🚩 Testing"
+        run: yarn workspace @dev/testing test

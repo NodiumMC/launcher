@@ -23,7 +23,15 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", {
+      "tabWidth": 2,
+      "semi": false,
+      "arrowParens": "avoid",
+      "singleQuote": true,
+      "trailingComma": "all",
+      "endOfLine": "lf",
+      "printWidth": 120
+    }],
     "indent": "off",
     "no-control-regex": "off",
     "@typescript-eslint/no-namespace": "off",

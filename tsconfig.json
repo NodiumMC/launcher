@@ -19,6 +19,7 @@
       "noEmit": true,
       "baseUrl": "./",
       "jsx": "react-jsx",
+      "types": ["vitest/globals"],
       "paths": {
         "@app/*": ["app/*"],
         "@lib/*": ["shared/lib/*"],
@@ -27,7 +28,7 @@
         "@theme/global": ["shared/theme/global"],
         "@theme/provider": ["shared/theme/provider"],
         "@theme/store": ["shared/theme/store"],
-        "@style/tools": ["shared/style/tools"],
+        "@styled/tools": ["shared/styled/tools"],
         "@theme/types": ["shared/theme/types"],
         "@theme/font": ["shared/theme/font"],
         "@theme/dark-schema": ["shared/theme/schemas/dark"],
@@ -35,9 +36,11 @@
         "@ipc/*": ["shared/ipc/*"],
         "@pages/*": ["pages/*"],
         "@ui/*": ["shared/ui/*"],
+        "@storage/*": ["shared/storage/*"],
         "@dev/*": ["dev/*"],
-        "@widgets/*": ["widgets/*"],
+        "@widgets/*": ["widgets/*"]
       }
     },
-    "include": ["app/**/*", "dev/**/*", "pages/**/*", "shared/**/*"]
+    "include": ["app/**/*", "dev/**/*", "pages/**/*", "shared/**/*"],
+    "exclude": ["**/*.test.{ts,tsx}"]
   }
