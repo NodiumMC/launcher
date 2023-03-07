@@ -32,4 +32,4 @@ jobs:
           workspaces: './rust -> target'
 
       - name: Compile
-        run: cargo clippy
+        run: cd rust && cargo clippy

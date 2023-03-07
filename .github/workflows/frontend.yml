@@ -3,7 +3,18 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - '!rust/**'
+      - 'dev/**'
+      - 'app/**'
+      - 'shared/**'
+      - 'pages/**'
+      - 'core/**'
+      - '.yarn/**'
+      - '.pnp.*'
+      - '.yarnrc.yml'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'tsconfig.json'
+      - 'yarn.lock'
 
 jobs:
   lint-frontend:
