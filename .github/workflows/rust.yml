@@ -34,8 +34,5 @@ jobs:
       - name: Make dist
         run: mkdir dist
 
-      - name: Cd
-        run: cd rust
-
       - name: Compile
-        run: cargo check
+        run: cd rust && cargo check
