@@ -2,7 +2,8 @@
   "name": "@pages/home",
   "main": "src/index.tsx",
   "dependencies": {
-    "@ui/spinner": "workspace:*"
+    "@ui/button": "workspace:*",
+    "@ui/icons": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

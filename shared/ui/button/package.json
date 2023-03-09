@@ -1,10 +1,6 @@
 {
-  "name": "@ui/spinner",
+  "name": "@ui/button",
   "main": "src/index.tsx",
-  "dependencies": {
-    "@ipc/window": "workspace:*",
-    "@ui/icons": "workspace:*"
-  },
   "devDependencies": {
     "@emotion/css": "^11.10.6",
     "@emotion/react": "^11.10.6",

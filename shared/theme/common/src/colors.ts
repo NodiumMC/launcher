@@ -1,7 +1,7 @@
 import { deriveDarkFromAccent, deriveLightdFromAccent } from '@theme/builder'
 
 // Accent
-export const primary = '#5297ff' as const
+export const primary = '#6260ed' as const
 export const secondary = '#7b2eff' as const
 export const tertiary = secondary
 

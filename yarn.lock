@@ -2730,7 +2730,8 @@ __metadata:
   resolution: "@pages/home@workspace:pages/home"
   dependencies:
     "@types/react": "npm:^18.0.28"
-    "@ui/spinner": "workspace:*"
+    "@ui/button": "workspace:*"
+    "@ui/icons": "workspace:*"
     react: "npm:^18.2.0"
   peerDependencies:
     react: "*"
@@ -5015,7 +5016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui/button@workspace:shared/ui/button":
+"@ui/button@workspace:*, @ui/button@workspace:shared/ui/button":
   version: 0.0.0-use.local
   resolution: "@ui/button@workspace:shared/ui/button"
   dependencies:
@@ -5050,7 +5051,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ui/spinner@workspace:*, @ui/spinner@workspace:shared/ui/spinner":
+"@ui/spinner@workspace:shared/ui/spinner":
   version: 0.0.0-use.local
   resolution: "@ui/spinner@workspace:shared/ui/spinner"
   dependencies:

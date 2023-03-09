@@ -1,4 +1,4 @@
-import { StyleFn } from '@style/tools'
+import { StyleFn } from '@styled/tools'
 import { HEADER_HEIGHT } from '@ui/window/src/header/constants'
 
 export const shapeStyles: StyleFn = ({ theme }) => ({
