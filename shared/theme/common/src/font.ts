@@ -1,6 +1,6 @@
 import { FontFamily } from '@theme/types'
 
-export const main = 'Mona Sans' as const
+export const main = 'Mona Sans, Inter' as const
 
 export const font = {
   main,

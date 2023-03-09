@@ -55,8 +55,6 @@ name = "app"
 version = "0.1.0"
 dependencies = [
  "commands",
- "macros",
- "ndml",
  "tauri",
  "tauri-build",
  "tauri-plugin-deep-link",
@@ -398,7 +396,6 @@ dependencies = [
  "flate2",
  "futures-util",
  "lazy_static",
- "ndml",
  "reqwest",
  "serde",
  "serde_json",
@@ -1610,16 +1607,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c41e0c4fef86961ac6d6f8a82609f55f31b05e4fce149ac5710e439df7619ba4"
 
 [[package]]
-name = "macros"
-version = "0.1.0"
-dependencies = [
- "quote",
- "serde",
- "serde_json",
- "syn",
-]
-
-[[package]]
 name = "malloc_buf"
 version = "0.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1758,18 +1745,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6e5a6ae77c8ee183dcbbba6150e2e6b9f3f4196a7666c02a715a95692ec1fa97"
 dependencies = [
  "jni-sys",
-]
-
-[[package]]
-name = "ndml"
-version = "0.1.0"
-dependencies = [
- "reqwest",
- "serde",
- "serde_json",
- "tauri",
- "thiserror",
- "tokio",
 ]
 
 [[package]]
