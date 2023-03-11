@@ -1,0 +1,10 @@
+{
+  "name": "@storage/recoil",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@storage/db": "workspace:*"
+  },
+  "devDependencies": {
+    "recoil": "^0.7.7"
+  }
+}

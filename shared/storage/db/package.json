@@ -1,0 +1,7 @@
+{
+  "name": "@storage/db",
+  "main": "src/index.ts",
+  "dependencies": {
+    "localforage": "^1.10.0"
+  }
+}

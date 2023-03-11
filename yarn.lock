@@ -1044,7 +1044,7 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
     react-intl: "npm:^6.2.10"
-    recoil: "npm:^0.7.6"
+    recoil: "npm:^0.7.7"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -1068,7 +1068,7 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
-    recoil: "npm:^0.7.6"
+    recoil: "npm:^0.7.7"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -1262,6 +1262,23 @@ __metadata:
   checksum: 3d18dd18a3b339e754dd417e3063d21775dce282667084349952bf7f503148b9613243492fa0ba7adc558839552700ecb277d78725342a914adccd2639872d25
   languageName: node
   linkType: hard
+
+"@storage/db@workspace:*, @storage/db@workspace:shared/storage/db":
+  version: 0.0.0-use.local
+  resolution: "@storage/db@workspace:shared/storage/db"
+  dependencies:
+    localforage: "npm:^1.10.0"
+  languageName: unknown
+  linkType: soft
+
+"@storage/recoil@workspace:*, @storage/recoil@workspace:shared/storage/recoil":
+  version: 0.0.0-use.local
+  resolution: "@storage/recoil@workspace:shared/storage/recoil"
+  dependencies:
+    "@storage/db": "workspace:*"
+    recoil: "npm:^0.7.7"
+  languageName: unknown
+  linkType: soft
 
 "@storybook/csf@npm:^0.0.1":
   version: 0.0.1
@@ -1690,8 +1707,10 @@ __metadata:
   resolution: "@theme/provider@workspace:shared/theme/provider"
   dependencies:
     "@emotion/react": "npm:^11.10.6"
+    "@theme/dark-schema": "workspace:*"
     "@theme/font": "workspace:*"
     "@theme/global": "workspace:*"
+    "@theme/light-schema": "workspace:*"
     "@theme/store": "workspace:*"
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
@@ -1706,11 +1725,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@theme/store@workspace:shared/theme/store"
   dependencies:
+    "@storage/recoil": "workspace:*"
     "@theme/dark-schema": "workspace:*"
     "@theme/light-schema": "workspace:*"
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
-    recoil: "npm:^0.7.6"
+    recoil: "npm:^0.7.7"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -3795,6 +3815,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"immediate@npm:~3.0.5":
+  version: 3.0.6
+  resolution: "immediate@npm:3.0.6"
+  checksum: f4fd7bfa3edc1436bd70adbd866d6437e9885414e050af25a2fb89dda0ac960ca702fa978c2d6c01d76d36f3979d4ccc90d05a1b774849b26669f33188679d74
+  languageName: node
+  linkType: hard
+
 "import-fresh@npm:^3.0.0, import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
@@ -4211,6 +4238,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lie@npm:3.1.1":
+  version: 3.1.1
+  resolution: "lie@npm:3.1.1"
+  dependencies:
+    immediate: "npm:~3.0.5"
+  checksum: 76add3ebc750788a41503078de7f7f61d46f927ad31a82a0eb2627cf1d58cd06c75ae554638b1fbf02da0811a54675d58108dff5c80c2ecdecf74fbd0d8bb3bf
+  languageName: node
+  linkType: hard
+
 "lines-and-columns@npm:^1.1.6":
   version: 1.2.4
   resolution: "lines-and-columns@npm:1.2.4"
@@ -4222,6 +4258,15 @@ __metadata:
   version: 0.4.2
   resolution: "local-pkg@npm:0.4.2"
   checksum: d81176965ca55952dc78d9cb5712db7106535bf0c8d62c8b288b61ead0c82a3bd7e4855ec8cf18c3ea94e0ed8a802c6600d11ed17b6588d9d66e67ce268d023c
+  languageName: node
+  linkType: hard
+
+"localforage@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "localforage@npm:1.10.0"
+  dependencies:
+    lie: "npm:3.1.1"
+  checksum: f1132878f579bf455dd6ae05d76ea2bb45d6d99c58ce262b0e26c3b1c0c1192625fa28e24d850f3446ffa8319dd456f9d949c0d52edcddb23ea9d75aaf5a557b
   languageName: node
   linkType: hard
 
@@ -5053,22 +5098,6 @@ __metadata:
     string_decoder: "npm:^1.1.1"
     util-deprecate: "npm:^1.0.1"
   checksum: bda7b24d3910bf0ec4a1df3c540e1b97b1ed3ca49ea0ddc0d2c6bf29d3997251a7244608de1d842555641d1c115d9b3566167fef9225ee6ef147c9e6a539395b
-  languageName: node
-  linkType: hard
-
-"recoil@npm:^0.7.6":
-  version: 0.7.6
-  resolution: "recoil@npm:0.7.6"
-  dependencies:
-    hamt_plus: "npm:1.0.2"
-  peerDependencies:
-    react: ">=16.13.1"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 42fd256e35e03dcce4dfa94089ef718cb2b6983c1e6802d6373a523ecc5d7f28deede6ede1aa2a441e1ee547a38acd96dd1a9890f658835b77dd7635d1ed21fe
   languageName: node
   linkType: hard
 
