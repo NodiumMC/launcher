@@ -1,4 +1,4 @@
 {
-  "name": "@ipc/tools",
+  "name": "@native/tools",
   "main": "src/index.ts"
 }

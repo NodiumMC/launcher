@@ -1,4 +1,4 @@
-import { execute } from '@ipc/tools'
+import { execute } from '@native/tools'
 import { appWindow } from '@tauri-apps/api/window'
 
 export async function close() {

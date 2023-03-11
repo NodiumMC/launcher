@@ -33,7 +33,7 @@
         "@theme/font": ["shared/theme/font"],
         "@theme/dark-schema": ["shared/theme/schemas/dark"],
         "@theme/light-schema": ["shared/theme/schemas/light"],
-        "@ipc/*": ["shared/ipc/*"],
+        "@native/*": ["shared/native/*"],
         "@pages/*": ["pages/*"],
         "@ui/*": ["shared/ui/*"],
         "@storage/*": ["shared/storage/*"],

@@ -3,7 +3,7 @@ import { Frame } from './frame'
 import { Header } from './header'
 import { View } from '@ui/window/src/view'
 import { WindowProps } from './window.interface'
-import { close, minimize, toggleMaximize } from '@ipc/window'
+import { close, minimize, toggleMaximize } from '@native/window'
 import { Divider } from './divider'
 
 export const Window: FC<WindowProps> = ({ children }) => (
