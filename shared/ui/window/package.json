@@ -2,6 +2,7 @@
   "name": "@ui/window",
   "main": "src/index.tsx",
   "dependencies": {
+    "@intl/react": "workspace:*",
     "@native/window": "workspace:*",
     "@ui/icons": "workspace:*"
   },
