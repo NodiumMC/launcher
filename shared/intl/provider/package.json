@@ -5,7 +5,7 @@
     "@intl/langs": "workspace:*",
     "@intl/store": "workspace:*",
     "react-intl": "^6.2.10",
-    "recoil": "^0.7.6"
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

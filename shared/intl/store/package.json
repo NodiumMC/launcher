@@ -2,7 +2,7 @@
   "name": "@intl/store",
   "main": "src/index.ts",
   "dependencies": {
-    "recoil": "^0.7.6"
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
