@@ -1,8 +1,14 @@
 import { atom } from 'recoil'
-import dark from '@theme/dark-schema'
-import light from '@theme/light-schema'
+import { storageEffect } from '@storage/recoil'
+import { StorageId } from '@storage/db'
+
+const storage = {
+  name: 'appearance',
+  version: '1',
+} satisfies StorageId
 
 export const theme = atom({
   key: 'app_theme',
-  default: dark,
+  default: 'dark',
+  effects: [storageEffect(storage, 'theme', 'dark')],
 })
