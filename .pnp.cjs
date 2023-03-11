@@ -46,14 +46,6 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:pages/home"\
     },\
     {\
-      "name": "@ipc/tools",\
-      "reference": "workspace:shared/ipc/tools"\
-    },\
-    {\
-      "name": "@ipc/window",\
-      "reference": "workspace:shared/ipc/window"\
-    },\
-    {\
       "name": "@lib/jsx",\
       "reference": "workspace:shared/lib/jsx"\
     },\
@@ -64,6 +56,14 @@ const RAW_RUNTIME_STATE =
     {\
       "name": "@lib/types",\
       "reference": "workspace:shared/lib/types"\
+    },\
+    {\
+      "name": "@native/tools",\
+      "reference": "workspace:shared/native/tools"\
+    },\
+    {\
+      "name": "@native/window",\
+      "reference": "workspace:shared/native/window"\
     },\
     {\
       "name": "@styled/tools",\
@@ -132,11 +132,11 @@ const RAW_RUNTIME_STATE =
     ["@app/vite", ["workspace:app/vite"]],\
     ["@dev/codestyle", ["workspace:dev/codestyle"]],\
     ["@dev/testing", ["workspace:dev/testing"]],\
-    ["@ipc/tools", ["workspace:shared/ipc/tools"]],\
-    ["@ipc/window", ["workspace:shared/ipc/window"]],\
     ["@lib/jsx", ["workspace:shared/lib/jsx"]],\
     ["@lib/math", ["workspace:shared/lib/math"]],\
     ["@lib/types", ["workspace:shared/lib/types"]],\
+    ["@native/tools", ["workspace:shared/native/tools"]],\
+    ["@native/window", ["workspace:shared/native/window"]],\
     ["@pages/home", ["virtual:82f45c9b83ddb44e33e2ce3acba8e07277d1c98e7f3328a408d958d1e85744687af6e0914766f2d1f5cb9529afbed85a7201ef8a948d51985ebd6f9c404bccc1#workspace:pages/home", "workspace:pages/home"]],\
     ["@styled/tools", ["workspace:shared/styled/tools"]],\
     ["@theme/builder", ["workspace:shared/theme/builder"]],\
@@ -1290,26 +1290,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@ipc/tools", [\
-      ["workspace:shared/ipc/tools", {\
-        "packageLocation": "./shared/ipc/tools/",\
-        "packageDependencies": [\
-          ["@ipc/tools", "workspace:shared/ipc/tools"]\
-        ],\
-        "linkType": "SOFT"\
-      }]\
-    ]],\
-    ["@ipc/window", [\
-      ["workspace:shared/ipc/window", {\
-        "packageLocation": "./shared/ipc/window/",\
-        "packageDependencies": [\
-          ["@ipc/window", "workspace:shared/ipc/window"],\
-          ["@ipc/tools", "workspace:shared/ipc/tools"],\
-          ["@tauri-apps/api", "npm:1.2.0"]\
-        ],\
-        "linkType": "SOFT"\
-      }]\
-    ]],\
     ["@istanbuljs/schema", [\
       ["npm:0.1.3", {\
         "packageLocation": "../../../.yarn/berry/cache/@istanbuljs-schema-npm-0.1.3-466bd3eaaa-9.zip/node_modules/@istanbuljs/schema/",\
@@ -1403,6 +1383,26 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./shared/lib/types/",\
         "packageDependencies": [\
           ["@lib/types", "workspace:shared/lib/types"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@native/tools", [\
+      ["workspace:shared/native/tools", {\
+        "packageLocation": "./shared/native/tools/",\
+        "packageDependencies": [\
+          ["@native/tools", "workspace:shared/native/tools"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@native/window", [\
+      ["workspace:shared/native/window", {\
+        "packageLocation": "./shared/native/window/",\
+        "packageDependencies": [\
+          ["@native/window", "workspace:shared/native/window"],\
+          ["@native/tools", "workspace:shared/native/tools"],\
+          ["@tauri-apps/api", "npm:1.2.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2499,7 +2499,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/css", "npm:11.10.6"],\
           ["@emotion/react", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#npm:11.10.6"],\
           ["@emotion/styled", "virtual:a1a955443f19a91ca95e2bce4c8487f617c616d46de04ebe8652c2403a0caaa628a14def5dc892983ee9c063c3e86a0991f6350cb43b76c2c512ae198bb067c0#npm:11.10.6"],\
-          ["@ipc/window", "workspace:shared/ipc/window"],\
+          ["@native/window", "workspace:shared/native/window"],\
           ["@styled/tools", "workspace:shared/styled/tools"],\
           ["@types/react", "npm:18.0.28"],\
           ["@types/styled-system", "npm:5.1.16"],\
@@ -2518,7 +2518,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/css", "npm:11.10.6"],\
           ["@emotion/react", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#npm:11.10.6"],\
           ["@emotion/styled", "virtual:a1a955443f19a91ca95e2bce4c8487f617c616d46de04ebe8652c2403a0caaa628a14def5dc892983ee9c063c3e86a0991f6350cb43b76c2c512ae198bb067c0#npm:11.10.6"],\
-          ["@ipc/window", "workspace:shared/ipc/window"],\
+          ["@native/window", "workspace:shared/native/window"],\
           ["@styled/tools", "workspace:shared/styled/tools"],\
           ["@types/emotion__css", null],\
           ["@types/emotion__react", null],\
@@ -2545,7 +2545,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/css", "npm:11.10.6"],\
           ["@emotion/react", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#npm:11.10.6"],\
           ["@emotion/styled", "virtual:a1a955443f19a91ca95e2bce4c8487f617c616d46de04ebe8652c2403a0caaa628a14def5dc892983ee9c063c3e86a0991f6350cb43b76c2c512ae198bb067c0#npm:11.10.6"],\
-          ["@ipc/window", "workspace:shared/ipc/window"],\
+          ["@native/window", "workspace:shared/native/window"],\
           ["@styled/tools", "workspace:shared/styled/tools"],\
           ["@types/react", "npm:18.0.28"],\
           ["@types/styled-system", "npm:5.1.16"],\

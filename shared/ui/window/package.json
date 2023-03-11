@@ -2,7 +2,7 @@
   "name": "@ui/window",
   "main": "src/index.tsx",
   "dependencies": {
-    "@ipc/window": "workspace:*",
+    "@native/window": "workspace:*",
     "@ui/icons": "workspace:*"
   },
   "devDependencies": {

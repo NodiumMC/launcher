@@ -921,21 +921,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ipc/tools@workspace:*, @ipc/tools@workspace:shared/ipc/tools":
-  version: 0.0.0-use.local
-  resolution: "@ipc/tools@workspace:shared/ipc/tools"
-  languageName: unknown
-  linkType: soft
-
-"@ipc/window@workspace:*, @ipc/window@workspace:shared/ipc/window":
-  version: 0.0.0-use.local
-  resolution: "@ipc/window@workspace:shared/ipc/window"
-  dependencies:
-    "@ipc/tools": "workspace:*"
-    "@tauri-apps/api": "npm:^1.2.0"
-  languageName: unknown
-  linkType: soft
-
 "@istanbuljs/schema@npm:^0.1.2":
   version: 0.1.3
   resolution: "@istanbuljs/schema@npm:0.1.3"
@@ -1015,6 +1000,21 @@ __metadata:
 "@lib/types@workspace:*, @lib/types@workspace:shared/lib/types":
   version: 0.0.0-use.local
   resolution: "@lib/types@workspace:shared/lib/types"
+  languageName: unknown
+  linkType: soft
+
+"@native/tools@workspace:*, @native/tools@workspace:shared/native/tools":
+  version: 0.0.0-use.local
+  resolution: "@native/tools@workspace:shared/native/tools"
+  languageName: unknown
+  linkType: soft
+
+"@native/window@workspace:*, @native/window@workspace:shared/native/window":
+  version: 0.0.0-use.local
+  resolution: "@native/window@workspace:shared/native/window"
+  dependencies:
+    "@native/tools": "workspace:*"
+    "@tauri-apps/api": "npm:^1.2.0"
   languageName: unknown
   linkType: soft
 
@@ -1844,7 +1844,7 @@ __metadata:
     "@emotion/css": "npm:^11.10.6"
     "@emotion/react": "npm:^11.10.6"
     "@emotion/styled": "npm:^11.10.6"
-    "@ipc/window": "workspace:*"
+    "@native/window": "workspace:*"
     "@styled/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
@@ -1866,7 +1866,7 @@ __metadata:
     "@emotion/css": "npm:^11.10.6"
     "@emotion/react": "npm:^11.10.6"
     "@emotion/styled": "npm:^11.10.6"
-    "@ipc/window": "workspace:*"
+    "@native/window": "workspace:*"
     "@styled/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
