@@ -1,0 +1,14 @@
+{
+  "name": "@intl/react",
+  "main": "src/index.tsx",
+  "dependencies": {
+    "react-intl": "^6.2.10"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "react": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}

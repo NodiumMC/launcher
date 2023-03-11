@@ -1,0 +1,10 @@
+{
+  "name": "@intl/langs",
+  "main": "src/index.ts",
+  "scripts": {
+    "extract": "formatjs extract ../../../**/*.{ts,tsx} --ignore='../../../**/*.d.ts' --out-file ./src/ru.json"
+  },
+  "devDependencies": {
+    "@formatjs/cli": "^6.0.4"
+  }
+}

@@ -2,6 +2,7 @@
   "name": "@app/providers",
   "main": "src/index.ts",
   "dependencies": {
+    "@intl/provider": "workspace:*",
     "@theme/provider": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
