@@ -2,8 +2,7 @@
   "name": "@pages/home",
   "main": "src/index.tsx",
   "dependencies": {
-    "@ui/button": "workspace:*",
-    "@ui/icons": "workspace:*"
+    "@ui/progress-bar": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
