@@ -405,12 +405,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/is-prop-valid@npm:^0.8.2":
+  version: 0.8.8
+  resolution: "@emotion/is-prop-valid@npm:0.8.8"
+  dependencies:
+    "@emotion/memoize": "npm:0.7.4"
+  checksum: 2709fd849da334055e4bb29724647af73209a3e7f274ff3ad24d55e244747ade89daf4526bf541837559adb271f70ad26c60d311f51c4bdcc8728e6b14eb3d18
+  languageName: node
+  linkType: hard
+
 "@emotion/is-prop-valid@npm:^1.2.0":
   version: 1.2.0
   resolution: "@emotion/is-prop-valid@npm:1.2.0"
   dependencies:
     "@emotion/memoize": "npm:^0.8.0"
   checksum: cb06940c166c33a075b5c8660d96ab56a91bf37d9a0cb28665bb6cad2528468f6833c58d745feb67154e5710f50aca341b34440afc188f25562025377758c6ff
+  languageName: node
+  linkType: hard
+
+"@emotion/memoize@npm:0.7.4":
+  version: 0.7.4
+  resolution: "@emotion/memoize@npm:0.7.4"
+  checksum: 6ea6add503898a3ffa90d549c7d841ba31652a37fd12c1517574d7aebcfa7735583489ff0678e28626e33c34f701cb1e9ced71dd4684cb8d43efc054f11bcaff
   languageName: node
   linkType: hard
 
@@ -1234,8 +1250,7 @@ __metadata:
   resolution: "@pages/home@workspace:pages/home"
   dependencies:
     "@types/react": "npm:^18.0.28"
-    "@ui/button": "workspace:*"
-    "@ui/icons": "workspace:*"
+    "@ui/progress-bar": "workspace:*"
     react: "npm:^18.2.0"
   peerDependencies:
     react: "*"
@@ -1985,7 +2000,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui/button@workspace:*, @ui/button@workspace:shared/ui/button":
+"@ui/button@workspace:shared/ui/button":
   version: 0.0.0-use.local
   resolution: "@ui/button@workspace:shared/ui/button"
   dependencies:
@@ -2016,6 +2031,28 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
   peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@ui/progress-bar@workspace:*, @ui/progress-bar@workspace:shared/ui/progress-bar":
+  version: 0.0.0-use.local
+  resolution: "@ui/progress-bar@workspace:shared/ui/progress-bar"
+  dependencies:
+    "@emotion/css": "npm:^11.10.6"
+    "@emotion/react": "npm:^11.10.6"
+    "@emotion/styled": "npm:^11.10.6"
+    "@lib/math": "workspace:*"
+    "@styled/tools": "workspace:*"
+    "@types/react": "npm:^18.0.28"
+    "@types/styled-system": "npm:^5"
+    framer-motion: "npm:^10.2.4"
+    react: "npm:^18.2.0"
+    styled-system: "npm:^5.1.5"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft
@@ -3417,6 +3454,27 @@ __metadata:
   dependencies:
     is-callable: "npm:^1.1.3"
   checksum: dc4e3e28f5ee9472680b6361a85d0d27aa1e8ddbd1720dfb680020456cddc142ee7ba69145921fe12c4ec2d7740f12c1c6c7f90ecdd7ca2b39c7fcd8bc506ad6
+  languageName: node
+  linkType: hard
+
+"framer-motion@npm:^10.2.4":
+  version: 10.2.4
+  resolution: "framer-motion@npm:10.2.4"
+  dependencies:
+    "@emotion/is-prop-valid": "npm:^0.8.2"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  dependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 213a8dcc86c62dabaeab0d2c682bf08dfeaf1324cf6d7ac7105db9c562c5683ceb4cb4fc56037ed7fc98e2537f6135bd98fd4a687734437e65bfec767c83f5a3
   languageName: node
   linkType: hard
 
