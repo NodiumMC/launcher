@@ -1250,6 +1250,7 @@ __metadata:
   resolution: "@pages/home@workspace:pages/home"
   dependencies:
     "@types/react": "npm:^18.0.28"
+    "@ui/layout": "workspace:*"
     "@ui/progress-bar": "workspace:*"
     react: "npm:^18.2.0"
   peerDependencies:
@@ -2031,6 +2032,26 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
   peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@ui/layout@workspace:*, @ui/layout@workspace:shared/ui/layout":
+  version: 0.0.0-use.local
+  resolution: "@ui/layout@workspace:shared/ui/layout"
+  dependencies:
+    "@emotion/css": "npm:^11.10.6"
+    "@emotion/react": "npm:^11.10.6"
+    "@emotion/styled": "npm:^11.10.6"
+    "@styled/tools": "workspace:*"
+    "@types/react": "npm:^18.0.28"
+    "@types/styled-system": "npm:^5"
+    react: "npm:^18.2.0"
+    styled-system: "npm:^5.1.5"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft
