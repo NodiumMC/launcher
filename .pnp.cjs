@@ -78,6 +78,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/lib/types"\
     },\
     {\
+      "name": "@native/process",\
+      "reference": "workspace:shared/native/process"\
+    },\
+    {\
       "name": "@native/tools",\
       "reference": "workspace:shared/native/tools"\
     },\
@@ -176,6 +180,7 @@ const RAW_RUNTIME_STATE =
     ["@lib/jsx", ["workspace:shared/lib/jsx"]],\
     ["@lib/math", ["workspace:shared/lib/math"]],\
     ["@lib/types", ["workspace:shared/lib/types"]],\
+    ["@native/process", ["workspace:shared/native/process"]],\
     ["@native/tools", ["workspace:shared/native/tools"]],\
     ["@native/window", ["workspace:shared/native/window"]],\
     ["@pages/home", ["virtual:82f45c9b83ddb44e33e2ce3acba8e07277d1c98e7f3328a408d958d1e85744687af6e0914766f2d1f5cb9529afbed85a7201ef8a948d51985ebd6f9c404bccc1#workspace:pages/home", "workspace:pages/home"]],\
@@ -1681,11 +1686,24 @@ const RAW_RUNTIME_STATE =
         "linkType": "SOFT"\
       }]\
     ]],\
+    ["@native/process", [\
+      ["workspace:shared/native/process", {\
+        "packageLocation": "./shared/native/process/",\
+        "packageDependencies": [\
+          ["@native/process", "workspace:shared/native/process"],\
+          ["@native/tools", "workspace:shared/native/tools"],\
+          ["@tauri-apps/api", "npm:1.2.0"],\
+          ["rxjs", "npm:7.8.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@native/tools", [\
       ["workspace:shared/native/tools", {\
         "packageLocation": "./shared/native/tools/",\
         "packageDependencies": [\
-          ["@native/tools", "workspace:shared/native/tools"]\
+          ["@native/tools", "workspace:shared/native/tools"],\
+          ["nanoid", "npm:4.0.1"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -5781,6 +5799,13 @@ const RAW_RUNTIME_STATE =
           ["nanoid", "npm:3.3.4"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:4.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/nanoid-npm-4.0.1-d3abfa88f9-9.zip/node_modules/nanoid/",\
+        "packageDependencies": [\
+          ["nanoid", "npm:4.0.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["natural-compare", [\
@@ -6695,6 +6720,16 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["run-parallel", "npm:1.2.0"],\
           ["queue-microtask", "npm:1.2.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["rxjs", [\
+      ["npm:7.8.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/rxjs-npm-7.8.0-722f1c7172-9.zip/node_modules/rxjs/",\
+        "packageDependencies": [\
+          ["rxjs", "npm:7.8.0"],\
+          ["tslib", "npm:2.5.0"]\
         ],\
         "linkType": "HARD"\
       }]\

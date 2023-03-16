@@ -1,4 +1,7 @@
 {
   "name": "@native/tools",
-  "main": "src/index.ts"
+  "main": "src/index.ts",
+  "dependencies": {
+    "nanoid": "^4.0.1"
+  }
 }

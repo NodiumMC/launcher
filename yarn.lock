@@ -1178,9 +1178,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@native/process@workspace:shared/native/process":
+  version: 0.0.0-use.local
+  resolution: "@native/process@workspace:shared/native/process"
+  dependencies:
+    "@native/tools": "workspace:*"
+    "@tauri-apps/api": "npm:^1.2.0"
+    rxjs: "npm:^7.8.0"
+  languageName: unknown
+  linkType: soft
+
 "@native/tools@workspace:*, @native/tools@workspace:shared/native/tools":
   version: 0.0.0-use.local
   resolution: "@native/tools@workspace:shared/native/tools"
+  dependencies:
+    nanoid: "npm:^4.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4633,6 +4645,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "nanoid@npm:4.0.1"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: e90f231678bc2d212a371922333ea81dcff8788fd8dbea92e12a6cb29ff1321d32890fefc46e31279e539eda868bd2c68084dcdd3b1cd5511453c957410ee9eb
+  languageName: node
+  linkType: hard
+
 "natural-compare-lite@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare-lite@npm:1.4.0"
@@ -5360,6 +5381,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rxjs@npm:^7.8.0":
+  version: 7.8.0
+  resolution: "rxjs@npm:7.8.0"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: 56dfebbd1f868935809688075a33d940954a66ddec9ea3b92cc7031e50fc4040e9962416d5ca009b9da9e1edda6ff4f1fc3155786e7e521ec6eb3100e30f0317
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
@@ -5847,7 +5877,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.4.0":
+"tslib@npm:^2.1.0, tslib@npm:^2.4.0":
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: 5a6ee935f56cd653af29de928483acbab7323f964b053e98b6b318abc69431fb0e4f660c4f4a396e2e93852510bef25eeb9f1d951d060b2d7bcc313811e5da6f
