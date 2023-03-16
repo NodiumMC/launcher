@@ -146,4 +146,3 @@ export interface ManifestLegacy {
   time: string
   type: string
 }
-

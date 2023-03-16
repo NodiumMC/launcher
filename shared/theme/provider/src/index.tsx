@@ -11,7 +11,7 @@ import light from '@theme/light-schema'
 const themes = { dark, light }
 
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [themeValue, set] = useRecoilState(theme)
+  const [themeValue] = useRecoilState(theme)
 
   return (
     <>
