@@ -1,0 +1,12 @@
+{
+  "name": "@native/deeplink",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@types/url-parse": "^1.4.8 "
+  },
+  "dependencies": {
+    "@native/tools": "workspace:*",
+    "@tauri-apps/api": "^1.2.0",
+    "url-parse": "^1.5.10"
+  }
+}

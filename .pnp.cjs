@@ -78,6 +78,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/lib/types"\
     },\
     {\
+      "name": "@native/deeplink",\
+      "reference": "workspace:shared/native/deeplink"\
+    },\
+    {\
       "name": "@native/process",\
       "reference": "workspace:shared/native/process"\
     },\
@@ -180,6 +184,7 @@ const RAW_RUNTIME_STATE =
     ["@lib/jsx", ["workspace:shared/lib/jsx"]],\
     ["@lib/math", ["workspace:shared/lib/math"]],\
     ["@lib/types", ["workspace:shared/lib/types"]],\
+    ["@native/deeplink", ["workspace:shared/native/deeplink"]],\
     ["@native/process", ["workspace:shared/native/process"]],\
     ["@native/tools", ["workspace:shared/native/tools"]],\
     ["@native/window", ["workspace:shared/native/window"]],\
@@ -1686,6 +1691,19 @@ const RAW_RUNTIME_STATE =
         "linkType": "SOFT"\
       }]\
     ]],\
+    ["@native/deeplink", [\
+      ["workspace:shared/native/deeplink", {\
+        "packageLocation": "./shared/native/deeplink/",\
+        "packageDependencies": [\
+          ["@native/deeplink", "workspace:shared/native/deeplink"],\
+          ["@native/tools", "workspace:shared/native/tools"],\
+          ["@tauri-apps/api", "npm:1.2.0"],\
+          ["@types/url-parse", "npm:1.4.8"],\
+          ["url-parse", "npm:1.5.10"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@native/process", [\
       ["workspace:shared/native/process", {\
         "packageLocation": "./shared/native/process/",\
@@ -2593,6 +2611,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/styled-system", "npm:5.1.16"],\
           ["csstype", "npm:3.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/url-parse", [\
+      ["npm:1.4.8", {\
+        "packageLocation": "../../../.yarn/berry/cache/@types-url-parse-npm-1.4.8-b67d9f7c58-9.zip/node_modules/@types/url-parse/",\
+        "packageDependencies": [\
+          ["@types/url-parse", "npm:1.4.8"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6319,6 +6346,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["querystringify", [\
+      ["npm:2.2.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/querystringify-npm-2.2.0-4e77c9f606-9.zip/node_modules/querystringify/",\
+        "packageDependencies": [\
+          ["querystringify", "npm:2.2.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["queue-microtask", [\
       ["npm:1.2.3", {\
         "packageLocation": "../../../.yarn/berry/cache/queue-microtask-npm-1.2.3-fcc98e4e2d-9.zip/node_modules/queue-microtask/",\
@@ -6633,6 +6669,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/requireindex-npm-1.2.0-483c52ddaf-9.zip/node_modules/requireindex/",\
         "packageDependencies": [\
           ["requireindex", "npm:1.2.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["requires-port", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/requires-port-npm-1.0.0-fd036b488a-9.zip/node_modules/requires-port/",\
+        "packageDependencies": [\
+          ["requires-port", "npm:1.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7442,6 +7487,17 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["uri-js", "npm:4.4.1"],\
           ["punycode", "npm:2.3.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["url-parse", [\
+      ["npm:1.5.10", {\
+        "packageLocation": "../../../.yarn/berry/cache/url-parse-npm-1.5.10-64fa2bcd6d-9.zip/node_modules/url-parse/",\
+        "packageDependencies": [\
+          ["url-parse", "npm:1.5.10"],\
+          ["querystringify", "npm:2.2.0"],\
+          ["requires-port", "npm:1.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\

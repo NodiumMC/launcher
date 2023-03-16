@@ -1178,6 +1178,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@native/deeplink@workspace:shared/native/deeplink":
+  version: 0.0.0-use.local
+  resolution: "@native/deeplink@workspace:shared/native/deeplink"
+  dependencies:
+    "@native/tools": "workspace:*"
+    "@tauri-apps/api": "npm:^1.2.0"
+    "@types/url-parse": "npm:^1.4.8 "
+    url-parse: "npm:^1.5.10"
+  languageName: unknown
+  linkType: soft
+
 "@native/process@workspace:shared/native/process":
   version: 0.0.0-use.local
   resolution: "@native/process@workspace:shared/native/process"
@@ -1900,6 +1911,13 @@ __metadata:
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: f3321df9e0aae12e40687f98d3d3402f6ffc4ca6d8dda57392a2a16f9c7e5bade568468b39f85643f14960731776f82a2276dfe048292889c7389a4b2da40e9f
+  languageName: node
+  linkType: hard
+
+"@types/url-parse@npm:^1.4.8 ":
+  version: 1.4.8
+  resolution: "@types/url-parse@npm:1.4.8"
+  checksum: ff98d114409ee1c48ad5a0882dcb070048bd2ce67025bfaf5d467ee50d6801bf740513b5f2942cd53305e089eaeb2b646fb938519503c7ff906544f769eff589
   languageName: node
   linkType: hard
 
@@ -5087,6 +5105,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"querystringify@npm:^2.1.1":
+  version: 2.2.0
+  resolution: "querystringify@npm:2.2.0"
+  checksum: e372995f3e1314a6491bd8f99b15d138911c095608d5236cca745794ee2b631755fdc68be31b0fda1a7be0469a55bc6a2d5e0da8c1da03e9cd649fa8cf86aa44
+  languageName: node
+  linkType: hard
+
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -5257,6 +5282,13 @@ __metadata:
   version: 1.2.0
   resolution: "requireindex@npm:1.2.0"
   checksum: 14ca7427fea875f9741bd21d226dbc767c11ec18d9f8bfe84abaf9c78be1d01160397c875bcf1cd1042b63f6517ffb5fa05b28c2a707b84b07bce23673e6bf3f
+  languageName: node
+  linkType: hard
+
+"requires-port@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "requires-port@npm:1.0.0"
+  checksum: 28a1064f043588514802bff52dacac500c43b642383109145c55ff8bac26b3cf1ca951abc824446c773309c45dd049608986c1e15142ae7e336b9926065a1830
   languageName: node
   linkType: hard
 
@@ -6006,6 +6038,16 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 284fedd1b11512a77e783bfd32b320a9af1f2e39fbfabf4d65d64122344a3f55b8d37ec0c77e0045f7467b99d24bd2c067c1224d74f5c76b069753c7276d8709
+  languageName: node
+  linkType: hard
+
+"url-parse@npm:^1.5.10":
+  version: 1.5.10
+  resolution: "url-parse@npm:1.5.10"
+  dependencies:
+    querystringify: "npm:^2.1.1"
+    requires-port: "npm:^1.0.0"
+  checksum: 66bbd003c46f39998b1c127b26b2ff4e8426e8597bb46ddb758fb3e05f56eaac745c05d40af07e87d72cab5827fbfe88050dec58d3128c82629731f8ceea42c2
   languageName: node
   linkType: hard
 
