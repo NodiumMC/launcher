@@ -39,7 +39,8 @@
         "@storage/*": ["shared/storage/*"],
         "@dev/*": ["dev/*"],
         "@widgets/*": ["widgets/*"],
-        "@intl/*": ["shared/intl/*"]
+        "@intl/*": ["shared/intl/*"],
+        "@core/*": ["shared/core/*"],
       }
     },
     "include": ["app/**/*", "dev/**/*", "pages/**/*", "shared/**/*"],

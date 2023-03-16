@@ -324,6 +324,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@core/manifest@workspace:shared/core/manifest":
+  version: 0.0.0-use.local
+  resolution: "@core/manifest@workspace:shared/core/manifest"
+  languageName: unknown
+  linkType: soft
+
 "@dev/codestyle@workspace:dev/codestyle":
   version: 0.0.0-use.local
   resolution: "@dev/codestyle@workspace:dev/codestyle"
@@ -1250,6 +1256,8 @@ __metadata:
   resolution: "@pages/home@workspace:pages/home"
   dependencies:
     "@types/react": "npm:^18.0.28"
+    "@ui/button": "workspace:*"
+    "@ui/icons": "workspace:*"
     "@ui/layout": "workspace:*"
     "@ui/progress-bar": "workspace:*"
     react: "npm:^18.2.0"
@@ -1292,7 +1300,10 @@ __metadata:
   resolution: "@storage/recoil@workspace:shared/storage/recoil"
   dependencies:
     "@storage/db": "workspace:*"
+    react: "npm:^18.2.0"
     recoil: "npm:^0.7.7"
+  peerDependencies:
+    react: "*"
   languageName: unknown
   linkType: soft
 
@@ -2001,7 +2012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui/button@workspace:shared/ui/button":
+"@ui/button@workspace:*, @ui/button@workspace:shared/ui/button":
   version: 0.0.0-use.local
   resolution: "@ui/button@workspace:shared/ui/button"
   dependencies:
