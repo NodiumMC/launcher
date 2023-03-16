@@ -1,9 +1,17 @@
 import { FC } from 'react'
-import { ProgressBar } from '@ui/progress-bar'
-import { Column } from '@ui/layout'
+import { Row } from '@ui/layout'
+import { Button } from '@ui/button'
+import { CloseWindowIcon, MaximizeWindowIcon } from '@ui/icons'
 
 export const HomePage: FC = () => (
-  <Column p={16}>
-    <ProgressBar value={68} />
-  </Column>
+  <Row style={{ gap: '6px' }} p={6}>
+    <Button>
+      <MaximizeWindowIcon />
+      <span>Defaultich</span>
+    </Button>
+    <Button variant={'secondary'}>
+      <CloseWindowIcon />
+      <span>Close</span>
+    </Button>
+  </Row>
 )

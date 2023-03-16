@@ -1,0 +1,4 @@
+{
+  "name": "@core/manifest",
+  "main": "src/index.ts"
+}

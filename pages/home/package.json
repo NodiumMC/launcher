@@ -2,6 +2,8 @@
   "name": "@pages/home",
   "main": "src/index.tsx",
   "dependencies": {
+    "@ui/button": "workspace:*",
+    "@ui/icons": "workspace:*",
     "@ui/layout": "workspace:*",
     "@ui/progress-bar": "workspace:*"
   },
