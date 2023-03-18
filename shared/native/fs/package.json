@@ -1,0 +1,8 @@
+{
+  "name": "@native/fs",
+  "main": "src/inex.ts",
+  "dependencies": {
+    "@native/tools": "workspace:*",
+    "@tauri-apps/api": "^1.2.0"
+  }
+}
