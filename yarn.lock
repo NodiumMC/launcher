@@ -1198,6 +1198,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@native/path@workspace:shared/native/path":
+  version: 0.0.0-use.local
+  resolution: "@native/path@workspace:shared/native/path"
+  dependencies:
+    "@tauri-apps/api": "npm:^1.2.0"
+  languageName: unknown
+  linkType: soft
+
 "@native/process@workspace:shared/native/process":
   version: 0.0.0-use.local
   resolution: "@native/process@workspace:shared/native/process"

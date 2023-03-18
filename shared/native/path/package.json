@@ -1,0 +1,7 @@
+{
+  "name": "@native/path",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@tauri-apps/api": "^1.2.0"
+  }
+}
