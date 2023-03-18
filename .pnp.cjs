@@ -82,6 +82,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/native/deeplink"\
     },\
     {\
+      "name": "@native/path",\
+      "reference": "workspace:shared/native/path"\
+    },\
+    {\
       "name": "@native/process",\
       "reference": "workspace:shared/native/process"\
     },\
@@ -185,6 +189,7 @@ const RAW_RUNTIME_STATE =
     ["@lib/math", ["workspace:shared/lib/math"]],\
     ["@lib/types", ["workspace:shared/lib/types"]],\
     ["@native/deeplink", ["workspace:shared/native/deeplink"]],\
+    ["@native/path", ["workspace:shared/native/path"]],\
     ["@native/process", ["workspace:shared/native/process"]],\
     ["@native/tools", ["workspace:shared/native/tools"]],\
     ["@native/window", ["workspace:shared/native/window"]],\
@@ -1700,6 +1705,16 @@ const RAW_RUNTIME_STATE =
           ["@tauri-apps/api", "npm:1.2.0"],\
           ["@types/url-parse", "npm:1.4.8"],\
           ["url-parse", "npm:1.5.10"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@native/path", [\
+      ["workspace:shared/native/path", {\
+        "packageLocation": "./shared/native/path/",\
+        "packageDependencies": [\
+          ["@native/path", "workspace:shared/native/path"],\
+          ["@tauri-apps/api", "npm:1.2.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
