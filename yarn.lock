@@ -1189,6 +1189,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@native/fs@workspace:shared/native/fs":
+  version: 0.0.0-use.local
+  resolution: "@native/fs@workspace:shared/native/fs"
+  dependencies:
+    "@native/tools": "workspace:*"
+    "@tauri-apps/api": "npm:^1.2.0"
+  languageName: unknown
+  linkType: soft
+
 "@native/path@workspace:shared/native/path":
   version: 0.0.0-use.local
   resolution: "@native/path@workspace:shared/native/path"
