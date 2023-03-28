@@ -2200,7 +2200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-system@npm:^5, @types/styled-system@npm:^5.1.16":
+"@types/styled-system@npm:^5.1.16":
   version: 5.1.16
   resolution: "@types/styled-system@npm:5.1.16"
   dependencies:
@@ -2341,18 +2341,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/button@workspace:shared/ui/button"
   dependencies:
-    "@emotion/css": "npm:^11.10.6"
-    "@emotion/react": "npm:^11.10.6"
-    "@emotion/styled": "npm:^11.10.6"
-    "@types/react": "npm:^18.0.28"
-    "@types/styled-system": "npm:^5"
+    "@types/react": "npm:18"
     react: "npm:^18.2.0"
     styled: "workspace:*"
-    styled-system: "npm:^5.1.5"
   peerDependencies:
-    "@emotion/css": "*"
-    "@emotion/react": "*"
-    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft
@@ -2376,18 +2368,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/layout@workspace:shared/ui/layout"
   dependencies:
-    "@emotion/css": "npm:^11.10.6"
-    "@emotion/react": "npm:^11.10.6"
-    "@emotion/styled": "npm:^11.10.6"
-    "@types/react": "npm:^18.0.28"
-    "@types/styled-system": "npm:^5"
+    "@types/react": "npm:18"
     react: "npm:^18.2.0"
     styled: "workspace:*"
-    styled-system: "npm:^5.1.5"
   peerDependencies:
-    "@emotion/css": "*"
-    "@emotion/react": "*"
-    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft
@@ -2396,20 +2380,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/progress-bar@workspace:shared/ui/progress-bar"
   dependencies:
-    "@emotion/css": "npm:^11.10.6"
-    "@emotion/react": "npm:^11.10.6"
-    "@emotion/styled": "npm:^11.10.6"
     "@lib/math": "workspace:*"
-    "@types/react": "npm:^18.0.28"
-    "@types/styled-system": "npm:^5"
+    "@types/react": "npm:18"
     framer-motion: "npm:^10.2.4"
     react: "npm:^18.2.0"
     styled: "workspace:*"
-    styled-system: "npm:^5.1.5"
   peerDependencies:
-    "@emotion/css": "*"
-    "@emotion/react": "*"
-    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft
@@ -2418,20 +2394,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/spinner@workspace:shared/ui/spinner"
   dependencies:
-    "@emotion/css": "npm:^11.10.6"
-    "@emotion/react": "npm:^11.10.6"
-    "@emotion/styled": "npm:^11.10.6"
     "@native/window": "workspace:*"
-    "@types/react": "npm:^18.0.28"
-    "@types/styled-system": "npm:^5"
+    "@types/react": "npm:18"
     "@ui/icons": "workspace:*"
     react: "npm:^18.2.0"
     styled: "workspace:*"
-    styled-system: "npm:^5.1.5"
   peerDependencies:
-    "@emotion/css": "*"
-    "@emotion/react": "*"
-    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft
@@ -2440,21 +2408,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/window@workspace:shared/ui/window"
   dependencies:
-    "@emotion/css": "npm:^11.10.6"
-    "@emotion/react": "npm:^11.10.6"
-    "@emotion/styled": "npm:^11.10.6"
     "@intl/react": "workspace:*"
     "@native/window": "workspace:*"
-    "@types/react": "npm:^18.0.28"
-    "@types/styled-system": "npm:^5"
+    "@types/react": "npm:18"
     "@ui/icons": "workspace:*"
     react: "npm:^18.2.0"
     styled: "workspace:*"
-    styled-system: "npm:^5.1.5"
   peerDependencies:
-    "@emotion/css": "*"
-    "@emotion/react": "*"
-    "@emotion/styled": "*"
     react: "*"
   languageName: unknown
   linkType: soft

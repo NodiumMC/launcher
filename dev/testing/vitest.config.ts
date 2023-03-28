@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+// eslint-disable-next-line import/no-relative-packages
 import vite from '../../app/vite'
 import { vitest } from './config'
 

@@ -7,7 +7,7 @@ import {
   LayoutProps,
   PositionProps,
   SpaceProps,
-} from 'styled-system'
+} from 'styled'
 
 export interface BoxSystemProps {
   boxSizing?: string

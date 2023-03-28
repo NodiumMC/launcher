@@ -1,4 +1,4 @@
-import { combine, ifProp, match, StyleFn } from 'styled'
+import { combine, ifProp, variants, StyleFn } from 'styled'
 import { ButtonProps } from '../button.interface'
 
 const base: StyleFn = ({ theme }) => ({
@@ -27,6 +27,6 @@ const square: StyleFn = () => ({
 
 export const shapeStyles = combine(
   base,
-  match(({ size }: ButtonProps) => size, { sm, md, lg }),
+  variants(({ size }: ButtonProps) => size, { sm, md, lg }),
   ifProp(({ square }: ButtonProps) => square, square),
 )

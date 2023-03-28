@@ -1,4 +1,4 @@
-import { combine, ifNotProp, ifProp, match, StyleFn } from 'styled'
+import { combine, ifNotProp, ifProp, variants, StyleFn } from 'styled'
 import { ButtonProps } from '../button.interface'
 
 const base: StyleFn = ({ theme }) => ({
@@ -69,5 +69,5 @@ const secondary = combine(
 
 export const appearanceStyles = combine(
   base,
-  match((props: ButtonProps) => props.variant, { primary, secondary }),
+  variants((props: ButtonProps) => props.variant, { primary, secondary }),
 )

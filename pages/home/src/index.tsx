@@ -9,7 +9,7 @@ export const HomePage: FC = () => (
       <MaximizeWindowIcon />
       <span>Defaultich</span>
     </Button>
-    <Button variant={'secondary'}>
+    <Button variant='secondary'>
       <CloseWindowIcon />
       <span>Close</span>
     </Button>

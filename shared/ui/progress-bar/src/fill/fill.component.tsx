@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from 'styled'
 import { motion } from 'framer-motion'
 import { styles } from './fill.styles'
 

@@ -31,7 +31,8 @@
       "singleQuote": true,
       "trailingComma": "all",
       "endOfLine": "lf",
-      "printWidth": 120
+      "printWidth": 120,
+      "jsxSingleQuote": true
     }],
     "@typescript-eslint/semi": ["error", "never"],
     "import/prefer-default-export": "off",
@@ -40,6 +41,8 @@
     "no-restricted-exports": "off",
     "jsx-quotes": ["error", "prefer-single"],
     "import/no-extraneous-dependencies": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-shadow": "off"
   }
 }
