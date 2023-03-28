@@ -1,4 +1,4 @@
-import { combine, ifProp, match, StyleFn } from '@styled/tools'
+import { combine, ifProp, match, StyleFn } from 'styled'
 import { ButtonProps } from '../button.interface'
 
 const base: StyleFn = ({ theme }) => ({

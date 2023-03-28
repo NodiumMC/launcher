@@ -1,4 +1,4 @@
-import { StyleFn } from '@styled/tools'
+import { StyleFn } from 'styled'
 import { animation } from './spinner.keyframes'
 
 export const svgStyles: StyleFn = () => ({

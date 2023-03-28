@@ -1,4 +1,4 @@
-import { StyleFn } from '@styled/tools'
+import { StyleFn } from 'styled'
 
 export const transitionStyles: StyleFn = ({ theme }) => ({
   transitionProperty: 'color, backgroundColor',

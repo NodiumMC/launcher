@@ -1472,18 +1472,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@styled/tools@workspace:*, @styled/tools@workspace:shared/styled/tools":
-  version: 0.0.0-use.local
-  resolution: "@styled/tools@workspace:shared/styled/tools"
-  dependencies:
-    "@emotion/serialize": "npm:^1.1.1"
-    "@theme/types": "workspace:*"
-    "@types/styled-system": "npm:^5"
-    styled-system: "npm:^5.1.5"
-    styled-tools: "npm:^1.7.2"
-  languageName: unknown
-  linkType: soft
-
 "@swc/core-darwin-arm64@npm:1.3.36":
   version: 1.3.36
   resolution: "@swc/core-darwin-arm64@npm:1.3.36"
@@ -1908,6 +1896,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react@npm:18":
+  version: 18.0.30
+  resolution: "@types/react@npm:18.0.30"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: bb671b6716d73dbc65e868c9219f08a79743900b8da8ce72052f991f5f4a5e2dbae081a84cebb395b557c4fde19f34f377b066c448bea14afb2c8737b5fc9e67
+  languageName: node
+  linkType: hard
+
 "@types/scheduler@npm:*":
   version: 0.16.2
   resolution: "@types/scheduler@npm:0.16.2"
@@ -2066,10 +2065,10 @@ __metadata:
     "@emotion/css": "npm:^11.10.6"
     "@emotion/react": "npm:^11.10.6"
     "@emotion/styled": "npm:^11.10.6"
-    "@styled/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
     react: "npm:^18.2.0"
+    styled: "workspace:*"
     styled-system: "npm:^5.1.5"
   peerDependencies:
     "@emotion/css": "*"
@@ -2101,10 +2100,10 @@ __metadata:
     "@emotion/css": "npm:^11.10.6"
     "@emotion/react": "npm:^11.10.6"
     "@emotion/styled": "npm:^11.10.6"
-    "@styled/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
     react: "npm:^18.2.0"
+    styled: "workspace:*"
     styled-system: "npm:^5.1.5"
   peerDependencies:
     "@emotion/css": "*"
@@ -2122,11 +2121,11 @@ __metadata:
     "@emotion/react": "npm:^11.10.6"
     "@emotion/styled": "npm:^11.10.6"
     "@lib/math": "workspace:*"
-    "@styled/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
     framer-motion: "npm:^10.2.4"
     react: "npm:^18.2.0"
+    styled: "workspace:*"
     styled-system: "npm:^5.1.5"
   peerDependencies:
     "@emotion/css": "*"
@@ -2144,11 +2143,11 @@ __metadata:
     "@emotion/react": "npm:^11.10.6"
     "@emotion/styled": "npm:^11.10.6"
     "@native/window": "workspace:*"
-    "@styled/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
     "@ui/icons": "workspace:*"
     react: "npm:^18.2.0"
+    styled: "workspace:*"
     styled-system: "npm:^5.1.5"
   peerDependencies:
     "@emotion/css": "*"
@@ -2167,11 +2166,11 @@ __metadata:
     "@emotion/styled": "npm:^11.10.6"
     "@intl/react": "workspace:*"
     "@native/window": "workspace:*"
-    "@styled/tools": "workspace:*"
     "@types/react": "npm:^18.0.28"
     "@types/styled-system": "npm:^5"
     "@ui/icons": "workspace:*"
     react: "npm:^18.2.0"
+    styled: "workspace:*"
     styled-system: "npm:^5.1.5"
   peerDependencies:
     "@emotion/css": "*"
@@ -5776,12 +5775,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-tools@npm:^1.7.2":
-  version: 1.7.2
-  resolution: "styled-tools@npm:1.7.2"
-  checksum: 726ba9b48df8bab6c091dc1508c9913e0b793a63a65099bfc28b1b807577fa5914644ba9f07ff49c8b1479d8b857a8877cb942ef5a2033385a87756fd3b3d596
-  languageName: node
-  linkType: hard
+"styled@workspace:*, styled@workspace:shared/styled":
+  version: 0.0.0-use.local
+  resolution: "styled@workspace:shared/styled"
+  dependencies:
+    "@emotion/css": "npm:^11.10.6"
+    "@emotion/react": "npm:^11.10.6"
+    "@emotion/serialize": "npm:^1.1.1"
+    "@emotion/styled": "npm:^11.10.6"
+    "@theme/types": "workspace:*"
+    "@types/react": "npm:18"
+    "@types/styled-system": "npm:^5.1.16"
+    react: "npm:^18.2.0"
+    styled-system: "npm:^5.1.5"
+  peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
 
 "stylis@npm:4.1.3":
   version: 4.1.3
