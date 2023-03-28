@@ -1,16 +1,28 @@
 {
   "name": "@dev/codestyle",
   "scripts": {
-    "lint": "eslint -c ./.eslintrc.json ../../**/*.{ts,tsx}"
+    "lint": "eslint -c ./.eslintrc.json ../../**/*.{ts,tsx}",
+    "lint:fix": "eslint -c ./.eslintrc.json --fix ../../**/*.{ts,tsx}",
+    "lint:staged": "lint-staged"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "eslint": "^8.35.0",
-    "eslint-config-prettier": "^8.6.0",
+    "@commitlint/cli": "^17.5.0",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-storybook": "^0.6.11",
-    "prettier": "^2.8.4"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.6"
+  },
+  "lint-staged": {
+    "../../**/*.{ts,tsx,js,jsx,cjs,mjs}": "eslint -c ./.eslintrc.json --cache"
   }
 }

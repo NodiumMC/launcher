@@ -1,4 +1,4 @@
-import { ifProp, StyleFn } from '@styled/tools'
+import { ifProp, StyleFn } from 'styled'
 import { ControlButtonProps } from '../control-button.interface'
 
 export const defaultAppearanceStyles: StyleFn = ({ theme }) => ({

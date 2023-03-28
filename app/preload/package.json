@@ -1,0 +1,4 @@
+{
+  "name": "@app/preload",
+  "main": "src/index.ts"
+}

@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
+import { styled } from 'styled'
 import { FC } from 'react'
+import { CloseWindowIcon, MaximizeWindowIcon, MinimizeWindowIcon } from '@ui/icons'
 import { ControlButtonProps } from './control-button.interface'
 import { styles } from './styles'
-import { CloseWindowIcon, MaximizeWindowIcon, MinimizeWindowIcon } from '@ui/icons'
 
 const ControlButtonElement = styled.div<ControlButtonProps>(styles)
 

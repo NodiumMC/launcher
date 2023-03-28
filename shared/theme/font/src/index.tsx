@@ -1,5 +1,5 @@
-import { monaFontFace } from './mona'
-import { Global } from '@emotion/react'
+import { Global } from 'styled'
 import { FC } from 'react'
+import { monaFontFace } from './mona'
 
 export const FontStyles: FC = () => <Global styles={[monaFontFace]} />

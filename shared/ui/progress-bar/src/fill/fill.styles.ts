@@ -1,4 +1,4 @@
-import { StyleFn } from '@styled/tools'
+import { StyleFn } from 'styled'
 
 export const styles: StyleFn = ({ theme }) => ({
   height: '100%',

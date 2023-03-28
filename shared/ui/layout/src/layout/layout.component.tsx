@@ -1,6 +1,5 @@
-import styled from '@emotion/styled'
-import { flexbox, layout, space, system } from 'styled-system'
-import { LayoutProps } from '@ui/layout'
+import { styled, flexbox, layout, space, system } from 'styled'
+import { LayoutProps } from './layout.interface'
 
 export const Layout = styled.div<LayoutProps>(
   system({

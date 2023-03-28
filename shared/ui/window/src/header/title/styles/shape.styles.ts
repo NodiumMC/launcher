@@ -1,4 +1,4 @@
-import { StyleFn } from '@styled/tools'
+import { StyleFn } from 'styled'
 
 export const shapeStyles: StyleFn = () => ({
   width: '100%',

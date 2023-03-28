@@ -10,7 +10,7 @@ export const IntlProvider: FC<PropsWithChildren> = ({ children }) => {
   const messages = langs[locale as keyof typeof langs] as any
 
   return (
-    <Provider locale={locale} defaultLocale={'ru'} messages={messages}>
+    <Provider locale={locale} defaultLocale='ru' messages={messages}>
       {children}
     </Provider>
   )

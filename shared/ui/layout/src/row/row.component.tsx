@@ -1,5 +1,4 @@
-import { LayoutProps } from 'styled-system'
-import styled from '@emotion/styled'
+import { LayoutProps, styled } from 'styled'
 import { Layout } from '../layout'
 
 export const Row = styled(Layout)<LayoutProps>()

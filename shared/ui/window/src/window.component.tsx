@@ -1,9 +1,9 @@
 import { FC } from 'react'
+import { View } from '@ui/window/src/view'
+import { close, minimize, toggleMaximize } from '@native/window'
 import { Frame } from './frame'
 import { Header } from './header'
-import { View } from '@ui/window/src/view'
 import { WindowProps } from './window.interface'
-import { close, minimize, toggleMaximize } from '@native/window'
 import { Divider } from './divider'
 
 export const Window: FC<WindowProps> = ({ children }) => (

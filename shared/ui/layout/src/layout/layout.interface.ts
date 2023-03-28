@@ -1,5 +1,4 @@
-import { FlexboxProps, SpaceProps } from 'styled-system'
-import { LayoutProps as StyledSystemLayoutProps } from 'styled-system'
+import { FlexboxProps, SpaceProps, LayoutProps as StyledSystemLayoutProps } from 'styled'
 
 export interface BoxSizingProps {
   boxSizing?: string

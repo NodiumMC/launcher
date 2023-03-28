@@ -8,8 +8,11 @@ export async function execute<T extends (...args: any) => any>(command: T, noThr
   const ipcIsDefined = Reflect.has(window, '__TAURI_IPC__')
 
   if (!ipcIsDefined) {
-    if (noThrow) return undefined!
-    else throw new NoIpcException()
+    if (noThrow) {
+      return undefined!
+    }
+
+    throw new NoIpcException()
   }
 
   return command()

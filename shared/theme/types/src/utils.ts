@@ -12,6 +12,6 @@ export type ThemeRecord<K extends string, V = any> = Record<K, V>
 
 export type Shade = 5 | 25 | 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950 | 975
 
-type _Prefix<T extends number> = `_${T}`
+type Prefix<T extends number> = `_${T}`
 
-export type ShadesRecord = Record<_Prefix<Shade>, string>
+export type ShadesRecord = Record<Prefix<Shade>, string>
