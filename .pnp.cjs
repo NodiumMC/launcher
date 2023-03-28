@@ -18,6 +18,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:app/entrypoint"\
     },\
     {\
+      "name": "@app/preload",\
+      "reference": "workspace:app/preload"\
+    },\
+    {\
       "name": "@app/providers",\
       "reference": "workspace:app/providers"\
     },\
@@ -178,6 +182,7 @@ const RAW_RUNTIME_STATE =
   "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
   "fallbackExclusionList": [\
     ["@app/entrypoint", ["workspace:app/entrypoint"]],\
+    ["@app/preload", ["workspace:app/preload"]],\
     ["@app/providers", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:app/providers", "workspace:app/providers"]],\
     ["@app/root", ["workspace:app/root"]],\
     ["@app/routes", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:app/routes", "workspace:app/routes"]],\
@@ -249,6 +254,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./app/entrypoint/",\
         "packageDependencies": [\
           ["@app/entrypoint", "workspace:app/entrypoint"],\
+          ["@app/preload", "workspace:app/preload"],\
           ["@app/root", "workspace:app/root"],\
           ["@app/vite", "workspace:app/vite"],\
           ["@tauri-apps/cli", "npm:1.2.3"],\
@@ -258,6 +264,15 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:a8642ea35116c35a2d3b4c1d8eebf2e2968556ab55c98adc563809daa43943dedc48afe5687aa0e3681fdde407f9025bc8c4f1fdf183621b82d4ff8a200cdff1#npm:18.2.0"],\
           ["vite", "virtual:2d1473c2f9943b2778a41ccdd200f9a8bbbb1dbb60bd07e9d7ecd4b31760c35bd83af82002fa2dfb3c99a45b410411b60157ae82f95184269dadd01c38fb18c3#npm:4.1.4"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@app/preload", [\
+      ["workspace:app/preload", {\
+        "packageLocation": "./app/preload/",\
+        "packageDependencies": [\
+          ["@app/preload", "workspace:app/preload"]\
         ],\
         "linkType": "SOFT"\
       }]\

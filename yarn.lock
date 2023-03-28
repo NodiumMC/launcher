@@ -19,6 +19,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/entrypoint@workspace:app/entrypoint"
   dependencies:
+    "@app/preload": "workspace:*"
     "@app/root": "workspace:*"
     "@app/vite": "workspace:*"
     "@tauri-apps/cli": "npm:^1.2.3"
@@ -28,6 +29,12 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     vite: "npm:^4.1.4"
+  languageName: unknown
+  linkType: soft
+
+"@app/preload@workspace:*, @app/preload@workspace:app/preload":
+  version: 0.0.0-use.local
+  resolution: "@app/preload@workspace:app/preload"
   languageName: unknown
   linkType: soft
 

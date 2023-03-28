@@ -26,6 +26,7 @@
         "@app/root": ["app/root"],
         "@app/routes": ["app/routes"],
         "@app/vite": ["app/vite"],
+        "@app/preload": ["app/preload"],
         "@lib/math": ["shared/lib/math"],
         "@lib/types": ["shared/lib/types"],
         "@theme/builder": ["shared/theme/builder"],
