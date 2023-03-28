@@ -226,6 +226,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["husky", "npm:8.0.3"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
           ["vitest", "virtual:f107a555d068058ac07527e04071182f72ef8e9d085e1e3f9dce93c9313d849e3172438938ba394600fd54c644b9cb47198f581a9c8321cbeaae8cc004077478#npm:0.29.2"]\
         ],\
@@ -6165,6 +6166,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["husky", [\
+      ["npm:8.0.3", {\
+        "packageLocation": "../../../.yarn/berry/cache/husky-npm-8.0.3-b0b59c5127-9.zip/node_modules/husky/",\
+        "packageDependencies": [\
+          ["husky", "npm:8.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["iconv-lite", [\
       ["npm:0.6.3", {\
         "packageLocation": "../../../.yarn/berry/cache/iconv-lite-npm-0.6.3-24b8aae27e-9.zip/node_modules/iconv-lite/",\
@@ -7540,6 +7550,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["nodium-launcher", "workspace:."],\
+          ["husky", "npm:8.0.3"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
           ["vitest", "virtual:f107a555d068058ac07527e04071182f72ef8e9d085e1e3f9dce93c9313d849e3172438938ba394600fd54c644b9cb47198f581a9c8321cbeaae8cc004077478#npm:0.29.2"]\
         ],\

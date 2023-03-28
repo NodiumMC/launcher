@@ -4765,6 +4765,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"husky@npm:^8.0.3":
+  version: 8.0.3
+  resolution: "husky@npm:8.0.3"
+  bin:
+    husky: lib/bin.js
+  checksum: 016ab53f21f39af1b2387559faa9cb6e2bbbe6d3cccd64c186efe204ca4634fc11dca369da9aabe7cde4293573abe12f9b7251f20bef39ea33d8e1e8f0847550
+  languageName: node
+  linkType: hard
+
 "iconv-lite@npm:0.6.3, iconv-lite@npm:^0.6.2, iconv-lite@npm:^0.6.3":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
@@ -5967,6 +5976,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nodium-launcher@workspace:."
   dependencies:
+    husky: "npm:^8.0.3"
     typescript: "npm:^4.9.5"
     vitest: "npm:^0.29.2"
   languageName: unknown
