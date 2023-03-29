@@ -5,7 +5,8 @@
     "@ui/button": "workspace:*",
     "@ui/icons": "workspace:*",
     "@ui/layout": "workspace:*",
-    "@ui/progress-bar": "workspace:*"
+    "@ui/progress-bar": "workspace:*",
+    "styled": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

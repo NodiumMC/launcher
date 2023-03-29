@@ -1549,6 +1549,7 @@ __metadata:
     "@ui/layout": "workspace:*"
     "@ui/progress-bar": "workspace:*"
     react: "npm:^18.2.0"
+    styled: "workspace:*"
   peerDependencies:
     react: "*"
   languageName: unknown
