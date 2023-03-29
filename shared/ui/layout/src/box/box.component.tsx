@@ -1,10 +1,11 @@
-import { styled, background, border, boxShadow, color, flexbox, layout, position, space, system } from 'styled'
+import { styled, background, border, boxShadow, color, flexbox, layout, position, space, system, grid } from 'styled'
 import { BoxProps } from './box.interface'
 
 export const Box = styled.div<BoxProps>(
   system({
     boxSizing: true,
     cursor: true,
+    gap: true,
   }),
   layout,
   space,
@@ -14,6 +15,7 @@ export const Box = styled.div<BoxProps>(
   boxShadow,
   border,
   background,
+  grid,
 )
 
 Box.defaultProps = {
