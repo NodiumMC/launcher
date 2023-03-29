@@ -7,10 +7,12 @@ import {
   LayoutProps,
   PositionProps,
   SpaceProps,
+  GridProps,
 } from 'styled'
 
 export interface BoxSystemProps {
   boxSizing?: string
+  gap?: string
 }
 
 export type BoxProps = FlexboxProps &
@@ -21,4 +23,5 @@ export type BoxProps = FlexboxProps &
   ColorProps &
   BorderProps &
   BoxShadowProps &
-  BackgroundProps
+  BackgroundProps &
+  GridProps

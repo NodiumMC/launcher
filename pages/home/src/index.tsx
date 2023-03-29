@@ -1,17 +1,14 @@
 import { FC } from 'react'
-import { Row } from '@ui/layout'
-import { Button } from '@ui/button'
-import { CloseWindowIcon, MaximizeWindowIcon } from '@ui/icons'
+import { Box } from '@ui/layout'
+import { useTheme } from 'styled'
+import { HomeLayout } from './home-layout.component'
+
+const Placeholder: FC = props => {
+  const theme = useTheme()
+
+  return <Box backgroundColor={theme.palette.gray._50} {...props} />
+}
 
 export const HomePage: FC = () => (
-  <Row style={{ gap: '6px' }} p={6}>
-    <Button>
-      <MaximizeWindowIcon />
-      <span>Defaultich</span>
-    </Button>
-    <Button variant='secondary'>
-      <CloseWindowIcon />
-      <span>Close</span>
-    </Button>
-  </Row>
+  <HomeLayout User={Placeholder} Skin={Placeholder} Main={Placeholder} Play={Placeholder} Options={Placeholder} />
 )
