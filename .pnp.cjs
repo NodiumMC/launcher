@@ -166,6 +166,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/ui/layout"\
     },\
     {\
+      "name": "@ui/nav-sidebar",\
+      "reference": "workspace:shared/ui/nav-sidebar"\
+    },\
+    {\
       "name": "@ui/progress-bar",\
       "reference": "workspace:shared/ui/progress-bar"\
     },\
@@ -218,6 +222,7 @@ const RAW_RUNTIME_STATE =
     ["@ui/button", ["virtual:845afe9e0d106f62288f252cb9956f987030efe8c5f414287f43984419fd05e6129149a34fef60c6df0dac9c232f21fa7ff213444084ef2d7337f2c2fc160028#workspace:shared/ui/button", "workspace:shared/ui/button"]],\
     ["@ui/icons", ["virtual:703fe6a2aae34325fe579b06161277099266fdb118494ef225c46caeeb09e474b83b8680453c8b60f52eb8ea1a2f6eb0d61efd0cb9bce85144639b9d8085024b#workspace:shared/ui/icons", "virtual:845afe9e0d106f62288f252cb9956f987030efe8c5f414287f43984419fd05e6129149a34fef60c6df0dac9c232f21fa7ff213444084ef2d7337f2c2fc160028#workspace:shared/ui/icons", "workspace:shared/ui/icons"]],\
     ["@ui/layout", ["virtual:845afe9e0d106f62288f252cb9956f987030efe8c5f414287f43984419fd05e6129149a34fef60c6df0dac9c232f21fa7ff213444084ef2d7337f2c2fc160028#workspace:shared/ui/layout", "workspace:shared/ui/layout"]],\
+    ["@ui/nav-sidebar", ["workspace:shared/ui/nav-sidebar"]],\
     ["@ui/progress-bar", ["virtual:845afe9e0d106f62288f252cb9956f987030efe8c5f414287f43984419fd05e6129149a34fef60c6df0dac9c232f21fa7ff213444084ef2d7337f2c2fc160028#workspace:shared/ui/progress-bar", "workspace:shared/ui/progress-bar"]],\
     ["@ui/spinner", ["workspace:shared/ui/spinner"]],\
     ["@ui/window", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:shared/ui/window", "workspace:shared/ui/window"]],\
@@ -3366,6 +3371,17 @@ const RAW_RUNTIME_STATE =
           ["@ui/layout", "workspace:shared/ui/layout"],\
           ["@types/react", "npm:18.0.30"],\
           ["react", "npm:18.2.0"],\
+          ["styled", "virtual:59ac0961471a7cf22f77eafd556b12a3199db5d9af874bb6f852d0ca4eac2bf45f80e4fc0d8424ec6e3356f693847f71fe68db3cb579114789a016945047014a#workspace:shared/styled"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@ui/nav-sidebar", [\
+      ["workspace:shared/ui/nav-sidebar", {\
+        "packageLocation": "./shared/ui/nav-sidebar/",\
+        "packageDependencies": [\
+          ["@ui/nav-sidebar", "workspace:shared/ui/nav-sidebar"],\
+          ["@types/react", "npm:18.0.30"],\
           ["styled", "virtual:59ac0961471a7cf22f77eafd556b12a3199db5d9af874bb6f852d0ca4eac2bf45f80e4fc0d8424ec6e3356f693847f71fe68db3cb579114789a016945047014a#workspace:shared/styled"]\
         ],\
         "linkType": "SOFT"\

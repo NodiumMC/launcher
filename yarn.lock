@@ -2384,6 +2384,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ui/nav-sidebar@workspace:shared/ui/nav-sidebar":
+  version: 0.0.0-use.local
+  resolution: "@ui/nav-sidebar@workspace:shared/ui/nav-sidebar"
+  dependencies:
+    "@types/react": "npm:18"
+    styled: "workspace:*"
+  peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@ui/progress-bar@workspace:*, @ui/progress-bar@workspace:shared/ui/progress-bar":
   version: 0.0.0-use.local
   resolution: "@ui/progress-bar@workspace:shared/ui/progress-bar"

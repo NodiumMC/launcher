@@ -1,0 +1,13 @@
+{
+  "name": "@ui/nav-sidebar",
+  "main": "index.ts",
+  "dependencies": {
+    "styled": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "18"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}
