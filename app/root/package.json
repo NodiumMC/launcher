@@ -5,6 +5,8 @@
     "@app/providers": "workspace:*",
     "@app/routes": "workspace:*",
     "@types/react": "^18.0.28",
+    "@ui/icons": "workspace:*",
+    "@ui/nav-sidebar": "workspace:*",
     "@ui/window": "workspace:*"
   },
   "dependencies": {
