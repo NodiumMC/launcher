@@ -1,15 +1,17 @@
 import { FC } from 'react'
-import { View } from '@ui/window/src/view'
 import { close, minimize, toggleMaximize } from '@native/window'
+import { View } from './view'
 import { Frame } from './frame'
 import { Header } from './header'
 import { WindowProps } from './window.interface'
-import { Divider } from './divider'
+import { Container } from './container'
 
-export const Window: FC<WindowProps> = ({ children }) => (
+export const Window: FC<WindowProps> = ({ sidebar, children }) => (
   <Frame>
-    <Header onClose={close} onMinimize={minimize} onToggleMaximize={toggleMaximize} />
-    <Divider />
-    <View>{children}</View>
+    {sidebar}
+    <Container>
+      <Header onClose={close} onMinimize={minimize} onToggleMaximize={toggleMaximize} />
+      <View>{children}</View>
+    </Container>
   </Frame>
 )

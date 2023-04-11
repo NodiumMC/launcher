@@ -4,7 +4,8 @@
   "dependencies": {
     "@intl/react": "workspace:*",
     "@native/window": "workspace:*",
-    "@ui/icons": "workspace:*"
+    "@ui/icons": "workspace:*",
+    "polished": "^4.2.2"
   },
   "devDependencies": {
     "@types/react": "18",

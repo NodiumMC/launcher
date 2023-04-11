@@ -2,6 +2,6 @@ import { StyleFn } from 'styled'
 
 export const baseStyles: StyleFn = () => ({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   boxSizing: 'border-box',
 })
