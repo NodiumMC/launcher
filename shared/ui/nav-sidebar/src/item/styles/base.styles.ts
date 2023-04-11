@@ -8,6 +8,7 @@ const base: StyleFn = () => ({
   alignItems: 'center',
   justifyContent: 'center',
   overflow: 'hidden',
+  cursor: 'pointer',
 })
 
 const blurry: StyleFn = () => ({
