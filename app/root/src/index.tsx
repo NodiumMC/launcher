@@ -3,7 +3,7 @@ import { withProviders } from '@app/providers'
 import { Routes } from '@app/routes'
 import { Window } from '@ui/window'
 import { NavSidebar } from '@ui/nav-sidebar'
-import { CloseWindowIcon, HomeIcon } from '@ui/icons'
+import { FaSolidBoltLightningIcon, FaSolidDownloadIcon } from '@ui/icons'
 
 const App: FC = () => (
   <Window
@@ -12,11 +12,11 @@ const App: FC = () => (
         topItems={[
           {
             path: '/',
-            icon: <CloseWindowIcon />,
+            icon: <FaSolidBoltLightningIcon />,
           },
           {
-            path: '/other',
-            icon: <HomeIcon />,
+            path: '/downloads',
+            icon: <FaSolidDownloadIcon />,
           },
         ]}
         bottomItems={[]}
