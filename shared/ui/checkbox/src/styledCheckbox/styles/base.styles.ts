@@ -1,5 +1,5 @@
-import {combine, ifNotProp, ifProp, StyleFn} from "@styled/tools";
-import {CheckboxProps} from "@ui/checkbox";
+import {combine, ifNotProp, ifProp, StyleFn} from "@styled/tools"
+import {CheckboxProps} from "@ui/checkbox"
 
 const base: StyleFn<CheckboxProps> = ({theme}) => ({
     display: 'flex',

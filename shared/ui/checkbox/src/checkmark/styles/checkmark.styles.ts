@@ -1,4 +1,4 @@
-import {combine, StyleFn} from "@styled/tools";
+import {combine, StyleFn} from "@styled/tools"
 
 const base: StyleFn = ({theme}) => ({
     position: 'relative',
@@ -6,7 +6,7 @@ const base: StyleFn = ({theme}) => ({
     height: '10px',
     border: `solid ${theme.palette.primary._500}`,
     borderWidth: '0 2px 2px 0',
-    transform: 'rotate(45deg)',
+    transform: 'rotate(45deg)'
 })
 
 

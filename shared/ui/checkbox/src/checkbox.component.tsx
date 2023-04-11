@@ -1,25 +1,11 @@
-import styled from "@emotion/styled";
-import {CheckboxProps} from "@ui/checkbox/src/checkbox.interface";
-import {styles} from "./styles";
-import {wrapperStyles} from "@ui/checkbox/src/styles/wrapper.styles";
-import {ChangeEventHandler} from "react";
-import {labelStyles} from "@ui/checkbox/src/styles/label.styles";
-import {checkmarkStyles} from "@ui/checkbox/src/styles/checkmark.styles";
-import {AnimatePresence, motion} from "framer-motion";
-
-const StyledCheckbox = styled.label<CheckboxProps>(styles);
-
-const LabelCheckbox = styled.label(labelStyles)
-
-const CheckboxWrapper = styled.div(wrapperStyles)
-
-export const CheckboxInput = styled.input()
-
-const CheckMark = styled(motion.div)(checkmarkStyles)
-
-StyledCheckbox.defaultProps = {
-
-}
+import {CheckboxProps} from "./checkbox.interface"
+import {ChangeEventHandler} from "react"
+import {AnimatePresence} from "framer-motion"
+import {CheckMark} from "./checkmark/checkmark.component"
+import {CheckboxInput} from "./checkboxInput/checkboxInput.component"
+import {StyledCheckbox} from "./styledCheckbox/styledCheckbox.component"
+import {LabelCheckbox} from "./label/label.component"
+import {CheckboxWrapper} from "./wrapper/wrapper.component"
 
 interface CheckboxPropsWithChecked extends CheckboxProps{
     label?: string,
