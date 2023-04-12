@@ -1,3 +1,3 @@
-import styled from "@emotion/styled"
+import { styled } from 'styled'
 
 export const CheckboxInput = styled.input()

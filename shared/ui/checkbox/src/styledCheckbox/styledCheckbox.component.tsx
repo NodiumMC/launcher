@@ -1,5 +1,5 @@
-import {CheckboxProps} from "@ui/checkbox"
-import {styles} from "./styles"
-import styled from "@emotion/styled"
+import { styled } from 'styled'
+import { CheckboxProps } from '../checkbox.interface'
+import { styles } from './styles'
 
 export const StyledCheckbox = styled.label<CheckboxProps>(styles)

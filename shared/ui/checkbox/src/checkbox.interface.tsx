@@ -1,4 +1,4 @@
 export interface CheckboxProps {
-    disabled?: Node,
-    circle?: Node,
+  disabled?: Node
+  circle?: Node
 }

@@ -1,7 +1,7 @@
-import {StyleFn} from "@styled/tools"
-import {CheckboxProps} from "@ui/checkbox"
+import { StyleFn } from 'styled'
+import { CheckboxProps } from '../../checkbox.interface'
 
-export const wrapperStyles: StyleFn<CheckboxProps> = ({theme}) => ({
-    display: 'flex',
-    alignItems: 'center'
+export const wrapperStyles: StyleFn<CheckboxProps> = () => ({
+  display: 'flex',
+  alignItems: 'center',
 })
