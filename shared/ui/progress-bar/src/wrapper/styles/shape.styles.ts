@@ -1,4 +1,4 @@
-import { StyleFn } from '@styled/tools'
+import { StyleFn } from 'styled'
 
 export const shapeStyles: StyleFn = ({ theme }) => ({
   borderRadius: theme.radius.xs,

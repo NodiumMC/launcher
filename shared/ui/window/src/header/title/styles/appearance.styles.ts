@@ -1,4 +1,4 @@
-import { StyleFn } from '@styled/tools'
+import { StyleFn } from 'styled'
 
 export const appearanceStyles: StyleFn = ({ theme }) => ({
   color: theme.palette.gray._200,

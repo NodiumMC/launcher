@@ -2,12 +2,10 @@
   "name": "@theme/font",
   "main": "src/index.tsx",
   "devDependencies": {
-    "@emotion/react": "^11.10.6",
-    "@types/react": "^18.0.28",
-    "react": "^18.2.0"
+    "@types/react": "18",
+    "styled": "workspace:*"
   },
   "peerDependencies": {
-    "@emotion/react": "*",
     "react": "*"
   }
 }

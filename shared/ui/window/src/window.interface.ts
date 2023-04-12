@@ -1,3 +1,5 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 
-export type WindowProps = PropsWithChildren
+export interface WindowProps extends PropsWithChildren {
+  sidebar: ReactNode
+}

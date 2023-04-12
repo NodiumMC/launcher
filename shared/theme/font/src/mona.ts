@@ -1,5 +1,5 @@
+import { StyleFn } from 'styled'
 import font from './assets/Mona-Sans.woff2'
-import { StyleFn } from '@styled/tools'
 
 export const monaFontFace: StyleFn = () => ({
   '@font-face': {

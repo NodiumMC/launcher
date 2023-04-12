@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from 'styled'
 import { styles } from './styles'
 import { ButtonProps } from './button.interface'
 

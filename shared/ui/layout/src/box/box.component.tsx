@@ -1,11 +1,11 @@
-import styled from '@emotion/styled'
+import { styled, background, border, boxShadow, color, flexbox, layout, position, space, system, grid } from 'styled'
 import { BoxProps } from './box.interface'
-import { background, border, boxShadow, color, flexbox, layout, position, space, system } from 'styled-system'
 
 export const Box = styled.div<BoxProps>(
   system({
     boxSizing: true,
     cursor: true,
+    gap: true,
   }),
   layout,
   space,
@@ -15,6 +15,7 @@ export const Box = styled.div<BoxProps>(
   boxShadow,
   border,
   background,
+  grid,
 )
 
 Box.defaultProps = {

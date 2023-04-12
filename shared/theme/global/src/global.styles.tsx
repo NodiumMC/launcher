@@ -1,5 +1,4 @@
-import { Global } from '@emotion/react'
-import { css } from '@emotion/react'
+import { Global, css } from '@emotion/react'
 
 const inline = css`
   *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {

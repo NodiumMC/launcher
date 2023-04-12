@@ -1,0 +1,20 @@
+{
+  "name": "styled",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@emotion/css": "^11.10.6",
+    "@emotion/react": "^11.10.6",
+    "@emotion/serialize": "^1.1.1",
+    "@emotion/styled": "^11.10.6",
+    "@theme/types": "workspace:*",
+    "react": "^18.2.0",
+    "styled-system": "^5.1.5"
+  },
+  "devDependencies": {
+    "@types/react": "18",
+    "@types/styled-system": "^5.1.16"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}

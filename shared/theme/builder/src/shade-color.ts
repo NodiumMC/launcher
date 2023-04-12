@@ -1,7 +1,7 @@
 import { Shade, ShadesRecord } from '@theme/types'
-import { MAX_MIX_SHADE_RATIO, MAX_SHADE, MID_SHADE, MIN_MIX_SHADE_RATIO, MIN_SHADE } from './constants'
 import { mix } from 'polished'
 import { map } from '@lib/math'
+import { MAX_MIX_SHADE_RATIO, MAX_SHADE, MID_SHADE, MIN_MIX_SHADE_RATIO, MIN_SHADE } from './constants'
 
 const SHADE_VALUES: Shade[] = [5, 25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950, 975]
 

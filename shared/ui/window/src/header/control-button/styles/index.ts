@@ -1,4 +1,4 @@
-import { combine } from '@styled/tools'
+import { combine } from 'styled'
 import { baseStyles } from './base.styles'
 import { shapeStyles } from './shape.styles'
 import { transitionStyles } from './transition.styles'

@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react'
+import { keyframes } from 'styled'
 
 export const animation = keyframes({
   from: {

@@ -4,18 +4,19 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/jsx-runtime",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:import/typescript",
     "prettier"
-  ],
-  "overrides": [
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "../../tsconfig.json"
   },
   "plugins": [
     "prettier",
@@ -30,28 +31,18 @@
       "singleQuote": true,
       "trailingComma": "all",
       "endOfLine": "lf",
-      "printWidth": 120
+      "printWidth": 120,
+      "jsxSingleQuote": true
     }],
-    "indent": "off",
-    "no-control-regex": "off",
-    "@typescript-eslint/no-namespace": "off",
-    "no-async-promise-executor": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "react/display-name": "off",
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": "off",
-    "semi": [
-      "error",
-      "never"
-    ]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+    "@typescript-eslint/semi": ["error", "never"],
+    "import/prefer-default-export": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": "off",
+    "no-restricted-exports": "off",
+    "jsx-quotes": ["error", "prefer-single"],
+    "import/no-extraneous-dependencies": "off",
+    "no-underscore-dangle": "off",
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-shadow": "off"
   }
 }

@@ -13,18 +13,17 @@
   "workspaces": [
     "app/**",
     "shared/**",
-    "jsx/**",
-    "theme/**",
     "pages/**",
     "dev/**",
     "widgets/**"
   ],
   "devDependencies": {
-    "typescript": "^4.9.5",
+    "husky": "^8.0.3",
+    "typescript": "^5.0.2",
     "vitest": "^0.29.2"
   },
   "resolutions": {
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   },
-  "packageManager": "yarn@4.0.0-rc.40"
+  "packageManager": "yarn@4.0.0-rc.41"
 }

@@ -1,6 +1,5 @@
+import { LayoutProps, styled } from 'styled'
 import { Layout } from '../layout'
-import { LayoutProps } from 'styled-system'
-import styled from '@emotion/styled'
 
 export const Column = styled(Layout)<LayoutProps>()
 
