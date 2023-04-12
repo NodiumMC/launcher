@@ -43,6 +43,7 @@
     "import/no-extraneous-dependencies": "off",
     "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",
-    "@typescript-eslint/no-shadow": "off"
+    "@typescript-eslint/no-shadow": "off",
+    "react/require-default-props": "off"
   }
 }
