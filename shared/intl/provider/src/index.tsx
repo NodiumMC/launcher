@@ -1,11 +1,11 @@
 import { FC, PropsWithChildren } from 'react'
-import { useRecoilState } from 'recoil'
-import { locale as localeAtom } from '@intl/store'
+import { $locale } from '@intl/store'
 import { IntlProvider as Provider } from 'react-intl'
 import * as langs from '@intl/langs'
+import { useStore } from 'effector-react'
 
 export const IntlProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [locale] = useRecoilState(localeAtom)
+  const locale = useStore($locale)
 
   const messages = langs[locale as keyof typeof langs] as any
 

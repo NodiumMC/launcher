@@ -1,6 +1,5 @@
-import { atom } from 'recoil'
+import { createEvent, restore } from 'effector'
 
-export const locale = atom({
-  key: 'locale',
-  default: navigator.language.split(/[-_]/)[0],
-})
+export const setLocale = createEvent<string>()
+
+export const $locale = restore(setLocale, navigator.language.split(/[-_]/)[0])

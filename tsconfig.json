@@ -52,7 +52,6 @@
         "@ui/progress-bar": ["shared/ui/progress-bar"],
         "@ui/spinner": ["shared/ui/spinner"],
         "@storage/db": ["shared/storage/db"],
-        "@storage/recoil": ["shared/storage/recoil"],
         "@intl/langs": ["shared/intl/langs"],
         "@intl/provider": ["shared/intl/provider"],
         "@intl/react": ["shared/intl/react"],

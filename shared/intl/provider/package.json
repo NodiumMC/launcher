@@ -4,8 +4,9 @@
   "dependencies": {
     "@intl/langs": "workspace:*",
     "@intl/store": "workspace:*",
-    "react-intl": "^6.2.10",
-    "recoil": "^0.7.7"
+    "effector": "^22",
+    "effector-react": "^22",
+    "react-intl": "^6.2.10"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

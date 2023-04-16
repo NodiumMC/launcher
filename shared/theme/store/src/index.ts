@@ -1,14 +1,5 @@
-import { atom } from 'recoil'
-import { storageEffect } from '@storage/recoil'
-import { StorageId } from '@storage/db'
+import { createEvent, restore } from 'effector'
 
-const storage = {
-  name: 'appearance',
-  version: '1',
-} satisfies StorageId
+export const setTheme = createEvent<string>()
 
-export const theme = atom({
-  key: 'app_theme',
-  default: 'dark',
-  effects: [storageEffect(storage, 'theme', 'dark')],
-})
+export const $theme = restore(setTheme, 'dark')
