@@ -7,7 +7,8 @@
     "@theme/global": "workspace:*",
     "@theme/light-schema": "workspace:*",
     "@theme/store": "workspace:*",
-    "recoil": "^0.7.7"
+    "effector": "^22",
+    "effector-react": "^22"
   },
   "devDependencies": {
     "@emotion/react": "^11.10.6",
