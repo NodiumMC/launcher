@@ -1,0 +1,8 @@
+{
+  "name": "@config/locale",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@storage/kv": "workspace:*",
+    "effector": "^22"
+  }
+}

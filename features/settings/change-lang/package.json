@@ -1,0 +1,4 @@
+{
+  "name": "@features/settings-change-lang",
+  "main": "src/index.ts"
+}

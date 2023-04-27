@@ -1,12 +1,12 @@
 {
   "name": "@theme/provider",
-  "main": "src/index.tsx",
+  "main": "src/index.ts",
   "dependencies": {
+    "@config/theme": "workspace:*",
     "@theme/dark-schema": "workspace:*",
     "@theme/font": "workspace:*",
     "@theme/global": "workspace:*",
     "@theme/light-schema": "workspace:*",
-    "@theme/store": "workspace:*",
     "effector": "^22",
     "effector-react": "^22"
   },

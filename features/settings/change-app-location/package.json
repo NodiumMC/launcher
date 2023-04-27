@@ -1,0 +1,4 @@
+{
+  "name": "@features/settings-change-app-location",
+  "main": "src/index.ts"
+}

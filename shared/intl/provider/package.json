@@ -1,9 +1,9 @@
 {
   "name": "@intl/provider",
-  "main": "src/index.tsx",
+  "main": "src/index.ts",
   "dependencies": {
+    "@config/locale": "workspace:*",
     "@intl/langs": "workspace:*",
-    "@intl/store": "workspace:*",
     "effector": "^22",
     "effector-react": "^22",
     "react-intl": "^6.2.10"

@@ -35,6 +35,8 @@ __metadata:
 "@app/preload@workspace:*, @app/preload@workspace:app/preload":
   version: 0.0.0-use.local
   resolution: "@app/preload@workspace:app/preload"
+  dependencies:
+    "@storage/kv": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -529,9 +531,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@core/manifest@workspace:shared/core/manifest":
+"@config/app-location@workspace:shared/config/app-location":
   version: 0.0.0-use.local
-  resolution: "@core/manifest@workspace:shared/core/manifest"
+  resolution: "@config/app-location@workspace:shared/config/app-location"
+  dependencies:
+    "@native/path": "workspace:*"
+    "@storage/kv": "workspace:*"
+    effector: "npm:^22"
+  languageName: unknown
+  linkType: soft
+
+"@config/locale@workspace:*, @config/locale@workspace:shared/config/locale":
+  version: 0.0.0-use.local
+  resolution: "@config/locale@workspace:shared/config/locale"
+  dependencies:
+    "@storage/kv": "workspace:*"
+    effector: "npm:^22"
+  languageName: unknown
+  linkType: soft
+
+"@config/theme@workspace:*, @config/theme@workspace:shared/config/theme":
+  version: 0.0.0-use.local
+  resolution: "@config/theme@workspace:shared/config/theme"
+  dependencies:
+    "@storage/kv": "workspace:*"
+    effector: "npm:^22"
   languageName: unknown
   linkType: soft
 
@@ -1105,6 +1129,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@features/settings-change-app-location@workspace:features/settings/change-app-location":
+  version: 0.0.0-use.local
+  resolution: "@features/settings-change-app-location@workspace:features/settings/change-app-location"
+  languageName: unknown
+  linkType: soft
+
+"@features/settings-change-lang@workspace:features/settings/change-lang":
+  version: 0.0.0-use.local
+  resolution: "@features/settings-change-lang@workspace:features/settings/change-lang"
+  languageName: unknown
+  linkType: soft
+
+"@features/settings-change-theme@workspace:features/settings/change-theme":
+  version: 0.0.0-use.local
+  resolution: "@features/settings-change-theme@workspace:features/settings/change-theme"
+  languageName: unknown
+  linkType: soft
+
 "@formatjs/cli@npm:^6.0.4":
   version: 6.0.4
   resolution: "@formatjs/cli@npm:6.0.4"
@@ -1300,8 +1342,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@intl/provider@workspace:shared/intl/provider"
   dependencies:
+    "@config/locale": "workspace:*"
     "@intl/langs": "workspace:*"
-    "@intl/store": "workspace:*"
     "@types/react": "npm:^18.0.28"
     effector: "npm:^22"
     effector-react: "npm:^22"
@@ -1319,18 +1361,6 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     react: "npm:^18.2.0"
     react-intl: "npm:^6.2.10"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@intl/store@workspace:*, @intl/store@workspace:shared/intl/store":
-  version: 0.0.0-use.local
-  resolution: "@intl/store@workspace:shared/intl/store"
-  dependencies:
-    "@types/react": "npm:^18"
-    effector: "npm:^22"
-    effector-react: "npm:^22"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -1422,6 +1452,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@lib/tangle@workspace:*, @lib/tangle@workspace:shared/lib/tangle":
+  version: 0.0.0-use.local
+  resolution: "@lib/tangle@workspace:shared/lib/tangle"
+  languageName: unknown
+  linkType: soft
+
 "@lib/types@workspace:*, @lib/types@workspace:shared/lib/types":
   version: 0.0.0-use.local
   resolution: "@lib/types@workspace:shared/lib/types"
@@ -1448,7 +1484,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@native/path@workspace:shared/native/path":
+"@native/path@workspace:*, @native/path@workspace:shared/native/path":
   version: 0.0.0-use.local
   resolution: "@native/path@workspace:shared/native/path"
   dependencies:
@@ -1585,11 +1621,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storage/db@workspace:shared/storage/db":
+"@storage/kv@workspace:*, @storage/kv@workspace:shared/storage/kv":
   version: 0.0.0-use.local
-  resolution: "@storage/db@workspace:shared/storage/db"
+  resolution: "@storage/kv@workspace:shared/storage/kv"
   dependencies:
-    localforage: "npm:^1.10.0"
+    "@lib/tangle": "workspace:*"
+    localforage: "npm:^1"
   languageName: unknown
   linkType: soft
 
@@ -1996,32 +2033,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@theme/provider@workspace:shared/theme/provider"
   dependencies:
+    "@config/theme": "workspace:*"
     "@emotion/react": "npm:^11.10.6"
     "@theme/dark-schema": "workspace:*"
     "@theme/font": "workspace:*"
     "@theme/global": "workspace:*"
     "@theme/light-schema": "workspace:*"
-    "@theme/store": "workspace:*"
     "@types/react": "npm:^18.0.28"
     effector: "npm:^22"
     effector-react: "npm:^22"
     react: "npm:^18.2.0"
   peerDependencies:
     "@emotion/react": "*"
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@theme/store@workspace:*, @theme/store@workspace:shared/theme/store":
-  version: 0.0.0-use.local
-  resolution: "@theme/store@workspace:shared/theme/store"
-  dependencies:
-    "@theme/dark-schema": "workspace:*"
-    "@theme/light-schema": "workspace:*"
-    "@types/react": "npm:^18.0.28"
-    effector: "npm:^22"
-    react: "npm:^18.2.0"
-  peerDependencies:
     react: "*"
   languageName: unknown
   linkType: soft
@@ -2188,17 +2211,6 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: bb671b6716d73dbc65e868c9219f08a79743900b8da8ce72052f991f5f4a5e2dbae081a84cebb395b557c4fde19f34f377b066c448bea14afb2c8737b5fc9e67
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18":
-  version: 18.0.35
-  resolution: "@types/react@npm:18.0.35"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 894a5b9060e734b43c78307564bc433eff2ccbb9cd20180a0813eb8aaafa31f74312b3e207f682b8dfb8399b05b0b9fe348d32348a0adc2aa5ddce4bc47e9f8c
   languageName: node
   linkType: hard
 
@@ -5526,7 +5538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"localforage@npm:^1.10.0":
+"localforage@npm:^1":
   version: 1.10.0
   resolution: "localforage@npm:1.10.0"
   dependencies:

@@ -1,10 +1,11 @@
-import { FC, PropsWithChildren } from 'react'
-import { $locale } from '@intl/store'
+import { type FC } from 'react'
 import { IntlProvider as Provider } from 'react-intl'
 import * as langs from '@intl/langs'
 import { useStore } from 'effector-react'
+import { $locale } from '@config/locale'
+import { IntlProviderProps } from './intl-provider.interface'
 
-export const IntlProvider: FC<PropsWithChildren> = ({ children }) => {
+export const IntlProvider: FC<IntlProviderProps> = ({ children }) => {
   const locale = useStore($locale)
 
   const messages = langs[locale as keyof typeof langs] as any

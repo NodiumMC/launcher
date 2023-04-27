@@ -15,7 +15,9 @@
     "shared/**",
     "pages/**",
     "dev/**",
-    "widgets/**"
+    "widgets/**",
+    "entities/**",
+    "features/**"
   ],
   "devDependencies": {
     "husky": "^8.0.3",

@@ -1,4 +1,4 @@
 {
-  "name": "@core/manifest",
+  "name": "@lib/tangle",
   "main": "src/index.ts"
 }
