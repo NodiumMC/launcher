@@ -1,0 +1,4 @@
+{
+  "name": "@features/settings-change-theme",
+  "main": "src/index.ts"
+}

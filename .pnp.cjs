@@ -14,6 +14,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:."\
     },\
     {\
+      "name": "scripts",\
+      "reference": "workspace:.scripts"\
+    },\
+    {\
       "name": "@app/entrypoint",\
       "reference": "workspace:app/entrypoint"\
     },\
@@ -46,12 +50,32 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:dev/testing"\
     },\
     {\
+      "name": "@features/settings-change-app-location",\
+      "reference": "workspace:features/settings/change-app-location"\
+    },\
+    {\
+      "name": "@features/settings-change-lang",\
+      "reference": "workspace:features/settings/change-lang"\
+    },\
+    {\
+      "name": "@features/settings-change-theme",\
+      "reference": "workspace:features/settings/change-theme"\
+    },\
+    {\
       "name": "@pages/home",\
       "reference": "workspace:pages/home"\
     },\
     {\
-      "name": "@core/manifest",\
-      "reference": "workspace:shared/core/manifest"\
+      "name": "@config/app-location",\
+      "reference": "workspace:shared/config/app-location"\
+    },\
+    {\
+      "name": "@config/locale",\
+      "reference": "workspace:shared/config/locale"\
+    },\
+    {\
+      "name": "@config/theme",\
+      "reference": "workspace:shared/config/theme"\
     },\
     {\
       "name": "@intl/langs",\
@@ -66,16 +90,16 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/intl/react"\
     },\
     {\
-      "name": "@intl/store",\
-      "reference": "workspace:shared/intl/store"\
-    },\
-    {\
       "name": "@lib/jsx",\
       "reference": "workspace:shared/lib/jsx"\
     },\
     {\
       "name": "@lib/math",\
       "reference": "workspace:shared/lib/math"\
+    },\
+    {\
+      "name": "@lib/tangle",\
+      "reference": "workspace:shared/lib/tangle"\
     },\
     {\
       "name": "@lib/types",\
@@ -106,8 +130,8 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/native/window"\
     },\
     {\
-      "name": "@storage/db",\
-      "reference": "workspace:shared/storage/db"\
+      "name": "@storage/kv",\
+      "reference": "workspace:shared/storage/kv"\
     },\
     {\
       "name": "styled",\
@@ -140,10 +164,6 @@ const RAW_RUNTIME_STATE =
     {\
       "name": "@theme/light-schema",\
       "reference": "workspace:shared/theme/schemas/light"\
-    },\
-    {\
-      "name": "@theme/store",\
-      "reference": "workspace:shared/theme/store"\
     },\
     {\
       "name": "@theme/types",\
@@ -191,15 +211,20 @@ const RAW_RUNTIME_STATE =
     ["@app/root", ["workspace:app/root"]],\
     ["@app/routes", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:app/routes", "workspace:app/routes"]],\
     ["@app/vite", ["workspace:app/vite"]],\
-    ["@core/manifest", ["workspace:shared/core/manifest"]],\
+    ["@config/app-location", ["workspace:shared/config/app-location"]],\
+    ["@config/locale", ["workspace:shared/config/locale"]],\
+    ["@config/theme", ["workspace:shared/config/theme"]],\
     ["@dev/codestyle", ["workspace:dev/codestyle"]],\
     ["@dev/testing", ["workspace:dev/testing"]],\
+    ["@features/settings-change-app-location", ["workspace:features/settings/change-app-location"]],\
+    ["@features/settings-change-lang", ["workspace:features/settings/change-lang"]],\
+    ["@features/settings-change-theme", ["workspace:features/settings/change-theme"]],\
     ["@intl/langs", ["workspace:shared/intl/langs"]],\
     ["@intl/provider", ["virtual:a8642ea35116c35a2d3b4c1d8eebf2e2968556ab55c98adc563809daa43943dedc48afe5687aa0e3681fdde407f9025bc8c4f1fdf183621b82d4ff8a200cdff1#workspace:shared/intl/provider", "workspace:shared/intl/provider"]],\
     ["@intl/react", ["virtual:3874f633bc9f19a3a59b4cd9dbfed7aba0e992cf317bc54f105ef1dc0b144bafd61b35b6532db7c09b78d30d67eb5fd9b159886641f6ed6bb4ab010fce453488#workspace:shared/intl/react", "virtual:bae3232535fe7ddc0dc658a5cbdee338772438406759d6264572ec9353d0862ae58660737f35a399e51565f4d474afada7246327ed2357d5d202b4227da6067a#workspace:shared/intl/react", "workspace:shared/intl/react"]],\
-    ["@intl/store", ["virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#workspace:shared/intl/store", "workspace:shared/intl/store"]],\
     ["@lib/jsx", ["workspace:shared/lib/jsx"]],\
     ["@lib/math", ["workspace:shared/lib/math"]],\
+    ["@lib/tangle", ["workspace:shared/lib/tangle"]],\
     ["@lib/types", ["workspace:shared/lib/types"]],\
     ["@native/deeplink", ["workspace:shared/native/deeplink"]],\
     ["@native/fs", ["workspace:shared/native/fs"]],\
@@ -208,7 +233,7 @@ const RAW_RUNTIME_STATE =
     ["@native/tools", ["workspace:shared/native/tools"]],\
     ["@native/window", ["workspace:shared/native/window"]],\
     ["@pages/home", ["virtual:82f45c9b83ddb44e33e2ce3acba8e07277d1c98e7f3328a408d958d1e85744687af6e0914766f2d1f5cb9529afbed85a7201ef8a948d51985ebd6f9c404bccc1#workspace:pages/home", "workspace:pages/home"]],\
-    ["@storage/db", ["workspace:shared/storage/db"]],\
+    ["@storage/kv", ["workspace:shared/storage/kv"]],\
     ["@theme/builder", ["workspace:shared/theme/builder"]],\
     ["@theme/common", ["workspace:shared/theme/common"]],\
     ["@theme/dark-schema", ["workspace:shared/theme/schemas/dark"]],\
@@ -216,7 +241,6 @@ const RAW_RUNTIME_STATE =
     ["@theme/global", ["virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/global", "workspace:shared/theme/global"]],\
     ["@theme/light-schema", ["workspace:shared/theme/schemas/light"]],\
     ["@theme/provider", ["virtual:a8642ea35116c35a2d3b4c1d8eebf2e2968556ab55c98adc563809daa43943dedc48afe5687aa0e3681fdde407f9025bc8c4f1fdf183621b82d4ff8a200cdff1#workspace:shared/theme/provider", "workspace:shared/theme/provider"]],\
-    ["@theme/store", ["virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/store", "workspace:shared/theme/store"]],\
     ["@theme/types", ["workspace:shared/theme/types"]],\
     ["@ui/button", ["virtual:845afe9e0d106f62288f252cb9956f987030efe8c5f414287f43984419fd05e6129149a34fef60c6df0dac9c232f21fa7ff213444084ef2d7337f2c2fc160028#workspace:shared/ui/button", "workspace:shared/ui/button"]],\
     ["@ui/checkbox", ["workspace:shared/ui/checkbox"]],\
@@ -227,6 +251,7 @@ const RAW_RUNTIME_STATE =
     ["@ui/spinner", ["workspace:shared/ui/spinner"]],\
     ["@ui/window", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:shared/ui/window", "workspace:shared/ui/window"]],\
     ["nodium-launcher", ["workspace:."]],\
+    ["scripts", ["workspace:.scripts"]],\
     ["styled", ["virtual:41f12c6555633950296ec0b9d35b1e3fb99d6ead5c883e78a65dad0e2be99d475a0c65e79291b7023082e196c12205552709e2877a89c951b8f19786401b6817#workspace:shared/styled", "virtual:59ac0961471a7cf22f77eafd556b12a3199db5d9af874bb6f852d0ca4eac2bf45f80e4fc0d8424ec6e3356f693847f71fe68db3cb579114789a016945047014a#workspace:shared/styled", "workspace:shared/styled"]]\
   ],\
   "fallbackPool": [\
@@ -277,7 +302,8 @@ const RAW_RUNTIME_STATE =
       ["workspace:app/preload", {\
         "packageLocation": "./app/preload/",\
         "packageDependencies": [\
-          ["@app/preload", "workspace:app/preload"]\
+          ["@app/preload", "workspace:app/preload"],\
+          ["@storage/kv", "workspace:shared/storage/kv"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -866,11 +892,36 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@core/manifest", [\
-      ["workspace:shared/core/manifest", {\
-        "packageLocation": "./shared/core/manifest/",\
+    ["@config/app-location", [\
+      ["workspace:shared/config/app-location", {\
+        "packageLocation": "./shared/config/app-location/",\
         "packageDependencies": [\
-          ["@core/manifest", "workspace:shared/core/manifest"]\
+          ["@config/app-location", "workspace:shared/config/app-location"],\
+          ["@native/path", "workspace:shared/native/path"],\
+          ["@storage/kv", "workspace:shared/storage/kv"],\
+          ["effector", "npm:22.8.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@config/locale", [\
+      ["workspace:shared/config/locale", {\
+        "packageLocation": "./shared/config/locale/",\
+        "packageDependencies": [\
+          ["@config/locale", "workspace:shared/config/locale"],\
+          ["@storage/kv", "workspace:shared/storage/kv"],\
+          ["effector", "npm:22.8.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@config/theme", [\
+      ["workspace:shared/config/theme", {\
+        "packageLocation": "./shared/config/theme/",\
+        "packageDependencies": [\
+          ["@config/theme", "workspace:shared/config/theme"],\
+          ["@storage/kv", "workspace:shared/storage/kv"],\
+          ["effector", "npm:22.8.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -1618,6 +1669,33 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@features/settings-change-app-location", [\
+      ["workspace:features/settings/change-app-location", {\
+        "packageLocation": "./features/settings/change-app-location/",\
+        "packageDependencies": [\
+          ["@features/settings-change-app-location", "workspace:features/settings/change-app-location"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@features/settings-change-lang", [\
+      ["workspace:features/settings/change-lang", {\
+        "packageLocation": "./features/settings/change-lang/",\
+        "packageDependencies": [\
+          ["@features/settings-change-lang", "workspace:features/settings/change-lang"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@features/settings-change-theme", [\
+      ["workspace:features/settings/change-theme", {\
+        "packageLocation": "./features/settings/change-theme/",\
+        "packageDependencies": [\
+          ["@features/settings-change-theme", "workspace:features/settings/change-theme"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@formatjs/cli", [\
       ["npm:6.0.4", {\
         "packageLocation": "../../../.yarn/berry/cache/@formatjs-cli-npm-6.0.4-12351978e1-9.zip/node_modules/@formatjs/cli/",\
@@ -1885,8 +1963,8 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@intl-provider-virtual-9ab0ace348/1/shared/intl/provider/",\
         "packageDependencies": [\
           ["@intl/provider", "virtual:a8642ea35116c35a2d3b4c1d8eebf2e2968556ab55c98adc563809daa43943dedc48afe5687aa0e3681fdde407f9025bc8c4f1fdf183621b82d4ff8a200cdff1#workspace:shared/intl/provider"],\
+          ["@config/locale", "workspace:shared/config/locale"],\
           ["@intl/langs", "workspace:shared/intl/langs"],\
-          ["@intl/store", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#workspace:shared/intl/store"],\
           ["@types/react", "npm:18.0.28"],\
           ["effector", "npm:22.8.0"],\
           ["effector-react", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#npm:22.5.1"],\
@@ -1903,8 +1981,8 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./shared/intl/provider/",\
         "packageDependencies": [\
           ["@intl/provider", "workspace:shared/intl/provider"],\
+          ["@config/locale", "workspace:shared/config/locale"],\
           ["@intl/langs", "workspace:shared/intl/langs"],\
-          ["@intl/store", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#workspace:shared/intl/store"],\
           ["@types/react", "npm:18.0.28"],\
           ["effector", "npm:22.8.0"],\
           ["effector-react", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#npm:22.5.1"],\
@@ -1950,33 +2028,6 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.0.28"],\
           ["react", "npm:18.2.0"],\
           ["react-intl", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#npm:6.2.10"]\
-        ],\
-        "linkType": "SOFT"\
-      }]\
-    ]],\
-    ["@intl/store", [\
-      ["virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#workspace:shared/intl/store", {\
-        "packageLocation": "./.yarn/__virtual__/@intl-store-virtual-8c60a733c8/1/shared/intl/store/",\
-        "packageDependencies": [\
-          ["@intl/store", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#workspace:shared/intl/store"],\
-          ["@types/react", "npm:18.0.28"],\
-          ["effector", "npm:22.8.0"],\
-          ["effector-react", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#npm:22.5.1"],\
-          ["react", "npm:18.2.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/react",\
-          "react"\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["workspace:shared/intl/store", {\
-        "packageLocation": "./shared/intl/store/",\
-        "packageDependencies": [\
-          ["@intl/store", "workspace:shared/intl/store"],\
-          ["@types/react", "npm:18.0.35"],\
-          ["effector", "npm:22.8.0"],\
-          ["effector-react", "virtual:c7b13a6728ba79ab85a962911b3d39b34c85b752d178a5d516228f2ca7e2132c7e4ce3c26c11192f9b77a9359896009d16eb235d2f821806d776a088811c6373#npm:22.5.1"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2074,6 +2125,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./shared/lib/math/",\
         "packageDependencies": [\
           ["@lib/math", "workspace:shared/lib/math"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@lib/tangle", [\
+      ["workspace:shared/lib/tangle", {\
+        "packageLocation": "./shared/lib/tangle/",\
+        "packageDependencies": [\
+          ["@lib/tangle", "workspace:shared/lib/tangle"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2296,11 +2356,12 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@storage/db", [\
-      ["workspace:shared/storage/db", {\
-        "packageLocation": "./shared/storage/db/",\
+    ["@storage/kv", [\
+      ["workspace:shared/storage/kv", {\
+        "packageLocation": "./shared/storage/kv/",\
         "packageDependencies": [\
-          ["@storage/db", "workspace:shared/storage/db"],\
+          ["@storage/kv", "workspace:shared/storage/kv"],\
+          ["@lib/tangle", "workspace:shared/lib/tangle"],\
           ["localforage", "npm:1.10.0"]\
         ],\
         "linkType": "SOFT"\
@@ -2766,12 +2827,12 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@theme-provider-virtual-678a23be28/1/shared/theme/provider/",\
         "packageDependencies": [\
           ["@theme/provider", "virtual:a8642ea35116c35a2d3b4c1d8eebf2e2968556ab55c98adc563809daa43943dedc48afe5687aa0e3681fdde407f9025bc8c4f1fdf183621b82d4ff8a200cdff1#workspace:shared/theme/provider"],\
+          ["@config/theme", "workspace:shared/config/theme"],\
           ["@emotion/react", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#npm:11.10.6"],\
           ["@theme/dark-schema", "workspace:shared/theme/schemas/dark"],\
           ["@theme/font", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/font"],\
           ["@theme/global", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/global"],\
           ["@theme/light-schema", "workspace:shared/theme/schemas/light"],\
-          ["@theme/store", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/store"],\
           ["@types/emotion__react", null],\
           ["@types/react", "npm:18.0.28"],\
           ["effector", "npm:22.8.0"],\
@@ -2789,45 +2850,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./shared/theme/provider/",\
         "packageDependencies": [\
           ["@theme/provider", "workspace:shared/theme/provider"],\
+          ["@config/theme", "workspace:shared/config/theme"],\
           ["@emotion/react", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#npm:11.10.6"],\
           ["@theme/dark-schema", "workspace:shared/theme/schemas/dark"],\
           ["@theme/font", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/font"],\
           ["@theme/global", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/global"],\
           ["@theme/light-schema", "workspace:shared/theme/schemas/light"],\
-          ["@theme/store", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/store"],\
           ["@types/react", "npm:18.0.28"],\
           ["effector", "npm:22.8.0"],\
           ["effector-react", "virtual:9ab0ace348a0111e2a2d2767fedd6cb24b0eeeb4ca7e45c39b12139af68f88f2ec34f01739a4cef6e2a42fc5ff6586798ef8d3ae7458cd11fe5e00c298163ff2#npm:22.5.1"],\
-          ["react", "npm:18.2.0"]\
-        ],\
-        "linkType": "SOFT"\
-      }]\
-    ]],\
-    ["@theme/store", [\
-      ["virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/store", {\
-        "packageLocation": "./.yarn/__virtual__/@theme-store-virtual-cb59a423dc/1/shared/theme/store/",\
-        "packageDependencies": [\
-          ["@theme/store", "virtual:678a23be28699415ad4eb226175f8185b9231fd9e566a77822023ee09349f4977ee235ff6e6876900622033b7450a2134e3b2bc608d0160ae40d57d2c7bd067e#workspace:shared/theme/store"],\
-          ["@theme/dark-schema", "workspace:shared/theme/schemas/dark"],\
-          ["@theme/light-schema", "workspace:shared/theme/schemas/light"],\
-          ["@types/react", "npm:18.0.28"],\
-          ["effector", "npm:22.8.0"],\
-          ["react", "npm:18.2.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/react",\
-          "react"\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["workspace:shared/theme/store", {\
-        "packageLocation": "./shared/theme/store/",\
-        "packageDependencies": [\
-          ["@theme/store", "workspace:shared/theme/store"],\
-          ["@theme/dark-schema", "workspace:shared/theme/schemas/dark"],\
-          ["@theme/light-schema", "workspace:shared/theme/schemas/light"],\
-          ["@types/react", "npm:18.0.28"],\
-          ["effector", "npm:22.8.0"],\
           ["react", "npm:18.2.0"]\
         ],\
         "linkType": "SOFT"\
@@ -3014,16 +3045,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/@types-react-npm-18.0.30-4ceaaa45ac-9.zip/node_modules/@types/react/",\
         "packageDependencies": [\
           ["@types/react", "npm:18.0.30"],\
-          ["@types/prop-types", "npm:15.7.5"],\
-          ["@types/scheduler", "npm:0.16.2"],\
-          ["csstype", "npm:3.1.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:18.0.35", {\
-        "packageLocation": "../../../.yarn/berry/cache/@types-react-npm-18.0.35-84c1b4f8a7-9.zip/node_modules/@types/react/",\
-        "packageDependencies": [\
-          ["@types/react", "npm:18.0.35"],\
           ["@types/prop-types", "npm:15.7.5"],\
           ["@types/scheduler", "npm:0.16.2"],\
           ["csstype", "npm:3.1.0"]\
@@ -4788,24 +4809,6 @@ const RAW_RUNTIME_STATE =
           ["effector", "npm:22.8.0"],\
           ["react", "npm:18.2.0"],\
           ["use-sync-external-store", "virtual:4ee5b9ce27186bd67e65d00df32dd1456717f22a879b57abbf72387480bd21e0aa700614eadff375a5bc07f66a79b5fcd881a22cb41f97e7842f35c7d2ed09a2#npm:1.2.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/effector",\
-          "@types/react",\
-          "effector",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["virtual:c7b13a6728ba79ab85a962911b3d39b34c85b752d178a5d516228f2ca7e2132c7e4ce3c26c11192f9b77a9359896009d16eb235d2f821806d776a088811c6373#npm:22.5.1", {\
-        "packageLocation": "./.yarn/__virtual__/effector-react-virtual-2909279780/4/.yarn/berry/cache/effector-react-npm-22.5.1-0451b95fde-9.zip/node_modules/effector-react/",\
-        "packageDependencies": [\
-          ["effector-react", "virtual:c7b13a6728ba79ab85a962911b3d39b34c85b752d178a5d516228f2ca7e2132c7e4ce3c26c11192f9b77a9359896009d16eb235d2f821806d776a088811c6373#npm:22.5.1"],\
-          ["@types/effector", null],\
-          ["@types/react", "npm:18.0.35"],\
-          ["effector", "npm:22.8.0"],\
-          ["react", null],\
-          ["use-sync-external-store", "virtual:290927978037edd39ea7995d788773e5ead4dd65882349255e0b8b08125ad211516e1a0f68785c406d938a076a09c9d98421a422e2d2e75acdb74223a377479f#npm:1.2.0"]\
         ],\
         "packagePeers": [\
           "@types/effector",\
@@ -8839,6 +8842,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["scripts", [\
+      ["workspace:.scripts", {\
+        "packageLocation": "./.scripts/",\
+        "packageDependencies": [\
+          ["scripts", "workspace:.scripts"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["semver", [\
       ["npm:5.7.1", {\
         "packageLocation": "../../../.yarn/berry/cache/semver-npm-5.7.1-40bcea106b-9.zip/node_modules/semver/",\
@@ -9831,19 +9843,6 @@ const RAW_RUNTIME_STATE =
           ["use-sync-external-store", "npm:1.2.0"]\
         ],\
         "linkType": "SOFT"\
-      }],\
-      ["virtual:290927978037edd39ea7995d788773e5ead4dd65882349255e0b8b08125ad211516e1a0f68785c406d938a076a09c9d98421a422e2d2e75acdb74223a377479f#npm:1.2.0", {\
-        "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-21f0414610/4/.yarn/berry/cache/use-sync-external-store-npm-1.2.0-44f75d2564-9.zip/node_modules/use-sync-external-store/",\
-        "packageDependencies": [\
-          ["use-sync-external-store", "virtual:290927978037edd39ea7995d788773e5ead4dd65882349255e0b8b08125ad211516e1a0f68785c406d938a076a09c9d98421a422e2d2e75acdb74223a377479f#npm:1.2.0"],\
-          ["@types/react", "npm:18.0.35"],\
-          ["react", null]\
-        ],\
-        "packagePeers": [\
-          "@types/react",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
       }],\
       ["virtual:4ee5b9ce27186bd67e65d00df32dd1456717f22a879b57abbf72387480bd21e0aa700614eadff375a5bc07f66a79b5fcd881a22cb41f97e7842f35c7d2ed09a2#npm:1.2.0", {\
         "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-7094c68045/4/.yarn/berry/cache/use-sync-external-store-npm-1.2.0-44f75d2564-9.zip/node_modules/use-sync-external-store/",\

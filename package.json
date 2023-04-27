@@ -6,16 +6,9 @@
   "scripts": {
     "prebuild": "tsc"
   },
-  "moduleDirectories": [
-    "node_modules",
-    "src"
-  ],
   "workspaces": [
-    "app/**",
-    "shared/**",
-    "pages/**",
-    "dev/**",
-    "widgets/**"
+    "**/*",
+    ".scripts"
   ],
   "devDependencies": {
     "husky": "^8.0.3",

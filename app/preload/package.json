@@ -1,4 +1,7 @@
 {
   "name": "@app/preload",
-  "main": "src/index.ts"
+  "main": "src/index.ts",
+  "dependencies": {
+    "@storage/kv": "workspace:*"
+  }
 }
