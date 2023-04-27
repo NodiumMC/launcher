@@ -14,6 +14,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:."\
     },\
     {\
+      "name": "scripts",\
+      "reference": "workspace:.scripts"\
+    },\
+    {\
       "name": "@app/entrypoint",\
       "reference": "workspace:app/entrypoint"\
     },\
@@ -247,6 +251,7 @@ const RAW_RUNTIME_STATE =
     ["@ui/spinner", ["workspace:shared/ui/spinner"]],\
     ["@ui/window", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:shared/ui/window", "workspace:shared/ui/window"]],\
     ["nodium-launcher", ["workspace:."]],\
+    ["scripts", ["workspace:.scripts"]],\
     ["styled", ["virtual:41f12c6555633950296ec0b9d35b1e3fb99d6ead5c883e78a65dad0e2be99d475a0c65e79291b7023082e196c12205552709e2877a89c951b8f19786401b6817#workspace:shared/styled", "virtual:59ac0961471a7cf22f77eafd556b12a3199db5d9af874bb6f852d0ca4eac2bf45f80e4fc0d8424ec6e3356f693847f71fe68db3cb579114789a016945047014a#workspace:shared/styled", "workspace:shared/styled"]]\
   ],\
   "fallbackPool": [\
@@ -8835,6 +8840,15 @@ const RAW_RUNTIME_STATE =
           ["loose-envify", "npm:1.4.0"]\
         ],\
         "linkType": "HARD"\
+      }]\
+    ]],\
+    ["scripts", [\
+      ["workspace:.scripts", {\
+        "packageLocation": "./.scripts/",\
+        "packageDependencies": [\
+          ["scripts", "workspace:.scripts"]\
+        ],\
+        "linkType": "SOFT"\
       }]\
     ]],\
     ["semver", [\

@@ -7001,6 +7001,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"scripts@workspace:.scripts":
+  version: 0.0.0-use.local
+  resolution: "scripts@workspace:.scripts"
+  languageName: unknown
+  linkType: soft
+
 "semver@npm:2 || 3 || 4 || 5":
   version: 5.7.1
   resolution: "semver@npm:5.7.1"

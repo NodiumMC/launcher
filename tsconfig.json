@@ -1,27 +1,180 @@
-  {
-    "compilerOptions": {
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "target": "es2022",
-      "useDefineForClassFields": true,
-      "lib": ["DOM", "DOM.Iterable", "ESNext"],
-      "allowJs": false,
-      "skipLibCheck": true,
-      "esModuleInterop": true,
-      "importHelpers": true,
-      "allowSyntheticDefaultImports": true,
-      "strict": true,
-      "forceConsistentCasingInFileNames": true,
-      "module": "ESNext",
-      "moduleResolution": "Node",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "noEmit": true,
-      "baseUrl": "./",
-      "jsx": "react-jsx",
-      "types": ["vitest/globals"],
-    },
-    "include": ["app/**/*", "dev/**/*", "pages/**/*", "shared/**/*",
-      "../../../.config/JetBrains/IntelliJIdea2023.1/scratches/entities/**/*", "features/**/*"],
-    "exclude": ["**/*.test.{ts,tsx}"]
-  }
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "target": "es2022",
+    "useDefineForClassFields": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": "./",
+    "jsx": "react-jsx",
+    "types": [
+      "vitest/globals"
+    ],
+    "paths": {
+      "@app/entrypoint": [
+        "app/entrypoint"
+      ],
+      "@app/preload": [
+        "app/preload"
+      ],
+      "@app/providers": [
+        "app/providers"
+      ],
+      "@app/root": [
+        "app/root"
+      ],
+      "@app/routes": [
+        "app/routes"
+      ],
+      "@app/vite": [
+        "app/vite"
+      ],
+      "@dev/codestyle": [
+        "dev/codestyle"
+      ],
+      "@dev/testing": [
+        "dev/testing"
+      ],
+      "@features/settings-change-app-location": [
+        "features/settings/change-app-location"
+      ],
+      "@features/settings-change-lang": [
+        "features/settings/change-lang"
+      ],
+      "@features/settings-change-theme": [
+        "features/settings/change-theme"
+      ],
+      "@pages/home": [
+        "pages/home"
+      ],
+      "@config/app-location": [
+        "shared/config/app-location"
+      ],
+      "@config/locale": [
+        "shared/config/locale"
+      ],
+      "@config/theme": [
+        "shared/config/theme"
+      ],
+      "@intl/langs": [
+        "shared/intl/langs"
+      ],
+      "@intl/provider": [
+        "shared/intl/provider"
+      ],
+      "@intl/react": [
+        "shared/intl/react"
+      ],
+      "@lib/jsx": [
+        "shared/lib/jsx"
+      ],
+      "@lib/math": [
+        "shared/lib/math"
+      ],
+      "@lib/tangle": [
+        "shared/lib/tangle"
+      ],
+      "@lib/types": [
+        "shared/lib/types"
+      ],
+      "@native/deeplink": [
+        "shared/native/deeplink"
+      ],
+      "@native/fs": [
+        "shared/native/fs"
+      ],
+      "@native/path": [
+        "shared/native/path"
+      ],
+      "@native/process": [
+        "shared/native/process"
+      ],
+      "@native/tools": [
+        "shared/native/tools"
+      ],
+      "@native/window": [
+        "shared/native/window"
+      ],
+      "@storage/kv": [
+        "shared/storage/kv"
+      ],
+      "styled": [
+        "shared/styled"
+      ],
+      "@theme/builder": [
+        "shared/theme/builder"
+      ],
+      "@theme/common": [
+        "shared/theme/common"
+      ],
+      "@theme/font": [
+        "shared/theme/font"
+      ],
+      "@theme/global": [
+        "shared/theme/global"
+      ],
+      "@theme/provider": [
+        "shared/theme/provider"
+      ],
+      "@theme/dark-schema": [
+        "shared/theme/schemas/dark"
+      ],
+      "@theme/light-schema": [
+        "shared/theme/schemas/light"
+      ],
+      "@theme/types": [
+        "shared/theme/types"
+      ],
+      "@ui/button": [
+        "shared/ui/button"
+      ],
+      "@ui/checkbox": [
+        "shared/ui/checkbox"
+      ],
+      "@ui/icons": [
+        "shared/ui/icons"
+      ],
+      "@ui/layout": [
+        "shared/ui/layout"
+      ],
+      "@ui/nav-sidebar": [
+        "shared/ui/nav-sidebar"
+      ],
+      "@ui/progress-bar": [
+        "shared/ui/progress-bar"
+      ],
+      "@ui/spinner": [
+        "shared/ui/spinner"
+      ],
+      "@ui/window": [
+        "shared/ui/window"
+      ]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "dev/**/*",
+    "pages/**/*",
+    "shared/**/*",
+    "features/**/*"
+  ],
+  "exclude": [
+    "**/*.test.{ts,tsx}"
+  ]
+}
