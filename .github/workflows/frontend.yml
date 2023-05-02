@@ -33,7 +33,7 @@ jobs:
       - name: "💠 Lint"
         run: yarn workspace @dev/codestyle lint
   prebuild-frontend:
-    name: "🛠 Prebuild"
+    name: "🛠 Typecheck"
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -46,7 +46,7 @@ jobs:
       - name: "📦 Install deps"
         run: yarn
       - name: "💠 Prebuild"
-        run: yarn prebuild
+        run: yarn typecheck
   test-frontend:
     name: "🚩 Test"
     runs-on: ubuntu-latest

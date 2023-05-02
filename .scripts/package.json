@@ -1,7 +1,0 @@
-{
-  "name": "scripts",
-  "type": "module",
-  "scripts": {
-    "tspathgen": "node tspathgen/index.js"
-  }
-}
