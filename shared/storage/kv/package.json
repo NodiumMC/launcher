@@ -3,6 +3,6 @@
   "main": "src/index.ts",
   "dependencies": {
     "@lib/tangle": "workspace:*",
-    "localforage": "^1"
+    "localforage": "^1.10.0"
   }
 }

@@ -3,10 +3,10 @@
   "main": "src/index.tsx",
   "dependencies": {
     "@lib/math": "workspace:*",
-    "framer-motion": "^10.2.4"
+    "framer-motion": "^10.12.9"
   },
   "devDependencies": {
-    "@types/react": "18",
+    "@types/react": "18.2.6",
     "react": "^18.2.0",
     "styled": "workspace:*"
   },

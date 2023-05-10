@@ -7,11 +7,11 @@
   },
   "devDependencies": {
     "@app/vite": "workspace:*",
-    "@types/istanbul": "^0",
-    "@vitest/coverage-istanbul": "^0.29.2",
-    "@vitest/ui": "^0.29.2",
-    "happy-dom": "^8.9.0",
-    "vite": "^4.1.4",
-    "vitest": "^0.29.2"
+    "@types/istanbul": "^0.4.30",
+    "@vitest/coverage-istanbul": "^0.31.0",
+    "@vitest/ui": "^0.31.0",
+    "happy-dom": "^9.10.9",
+    "vite": "^4.3.5",
+    "vitest": "^0.31.0"
   }
 }
