@@ -2,6 +2,6 @@
   "name": "@native/tools",
   "main": "src/index.ts",
   "dependencies": {
-    "nanoid": "^4.0.1"
+    "nanoid": "^4.0.2"
   }
 }

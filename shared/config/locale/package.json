@@ -3,6 +3,6 @@
   "main": "src/index.ts",
   "dependencies": {
     "@storage/kv": "workspace:*",
-    "effector": "^22"
+    "effector": "^22.8.3"
   }
 }

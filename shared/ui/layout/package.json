@@ -2,7 +2,7 @@
   "name": "@ui/layout",
   "main": "src/index.tsx",
   "devDependencies": {
-    "@types/react": "18",
+    "@types/react": "18.2.6",
     "react": "^18.2.0",
     "styled": "workspace:*"
   },

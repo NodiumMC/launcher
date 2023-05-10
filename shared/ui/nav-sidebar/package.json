@@ -3,11 +3,11 @@
   "main": "src/index.ts",
   "dependencies": {
     "polished": "^4.2.2",
-    "react-router-dom": "^6.10.0",
+    "react-router-dom": "^6.11.1",
     "styled": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "18"
+    "@types/react": "18.2.6"
   },
   "peerDependencies": {
     "react": "*",

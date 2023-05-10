@@ -2,10 +2,10 @@
   "name": "@theme/global",
   "main": "src/index.ts",
   "devDependencies": {
-    "@emotion/css": "^11.10.6",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@types/react": "^18.0.28",
+    "@emotion/css": "^11.11.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@types/react": "^18.2.6",
     "@types/styled-system": "^5.1.16",
     "react": "^18.2.0"
   },
