@@ -1,4 +1,4 @@
-import { combine, ifProp, StyleFn } from 'styled'
+import { combine, ifProp, StyleFn } from '@lmpx/styled'
 import { ActiveBarProps } from './active-bar.interface'
 
 const base: StyleFn = ({ theme }) => ({

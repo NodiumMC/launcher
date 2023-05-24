@@ -1,4 +1,4 @@
-import { styled, flexbox, layout, space, system, grid } from 'styled'
+import { styled, flexbox, layout, space, system, grid } from '@lmpx/styled'
 import { LayoutProps } from './layout.interface'
 
 export const Layout = styled.div<LayoutProps>(

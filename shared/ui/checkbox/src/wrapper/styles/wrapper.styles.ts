@@ -1,4 +1,4 @@
-import { StyleFn } from 'styled'
+import { StyleFn } from '@lmpx/styled'
 import { CheckboxProps } from '../../checkbox.interface'
 
 export const wrapperStyles: StyleFn<CheckboxProps> = () => ({

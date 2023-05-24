@@ -9,7 +9,6 @@ export default defineConfig({
   plugins: [reactSwc],
   build: buildConfig,
   server: serverConfig,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   test: vitestConfig,
   ...miscOptions,

@@ -1,4 +1,4 @@
-import { styled } from 'styled'
+import { styled } from '@lmpx/styled'
 import { FC } from 'react'
 import { FaSolidXMarkIcon, FaRegularSquareIcon, FaSolidMinusIcon } from '@ui/icons'
 import { ControlButtonProps } from './control-button.interface'

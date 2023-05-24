@@ -1,4 +1,4 @@
-import { StyleFn } from 'styled'
+import { StyleFn } from '@lmpx/styled'
 
 export const baseStyles: StyleFn = () => ({
   display: 'flex',

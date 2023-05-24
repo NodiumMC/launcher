@@ -1,4 +1,4 @@
-import { combine, ifNotProp, ifProp, StyleFn } from 'styled'
+import { combine, ifNotProp, ifProp, StyleFn } from '@lmpx/styled'
 import { CheckboxProps } from '../../checkbox.interface'
 
 const base: StyleFn<CheckboxProps> = ({ theme }) => ({
