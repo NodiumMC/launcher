@@ -1,7 +1,6 @@
-import { StyleFn } from 'styled'
 import font from './assets/Mona-Sans.woff2'
 
-export const monaFontFace: StyleFn = () => ({
+export const monaFontFace = () => ({
   '@font-face': {
     fontFamily: 'Mona Sans',
     src: `

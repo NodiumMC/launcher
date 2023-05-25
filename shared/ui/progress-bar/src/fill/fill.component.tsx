@@ -1,4 +1,4 @@
-import { styled } from 'styled'
+import { styled } from '@lmpx/styled'
 import { motion } from 'framer-motion'
 import { styles } from './fill.styles'
 

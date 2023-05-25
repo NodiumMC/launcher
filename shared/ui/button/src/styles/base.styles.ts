@@ -1,4 +1,4 @@
-import { combine, ifNotProp, ifProp, StyleFn } from 'styled'
+import { combine, ifNotProp, ifProp, StyleFn } from '@lmpx/styled'
 import { ButtonProps } from '../button.interface'
 
 const base: StyleFn<ButtonProps> = ({ theme }) => ({

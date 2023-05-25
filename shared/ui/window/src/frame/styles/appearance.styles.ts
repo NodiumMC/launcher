@@ -1,4 +1,4 @@
-import { StyleFn } from 'styled'
+import { StyleFn } from '@lmpx/styled'
 import { shade, readableColor } from 'polished'
 
 export const appearanceStyles: StyleFn = ({ theme }) => ({

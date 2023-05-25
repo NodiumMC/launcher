@@ -1,4 +1,4 @@
-import { StyleFn } from 'styled'
+import { StyleFn } from '@lmpx/styled'
 
 export const transitionStyles: StyleFn = ({ theme }) => ({
   transitionProperty: 'background-color, borderColor, opacity',

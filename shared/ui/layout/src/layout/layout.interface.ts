@@ -1,4 +1,4 @@
-import { FlexboxProps, SpaceProps, LayoutProps as StyledSystemLayoutProps, GridProps } from 'styled'
+import { FlexboxProps, SpaceProps, LayoutProps as StyledSystemLayoutProps, GridProps } from '@lmpx/styled'
 
 export interface BoxSizingProps {
   boxSizing?: string

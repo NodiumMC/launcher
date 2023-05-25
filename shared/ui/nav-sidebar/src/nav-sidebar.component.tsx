@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { styled } from 'styled'
+import { styled } from '@lmpx/styled'
 import { NavSidebarProps } from './nav-sidebar.interface'
 import { styles } from './styles'
 import { Item } from './item'

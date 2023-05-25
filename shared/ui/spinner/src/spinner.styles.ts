@@ -1,4 +1,4 @@
-import { StyleFn } from 'styled'
+import { StyleFn } from '@lmpx/styled'
 import { animation } from './spinner.keyframes'
 
 export const svgStyles: StyleFn = () => ({

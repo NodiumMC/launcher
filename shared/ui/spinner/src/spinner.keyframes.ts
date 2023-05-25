@@ -1,4 +1,4 @@
-import { keyframes } from 'styled'
+import { keyframes } from '@lmpx/styled'
 
 export const animation = keyframes({
   from: {

@@ -1,4 +1,4 @@
-import { styled } from 'styled'
+import { styled } from '@lmpx/styled'
 import { FC } from 'react'
 import { ItemProps } from './item.interface'
 import { styles } from './styles'

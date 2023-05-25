@@ -1,4 +1,4 @@
-import { StyleFn } from 'styled'
+import { StyleFn } from '@lmpx/styled'
 import { HEADER_HEIGHT } from '../constants'
 
 export const shapeStyles: StyleFn = ({ theme }) => ({

@@ -1,4 +1,4 @@
-import { LayoutProps, styled } from 'styled'
+import { LayoutProps, styled } from '@lmpx/styled'
 import { Layout } from '../layout'
 
 export const Column = styled(Layout)<LayoutProps>()

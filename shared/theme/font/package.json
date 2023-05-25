@@ -1,11 +1,14 @@
 {
   "name": "@theme/font",
   "main": "src/index.tsx",
+  "dependencies": {
+    "@lmpx/styled": "0.0.7"
+  },
   "devDependencies": {
-    "@types/react": "18.2.6",
-    "styled": "workspace:*"
+    "@types/react": "18.2.6"
   },
   "peerDependencies": {
-    "react": "*"
+    "@lmpx/styled": "*",
+    "react": "18"
   }
 }

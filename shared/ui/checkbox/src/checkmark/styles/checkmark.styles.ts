@@ -1,4 +1,4 @@
-import { combine, StyleFn } from 'styled'
+import { combine, StyleFn } from '@lmpx/styled'
 
 const base: StyleFn = ({ theme }) => ({
   position: 'relative',

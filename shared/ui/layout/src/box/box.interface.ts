@@ -8,7 +8,7 @@ import {
   PositionProps,
   SpaceProps,
   GridProps,
-} from 'styled'
+} from '@lmpx/styled'
 
 export interface BoxSystemProps {
   boxSizing?: string

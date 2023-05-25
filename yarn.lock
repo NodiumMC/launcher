@@ -29,6 +29,9 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     vite: "npm:^4.3.5"
+  peerDependencies:
+    react: 18
+    react-dom: 18
   languageName: unknown
   linkType: soft
 
@@ -52,8 +55,8 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-router-dom: "npm:^6.11.1"
   peerDependencies:
-    react: "*"
-    react-dom: "*"
+    react: 18
+    react-dom: 18
   languageName: unknown
   linkType: soft
 
@@ -67,7 +70,9 @@ __metadata:
     "@ui/icons": "workspace:*"
     "@ui/nav-sidebar": "workspace:*"
     "@ui/window": "workspace:*"
-    react: "npm:^18.2.0"
+  peerDependencies:
+    react: 18
+    react-dom: 18
   languageName: unknown
   linkType: soft
 
@@ -82,8 +87,8 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-router-dom: "npm:^6.11.1"
   peerDependencies:
-    react: "*"
-    react-dom: "*"
+    react: 18
+    react-dom: 18
   languageName: unknown
   linkType: soft
 
@@ -574,17 +579,8 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^17.6.3"
     "@commitlint/config-conventional": "npm:^17.6.3"
-    "@typescript-eslint/eslint-plugin": "npm:^5.59.5"
-    "@typescript-eslint/parser": "npm:^5.59.5"
-    eslint: "npm:^8.40.0"
-    eslint-config-airbnb: "npm:^19.0.4"
-    eslint-config-airbnb-typescript: "npm:^17.0.0"
-    eslint-config-prettier: "npm:^8.8.0"
-    eslint-plugin-import: "npm:^2.27.5"
-    eslint-plugin-jsx-a11y: "npm:^6.7.1"
-    eslint-plugin-prettier: "npm:^4.2.1"
-    eslint-plugin-react: "npm:^7.32.2"
-    eslint-plugin-react-hooks: "npm:^4.6.0"
+    "@lmpx-config/eslint": "npm:0.0.6"
+    eslint: "npm:^8.41.0"
     lint-staged: "npm:^13.2.2"
     prettier: "npm:^2.8.8"
   languageName: unknown
@@ -1129,6 +1125,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/js@npm:8.41.0":
+  version: 8.41.0
+  resolution: "@eslint/js@npm:8.41.0"
+  checksum: 7f4b1d920b5216c2c6a14574e5fc970c7858784c007358e5271c17bd8a8c51fcd5972ac4904c082722bb0fdf404bfe67f7d518c4b1e90ec77a82c92b3ef1e484
+  languageName: node
+  linkType: hard
+
 "@features/settings-change-app-location@workspace:features/settings/change-app-location":
   version: 0.0.0-use.local
   resolution: "@features/settings-change-app-location@workspace:features/settings/change-app-location"
@@ -1350,7 +1353,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-intl: "npm:^6.4.2"
   peerDependencies:
-    react: "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -1362,7 +1365,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-intl: "npm:^6.4.2"
   peerDependencies:
-    react: "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -1449,7 +1452,7 @@ __metadata:
     "@types/react": "npm:^18.2.6"
     react: "npm:^18.2.0"
   peerDependencies:
-    react: "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -1470,6 +1473,43 @@ __metadata:
   resolution: "@lib/types@workspace:shared/lib/types"
   languageName: unknown
   linkType: soft
+
+"@lmpx-config/eslint@npm:0.0.6":
+  version: 0.0.6
+  resolution: "@lmpx-config/eslint@npm:0.0.6"
+  dependencies:
+    "@typescript-eslint/eslint-plugin": "npm:^5.59.5"
+    "@typescript-eslint/parser": "npm:^5.59.5"
+    eslint: "npm:^8.40.0"
+    eslint-import-resolver-node: "npm:^0.3.7"
+    eslint-plugin-import: "npm:^2.27.5"
+    eslint-plugin-jsx-a11y: "npm:^6.7.1"
+    eslint-plugin-prettier: "npm:^4.2.1"
+    eslint-plugin-react: "npm:^7.32.2"
+    eslint-plugin-react-hooks: "npm:^4.6.0"
+    prettier: "npm:^2.8.8"
+    react: "npm:^18.2.0"
+  checksum: 50c6e20e3e7ea59412d981608a58ae1a6e0acf2dbccdfa12f2daafd15ae80ef6525c39fae5b9cac6fe0f8d03eddafb0a4908251627d1b3f9c880e9229eb86109
+  languageName: node
+  linkType: hard
+
+"@lmpx/styled@npm:0.0.7":
+  version: 0.0.7
+  resolution: "@lmpx/styled@npm:0.0.7"
+  dependencies:
+    "@emotion/css": "npm:^11.11.0"
+    "@emotion/react": "npm:^11.11.0"
+    "@emotion/serialize": "npm:^1.1.2"
+    "@emotion/styled": "npm:^11.11.0"
+    "@types/styled-system": "npm:^5.1.16"
+    polished: "npm:^4.2.2"
+    react: "npm:^18.2.0"
+    styled-system: "npm:^5.1.5"
+  peerDependencies:
+    react: 18
+  checksum: 081eff9e962ad31faee61bd854af6bd334028e958544b11563b10ff2d5a8e5d10468815a0c45939aac94515321f56ffe88b1f7b24dcde5c9f0e4628b854323bd
+  languageName: node
+  linkType: hard
 
 "@native/deeplink@workspace:shared/native/deeplink":
   version: 0.0.0-use.local
@@ -1588,15 +1628,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@pages/home@workspace:pages/home"
   dependencies:
+    "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:^18.2.6"
     "@ui/button": "workspace:*"
     "@ui/icons": "workspace:*"
     "@ui/layout": "workspace:*"
     "@ui/progress-bar": "workspace:*"
     react: "npm:^18.2.0"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -1989,10 +2030,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@theme/font@workspace:shared/theme/font"
   dependencies:
+    "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:18.2.6"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2007,9 +2049,9 @@ __metadata:
     "@types/styled-system": "npm:^5.1.16"
     react: "npm:^18.2.0"
   peerDependencies:
-    "@emotion/react": "*"
-    "@emotion/styled": "*"
-    react: "*"
+    "@emotion/react": 11
+    "@emotion/styled": 11
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2037,14 +2079,19 @@ __metadata:
     effector-react: "npm:^22.5.1"
     react: "npm:^18.2.0"
   peerDependencies:
-    "@emotion/react": "*"
-    react: "*"
+    "@emotion/react": 11
+    react: 18
   languageName: unknown
   linkType: soft
 
 "@theme/types@workspace:*, @theme/types@workspace:shared/theme/types":
   version: 0.0.0-use.local
   resolution: "@theme/types@workspace:shared/theme/types"
+  dependencies:
+    "@emotion/react": "npm:^11.11.0"
+    react: "npm:^18.2.0"
+  peerDependencies:
+    "@emotion/react": 11
   languageName: unknown
   linkType: soft
 
@@ -2362,11 +2409,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/button@workspace:shared/ui/button"
   dependencies:
+    "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:18.2.6"
     react: "npm:^18.2.0"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2374,12 +2422,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/checkbox@workspace:shared/ui/checkbox"
   dependencies:
+    "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:18.2.6"
     framer-motion: "npm:^10.12.9"
     react: "npm:^18.2.0"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2394,7 +2443,7 @@ __metadata:
     "@types/react": "npm:^18.2.6"
     react: "npm:^18.2.0"
   peerDependencies:
-    react: "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2402,11 +2451,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/layout@workspace:shared/ui/layout"
   dependencies:
+    "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:18.2.6"
     react: "npm:^18.2.0"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2414,13 +2464,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/nav-sidebar@workspace:shared/ui/nav-sidebar"
   dependencies:
+    "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:18.2.6"
     polished: "npm:^4.2.2"
     react-router-dom: "npm:^6.11.1"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
-    react-dom: "*"
+    "@lmpx/styled": "*"
+    react: 18
+    react-dom: 18
   languageName: unknown
   linkType: soft
 
@@ -2429,12 +2480,13 @@ __metadata:
   resolution: "@ui/progress-bar@workspace:shared/ui/progress-bar"
   dependencies:
     "@lib/math": "workspace:*"
+    "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:18.2.6"
     framer-motion: "npm:^10.12.9"
     react: "npm:^18.2.0"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2442,13 +2494,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/spinner@workspace:shared/ui/spinner"
   dependencies:
+    "@lmpx/styled": "npm:0.0.7"
     "@native/window": "workspace:*"
     "@types/react": "npm:18.2.6"
     "@ui/icons": "workspace:*"
     react: "npm:^18.2.0"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -2457,14 +2510,15 @@ __metadata:
   resolution: "@ui/window@workspace:shared/ui/window"
   dependencies:
     "@intl/react": "workspace:*"
+    "@lmpx/styled": "npm:0.0.7"
     "@native/window": "workspace:*"
     "@types/react": "npm:18.2.6"
     "@ui/icons": "workspace:*"
     polished: "npm:^4.2.2"
     react: "npm:^18.2.0"
-    styled: "workspace:*"
   peerDependencies:
-    react: "*"
+    "@lmpx/styled": "*"
+    react: 18
   languageName: unknown
   linkType: soft
 
@@ -3266,13 +3320,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"confusing-browser-globals@npm:^1.0.10":
-  version: 1.0.11
-  resolution: "confusing-browser-globals@npm:1.0.11"
-  checksum: 1e2de021f111bd078564c4c6e03f1259260e297499de229875c583fac9de2de0719c75169bc24ed53020329e6f167c8c598c1228611baa72c6cf309204ddc192
-  languageName: node
-  linkType: hard
-
 "console-control-strings@npm:^1.1.0":
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
@@ -3940,63 +3987,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-airbnb-base@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "eslint-config-airbnb-base@npm:15.0.0"
-  dependencies:
-    confusing-browser-globals: "npm:^1.0.10"
-    object.assign: "npm:^4.1.2"
-    object.entries: "npm:^1.1.5"
-    semver: "npm:^6.3.0"
-  peerDependencies:
-    eslint: ^7.32.0 || ^8.2.0
-    eslint-plugin-import: ^2.25.2
-  checksum: aa9ef296ef02788377f61629222e8b9ab04b1dd63ebc13754011195862cad50cf43521d2147a2e1640ec6c4306d25874f26f1d24648d4ed0fd59c6f0285d515b
-  languageName: node
-  linkType: hard
-
-"eslint-config-airbnb-typescript@npm:^17.0.0":
-  version: 17.0.0
-  resolution: "eslint-config-airbnb-typescript@npm:17.0.0"
-  dependencies:
-    eslint-config-airbnb-base: "npm:^15.0.0"
-  peerDependencies:
-    "@typescript-eslint/eslint-plugin": ^5.13.0
-    "@typescript-eslint/parser": ^5.0.0
-    eslint: ^7.32.0 || ^8.2.0
-    eslint-plugin-import: ^2.25.3
-  checksum: a408937b6950c58dcce715178a7c4979a5abec6dc0e938be796f4907b6817c03cfdd05a2058da1274b84fe86de919f3c8ec2ef696d036707c7c681a284a5fc6b
-  languageName: node
-  linkType: hard
-
-"eslint-config-airbnb@npm:^19.0.4":
-  version: 19.0.4
-  resolution: "eslint-config-airbnb@npm:19.0.4"
-  dependencies:
-    eslint-config-airbnb-base: "npm:^15.0.0"
-    object.assign: "npm:^4.1.2"
-    object.entries: "npm:^1.1.5"
-  peerDependencies:
-    eslint: ^7.32.0 || ^8.2.0
-    eslint-plugin-import: ^2.25.3
-    eslint-plugin-jsx-a11y: ^6.5.1
-    eslint-plugin-react: ^7.28.0
-    eslint-plugin-react-hooks: ^4.3.0
-  checksum: 2b20bc1827bbc56dc66d5f604f3ecb4609223bf81ab6f1e1211cb458d43aaf19e731cdb05bb0bc5b99d51e129139fabdb26220df3fd24f41e9e015b907689184
-  languageName: node
-  linkType: hard
-
-"eslint-config-prettier@npm:^8.8.0":
-  version: 8.8.0
-  resolution: "eslint-config-prettier@npm:8.8.0"
-  peerDependencies:
-    eslint: ">=7.0.0"
-  bin:
-    eslint-config-prettier: bin/cli.js
-  checksum: 942d0b9d162729967a1816a23107066ae176e5f3f3ebaa3be9fd05cc3dbc1d10e389f127a298fbd564f9cc3e419c9635623a974de9327042289d96469dd91528
-  languageName: node
-  linkType: hard
-
 "eslint-import-resolver-node@npm:^0.3.7":
   version: 0.3.7
   resolution: "eslint-import-resolver-node@npm:0.3.7"
@@ -4201,6 +4191,55 @@ __metadata:
   bin:
     eslint: bin/eslint.js
   checksum: bd17385067c8d43fa757370f5e3356de6f14639cf7d64d545a0ffbdabd678d87c5b8bc7e00b949ab36e466460a788a7ed98a4f13a3c795f720ae0f417903a749
+  languageName: node
+  linkType: hard
+
+"eslint@npm:^8.41.0":
+  version: 8.41.0
+  resolution: "eslint@npm:8.41.0"
+  dependencies:
+    "@eslint-community/eslint-utils": "npm:^4.2.0"
+    "@eslint-community/regexpp": "npm:^4.4.0"
+    "@eslint/eslintrc": "npm:^2.0.3"
+    "@eslint/js": "npm:8.41.0"
+    "@humanwhocodes/config-array": "npm:^0.11.8"
+    "@humanwhocodes/module-importer": "npm:^1.0.1"
+    "@nodelib/fs.walk": "npm:^1.2.8"
+    ajv: "npm:^6.10.0"
+    chalk: "npm:^4.0.0"
+    cross-spawn: "npm:^7.0.2"
+    debug: "npm:^4.3.2"
+    doctrine: "npm:^3.0.0"
+    escape-string-regexp: "npm:^4.0.0"
+    eslint-scope: "npm:^7.2.0"
+    eslint-visitor-keys: "npm:^3.4.1"
+    espree: "npm:^9.5.2"
+    esquery: "npm:^1.4.2"
+    esutils: "npm:^2.0.2"
+    fast-deep-equal: "npm:^3.1.3"
+    file-entry-cache: "npm:^6.0.1"
+    find-up: "npm:^5.0.0"
+    glob-parent: "npm:^6.0.2"
+    globals: "npm:^13.19.0"
+    graphemer: "npm:^1.4.0"
+    ignore: "npm:^5.2.0"
+    import-fresh: "npm:^3.0.0"
+    imurmurhash: "npm:^0.1.4"
+    is-glob: "npm:^4.0.0"
+    is-path-inside: "npm:^3.0.3"
+    js-yaml: "npm:^4.1.0"
+    json-stable-stringify-without-jsonify: "npm:^1.0.1"
+    levn: "npm:^0.4.1"
+    lodash.merge: "npm:^4.6.2"
+    minimatch: "npm:^3.1.2"
+    natural-compare: "npm:^1.4.0"
+    optionator: "npm:^0.9.1"
+    strip-ansi: "npm:^6.0.1"
+    strip-json-comments: "npm:^3.1.0"
+    text-table: "npm:^0.2.0"
+  bin:
+    eslint: bin/eslint.js
+  checksum: 82a4a6fd28d88b15e2c8769d291449b93a2241934883d15236eccddce7154f60bf84657923a4840d62988ab099118b71b4ffa1bb7e3039bf1c69aad2ba15f236
   languageName: node
   linkType: hard
 
@@ -4716,6 +4755,13 @@ __metadata:
   version: 1.0.4
   resolution: "grapheme-splitter@npm:1.0.4"
   checksum: c67a8e522758dd907770a78ad750e6dfdcce327b0696fdd82f4b7acb8bb22b0574c88f806afb3c6597a536fa9016e6e3486071535fd0e9226b8505c67cf2fb01
+  languageName: node
+  linkType: hard
+
+"graphemer@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "graphemer@npm:1.4.0"
+  checksum: a4ee139533e1d1683edb24eaf3e598451e7f1577da3dfc68f247f0601d5d11d264d0ccfad3de3bfcabbed891140fbae84c0403b9d68f4fcb6431c418f971434e
   languageName: node
   linkType: hard
 
@@ -6180,6 +6226,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nodium-launcher@workspace:."
   dependencies:
+    eslint: "npm:^8.41.0"
     husky: "npm:^8.0.3"
     typescript: "npm:^5.0.4"
     vitest: "npm:^0.31.0"
@@ -6289,7 +6336,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.assign@npm:^4.1.2, object.assign@npm:^4.1.3, object.assign@npm:^4.1.4":
+"object.assign@npm:^4.1.3, object.assign@npm:^4.1.4":
   version: 4.1.4
   resolution: "object.assign@npm:4.1.4"
   dependencies:
@@ -6301,7 +6348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.entries@npm:^1.1.5, object.entries@npm:^1.1.6":
+"object.entries@npm:^1.1.6":
   version: 1.1.6
   resolution: "object.entries@npm:1.1.6"
   dependencies:
@@ -7538,24 +7585,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled@workspace:*, styled@workspace:shared/styled":
-  version: 0.0.0-use.local
-  resolution: "styled@workspace:shared/styled"
-  dependencies:
-    "@emotion/css": "npm:^11.11.0"
-    "@emotion/react": "npm:^11.11.0"
-    "@emotion/serialize": "npm:^1.1.2"
-    "@emotion/styled": "npm:^11.11.0"
-    "@theme/types": "workspace:*"
-    "@types/react": "npm:18.2.6"
-    "@types/styled-system": "npm:^5.1.16"
-    react: "npm:^18.2.0"
-    styled-system: "npm:^5.1.5"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
 "stylis@npm:4.2.0":
   version: 4.2.0
   resolution: "stylis@npm:4.2.0"
@@ -7880,23 +7909,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "typescript@npm:5.0.2"
+"typescript@npm:^5.0.4":
+  version: 5.0.4
+  resolution: "typescript@npm:5.0.4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a305d149166e376acb51bcd1bab9f2ab55c5bd52d0b43f0e49b58ea5cf085cd7c0a3d38ea58f3991aa7b04c97907b6c17c8611334d7f0e54db3d31d7897d9661
+  checksum: 56649de784c427e8f3f63d4ebfcada4fcf03bb2a301f3327342111798db7f26f8a86285f979f376cf6cec4774bd96b4650f2693a07fc409f4544ad4c4d9fe4c9
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.0.2#optional!builtin<compat/typescript>":
-  version: 5.0.2
-  resolution: "typescript@patch:typescript@npm%3A5.0.2#optional!builtin<compat/typescript>::version=5.0.2&hash=b5f058"
+"typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>":
+  version: 5.0.4
+  resolution: "typescript@patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>::version=5.0.4&hash=b5f058"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 99fed54ef1fa7a2d1c235d3f6e23212f18542cf5ab09e1a9e285a4a97d9f050d6919715cd79107e295de833adf808134576a829b3400f88ffd48415730d90742
+  checksum: e4296a207d18264eb9b17a912b0929c4e8be5a4e48aefa016e952eaa445e5a4ed363a72d9023f151dc7f100d48d4bfa35480aec199f123a664ef8a622355ae4f
   languageName: node
   linkType: hard
 

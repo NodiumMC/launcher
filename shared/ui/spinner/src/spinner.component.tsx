@@ -1,4 +1,4 @@
-import { styled, useTheme } from 'styled'
+import { styled, useTheme } from '@lmpx/styled'
 import { FC } from 'react'
 import { Schema } from '@theme/types'
 import { SpinnerProps } from './spinner.interface'

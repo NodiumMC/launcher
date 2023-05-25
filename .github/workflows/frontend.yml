@@ -31,7 +31,7 @@ jobs:
       - name: "📦 Install deps"
         run: yarn
       - name: "💠 Lint"
-        run: yarn workspace @dev/codestyle lint
+        run: yarn lint
   prebuild-frontend:
     name: "🛠 Typecheck"
     runs-on: ubuntu-latest

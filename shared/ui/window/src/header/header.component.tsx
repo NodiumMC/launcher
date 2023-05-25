@@ -1,4 +1,4 @@
-import { styled } from 'styled'
+import { styled } from '@lmpx/styled'
 import { FC } from 'react'
 import { FormattedMessage } from '@intl/react'
 import { styles } from './styles'

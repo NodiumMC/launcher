@@ -1,4 +1,4 @@
-import { combine, ifProp, StyleFn } from 'styled'
+import { combine, ifProp, StyleFn } from '@lmpx/styled'
 import { rgba, shade } from 'polished'
 import { ItemProps } from '../item.interface'
 

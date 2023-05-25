@@ -1,5 +1,5 @@
-import { StyleFn } from 'styled'
-import { HEADER_HEIGHT } from '@ui/window/src/header/constants'
+import { StyleFn } from '@lmpx/styled'
+import { HEADER_HEIGHT } from '../../constants'
 
 export const shapeStyles: StyleFn = ({ theme }) => ({
   width: HEADER_HEIGHT,
