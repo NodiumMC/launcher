@@ -4,7 +4,7 @@
   "devDependencies": {
     "@app/providers": "workspace:*",
     "@app/routes": "workspace:*",
-    "@types/react": "^18.2.6",
+    "@types/react": "^18.2.7",
     "@ui/icons": "workspace:*",
     "@ui/nav-sidebar": "workspace:*",
     "@ui/window": "workspace:*"

@@ -10,7 +10,7 @@
     "eslint": "^8.41.0",
     "husky": "^8.0.3",
     "typescript": "^5.0.4",
-    "vitest": "^0.31.0"
+    "vitest": "^0.31.1"
   },
   "resolutions": {
     "typescript": "^5.0.4"
