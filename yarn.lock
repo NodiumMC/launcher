@@ -6254,6 +6254,7 @@ __metadata:
     eslint: "npm:^8.41.0"
     husky: "npm:^8.0.3"
     typescript: "npm:^5.0.4"
+    vite: "npm:^4.3.8"
     vitest: "npm:^0.31.1"
   languageName: unknown
   linkType: soft

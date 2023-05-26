@@ -24,7 +24,8 @@
     "baseUrl": "./",
     "jsx": "react-jsx",
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "vite/client"
     ],
     "paths": {
       "@app/entrypoint": [
