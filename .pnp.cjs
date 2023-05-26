@@ -3590,6 +3590,7 @@ const RAW_RUNTIME_STATE =
           ["@types/lmpx__styled", null],\
           ["@types/react", "npm:18.2.7"],\
           ["@ui/icons", "virtual:0902ca450441ef01e5b8d130ee5d2787769953c74403bc26f6e31150d5e20ad243f9f951abbd7e15b3e875cd91cf7d4f26d742ba5aac926b4add023cf9d66c6f#workspace:shared/ui/icons"],\
+          ["@ui/layout", "virtual:a2467541ec3159cf2564b4355bdf9d2b651687732608de6dc9895555ca4b70a524e33d1e3c721a505b0d4518a4773a1469b09b8109112e58a3b96b0e84a0fc7a#workspace:shared/ui/layout"],\
           ["polished", "npm:4.2.2"],\
           ["react", "npm:18.2.0"]\
         ],\
@@ -3609,6 +3610,7 @@ const RAW_RUNTIME_STATE =
           ["@native/window", "workspace:shared/native/window"],\
           ["@types/react", "npm:18.2.7"],\
           ["@ui/icons", "virtual:0902ca450441ef01e5b8d130ee5d2787769953c74403bc26f6e31150d5e20ad243f9f951abbd7e15b3e875cd91cf7d4f26d742ba5aac926b4add023cf9d66c6f#workspace:shared/ui/icons"],\
+          ["@ui/layout", "virtual:a2467541ec3159cf2564b4355bdf9d2b651687732608de6dc9895555ca4b70a524e33d1e3c721a505b0d4518a4773a1469b09b8109112e58a3b96b0e84a0fc7a#workspace:shared/ui/layout"],\
           ["polished", "npm:4.2.2"],\
           ["react", "npm:18.2.0"]\
         ],\
