@@ -51,6 +51,9 @@
       "@dev/testing": [
         "dev/testing"
       ],
+      "@entities/minecraft-version": [
+        "entities/minecraft/version"
+      ],
       "@features/settings-change-app-location": [
         "features/settings/change-app-location"
       ],
@@ -114,9 +117,6 @@
       "@storage/kv": [
         "shared/storage/kv"
       ],
-      "styled": [
-        "shared/styled"
-      ],
       "@theme/builder": [
         "shared/theme/builder"
       ],
@@ -172,7 +172,8 @@
     "dev/**/*",
     "pages/**/*",
     "shared/**/*",
-    "features/**/*"
+    "features/**/*",
+    "entities/**/*"
   ],
   "exclude": [
     "**/*.test.{ts,tsx}"

@@ -4,10 +4,10 @@
   "dependencies": {
     "@lib/math": "workspace:*",
     "@lmpx/styled": "0.0.7",
-    "framer-motion": "^10.12.9"
+    "framer-motion": "^10.12.16"
   },
   "devDependencies": {
-    "@types/react": "18.2.6",
+    "@types/react": "18.2.7",
     "react": "^18.2.0"
   },
   "peerDependencies": {
