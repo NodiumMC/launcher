@@ -3,10 +3,7 @@
   "main": "src/index.tsx",
   "dependencies": {
     "@lmpx/styled": "0.0.7",
-    "@ui/button": "workspace:*",
-    "@ui/icons": "workspace:*",
-    "@ui/layout": "workspace:*",
-    "@ui/progress-bar": "workspace:*"
+    "@ui/button": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.7",

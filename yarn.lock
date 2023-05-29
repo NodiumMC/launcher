@@ -1642,9 +1642,6 @@ __metadata:
     "@lmpx/styled": "npm:0.0.7"
     "@types/react": "npm:^18.2.7"
     "@ui/button": "workspace:*"
-    "@ui/icons": "workspace:*"
-    "@ui/layout": "workspace:*"
-    "@ui/progress-bar": "workspace:*"
     react: "npm:^18.2.0"
   peerDependencies:
     "@lmpx/styled": "*"
@@ -2072,6 +2069,7 @@ __metadata:
   dependencies:
     "@theme/builder": "workspace:*"
     "@theme/common": "workspace:*"
+    polished: "npm:^4.2.2"
   languageName: unknown
   linkType: soft
 
@@ -2493,7 +2491,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ui/progress-bar@workspace:*, @ui/progress-bar@workspace:shared/ui/progress-bar":
+"@ui/progress-bar@workspace:shared/ui/progress-bar":
   version: 0.0.0-use.local
   resolution: "@ui/progress-bar@workspace:shared/ui/progress-bar"
   dependencies:

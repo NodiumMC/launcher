@@ -3,8 +3,7 @@ import { ButtonProps } from '../button.interface'
 
 const base: StyleFn = ({ theme }) => ({
   fontFamily: theme.font.interaction,
-  fontWeight: '500',
-  fontVariationSettings: '"wght" 500',
+  fontWeight: '600',
 })
 
 const primaryDefault: StyleFn = ({ theme }) => ({
