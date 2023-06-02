@@ -15,6 +15,7 @@ import {
   time,
   warning,
 } from '@theme/common'
+import { shade } from 'polished'
 
 const shades = makeShadesFactory(light, dark)
 
@@ -24,7 +25,7 @@ export default makeTheme({
     foreground: dark,
     gray: makeNativeShades(dark, light),
 
-    primary: shades(primary),
+    primary: shades(shade(0.35, primary)),
     secondary: shades(secondary),
     tertiary: shades(tertiary),
 

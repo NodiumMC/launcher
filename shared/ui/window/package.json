@@ -6,6 +6,7 @@
     "@lmpx/styled": "0.0.7",
     "@native/window": "workspace:*",
     "@ui/icons": "workspace:*",
+    "@ui/layout": "workspace:*",
     "polished": "^4.2.2"
   },
   "devDependencies": {

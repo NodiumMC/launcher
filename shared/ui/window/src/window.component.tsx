@@ -1,17 +1,25 @@
 import { FC } from 'react'
-import { close, minimize, toggleMaximize } from '@native/window'
-import { View } from './view'
 import { Frame } from './frame'
-import { Header } from './header'
 import { WindowProps } from './window.interface'
-import { Container } from './container'
+import { Bordered } from './bordered'
+import { Logo } from './logo'
+import { Header } from './header'
+import { View } from './view'
+import { close, minimize } from '@native/window'
+import { Button } from './button'
 
 export const Window: FC<WindowProps> = ({ sidebar, children }) => (
   <Frame>
-    {sidebar}
-    <Container>
-      <Header onClose={close} onMinimize={minimize} onToggleMaximize={toggleMaximize} />
-      <View>{children}</View>
-    </Container>
+    <Logo data-tauri-drag-region />
+    <Header data-tauri-drag-region>
+      <Button onClick={minimize} />
+      <Button onClick={close} destructive />
+    </Header>
+    <Bordered sides={['right']} gridArea='sidebar'>
+      {sidebar}
+    </Bordered>
+    <View>
+      {children}
+    </View>
   </Frame>
 )

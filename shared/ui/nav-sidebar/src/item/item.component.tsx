@@ -2,18 +2,15 @@ import { styled } from '@lmpx/styled'
 import { FC } from 'react'
 import { ItemProps } from './item.interface'
 import { styles } from './styles'
-import { ActiveBar } from './active-bar'
 
-const ItemElement = styled.div<Pick<ItemProps, 'isActive' | 'blurry'>>(styles)
+const ItemElement = styled.div<Pick<ItemProps, 'isActive'>>(styles)
 
 export const Item: FC<ItemProps> = props => {
-  const { icon, isActive, onClick, blurry } = props
+  const { icon, isActive, onClick } = props
 
   return (
-    <ItemElement isActive={isActive} onClick={onClick} blurry={blurry}>
-      <ActiveBar isActive={isActive} blurry={blurry} />
+    <ItemElement isActive={isActive} onClick={onClick}>
       {icon}
-      {!blurry && isActive && <Item {...props} blurry />}
     </ItemElement>
   )
 }

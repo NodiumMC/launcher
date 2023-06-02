@@ -1,7 +1,6 @@
-import { combine, ifProp, StyleFn } from '@lmpx/styled'
-import { ItemProps } from '../item.interface'
+import { StyleFn } from '@lmpx/styled'
 
-const base: StyleFn = () => ({
+export const baseStyles: StyleFn = () => ({
   display: 'flex',
   position: 'relative',
   zIndex: 1,
@@ -9,19 +8,5 @@ const base: StyleFn = () => ({
   justifyContent: 'center',
   overflow: 'hidden',
   cursor: 'pointer',
+  userSelect: 'none',
 })
-
-const blurry: StyleFn = () => ({
-  position: 'absolute',
-  top: '0',
-  left: '0',
-  width: '100%',
-  height: '100%',
-  zIndex: -1,
-  filter: 'blur(15px) saturate(150%)',
-})
-
-export const baseStyles = combine(
-  base,
-  ifProp(({ blurry }: ItemProps) => blurry, blurry),
-)

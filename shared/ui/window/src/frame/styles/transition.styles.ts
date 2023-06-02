@@ -1,4 +1,4 @@
-import { StyleFn } from '@lmpx/styled'
+import type { StyleFn } from '@lmpx/styled'
 
 export const transitionStyles: StyleFn = ({ theme }) => ({
   transitionProperty: 'background',
