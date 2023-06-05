@@ -1,96 +1,75 @@
-import { Global, css } from '@emotion/react'
+import { Global } from '@emotion/react'
+import type { StyleFn } from '@lmpx/styled'
 
-const inline = css`
-  *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
-    all: unset;
-    display: revert;
-  }
+const global = (): StyleFn => ({ theme }) => ({
+  '*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))': {
+    all: 'unset',
+    display: 'revert',
+  },
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
+  '*,*::before,*::after': {
+    boxSizing: 'border-box',
+  },
 
-  a,
-  button {
-    cursor: revert;
-  }
+  'a,button': {
+    cursor: 'revert',
+  },
 
-  ol,
-  ul,
-  menu {
-    list-style: none;
-  }
+  'ol,ul,menu': {
+    listStyle: 'none',
+  },
 
-  img {
-    max-inline-size: 100%;
-    max-block-size: 100%;
-  }
+  img: {
+    maxInlineSize: '100%',
+    maxBlockSize: '100%',
+  },
 
-  table {
-    border-collapse: collapse;
-  }
+  table: {
+    borderCollapse: 'collapse',
+  },
 
-  input,
-  textarea {
-    -webkit-user-select: auto;
-  }
+  'input,textarea': {
+    WebkitUserSelect: 'auto',
+  },
 
-  textarea {
-    white-space: revert;
-  }
+  textarea: {
+    whiteSpace: 'revert',
+  },
 
-  meter {
-    -webkit-appearance: revert;
-    appearance: revert;
-  }
+  ':where(pre)': {
+    all: 'revert',
+  },
 
-  :where(pre) {
-    all: revert;
-  }
+  '::placeholder': {
+    color: 'unset',
+  },
 
-  ::placeholder {
-    color: unset;
-  }
+  '::marker': {
+    content: 'initial',
+  },
 
-  ::marker {
-    content: initial;
-  }
+  ':where([contenteditable]:not([contenteditable=\'false\']))': {
+    MozUserModify: 'read-write',
+    WebkitUserModify: 'read-write',
+    overflowWrap: 'break-word',
+    WebkitUserSelect: 'auto',
+  },
 
-  :where([hidden]) {
-    display: none;
-  }
+  'html,body': {
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    fontSize: '14px',
+    zIndex: 1,
+  },
 
-  :where([contenteditable]:not([contenteditable='false'])) {
-    -moz-user-modify: read-write;
-    -webkit-user-modify: read-write;
-    overflow-wrap: break-word;
-    -webkit-line-break: after-white-space;
-    -webkit-user-select: auto;
-  }
+  'img,button': {
+    userSelect: 'none',
+  },
 
-  :where([draggable='true']) {
-    -webkit-user-drag: element;
-  }
+  '*::-webkit-scrollbar': {
+    display: 'none',
+  },
+})
 
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    font-size: 14px;
-    z-index: 1;
-  }
-
-  img,
-  button {
-    user-select: none;
-  }
-
-  *::-webkit-scrollbar {
-    display: none;
-  }
-`
-
-export const GlobalStyles = () => <Global styles={inline} />
+export const GlobalStyles = () => <Global styles={global as any} />

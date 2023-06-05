@@ -5,6 +5,8 @@
     "@lmpx/styled": "0.0.7"
   },
   "devDependencies": {
+    "@storybook/blocks": "^7.1.0-alpha.27",
+    "@storybook/react": "^7.1.0-alpha.27",
     "@types/react": "18.2.7",
     "react": "^18.2.0"
   },
