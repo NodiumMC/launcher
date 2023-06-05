@@ -1,0 +1,7 @@
+{
+  "name": "@entities/core-instance",
+  "main": "src/index.ts",
+  "dependencies": {
+    "effector": "^22.8.6"
+  }
+}

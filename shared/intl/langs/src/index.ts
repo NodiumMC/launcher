@@ -1,1 +1,1 @@
-export const { default: ru } = await import('./ru.json')
+export { default as ru } from './ru.json'

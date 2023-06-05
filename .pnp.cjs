@@ -46,6 +46,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:dev/testing"\
     },\
     {\
+      "name": "@entities/core-instance",\
+      "reference": "workspace:entities/core/instance"\
+    },\
+    {\
       "name": "@entities/minecraft-version",\
       "reference": "workspace:entities/minecraft/version"\
     },\
@@ -212,6 +216,7 @@ const RAW_RUNTIME_STATE =
     ["@config/theme", ["workspace:shared/config/theme"]],\
     ["@dev/codestyle", ["workspace:dev/codestyle"]],\
     ["@dev/testing", ["workspace:dev/testing"]],\
+    ["@entities/core-instance", ["workspace:entities/core/instance"]],\
     ["@entities/minecraft-version", ["workspace:entities/minecraft/version"]],\
     ["@features/settings-change-app-location", ["workspace:features/settings/change-app-location"]],\
     ["@features/settings-change-lang", ["workspace:features/settings/change-lang"]],\
@@ -1279,6 +1284,16 @@ const RAW_RUNTIME_STATE =
           ["@emotion/weak-memoize", "npm:0.3.1"]\
         ],\
         "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@entities/core-instance", [\
+      ["workspace:entities/core/instance", {\
+        "packageLocation": "./entities/core/instance/",\
+        "packageDependencies": [\
+          ["@entities/core-instance", "workspace:entities/core/instance"],\
+          ["effector", "npm:22.8.6"]\
+        ],\
+        "linkType": "SOFT"\
       }]\
     ]],\
     ["@entities/minecraft-version", [\

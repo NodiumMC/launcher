@@ -1,6 +1,6 @@
 import { createEffect, createStore, combine } from 'effector'
-import type { MinecraftVersion } from '../types'
-import { fetchLocalMinecraftVersions, saveMinecraftVersions } from '../../lib'
+import type { MinecraftVersion } from './types'
+import { fetchLocalMinecraftVersions, saveMinecraftVersions } from '../lib'
 
 export const $versions = createStore<MinecraftVersion[]>([])
 
