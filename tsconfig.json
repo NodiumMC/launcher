@@ -70,6 +70,9 @@
       "@pages/home": [
         "pages/home"
       ],
+      "@pages/versions": [
+        "pages/versions"
+      ],
       "@config/app-location": [
         "shared/config/app-location"
       ],
