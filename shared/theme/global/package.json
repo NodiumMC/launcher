@@ -1,6 +1,9 @@
 {
   "name": "@theme/global",
   "main": "src/index.ts",
+  "dependencies": {
+    "@lmpx/styled": "0.0.7"
+  },
   "devDependencies": {
     "@emotion/css": "^11.11.0",
     "@emotion/react": "^11.11.0",

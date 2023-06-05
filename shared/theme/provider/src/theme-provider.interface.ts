@@ -1,3 +1,5 @@
 import { type PropsWithChildren } from 'react'
 
-export type ThemeProviderProps = PropsWithChildren
+export interface ThemeProviderProps extends PropsWithChildren {
+  forceTheme?: string
+}

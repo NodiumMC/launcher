@@ -1,0 +1,30 @@
+{
+  "name": "@dev/storybook",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@theme/dark-schema": "workspace:*",
+    "@theme/light-schema": "workspace:*",
+    "@theme/provider": "workspace:*"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.1.0-alpha.27",
+    "@storybook/addon-interactions": "^7.1.0-alpha.27",
+    "@storybook/addon-links": "^7.1.0-alpha.27",
+    "@storybook/addons": "^7.0.18",
+    "@storybook/blocks": "^7.1.0-alpha.27",
+    "@storybook/builder-vite": "^7.1.0-alpha.27",
+    "@storybook/react": "^7.1.0-alpha.27",
+    "@storybook/react-vite": "^7.1.0-alpha.27",
+    "@storybook/testing-library": "^0.1.0",
+    "@storybook/theming": "^7.0.18",
+    "@types/node": "^20.2.5",
+    "@vitejs/plugin-react": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.1.0-alpha.27",
+    "vite": "^4.3.9"
+  }
+}

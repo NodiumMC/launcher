@@ -49,6 +49,9 @@
       "@dev/codestyle": [
         "dev/codestyle"
       ],
+      "@dev/storybook": [
+        "dev/storybook"
+      ],
       "@dev/testing": [
         "dev/testing"
       ],
