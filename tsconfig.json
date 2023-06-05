@@ -52,6 +52,9 @@
       "@dev/testing": [
         "dev/testing"
       ],
+      "@entities/core-instance": [
+        "entities/core/instance"
+      ],
       "@entities/minecraft-version": [
         "entities/minecraft/version"
       ],

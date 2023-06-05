@@ -775,6 +775,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@entities/core-instance@workspace:entities/core/instance":
+  version: 0.0.0-use.local
+  resolution: "@entities/core-instance@workspace:entities/core/instance"
+  dependencies:
+    effector: "npm:^22.8.6"
+  languageName: unknown
+  linkType: soft
+
 "@entities/minecraft-version@workspace:entities/minecraft/version":
   version: 0.0.0-use.local
   resolution: "@entities/minecraft-version@workspace:entities/minecraft/version"
