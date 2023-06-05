@@ -2529,6 +2529,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ui/typography@workspace:shared/ui/typography":
+  version: 0.0.0-use.local
+  resolution: "@ui/typography@workspace:shared/ui/typography"
+  dependencies:
+    "@lmpx/styled": "npm:0.0.7"
+    "@theme/types": "workspace:*"
+    "@types/react": "npm:18.2.7"
+  peerDependencies:
+    "@lmpx/styled": "*"
+    react: 18
+  languageName: unknown
+  linkType: soft
+
 "@ui/window@workspace:*, @ui/window@workspace:shared/ui/window":
   version: 0.0.0-use.local
   resolution: "@ui/window@workspace:shared/ui/window"

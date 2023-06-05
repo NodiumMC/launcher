@@ -166,6 +166,9 @@
       "@ui/spinner": [
         "shared/ui/spinner"
       ],
+      "@ui/typography": [
+        "shared/ui/typography"
+      ],
       "@ui/window": [
         "shared/ui/window"
       ]

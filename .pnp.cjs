@@ -198,6 +198,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/ui/spinner"\
     },\
     {\
+      "name": "@ui/typography",\
+      "reference": "workspace:shared/ui/typography"\
+    },\
+    {\
       "name": "@ui/window",\
       "reference": "workspace:shared/ui/window"\
     }\
@@ -251,6 +255,7 @@ const RAW_RUNTIME_STATE =
     ["@ui/nav-sidebar", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:shared/ui/nav-sidebar", "virtual:0902ca450441ef01e5b8d130ee5d2787769953c74403bc26f6e31150d5e20ad243f9f951abbd7e15b3e875cd91cf7d4f26d742ba5aac926b4add023cf9d66c6f#workspace:shared/ui/nav-sidebar", "workspace:shared/ui/nav-sidebar"]],\
     ["@ui/progress-bar", ["workspace:shared/ui/progress-bar"]],\
     ["@ui/spinner", ["workspace:shared/ui/spinner"]],\
+    ["@ui/typography", ["workspace:shared/ui/typography"]],\
     ["@ui/window", ["virtual:0902ca450441ef01e5b8d130ee5d2787769953c74403bc26f6e31150d5e20ad243f9f951abbd7e15b3e875cd91cf7d4f26d742ba5aac926b4add023cf9d66c6f#workspace:shared/ui/window", "workspace:shared/ui/window"]],\
     ["nodium-launcher", ["workspace:."]]\
   ],\
@@ -3566,6 +3571,18 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.2.7"],\
           ["@ui/icons", "virtual:0902ca450441ef01e5b8d130ee5d2787769953c74403bc26f6e31150d5e20ad243f9f951abbd7e15b3e875cd91cf7d4f26d742ba5aac926b4add023cf9d66c6f#workspace:shared/ui/icons"],\
           ["react", "npm:18.2.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@ui/typography", [\
+      ["workspace:shared/ui/typography", {\
+        "packageLocation": "./shared/ui/typography/",\
+        "packageDependencies": [\
+          ["@ui/typography", "workspace:shared/ui/typography"],\
+          ["@lmpx/styled", "virtual:b53d6b61cb8ec8324e00cb007cfddb4d40868decd3fe9fa85971b3ca133453622fac8f65e5f2bf893fb1f657126256d75b07fd94bd1f509eb052904c82ffc2f3#npm:0.0.7"],\
+          ["@theme/types", "virtual:0bbae36eaa862dfafa1a15a961c3d81c09fcd7dc22c440d0f08c6ccf2c73bdb663d1b5148364ecc192a3b38dc7d9c19fd950807500916682be40ccd9650decd3#workspace:shared/theme/types"],\
+          ["@types/react", "npm:18.2.7"]\
         ],\
         "linkType": "SOFT"\
       }]\
