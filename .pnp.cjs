@@ -38,10 +38,6 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:app/vite"\
     },\
     {\
-      "name": "@dev/codestyle",\
-      "reference": "workspace:dev/codestyle"\
-    },\
-    {\
       "name": "@dev/storybook",\
       "reference": "workspace:dev/storybook"\
     },\
@@ -218,7 +214,6 @@ const RAW_RUNTIME_STATE =
     ["@config/app-location", ["workspace:shared/config/app-location"]],\
     ["@config/locale", ["workspace:shared/config/locale"]],\
     ["@config/theme", ["workspace:shared/config/theme"]],\
-    ["@dev/codestyle", ["workspace:dev/codestyle"]],\
     ["@dev/storybook", ["workspace:dev/storybook"]],\
     ["@dev/testing", ["workspace:dev/testing"]],\
     ["@entities/core-instance", ["workspace:entities/core/instance"]],\
@@ -266,8 +261,13 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@commitlint/cli", "npm:17.6.5"],\
+          ["@commitlint/config-conventional", "npm:17.6.5"],\
+          ["@lmpx-config/eslint", "npm:0.0.8"],\
           ["eslint", "npm:8.42.0"],\
           ["husky", "npm:8.0.3"],\
+          ["lint-staged", "npm:13.2.2"],\
+          ["prettier", "npm:2.8.8"],\
           ["typescript", "patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>::version=5.0.4&hash=b5f058"],\
           ["vite", "virtual:f107a555d068058ac07527e04071182f72ef8e9d085e1e3f9dce93c9313d849e3172438938ba394600fd54c644b9cb47198f581a9c8321cbeaae8cc004077478#npm:4.3.9"],\
           ["vitest", "virtual:f107a555d068058ac07527e04071182f72ef8e9d085e1e3f9dce93c9313d849e3172438938ba394600fd54c644b9cb47198f581a9c8321cbeaae8cc004077478#npm:0.32.0"]\
@@ -5630,21 +5630,6 @@ const RAW_RUNTIME_STATE =
           ["@jridgewell/trace-mapping", "npm:0.3.9"]\
         ],\
         "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@dev/codestyle", [\
-      ["workspace:dev/codestyle", {\
-        "packageLocation": "./dev/codestyle/",\
-        "packageDependencies": [\
-          ["@dev/codestyle", "workspace:dev/codestyle"],\
-          ["@commitlint/cli", "npm:17.6.5"],\
-          ["@commitlint/config-conventional", "npm:17.6.5"],\
-          ["@lmpx-config/eslint", "npm:0.0.8"],\
-          ["eslint", "npm:8.42.0"],\
-          ["lint-staged", "npm:13.2.2"],\
-          ["prettier", "npm:2.8.8"]\
-        ],\
-        "linkType": "SOFT"\
       }]\
     ]],\
     ["@dev/storybook", [\
@@ -17915,8 +17900,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["nodium-launcher", "workspace:."],\
+          ["@commitlint/cli", "npm:17.6.5"],\
+          ["@commitlint/config-conventional", "npm:17.6.5"],\
+          ["@lmpx-config/eslint", "npm:0.0.8"],\
           ["eslint", "npm:8.42.0"],\
           ["husky", "npm:8.0.3"],\
+          ["lint-staged", "npm:13.2.2"],\
+          ["prettier", "npm:2.8.8"],\
           ["typescript", "patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>::version=5.0.4&hash=b5f058"],\
           ["vite", "virtual:f107a555d068058ac07527e04071182f72ef8e9d085e1e3f9dce93c9313d849e3172438938ba394600fd54c644b9cb47198f581a9c8321cbeaae8cc004077478#npm:4.3.9"],\
           ["vitest", "virtual:f107a555d068058ac07527e04071182f72ef8e9d085e1e3f9dce93c9313d849e3172438938ba394600fd54c644b9cb47198f581a9c8321cbeaae8cc004077478#npm:0.32.0"]\

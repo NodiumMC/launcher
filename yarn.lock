@@ -3070,19 +3070,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dev/codestyle@workspace:dev/codestyle":
-  version: 0.0.0-use.local
-  resolution: "@dev/codestyle@workspace:dev/codestyle"
-  dependencies:
-    "@commitlint/cli": "npm:^17.6.5"
-    "@commitlint/config-conventional": "npm:^17.6.5"
-    "@lmpx-config/eslint": "npm:0.0.8"
-    eslint: "npm:^8.42.0"
-    lint-staged: "npm:^13.2.2"
-    prettier: "npm:^2.8.8"
-  languageName: unknown
-  linkType: soft
-
 "@dev/storybook@workspace:dev/storybook":
   version: 0.0.0-use.local
   resolution: "@dev/storybook@workspace:dev/storybook"
@@ -12673,8 +12660,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nodium-launcher@workspace:."
   dependencies:
+    "@commitlint/cli": "npm:^17.6.5"
+    "@commitlint/config-conventional": "npm:^17.6.5"
+    "@lmpx-config/eslint": "npm:0.0.8"
     eslint: "npm:^8.42.0"
     husky: "npm:^8.0.3"
+    lint-staged: "npm:^13.2.2"
+    prettier: "npm:^2.8.8"
     typescript: "npm:^5.0.4"
     vite: "npm:^4.3.9"
     vitest: "npm:^0.32.0"
