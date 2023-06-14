@@ -2,21 +2,22 @@
   "name": "@theme/provider",
   "main": "src/index.ts",
   "dependencies": {
-    "@config/theme": "workspace:*",
-    "@theme/dark-schema": "workspace:*",
-    "@theme/font": "workspace:*",
-    "@theme/global": "workspace:*",
-    "@theme/light-schema": "workspace:*",
+    "@config/theme": "workspace:^",
+    "@theme/dark-schema": "workspace:^",
+    "@theme/font": "workspace:^",
+    "@theme/global": "workspace:^",
+    "@theme/light-schema": "workspace:^",
     "effector": "^22.8.6",
     "effector-react": "^22.5.3"
   },
   "devDependencies": {
-    "@emotion/react": "^11.11.0",
-    "@types/react": "^18.2.7",
+    "@emotion/react": "^11.11.1",
+    "@types/react": "^18.2.12",
     "react": "^18.2.0"
   },
   "peerDependencies": {
     "@emotion/react": "11",
-    "react": "18"
+    "react": "18",
+    "react-dom": "18"
   }
 }

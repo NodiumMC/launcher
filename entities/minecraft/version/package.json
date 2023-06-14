@@ -2,9 +2,9 @@
   "name": "@entities/minecraft-version",
   "main": "src/index.ts",
   "dependencies": {
-    "@config/app-location": "workspace:*",
-    "@native/fs": "workspace:*",
-    "@native/path": "workspace:*",
+    "@config/app-location": "workspace:^",
+    "@native/fs": "workspace:^",
+    "@native/path": "workspace:^",
     "effector": "^22.8.6"
   }
 }

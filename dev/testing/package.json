@@ -6,12 +6,12 @@
     "test:ui": "vitest --ui"
   },
   "devDependencies": {
-    "@app/vite": "workspace:*",
+    "@app/vite": "workspace:^",
     "@types/istanbul": "^0.4.30",
-    "@vitest/coverage-istanbul": "^0.31.1",
-    "@vitest/ui": "^0.31.1",
+    "@vitest/coverage-istanbul": "^0.32.0",
+    "@vitest/ui": "^0.32.0",
     "happy-dom": "^9.20.3",
-    "vite": "^4.3.8",
-    "vitest": "^0.31.1"
+    "vite": "^4.3.9",
+    "vitest": "^0.32.0"
   }
 }

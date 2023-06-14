@@ -2,7 +2,7 @@
   "name": "@native/process",
   "main": "src/index.ts",
   "dependencies": {
-    "@native/tools": "workspace:*",
+    "@native/tools": "workspace:^",
     "@tauri-apps/api": "^1.3.0",
     "rxjs": "^7.8.1"
   }

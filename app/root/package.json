@@ -2,12 +2,12 @@
   "name": "@app/root",
   "main": "src/index.tsx",
   "devDependencies": {
-    "@app/providers": "workspace:*",
-    "@app/routes": "workspace:*",
-    "@types/react": "^18.2.7",
-    "@ui/icons": "workspace:*",
-    "@ui/nav-sidebar": "workspace:*",
-    "@ui/window": "workspace:*"
+    "@app/providers": "workspace:^",
+    "@app/routes": "workspace:^",
+    "@types/react": "^18.2.12",
+    "@ui/icons": "workspace:^",
+    "@ui/nav-sidebar": "workspace:^",
+    "@ui/window": "workspace:^"
   },
   "peerDependencies": {
     "react": "18",
