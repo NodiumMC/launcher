@@ -1,17 +1,5 @@
-import { ShadesRecord } from './utils'
+import type { Palette as PaletteBuilder } from '@theme/builder'
 
-export interface Palette {
-  // Appearance
-  background: string
-  foreground: string
-  gray: ShadesRecord
-  // Accent
-  primary: ShadesRecord
-  secondary: ShadesRecord
-  tertiary: ShadesRecord
-  // Semantic
-  error: ShadesRecord
-  warning: ShadesRecord
-  success: ShadesRecord
-  // Other
-}
+export type Palette = PaletteBuilder<
+  'background' | 'foreground' | 'gray' | 'primary' | 'secondary' | 'tertiary' | 'error' | 'warning' | 'success'
+>

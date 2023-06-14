@@ -6,15 +6,15 @@ const base: StyleFn<CheckboxProps> = ({ theme }) => ({
   alignItems: 'center',
   width: '16px',
   height: '16px',
-  border: `1px solid ${theme.palette.primary._500}`,
+  border: `1px solid ${theme.palette.primary500}`,
   borderRadius: '4px',
   padding: '5px',
   ':hover': {
-    backgroundColor: `${theme.palette.primary._100}`,
+    backgroundColor: `${theme.palette.primary100}`,
   },
   ':active': {
-    boxShadow: `0px 0px 0px 4px ${theme.palette.primary._50}`,
-    backgroundColor: theme.palette.primary._500,
+    boxShadow: `0px 0px 0px 4px ${theme.palette.primary50}`,
+    backgroundColor: theme.palette.primary500,
   },
 })
 

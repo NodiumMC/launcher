@@ -1,4 +1,4 @@
-import { makeNativeShades, makeShadesFactory, makeTheme } from '@theme/builder'
+import { makeNativeShades, makeShadesFromPalette, makeTheme } from '@theme/builder'
 import {
   dark,
   error,
@@ -17,21 +17,25 @@ import {
 } from '@theme/common'
 import { shade } from 'polished'
 
-const shades = makeShadesFactory(light, dark)
-
 export default makeTheme({
   palette: {
-    background: light,
-    foreground: dark,
-    gray: makeNativeShades(dark, light),
+    ...makeShadesFromPalette(
+      {
+        background: light,
+        foreground: dark,
 
-    primary: shades(shade(0.35, primary)),
-    secondary: shades(secondary),
-    tertiary: shades(tertiary),
+        primary: shade(0.3, primary),
+        secondary,
+        tertiary,
 
-    error: shades(error),
-    warning: shades(warning),
-    success: shades(success),
+        error,
+        warning,
+        success,
+      },
+      light,
+      dark,
+    ),
+    ...makeNativeShades('gray', dark, light),
   },
   font,
   radius,
