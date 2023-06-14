@@ -3,11 +3,11 @@ import { Button } from '@ui/button'
 
 export default {
   title: 'Shared/Button',
-  component: Button
+  component: Button,
 } satisfies Meta<typeof Button>
 
 type Story = StoryObj<typeof Button>
 
 export const Default: Story = {
-  render: () => <Button>Button</Button>
+  render: () => <Button>Button</Button>,
 }

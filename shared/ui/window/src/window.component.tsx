@@ -18,8 +18,6 @@ export const Window: FC<WindowProps> = ({ sidebar, children }) => (
     <Bordered sides={['right']} gridArea='sidebar'>
       {sidebar}
     </Bordered>
-    <View>
-      {children}
-    </View>
+    <View>{children}</View>
   </Frame>
 )

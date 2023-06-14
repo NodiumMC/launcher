@@ -1,5 +1,5 @@
 import type { StyleFn } from '@lmpx/styled'
 
 export const appearanceStyles: StyleFn = ({ theme }) => ({
-  backgroundColor: theme.palette.background
+  backgroundColor: theme.palette.background,
 })

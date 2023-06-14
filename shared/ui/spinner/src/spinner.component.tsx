@@ -8,7 +8,7 @@ const Svg = styled.svg(svgStyles)
 const G = styled.g(groupStyles)
 const AnimatedG = styled.g(groupStyles, animatedGroupStyles)
 
-export const Spinner: FC<SpinnerProps> = props => {
+export const Spinner: FC<SpinnerProps> = (props) => {
   const theme = useTheme() as Schema
 
   return (

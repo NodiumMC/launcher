@@ -4,6 +4,4 @@ export interface Instance {
   options: InstanceOptions
 }
 
-export interface InstanceOptions {
-
-}
+export interface InstanceOptions {}

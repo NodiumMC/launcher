@@ -1,4 +1,16 @@
-import { styled, background, border, boxShadow, color, flexbox, layout, position, space, system, grid } from '@lmpx/styled'
+import {
+  styled,
+  background,
+  border,
+  boxShadow,
+  color,
+  flexbox,
+  layout,
+  position,
+  space,
+  system,
+  grid,
+} from '@lmpx/styled'
 import { BoxProps } from './box.interface'
 
 export const Box = styled.div<BoxProps>(

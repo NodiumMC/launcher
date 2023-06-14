@@ -1,7 +1,6 @@
 import { type StyleFn } from '@lmpx/styled'
 import { BorderedProps } from './bordered.interface'
 
-
 export const styles: StyleFn<BorderedProps> = ({ sides = [], theme }) => ({
   borderColor: theme.palette.gray._50,
   borderTopWidth: sides.includes('top') ? '1px' : '0',

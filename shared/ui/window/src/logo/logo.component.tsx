@@ -17,12 +17,13 @@ export const Logo: FC = (props) => {
   return (
     <Bordered sides={['bottom', 'right']} gridArea='logo' {...props}>
       <LogoElement {...props}>
-        <path d='m14.4 42.2v-20.3l17.6-10.2 17.6 10.2v20.3l-17.6 10.2-17.6-10.2 35.2-20.3v20.3l-35.2-20.3 17.6-10.2v40.6z'
-              fill='none'
-              stroke={theme.palette.gray._100}
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='1.5'
+        <path
+          d='m14.4 42.2v-20.3l17.6-10.2 17.6 10.2v20.3l-17.6 10.2-17.6-10.2 35.2-20.3v20.3l-35.2-20.3 17.6-10.2v40.6z'
+          fill='none'
+          stroke={theme.palette.gray._100}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          strokeWidth='1.5'
         />
       </LogoElement>
     </Bordered>
