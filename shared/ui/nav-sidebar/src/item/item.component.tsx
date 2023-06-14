@@ -5,7 +5,7 @@ import { styles } from './styles'
 
 const ItemElement = styled.div<Pick<ItemProps, 'isActive'>>(styles)
 
-export const Item: FC<ItemProps> = props => {
+export const Item: FC<ItemProps> = (props) => {
   const { icon, isActive, onClick } = props
 
   return (

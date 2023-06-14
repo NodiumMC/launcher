@@ -2,16 +2,16 @@
   "name": "@ui/button",
   "main": "src/index.tsx",
   "dependencies": {
-    "@lmpx/styled": "0.0.7"
+    "@lmpx/styled": "0.0.8"
   },
   "devDependencies": {
-    "@storybook/blocks": "^7.1.0-alpha.27",
-    "@storybook/react": "^7.1.0-alpha.27",
-    "@types/react": "18.2.7",
+    "@storybook/blocks": "^7.0.20",
+    "@storybook/react": "^7.0.20",
+    "@types/react": "^18.2.12",
     "react": "^18.2.0"
   },
   "peerDependencies": {
-    "@lmpx/styled": "*",
-    "react": "18"
+    "react": "18",
+    "react-dom": "18"
   }
 }

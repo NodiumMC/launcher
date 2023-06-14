@@ -2,8 +2,8 @@
   "name": "@config/app-location",
   "main": "src/index.ts",
   "dependencies": {
-    "@native/path": "workspace:*",
-    "@storage/kv": "workspace:*",
+    "@native/path": "workspace:^",
+    "@storage/kv": "workspace:^",
     "effector": "^22.8.6"
   }
 }

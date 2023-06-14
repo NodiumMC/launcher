@@ -8,7 +8,7 @@ const base: StyleFn = ({ theme }) => ({
 })
 
 const active: StyleFn = ({ theme }) => ({
-  color: theme.palette.primary._500,
+  color: theme.palette.primary500,
 })
 
 export const appearanceStyles = combine(

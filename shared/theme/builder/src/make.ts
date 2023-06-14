@@ -12,7 +12,9 @@ function initialize<T extends Record<any, any>>(record: LazyRecord<T>): T {
 }
 
 export function makeThemePart<T>(schemaInitializer: Partial<T>): T {
-  return Object.fromEntries(Object.entries(schemaInitializer).map(([key, value]) => [key, initialize(value as any)])) as T
+  return Object.fromEntries(
+    Object.entries(schemaInitializer).map(([key, value]) => [key, initialize(value as any)]),
+  ) as T
 }
 
 export function makeTheme(schemaInitializer: LazySchema): Schema {

@@ -7,49 +7,49 @@ const base: StyleFn = ({ theme }) => ({
 })
 
 const primaryDefault: StyleFn = ({ theme }) => ({
-  backgroundColor: theme.palette.primary._500,
+  backgroundColor: theme.palette.primary500,
   color: theme.palette.background,
 })
 
 const primaryNotDisabled: StyleFn = ({ theme }) => ({
   ':hover': {
-    backgroundColor: theme.palette.primary._600,
+    backgroundColor: theme.palette.primary600,
   },
 })
 
 const primaryDestructive: StyleFn = ({ theme }) => ({
-  backgroundColor: theme.palette.error._500,
+  backgroundColor: theme.palette.error500,
   ':hover': {
-    backgroundColor: theme.palette.error._600,
+    backgroundColor: theme.palette.error600,
   },
 })
 
 const primaryDisabled: StyleFn = ({ theme }) => ({
-  backgroundColor: theme.palette.gray._200,
+  backgroundColor: theme.palette.gray200,
 })
 
 const secondaryDefault: StyleFn = ({ theme }) => ({
-  backgroundColor: theme.palette.gray._100,
-  color: theme.palette.gray._700,
+  backgroundColor: theme.palette.gray100,
+  color: theme.palette.gray700,
 })
 
 const secondaryNotDisabled: StyleFn = ({ theme }) => ({
   ':hover': {
-    backgroundColor: theme.palette.gray._50,
+    backgroundColor: theme.palette.gray50,
   },
 })
 
 const secondaryDestructive: StyleFn = ({ theme }) => ({
-  color: theme.palette.error._500,
-  backgroundColor: theme.palette.error._100,
+  color: theme.palette.error500,
+  backgroundColor: theme.palette.error100,
   ':hover': {
-    backgroundColor: theme.palette.error._50,
+    backgroundColor: theme.palette.error50,
   },
 })
 
 export const secondaryDisabled: StyleFn = ({ theme }) => ({
-  backgroundColor: theme.palette.gray._25,
-  color: theme.palette.gray._200,
+  backgroundColor: theme.palette.gray25,
+  color: theme.palette.gray200,
 })
 
 const primary = combine(

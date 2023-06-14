@@ -2,7 +2,7 @@
   "name": "@storage/kv",
   "main": "src/index.ts",
   "dependencies": {
-    "@lib/tangle": "workspace:*",
+    "@lib/tangle": "workspace:^",
     "localforage": "^1.10.0"
   }
 }

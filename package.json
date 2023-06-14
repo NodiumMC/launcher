@@ -3,18 +3,31 @@
   "private": true,
   "version": "0.3.0",
   "license": "BSD 3-Clause",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint **/*.{ts,tsx}",
+    "typecheck": "tsc"
+  },
   "workspaces": [
     "**/*"
   ],
   "devDependencies": {
-    "eslint": "^8.41.0",
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "@lmpx-config/eslint": "0.0.8",
+    "eslint": "^8.42.0",
     "husky": "^8.0.3",
-    "typescript": "^5.0.4",
-    "vite": "^4.3.8",
-    "vitest": "^0.31.1"
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "typescript": "~5.0.4",
+    "vite": "^4.3.9",
+    "vitest": "^0.32.0"
   },
   "resolutions": {
-    "typescript": "^5.0.4"
+    "typescript": "~5.0.4"
   },
-  "packageManager": "yarn@3.5.1"
+  "packageManager": "yarn@3.6.0",
+  "lint-staged": {
+    "**/*.{ts,tsx}": "eslint --cache"
+  }
 }

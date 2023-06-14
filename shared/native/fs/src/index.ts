@@ -6,7 +6,7 @@ export async function exists(path: string) {
 }
 
 export async function notExists(path: string) {
-  return execute(() => _exists(path).then(v => !v))
+  return execute(() => _exists(path).then((v) => !v))
 }
 
 export async function createDir(path: string, recursive = false) {

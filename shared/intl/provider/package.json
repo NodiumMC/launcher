@@ -2,14 +2,14 @@
   "name": "@intl/provider",
   "main": "src/index.ts",
   "dependencies": {
-    "@config/locale": "workspace:*",
-    "@intl/langs": "workspace:*",
+    "@config/locale": "workspace:^",
+    "@intl/langs": "workspace:^",
     "effector": "^22.8.6",
     "effector-react": "^22.5.3",
-    "react-intl": "^6.4.2"
+    "react-intl": "^6.4.4"
   },
   "devDependencies": {
-    "@types/react": "^18.2.7",
+    "@types/react": "^18.2.12",
     "react": "^18.2.0"
   },
   "peerDependencies": {

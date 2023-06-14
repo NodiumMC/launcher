@@ -2,7 +2,7 @@
   "name": "@theme/dark-schema",
   "main": "src/index.ts",
   "dependencies": {
-    "@theme/builder": "workspace:*",
-    "@theme/common": "workspace:*"
+    "@theme/builder": "workspace:^",
+    "@theme/common": "workspace:^"
   }
 }

@@ -2,14 +2,14 @@
   "name": "@app/routes",
   "main": "src/index.tsx",
   "dependencies": {
-    "@pages/home": "workspace:*",
+    "@pages/home": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.13.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.7",
-    "@types/react-dom": "^18.2.4"
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5"
   },
   "peerDependencies": {
     "react": "18",

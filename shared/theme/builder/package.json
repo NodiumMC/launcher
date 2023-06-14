@@ -2,9 +2,9 @@
   "name": "@theme/builder",
   "main": "src/index.ts",
   "dependencies": {
-    "@lib/math": "workspace:*",
-    "@lib/types": "workspace:*",
-    "@theme/types": "workspace:*",
+    "@lib/math": "workspace:^",
+    "@lib/types": "workspace:^",
+    "@theme/types": "workspace:^",
     "polished": "^4.2.2"
   }
 }

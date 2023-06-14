@@ -1,4 +1,4 @@
-import { makeNativeShades, makeShadesFactory, makeTheme } from '@theme/builder'
+import { makeNativeShades, makeShadesFromPalette, makeTheme } from '@theme/builder'
 import {
   dark,
   error,
@@ -16,21 +16,25 @@ import {
   warning,
 } from '@theme/common'
 
-const shades = makeShadesFactory(dark, light)
-
 export default makeTheme({
   palette: {
-    background: dark,
-    foreground: light,
-    gray: makeNativeShades(light, dark),
+    ...makeShadesFromPalette(
+      {
+        background: dark,
+        foreground: light,
 
-    primary: shades(primary),
-    secondary: shades(secondary),
-    tertiary: shades(tertiary),
+        primary,
+        secondary,
+        tertiary,
 
-    error: shades(error),
-    warning: shades(warning),
-    success: shades(success),
+        error,
+        warning,
+        success,
+      },
+      dark,
+      light,
+    ),
+    ...makeNativeShades('gray', light, dark),
   },
   font,
   radius,

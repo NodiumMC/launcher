@@ -19,11 +19,11 @@ export const NavSidebar: FC<NavSidebarProps> = ({ topItems, bottomItems }) => {
 
   return (
     <NavSidebarElement>
-      {topItems.map(item => (
+      {topItems.map((item) => (
         <Item icon={item.icon} key={item.path} isActive={active(item.path)} onClick={() => nav(item.path)} />
       ))}
       <Splitter />
-      {bottomItems.map(item => (
+      {bottomItems.map((item) => (
         <Item icon={item.icon} key={item.path} isActive={active(item.path)} onClick={() => nav(item.path)} />
       ))}
     </NavSidebarElement>

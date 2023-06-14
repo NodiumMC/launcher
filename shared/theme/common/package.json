@@ -2,7 +2,7 @@
   "name": "@theme/common",
   "main": "src/index.ts",
   "dependencies": {
-    "@theme/builder": "workspace:*",
-    "@theme/types": "workspace:*"
+    "@theme/builder": "workspace:^",
+    "@theme/types": "workspace:^"
   }
 }

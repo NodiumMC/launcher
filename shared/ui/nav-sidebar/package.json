@@ -2,15 +2,14 @@
   "name": "@ui/nav-sidebar",
   "main": "src/index.ts",
   "dependencies": {
-    "@lmpx/styled": "0.0.7",
+    "@lmpx/styled": "0.0.8",
     "polished": "^4.2.2",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.13.0"
   },
   "devDependencies": {
-    "@types/react": "18.2.7"
+    "@types/react": "^18.2.12"
   },
   "peerDependencies": {
-    "@lmpx/styled": "*",
     "react": "18",
     "react-dom": "18"
   }

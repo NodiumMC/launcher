@@ -29,8 +29,8 @@ export async function createEmptyProfile() {
 
 export function makeProfiles(versions: MinecraftVersion[]): LauncherProfile {
   return {
-    profiles: Object.fromEntries(versions.map(
-      version => [
+    profiles: Object.fromEntries(
+      versions.map((version) => [
         version.id,
         {
           lastVersionId: version.id,
@@ -39,9 +39,9 @@ export function makeProfiles(versions: MinecraftVersion[]): LauncherProfile {
           icon: version.icon,
           lastUsed: version.lastUsed,
           type: version.type,
-        }
-      ]
-    ))
+        },
+      ]),
+    ),
   }
 }
 
@@ -52,7 +52,7 @@ export async function fetchLocalMinecraftVersions(): Promise<MinecraftVersion[]>
 
   const { profiles } = await readJsonFile<LauncherProfile>(launcherProfilePath())
 
-  return Object.values(profiles).map(prof => ({
+  return Object.values(profiles).map((prof) => ({
     id: prof.lastVersionId,
     displayName: prof.name,
     created: prof.created,

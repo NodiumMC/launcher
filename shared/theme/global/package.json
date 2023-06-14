@@ -2,19 +2,16 @@
   "name": "@theme/global",
   "main": "src/index.ts",
   "dependencies": {
-    "@lmpx/styled": "0.0.7"
+    "@lmpx/styled": "0.0.8"
   },
   "devDependencies": {
-    "@emotion/css": "^11.11.0",
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@types/react": "^18.2.7",
-    "@types/styled-system": "^5.1.16",
+    "@emotion/react": "^11.11.1",
+    "@types/react": "^18.2.12",
     "react": "^18.2.0"
   },
   "peerDependencies": {
     "@emotion/react": "11",
-    "@emotion/styled": "11",
-    "react": "18"
+    "react": "18",
+    "react-dom": "18"
   }
 }

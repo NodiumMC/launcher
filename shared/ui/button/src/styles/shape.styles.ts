@@ -13,7 +13,7 @@ const md: StyleFn = () => ({
 const sm: StyleFn = () => ({
   height: '24px',
   padding: '0 6px',
-  fontSize: '0.9rem'
+  fontSize: '0.9rem',
 })
 
 const lg: StyleFn = () => ({

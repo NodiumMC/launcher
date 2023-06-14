@@ -5,6 +5,6 @@
     "extract": "formatjs extract ../../../**/*.{ts,tsx} --ignore='../../../**/*.d.ts' --out-file ./src/ru.json"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.1.1"
+    "@formatjs/cli": "^6.1.3"
   }
 }

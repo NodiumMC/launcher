@@ -6,7 +6,6 @@
 use tauri::Manager;
 
 use commands::compat::*;
-use commands::process;
 
 #[tokio::main]
 async fn main() {
@@ -23,7 +22,7 @@ async fn main() {
       Ok(())
     })
     .plugin(tauri_plugin_fs_watch::init())
-    .invoke_handler(tauri::generate_handler![download::download, download::download_longtime, unzip::unzip, unzip::unzip_read_single, os::info, process::spawn])
+    .invoke_handler(tauri::generate_handler![download::download, download::download_longtime, unzip::unzip, unzip::unzip_read_single, os::info])
     .run(context)
     .expect("error while running tauri application");
 }

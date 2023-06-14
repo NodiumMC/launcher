@@ -7,18 +7,18 @@
     "tauri": "dotenv tauri"
   },
   "dependencies": {
-    "@app/preload": "workspace:*",
-    "@app/root": "workspace:*",
-    "@app/vite": "workspace:*",
+    "@app/preload": "workspace:^",
+    "@app/root": "workspace:^",
+    "@app/vite": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.3.1",
-    "@types/react": "^18.2.7",
-    "@types/react-dom": "^18.2.4",
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5",
     "dotenv-cli": "^7.2.1",
-    "vite": "^4.3.8"
+    "vite": "^4.3.9"
   },
   "peerDependencies": {
     "react": "18",

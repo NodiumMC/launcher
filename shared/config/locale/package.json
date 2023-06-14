@@ -2,7 +2,7 @@
   "name": "@config/locale",
   "main": "src/index.ts",
   "dependencies": {
-    "@storage/kv": "workspace:*",
+    "@storage/kv": "workspace:^",
     "effector": "^22.8.6"
   }
 }
