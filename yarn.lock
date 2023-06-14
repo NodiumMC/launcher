@@ -53,7 +53,7 @@ __metadata:
     "@types/react-dom": "npm:^18.2.5"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-router-dom: "npm:^6.12.1"
+    react-router-dom: "npm:^6.13.0"
   peerDependencies:
     react: 18
     react-dom: 18
@@ -85,7 +85,7 @@ __metadata:
     "@types/react-dom": "npm:^18.2.5"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-router-dom: "npm:^6.12.1"
+    react-router-dom: "npm:^6.13.0"
   peerDependencies:
     react: 18
     react-dom: 18
@@ -4328,7 +4328,7 @@ __metadata:
   resolution: "@native/deeplink@workspace:shared/native/deeplink"
   dependencies:
     "@native/tools": "workspace:^"
-    "@tauri-apps/api": "npm:^1.3.0"
+    "@tauri-apps/api": "npm:^1.4.0"
     "@types/url-parse": "npm:^1.4.8"
     url-parse: "npm:^1.5.10"
   languageName: unknown
@@ -4339,7 +4339,7 @@ __metadata:
   resolution: "@native/fs@workspace:shared/native/fs"
   dependencies:
     "@native/tools": "workspace:^"
-    "@tauri-apps/api": "npm:^1.3.0"
+    "@tauri-apps/api": "npm:^1.4.0"
   languageName: unknown
   linkType: soft
 
@@ -4347,7 +4347,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@native/path@workspace:shared/native/path"
   dependencies:
-    "@tauri-apps/api": "npm:^1.3.0"
+    "@tauri-apps/api": "npm:^1.4.0"
   languageName: unknown
   linkType: soft
 
@@ -4356,7 +4356,7 @@ __metadata:
   resolution: "@native/process@workspace:shared/native/process"
   dependencies:
     "@native/tools": "workspace:^"
-    "@tauri-apps/api": "npm:^1.3.0"
+    "@tauri-apps/api": "npm:^1.4.0"
     rxjs: "npm:^7.8.1"
   languageName: unknown
   linkType: soft
@@ -4374,7 +4374,7 @@ __metadata:
   resolution: "@native/window@workspace:shared/native/window"
   dependencies:
     "@native/tools": "workspace:^"
-    "@tauri-apps/api": "npm:^1.3.0"
+    "@tauri-apps/api": "npm:^1.4.0"
   languageName: unknown
   linkType: soft
 
@@ -5967,10 +5967,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tauri-apps/api@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@tauri-apps/api@npm:1.3.0"
-  checksum: 69eb25ba65019f403f8890ab1adbc415becd5569660ea8e181b1927f290cdbc9088a28257144a72bc31c54dfd8d7eb5bc620113b6ab7e4a8eb0444e4656742db
+"@tauri-apps/api@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@tauri-apps/api@npm:1.4.0"
+  checksum: a74141ea9b4a9a0a1d3da4f0fa22c1a08c8614a61f13638862be33bb4782ce53c86058bf6978be763bc079bed6c3d8272fcd7d2aa82b159af7351a15f990e70c
   languageName: node
   linkType: hard
 
@@ -6932,7 +6932,7 @@ __metadata:
     "@lmpx/styled": "npm:0.0.8"
     "@types/react": "npm:^18.2.12"
     polished: "npm:^4.2.2"
-    react-router-dom: "npm:^6.12.1"
+    react-router-dom: "npm:^6.13.0"
   peerDependencies:
     react: 18
     react-dom: 18
@@ -12667,7 +12667,7 @@ __metadata:
     husky: "npm:^8.0.3"
     lint-staged: "npm:^13.2.2"
     prettier: "npm:^2.8.8"
-    typescript: "npm:^5.0.4"
+    typescript: "npm:~5.0.4"
     vite: "npm:^4.3.9"
     vitest: "npm:^0.32.0"
   languageName: unknown
@@ -13649,27 +13649,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.12.1":
-  version: 6.12.1
-  resolution: "react-router-dom@npm:6.12.1"
+"react-router-dom@npm:^6.13.0":
+  version: 6.13.0
+  resolution: "react-router-dom@npm:6.13.0"
   dependencies:
     "@remix-run/router": "npm:1.6.3"
-    react-router: "npm:6.12.1"
+    react-router: "npm:6.13.0"
   peerDependencies:
     react: ">=16.8"
     react-dom: ">=16.8"
-  checksum: 9c62fceab5d9d0d0f9ffa47fa9dad2fa28183c8f517b4ba98240b972bd5c25c620486b759cb9bac92cefad3db3071db40a017acefb64f4aca2bd13ea249ab859
+  checksum: a0e59207d146f8e93a25ef139ef14c888857e9feb0c8fcb73fc3c6bd42e777bb031c132d89a23b6b5ab27b5fa0e962a94e8ed2c95916e969ec97c890b89ce216
   languageName: node
   linkType: hard
 
-"react-router@npm:6.12.1":
-  version: 6.12.1
-  resolution: "react-router@npm:6.12.1"
+"react-router@npm:6.13.0":
+  version: 6.13.0
+  resolution: "react-router@npm:6.13.0"
   dependencies:
     "@remix-run/router": "npm:1.6.3"
   peerDependencies:
     react: ">=16.8"
-  checksum: 823deee9fbe64e95d1fdd34f225e9e08181572c3ef69be2b894d308ae7c5dd49e12509cc88d64185cacd9443a973cb7867bdadccdbf7544698012ea18fffda9b
+  checksum: cdf8ce2cb1ad40f2254648a8ec8f6ad6f9b8b5446bd6a52b95c39a66cf032f20f8d18ecdff99ad580ad4e9a14486decbeb5e4a1db879cd44b139ba4ed64e86ac
   languageName: node
   linkType: hard
 
@@ -15301,7 +15301,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.4":
+"typescript@npm:~5.0.4":
   version: 5.0.4
   resolution: "typescript@npm:5.0.4"
   bin:
@@ -15311,7 +15311,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A~5.0.4#optional!builtin<compat/typescript>":
   version: 5.0.4
   resolution: "typescript@patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>::version=5.0.4&hash=b5f058"
   bin:

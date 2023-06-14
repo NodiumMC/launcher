@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@native/tools": "workspace:^",
-    "@tauri-apps/api": "^1.3.0",
+    "@tauri-apps/api": "^1.4.0",
     "url-parse": "^1.5.10"
   }
 }
