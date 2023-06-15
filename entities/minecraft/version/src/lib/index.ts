@@ -1,7 +1,7 @@
 import type { ReleaseType, MinecraftVersion } from '../model'
 import { $appLocation } from '@config/app-location'
 import { readJsonFile, writeJsonFile, notExists, createDir } from '@native/fs'
-import { join } from '@native/path'
+import { join, dirname } from '@native/path'
 
 interface ProfileVersion {
   lastVersionId: string
@@ -23,7 +23,7 @@ export function launcherProfilePath() {
 }
 
 export async function createEmptyProfile() {
-  await createDir(launcherProfilePath(), true)
+  await createDir(dirname(launcherProfilePath()), true)
   await writeJsonFile(launcherProfilePath(), { profiles: {} })
 }
 

@@ -46,9 +46,6 @@
       "@app/vite": [
         "app/vite"
       ],
-      "@dev/codestyle": [
-        "dev/codestyle"
-      ],
       "@dev/storybook": [
         "dev/storybook"
       ],
@@ -72,6 +69,9 @@
       ],
       "@pages/home": [
         "pages/home"
+      ],
+      "@pages/versions": [
+        "pages/versions"
       ],
       "@config/app-location": [
         "shared/config/app-location"
@@ -171,6 +171,9 @@
       ],
       "@ui/window": [
         "shared/ui/window"
+      ],
+      "@widgets/minecraft-versions": [
+        "widgets/minecraft/versions"
       ]
     }
   },
