@@ -29,5 +29,6 @@
   "packageManager": "yarn@3.6.0",
   "lint-staged": {
     "**/*.{ts,tsx}": "eslint --cache"
-  }
+  },
+  "tsconfigWorkspaces": true
 }

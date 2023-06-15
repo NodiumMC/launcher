@@ -70,6 +70,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:pages/home"\
     },\
     {\
+      "name": "@pages/versions",\
+      "reference": "workspace:pages/versions"\
+    },\
+    {\
       "name": "@config/app-location",\
       "reference": "workspace:shared/config/app-location"\
     },\
@@ -200,6 +204,10 @@ const RAW_RUNTIME_STATE =
     {\
       "name": "@ui/window",\
       "reference": "workspace:shared/ui/window"\
+    },\
+    {\
+      "name": "@widgets/minecraft-versions",\
+      "reference": "workspace:widgets/minecraft/versions"\
     }\
   ],\
   "enableTopLevelFallback": true,\
@@ -217,7 +225,7 @@ const RAW_RUNTIME_STATE =
     ["@dev/storybook", ["workspace:dev/storybook"]],\
     ["@dev/testing", ["workspace:dev/testing"]],\
     ["@entities/core-instance", ["workspace:entities/core/instance"]],\
-    ["@entities/minecraft-version", ["workspace:entities/minecraft/version"]],\
+    ["@entities/minecraft-version", ["virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#workspace:entities/minecraft/version", "virtual:c129aa821736fb207a3b960ccb6d0cda674270092b7331dcdeec7e8ed77d7161762280d97f0c7cd7d438fe00803ff7c6072a2d8bba713f6333fd963ec2ff1fee#workspace:entities/minecraft/version", "workspace:entities/minecraft/version"]],\
     ["@features/settings-change-app-location", ["workspace:features/settings/change-app-location"]],\
     ["@features/settings-change-lang", ["workspace:features/settings/change-lang"]],\
     ["@features/settings-change-theme", ["workspace:features/settings/change-theme"]],\
@@ -235,6 +243,7 @@ const RAW_RUNTIME_STATE =
     ["@native/tools", ["workspace:shared/native/tools"]],\
     ["@native/window", ["workspace:shared/native/window"]],\
     ["@pages/home", ["virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/home", "workspace:pages/home"]],\
+    ["@pages/versions", ["virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/versions", "workspace:pages/versions"]],\
     ["@storage/kv", ["workspace:shared/storage/kv"]],\
     ["@theme/builder", ["workspace:shared/theme/builder"]],\
     ["@theme/common", ["workspace:shared/theme/common"]],\
@@ -252,6 +261,7 @@ const RAW_RUNTIME_STATE =
     ["@ui/progress-bar", ["workspace:shared/ui/progress-bar"]],\
     ["@ui/spinner", ["workspace:shared/ui/spinner"]],\
     ["@ui/window", ["virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:shared/ui/window", "virtual:0902ca450441ef01e5b8d130ee5d2787769953c74403bc26f6e31150d5e20ad243f9f951abbd7e15b3e875cd91cf7d4f26d742ba5aac926b4add023cf9d66c6f#workspace:shared/ui/window", "workspace:shared/ui/window"]],\
+    ["@widgets/minecraft-versions", ["virtual:218c05c300a867935fee3f1ec22eed7824feed7ef383fd981a0f095890cbdb82ca88c5f5b1a55ae7da9b1952ba877a31f16609261cbca057b0a10e0f907f0cfe#workspace:widgets/minecraft/versions", "virtual:a924021b4bffeb382474e510c0c7356569f025a49debe1398b946a5298e007f905a62b9c7cbbe87e88253f76fa427029a3db70628e782c421dd87c274adc7468#workspace:widgets/minecraft/versions", "workspace:widgets/minecraft/versions"]],\
     ["nodium-launcher", ["workspace:."]]\
   ],\
   "fallbackPool": [\
@@ -411,6 +421,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@app/routes", "virtual:04488dd6c08074fd06a02690f1559ba34f2470cae0d072a03a832393acff3f1dcfe4bec9d8c0ded70f3b6fb3e224490eaf13dcfb83ab982b39d52b93c25721bf#workspace:app/routes"],\
           ["@pages/home", "virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/home"],\
+          ["@pages/versions", "virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/versions"],\
           ["@types/react", "npm:18.2.12"],\
           ["@types/react-dom", "npm:18.2.5"],\
           ["react", "npm:18.2.0"],\
@@ -427,6 +438,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@app/routes", "virtual:0902ca450441ef01e5b8d130ee5d2787769953c74403bc26f6e31150d5e20ad243f9f951abbd7e15b3e875cd91cf7d4f26d742ba5aac926b4add023cf9d66c6f#workspace:app/routes"],\
           ["@pages/home", "virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/home"],\
+          ["@pages/versions", "virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/versions"],\
           ["@types/react", "npm:18.2.12"],\
           ["@types/react-dom", "npm:18.2.5"],\
           ["react", "npm:18.2.0"],\
@@ -446,6 +458,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@app/routes", "workspace:app/routes"],\
           ["@pages/home", "virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/home"],\
+          ["@pages/versions", "virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/versions"],\
           ["@types/react", "npm:18.2.12"],\
           ["@types/react-dom", "npm:18.2.5"],\
           ["react", "npm:18.2.0"],\
@@ -5955,13 +5968,59 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@entities/minecraft-version", [\
+      ["virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#workspace:entities/minecraft/version", {\
+        "packageLocation": "./.yarn/__virtual__/@entities-minecraft-version-virtual-62d239757a/1/entities/minecraft/version/",\
+        "packageDependencies": [\
+          ["@entities/minecraft-version", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#workspace:entities/minecraft/version"],\
+          ["@config/app-location", "workspace:shared/config/app-location"],\
+          ["@lmpx/styled", "virtual:d74ba506ec8859b02f4faaa7c26c0a4d5b3ec4d37af7616d86fab188e4793b9bf2accc918ea67e7a2251b6f13dd4ae25b6d9d7114ad87bd89d24d506eda0c68b#npm:0.0.8"],\
+          ["@native/fs", "workspace:shared/native/fs"],\
+          ["@native/path", "workspace:shared/native/path"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["@types/react-dom", null],\
+          ["effector", "npm:22.8.6"],\
+          ["react", null],\
+          ["react-dom", null]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:c129aa821736fb207a3b960ccb6d0cda674270092b7331dcdeec7e8ed77d7161762280d97f0c7cd7d438fe00803ff7c6072a2d8bba713f6333fd963ec2ff1fee#workspace:entities/minecraft/version", {\
+        "packageLocation": "./.yarn/__virtual__/@entities-minecraft-version-virtual-d734ed2ae6/1/entities/minecraft/version/",\
+        "packageDependencies": [\
+          ["@entities/minecraft-version", "virtual:c129aa821736fb207a3b960ccb6d0cda674270092b7331dcdeec7e8ed77d7161762280d97f0c7cd7d438fe00803ff7c6072a2d8bba713f6333fd963ec2ff1fee#workspace:entities/minecraft/version"],\
+          ["@config/app-location", "workspace:shared/config/app-location"],\
+          ["@lmpx/styled", "virtual:b53d6b61cb8ec8324e00cb007cfddb4d40868decd3fe9fa85971b3ca133453622fac8f65e5f2bf893fb1f657126256d75b07fd94bd1f509eb052904c82ffc2f3#npm:0.0.8"],\
+          ["@native/fs", "workspace:shared/native/fs"],\
+          ["@native/path", "workspace:shared/native/path"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["@types/react-dom", "npm:18.2.5"],\
+          ["effector", "npm:22.8.6"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:a7709c0e7f8eda82b10883ddcab88e9ff2cf739ce6033f9fa98954af565c2bec61612e6c6cc9e9df00215cb8b96fae4d8d540702d7f67ff23c8eb6a64277d3cc#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["workspace:entities/minecraft/version", {\
         "packageLocation": "./entities/minecraft/version/",\
         "packageDependencies": [\
           ["@entities/minecraft-version", "workspace:entities/minecraft/version"],\
           ["@config/app-location", "workspace:shared/config/app-location"],\
+          ["@lmpx/styled", "virtual:d74ba506ec8859b02f4faaa7c26c0a4d5b3ec4d37af7616d86fab188e4793b9bf2accc918ea67e7a2251b6f13dd4ae25b6d9d7114ad87bd89d24d506eda0c68b#npm:0.0.8"],\
           ["@native/fs", "workspace:shared/native/fs"],\
           ["@native/path", "workspace:shared/native/path"],\
+          ["@types/react", "npm:18.2.12"],\
           ["effector", "npm:22.8.6"]\
         ],\
         "linkType": "SOFT"\
@@ -7531,6 +7590,35 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.2.12"],\
           ["@ui/button", "virtual:125e6211fa70aa3a253a6df7198f32e118e68c3bf7a6bdaf6a0f58edb46f5e398b9760deea7a47418a3f67923481a44826632e7c23ba285294076f255f4170ae#workspace:shared/ui/button"],\
           ["react", "npm:18.2.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@pages/versions", [\
+      ["virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/versions", {\
+        "packageLocation": "./.yarn/__virtual__/@pages-versions-virtual-218c05c300/1/pages/versions/",\
+        "packageDependencies": [\
+          ["@pages/versions", "virtual:e01c076e48860f2ec582b3b185bc155302a27496fb65543e83985b3f0b5c09a7efcdf738467e91ca7cb60653b7d19bf4e4d3bcc4d7a55c641ecb19b04587a7f6#workspace:pages/versions"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["@types/react-dom", "npm:18.2.5"],\
+          ["@widgets/minecraft-versions", "virtual:218c05c300a867935fee3f1ec22eed7824feed7ef383fd981a0f095890cbdb82ca88c5f5b1a55ae7da9b1952ba877a31f16609261cbca057b0a10e0f907f0cfe#workspace:widgets/minecraft/versions"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:a7709c0e7f8eda82b10883ddcab88e9ff2cf739ce6033f9fa98954af565c2bec61612e6c6cc9e9df00215cb8b96fae4d8d540702d7f67ff23c8eb6a64277d3cc#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["workspace:pages/versions", {\
+        "packageLocation": "./pages/versions/",\
+        "packageDependencies": [\
+          ["@pages/versions", "workspace:pages/versions"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["@widgets/minecraft-versions", "virtual:a924021b4bffeb382474e510c0c7356569f025a49debe1398b946a5298e007f905a62b9c7cbbe87e88253f76fa427029a3db70628e782c421dd87c274adc7468#workspace:widgets/minecraft/versions"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -11605,6 +11693,62 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@widgets/minecraft-versions", [\
+      ["virtual:218c05c300a867935fee3f1ec22eed7824feed7ef383fd981a0f095890cbdb82ca88c5f5b1a55ae7da9b1952ba877a31f16609261cbca057b0a10e0f907f0cfe#workspace:widgets/minecraft/versions", {\
+        "packageLocation": "./.yarn/__virtual__/@widgets-minecraft-versions-virtual-c129aa8217/1/widgets/minecraft/versions/",\
+        "packageDependencies": [\
+          ["@widgets/minecraft-versions", "virtual:218c05c300a867935fee3f1ec22eed7824feed7ef383fd981a0f095890cbdb82ca88c5f5b1a55ae7da9b1952ba877a31f16609261cbca057b0a10e0f907f0cfe#workspace:widgets/minecraft/versions"],\
+          ["@entities/minecraft-version", "virtual:c129aa821736fb207a3b960ccb6d0cda674270092b7331dcdeec7e8ed77d7161762280d97f0c7cd7d438fe00803ff7c6072a2d8bba713f6333fd963ec2ff1fee#workspace:entities/minecraft/version"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["@types/react-dom", "npm:18.2.5"],\
+          ["effector", "npm:22.8.6"],\
+          ["effector-react", "virtual:166da437b69e9f50d03f696a56f8977c0b529bfee1d62249069399900434ad2a22fe0080d4e147835c3c7e5411db4e30dc9ef0517f9bb7bae20ab9afb5ceb7a5#npm:22.5.3"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:a7709c0e7f8eda82b10883ddcab88e9ff2cf739ce6033f9fa98954af565c2bec61612e6c6cc9e9df00215cb8b96fae4d8d540702d7f67ff23c8eb6a64277d3cc#npm:18.2.0"],\
+          ["suspend-react", "virtual:c129aa821736fb207a3b960ccb6d0cda674270092b7331dcdeec7e8ed77d7161762280d97f0c7cd7d438fe00803ff7c6072a2d8bba713f6333fd963ec2ff1fee#npm:0.1.3"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:a924021b4bffeb382474e510c0c7356569f025a49debe1398b946a5298e007f905a62b9c7cbbe87e88253f76fa427029a3db70628e782c421dd87c274adc7468#workspace:widgets/minecraft/versions", {\
+        "packageLocation": "./.yarn/__virtual__/@widgets-minecraft-versions-virtual-33a280de76/1/widgets/minecraft/versions/",\
+        "packageDependencies": [\
+          ["@widgets/minecraft-versions", "virtual:a924021b4bffeb382474e510c0c7356569f025a49debe1398b946a5298e007f905a62b9c7cbbe87e88253f76fa427029a3db70628e782c421dd87c274adc7468#workspace:widgets/minecraft/versions"],\
+          ["@entities/minecraft-version", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#workspace:entities/minecraft/version"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["@types/react-dom", null],\
+          ["effector", "npm:22.8.6"],\
+          ["effector-react", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:22.5.3"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["suspend-react", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:0.1.3"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["workspace:widgets/minecraft/versions", {\
+        "packageLocation": "./widgets/minecraft/versions/",\
+        "packageDependencies": [\
+          ["@widgets/minecraft-versions", "workspace:widgets/minecraft/versions"],\
+          ["@entities/minecraft-version", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#workspace:entities/minecraft/version"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["effector", "npm:22.8.6"],\
+          ["effector-react", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:22.5.3"],\
+          ["suspend-react", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:0.1.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@yarnpkg/esbuild-plugin-pnp", [\
       ["npm:3.0.0-rc.15", {\
         "packageLocation": "./.yarn/cache/@yarnpkg-esbuild-plugin-pnp-npm-3.0.0-rc.15-b916c218b3-27a456a5cc.zip/node_modules/@yarnpkg/esbuild-plugin-pnp/",\
@@ -13785,6 +13929,24 @@ const RAW_RUNTIME_STATE =
           ["effector", "npm:22.8.6"],\
           ["react", "npm:18.2.0"],\
           ["use-sync-external-store", "virtual:24f18fbdefea80cc48a38ab8802b3151450f1fc719885cf3e0de36657873591b2726c3eee52246fdb9cc6d3afe71dd22b03ece2940b40652b7533d0a11740621#npm:1.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/effector",\
+          "@types/react",\
+          "effector",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:22.5.3", {\
+        "packageLocation": "./.yarn/__virtual__/effector-react-virtual-3ff8bff99c/0/cache/effector-react-npm-22.5.3-be35d5a8ce-a19404deb9.zip/node_modules/effector-react/",\
+        "packageDependencies": [\
+          ["effector-react", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:22.5.3"],\
+          ["@types/effector", null],\
+          ["@types/react", "npm:18.2.12"],\
+          ["effector", "npm:22.8.6"],\
+          ["react", null],\
+          ["use-sync-external-store", "virtual:3ff8bff99c83e4e3f85b4932f4f9a13e852c763726e1ee352c48ea670a3d948963742236ca43a0a4219fc4dfcab1b43621b0734969e05000d487098317d4b60a#npm:1.2.0"]\
         ],\
         "packagePeers": [\
           "@types/effector",\
@@ -20443,6 +20605,41 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["suspend-react", [\
+      ["npm:0.1.3", {\
+        "packageLocation": "./.yarn/cache/suspend-react-npm-0.1.3-7a81257ed6-e6f5356ca4.zip/node_modules/suspend-react/",\
+        "packageDependencies": [\
+          ["suspend-react", "npm:0.1.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:0.1.3", {\
+        "packageLocation": "./.yarn/__virtual__/suspend-react-virtual-34aabc7ae0/0/cache/suspend-react-npm-0.1.3-7a81257ed6-e6f5356ca4.zip/node_modules/suspend-react/",\
+        "packageDependencies": [\
+          ["suspend-react", "virtual:33a280de76d553641f1c4142a41a09c61538d2f03b9aa3cb5a6d4227aef4df3aba616c4508352793f46df5a949872ccddd005f204ff7d91e00a3fde803754e22#npm:0.1.3"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["react", null]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:c129aa821736fb207a3b960ccb6d0cda674270092b7331dcdeec7e8ed77d7161762280d97f0c7cd7d438fe00803ff7c6072a2d8bba713f6333fd963ec2ff1fee#npm:0.1.3", {\
+        "packageLocation": "./.yarn/__virtual__/suspend-react-virtual-65cd1e2571/0/cache/suspend-react-npm-0.1.3-7a81257ed6-e6f5356ca4.zip/node_modules/suspend-react/",\
+        "packageDependencies": [\
+          ["suspend-react", "virtual:c129aa821736fb207a3b960ccb6d0cda674270092b7331dcdeec7e8ed77d7161762280d97f0c7cd7d438fe00803ff7c6072a2d8bba713f6333fd963ec2ff1fee#npm:0.1.3"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["synchronous-promise", [\
       ["npm:2.0.17", {\
         "packageLocation": "./.yarn/cache/synchronous-promise-npm-2.0.17-949e3e408d-e5771b1698.zip/node_modules/synchronous-promise/",\
@@ -21314,6 +21511,19 @@ const RAW_RUNTIME_STATE =
           ["use-sync-external-store", "virtual:24f18fbdefea80cc48a38ab8802b3151450f1fc719885cf3e0de36657873591b2726c3eee52246fdb9cc6d3afe71dd22b03ece2940b40652b7533d0a11740621#npm:1.2.0"],\
           ["@types/react", "npm:18.2.12"],\
           ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:3ff8bff99c83e4e3f85b4932f4f9a13e852c763726e1ee352c48ea670a3d948963742236ca43a0a4219fc4dfcab1b43621b0734969e05000d487098317d4b60a#npm:1.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-bf8c77b27b/0/cache/use-sync-external-store-npm-1.2.0-44f75d2564-bed3d1f68c.zip/node_modules/use-sync-external-store/",\
+        "packageDependencies": [\
+          ["use-sync-external-store", "virtual:3ff8bff99c83e4e3f85b4932f4f9a13e852c763726e1ee352c48ea670a3d948963742236ca43a0a4219fc4dfcab1b43621b0734969e05000d487098317d4b60a#npm:1.2.0"],\
+          ["@types/react", "npm:18.2.12"],\
+          ["react", null]\
         ],\
         "packagePeers": [\
           "@types/react",\

@@ -15,7 +15,7 @@ const App: FC = () => (
             icon: <FaSolidBoltLightningIcon />,
           },
           {
-            path: '/downloads',
+            path: '/versions',
             icon: <FaSolidDownloadIcon />,
           },
         ]}

@@ -1,0 +1,14 @@
+{
+  "name": "@pages/versions",
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@widgets/minecraft-versions": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.12"
+  },
+  "peerDependencies": {
+    "react": "18",
+    "react-dom": "18"
+  }
+}
